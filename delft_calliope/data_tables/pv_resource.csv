@@ -1,0 +1,7 @@
+﻿comment,"Already accounts for panel efficiency - kWh/m2.
+Source: Renewables.ninja Solar PV Power
+Version: 1.1
+License: https://creativecommons.org/licenses/by-nc/4.0/
+Reference: https://doi.org/10.1016/j.energy.2016.08.060",
+scaler,per_area,per_cap
+2050-01-01 00:00,0,0
