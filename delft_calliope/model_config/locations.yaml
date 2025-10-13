@@ -18,7 +18,6 @@ nodes:
   D1:
     techs:
       demand_heat:
-      heatpump:
     latitude: 51.99415
     longitude: 4.36116
   D2:

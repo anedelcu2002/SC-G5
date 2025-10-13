@@ -29,10 +29,6 @@ data_definitions:
     dims: costs
   # `bigM` sets the scale of unmet demand, which cannot be too high, otherwise the optimisation will not converge
   bigM: 1e6
-  cost_interest_rate:
-    data: 0.10
-    index: monetary
-    dims: costs
 # --8<-- [end:parameter_data_definitions]
 
 # --8<-- [start:data-tables]

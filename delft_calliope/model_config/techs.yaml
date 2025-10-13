@@ -50,7 +50,7 @@ techs:
       index: monetary
       dims: costs
     cost_flow_in:
-      data: 0 # 10p/kWh electricity price #ppt
+      data: 0 #electricity price
       index: monetary
       dims: costs
 
