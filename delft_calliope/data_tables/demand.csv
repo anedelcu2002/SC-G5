@@ -1,3 +1,3 @@
-techs,demand_heat,demand_heat,demand_heat,demand_electricity,demand_electricity,demand_electricity
-nodes,X1,X2,X3,X1,X2,X3
-2050-01-01 00:00,4.348485824,128.2103003,25.17394083,0.637703523,101.8098151,20.59216851
+techs,demand_heat,demand_heat
+nodes,D1,D2
+2050-01-01 00:00,150,200

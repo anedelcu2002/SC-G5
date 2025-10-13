@@ -46,11 +46,11 @@ techs:
     flow_cap_max: 2000
     lifetime: 25
     cost_flow_cap:
-      data: 15
+      data: 0
       index: monetary
       dims: costs
     cost_flow_in:
-      data: 0.1 # 10p/kWh electricity price #ppt
+      data: 0 # 10p/kWh electricity price #ppt
       index: monetary
       dims: costs
 
@@ -63,7 +63,7 @@ techs:
     flow_cap_max: 2000
     lifetime: 25
     cost_flow_cap:
-      data: 1
+      data: 100
       index: monetary
       dims: costs
   # --8<-- [end:supply]
@@ -77,19 +77,15 @@ techs:
     carrier_in: electricity
     carrier_out: heat
     cost_flow_cap:
-      data: 30
+      data: 0
       index: [[monetary, heat]]
       dims: [costs, carriers]
     flow_cap_max:
-      data: 600
+      data: 50
       index: heat
       dims: carriers
-    flow_out_eff: 0.85
+    flow_out_eff: 0.95
     lifetime: 25
-    cost_flow_in:
-      data: 0.004 # .4p/kWh
-      index: monetary
-      dims: costs
   # --8<-- [end:heatpump]
 
   ##-DEMAND-##
@@ -110,30 +106,36 @@ techs:
   ##-DISTRIBUTION-##
   # --8<-- [start:transmission]
 
-  X1_to_X2:
-    link_from: X1
-    link_to: X2
+  S1_to_H1:
+    link_from: S1
+    link_to: H1
+    template: heat_pipes
+    distance: 
+  H1_to_D1:
+    link_from: H1
+    link_to: D1
+    template: heat_pipes
+    distance: 
+  H1_to_D2:
+    link_from: H1
+    link_to: D2
+    template: heat_pipes
+    distance:
+
+  S2_to_E1:
+    link_from: S2
+    link_to: E1
     template: power_lines
     distance: 
-  X1_to_X3:
-    link_from: X1
-    link_to: X3
+  E1_to_D1:
+    link_from: E1
+    link_to: D1
     template: power_lines
     distance: 
-  X1_to_N1:
-    link_from: X1
-    link_to: N1
-    template: heat_pipes
-    distance: 
-  N1_to_X2:
-    link_from: N1
-    link_to: X2
-    template: heat_pipes
-    distance: 
-  N1_to_X3:
-    link_from: N1
-    link_to: X3
-    template: heat_pipes
+  E1_to_D2:
+    link_from: E1
+    link_to: D2
+    template: power_lines
     distance: 
 
 # --8<-- [end:transmission]
