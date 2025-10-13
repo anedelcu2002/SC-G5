@@ -5,33 +5,11 @@
 overrides:
   milp:
     config:
-      init.name: "Urban-scale example model with MILP"
-      init.extra_math: ["milp", "additional_math"]
+      init.name: "Delft neighborhood model with MILP"
       solve.solver_options: { mipgap: 0.05 }
     techs:
-      # --8<-- [start:chp]
-      chp:
-        cap_method: integer
-        integer_dispatch: true
-        purchased_units_max: 4
-        flow_cap_max:
-          _REPLACE_: null  # (1)!
-        flow_cap_per_unit:
-          data: 300
-          index: electricity
-          dims: carriers
-        flow_out_min_relative:
-          data: 0.2
-          index: electricity
-          dims: carriers
-        cost_flow_cap.data: 700
-        cost_purchase:
-          data: 40000
-          index: monetary
-          dims: costs
-      # --8<-- [end:chp]
-      # --8<-- [start:boiler]
-      boiler:
+      # --8<-- [start:heatpump]
+      heatpump:
         cap_method: integer
         purchased_units_max: 1  # i.e., binary variable.
         cost_flow_cap.data: 35
@@ -39,7 +17,7 @@ overrides:
           data: 2000
           index: monetary
           dims: costs
-      # --8<-- [end:boiler]
+      # --8<-- [end:heatpump]
     # --8<-- [start:heat_pipes]
     templates:
       heat_pipes:
@@ -59,24 +37,15 @@ overrides:
     nodes:
       X1:
         techs:
-          chp.flow_cap: 300
-          pv.active: false
-          supply_grid_power.flow_cap: 40
-          supply_gas.flow_cap: 700
-
+          supply_geothermal.flow_cap: 700
+          supply_grid_power.flow_cap: 500
       X2:
         techs:
-          boiler.flow_cap: 200
-          pv.flow_cap: 70
-          pv.area_use: 490
-          supply_gas.flow_cap: 250
+          heatpump.flow_cap: 200
 
       X3:
         techs:
-          boiler.active: false
-          pv.flow_cap: 50
-          pv.area_use: 350
-          supply_gas.active: false
+          heatpump.flow_cap: 200
 
     techs:
       X1_to_X2.flow_cap: 300
