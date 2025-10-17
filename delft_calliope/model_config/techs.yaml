@@ -46,7 +46,7 @@ techs:
     flow_cap_max: 2000
     lifetime: 25
     cost_flow_cap:
-      data: 0
+      data: 10
       index: monetary
       dims: costs
     cost_flow_in:
@@ -63,7 +63,7 @@ techs:
     flow_cap_max: 2000
     lifetime: 25
     cost_flow_cap:
-      data: 100
+      data: 150
       index: monetary
       dims: costs
   # --8<-- [end:supply]

@@ -3,13 +3,11 @@ nodes:
   S1:
     techs:
       supply_geothermal:
-        cost_flow_cap.data: 150 # cost of heat extraction
     latitude: 51.99252
     longitude: 4.356
   S2:
     techs:
       supply_grid_power:
-        cost_flow_cap.data: 10 # cost of transformers
     latitude: 51.99275
     longitude: 4.357
   # --8<-- [end:supply]
