@@ -1,14 +1,13 @@
 # --8<-- [start:import]
 import: # Import other files from paths relative to this file, or absolute paths
   - "model_config/techs.yaml"
-  - "model_config/locations.yaml"
   - "scenarios.yaml"
 # --8<-- [end:import]
 
 # --8<-- [start:config]
 config:
   init:
-    name: Urban-scale example model
+    name: Delft model
     # What version of Calliope this model is intended for
     calliope_version: 0.7.0
     broadcast_input_data: true  # allow single indexed parameter data entries to be broadcast across all index items, if there are multiple entries.
@@ -32,11 +31,15 @@ data_definitions:
 # --8<-- [end:parameter_data_definitions]
 
 # --8<-- [start:data-tables]
+
+
 data_tables:
-  demand:
-    data: data_tables/demand.csv
-    rows: timesteps
-    columns: [techs, nodes]
-    add_dims:
-      parameters: sink_use_equals
+  locations:
+    data: data_tables/locations.csv
+    rows: [nodes, techs, latitude, longitude, parameters]
+    columns: timesteps
+  links:
+    data: data_tables/links.csv
+    rows: [techs, base_tech, carrier_in, carrier_out, link_to, link_from, color, flow_cap_max, flow_out_eff, cost_flow_cap_per_distance]
+    columns: parameters
 # --8<-- [end:data-tables]

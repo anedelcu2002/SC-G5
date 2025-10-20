@@ -106,36 +106,5 @@ techs:
   ##-DISTRIBUTION-##
   # --8<-- [start:transmission]
 
-  S1_to_H1:
-    link_from: S1
-    link_to: H1
-    template: heat_pipes
-    distance: 
-  H1_to_D1:
-    link_from: H1
-    link_to: D1
-    template: heat_pipes
-    distance: 
-  H1_to_D2:
-    link_from: H1
-    link_to: D2
-    template: heat_pipes
-    distance:
-
-  S2_to_E1:
-    link_from: S2
-    link_to: E1
-    template: power_lines
-    distance: 
-  E1_to_D1:
-    link_from: E1
-    link_to: D1
-    template: power_lines
-    distance: 
-  E1_to_D2:
-    link_from: E1
-    link_to: D2
-    template: power_lines
-    distance: 
 
 # --8<-- [end:transmission]
