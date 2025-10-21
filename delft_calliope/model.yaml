@@ -34,12 +34,36 @@ data_definitions:
 
 
 data_tables:
+  nodes:
+    data: data_tables/nodes.csv
+    rows: [nodes, techs, parameters]
+    columns: timesteps
   locations:
     data: data_tables/locations.csv
-    rows: [nodes, techs, latitude, longitude, parameters]
-    columns: timesteps
+    rows: nodes
+    columns: parameters
   links:
     data: data_tables/links.csv
-    rows: [techs, base_tech, carrier_in, carrier_out, link_to, link_from, color, flow_cap_max, flow_out_eff, cost_flow_cap_per_distance]
+    rows: techs
     columns: parameters
+  links_base_tech:
+    data: data_tables/links_base_tech.csv
+    rows: techs
+    columns: parameters
+  links_properties:
+    data: data_tables/links_properties.csv
+    rows: techs
+    columns: parameters
+  links_heat:
+    data: data_tables/links_heat.csv
+    rows: techs
+    columns: parameters
+    add_dims:
+      carriers: heat
+  links_electricity:
+    data: data_tables/links_electricity.csv
+    rows: techs
+    columns: parameters
+    add_dims:
+      carriers: electricity
 # --8<-- [end:data-tables]
