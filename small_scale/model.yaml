@@ -24,37 +24,99 @@ data_definitions:
   bigM: 1e6
 # --8<-- [end:parameter_data_definitions]
 
+techs:
+  supply_electricity:
+    name: "National grid import"
+    color: "#C5ABE3"
+    base_tech: supply
+    carrier_out: electricity
+    cost_flow_cap:
+        data: 150
+        index: monetary
+        dims: costs
+    cost_flow_out:
+        data: 1
+        index: monetary
+        dims: costs
+    flow_cap_max: 2000
+
+  supply_geothermal:
+    name: "Geothermal heat extraction"
+    color: "#C98AAD"
+    base_tech: supply
+    carrier_out: heat
+    flow_cap_max: 2000
+    cost_flow_cap:
+      data: 150
+      index: monetary
+      dims: costs
+    cost_flow_out:
+        data: 1
+        index: monetary
+        dims: costs
+
+  heat_pump:
+    name: "Air-to-air heat pump"
+    color: "#8E2999"
+    cost_flow_cap:
+        data: 1
+        index: [[monetary, heat]]
+        dims: [costs, carriers]
+    carrier_in: electricity
+    carrier_out: heat
+    flow_cap_max:
+      data: 50
+      index: heat
+      dims: carriers
+    flow_out_eff: 0.95
+    cost_flow_out:
+        data: 0.1
+        index: monetary
+        dims: costs
+
+  demand_electricity:
+    name: "Electrical demand"
+    color: "#072486"
+    base_tech: demand
+    carrier_in: electricity
+
+  demand_heat:
+    name: "Heat demand"
+    color: "#660507"
+    base_tech: demand
+    carrier_in: heat
+
 # --8<-- [start:data-tables]
 
 
 data_tables:
+  links_costs_monetary:
+    data: data_tables/links_costs_monetary.csv
+    rows: techs
+    columns: parameters
+    add_dims:
+      costs: monetary
+  links_electricity:
+    data: data_tables/links_electricity.csv
+    rows: techs
+    columns: parameters
+    add_dims:
+      carriers: electricity
+  links_heat:
+    data: data_tables/links_heat.csv
+    rows: techs
+    columns: parameters
+    add_dims:
+      carriers: heat
   links:
     data: data_tables/links.csv
     rows: techs
     columns: parameters
   nodes:
     data: data_tables/nodes.csv
-    rows: [nodes, techs, parameters]
+    rows: [nodes,techs,parameters]
     columns: timesteps
   nodes_base_info:
     data: data_tables/nodes_base_info.csv
     rows: nodes
-    columns: parameters
-  techs_carriers:
-    data: data_tables/techs_carriers.csv
-    rows: techs
-    columns: parameters
-    add_dims:
-      carriers: heat
-  techs_costs_monetary:
-    data: data_tables/techs_costs_monetary.csv
-    rows: techs
-    columns: parameters
-  techs_base_info:
-    data: data_tables/techs_base_info.csv
-    rows: techs
-    columns: parameters
-  techs_constraints:
-    data: data_tables/techs_constraints.csv
-    rows: techs
     columns: parameters

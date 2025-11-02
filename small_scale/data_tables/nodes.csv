@@ -1,3 +1,7 @@
 ﻿nodes,techs,parameters,timesteps,2050/01/01 00:00
-SH1,supply_geothermal,source_use_max,,1000
+SH1,supply_geothermal,source_use_max,,1500
+SH1,demand_electricity,sink_use_equals,,300
 D1,demand_heat,sink_use_equals,,500
+D2,demand_heat,sink_use_equals,,500
+SE1,supply_electricity,source_use_max,,1000
+TH1,demand_heat,sink_use_equals,,0

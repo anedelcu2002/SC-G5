@@ -1,8 +1,0 @@
-techs,flow_cap_max,flow_out_eff,flow_out_eff_per_distance
-supply_electricity,2000,,
-supply_geothermal,2000,,
-heat_pump,2000,0.95,
-demand_electricity,,,
-demand_heat,,,
-SH1_to_TH1,2000,,0.98
-electricity_transmission,2000,,0.99

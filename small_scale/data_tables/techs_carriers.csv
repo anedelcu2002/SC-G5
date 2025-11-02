@@ -1,8 +1,0 @@
-techs,carrier_out,carrier_in
-supply_electricity,1,
-supply_geothermal,1,
-heat_pump,1,1
-demand_electricity,,1
-demand_heat,,1
-SH1_to_TH1,1,1
-electricity_transmission,1,1
