@@ -1,0 +1,8 @@
+﻿techs,color,name,base_tech
+supply_electricity,#C5ABE3,Grid electricity supply,supply
+supply_geothermal,#C98AAD,Geothermal heat supply,supply
+heat_pump,#8E2999,Air-to-air heat pump,conversion
+demand_electricity,#072486,Electricity demand,demand
+demand_heat,#660507,Heat demand,demand
+SH1_to_TH1,#823739,Local heat transmission,transmission
+electricity_transmission, #6783E3, Local electricity transmission, transmission

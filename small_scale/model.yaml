@@ -1,0 +1,60 @@
+# --8<-- [start:config]
+config:
+  init:
+    name: Delft model
+    # What version of Calliope this model is intended for
+    calliope_version: 0.7.0
+    broadcast_input_data: true  # allow single indexed parameter data entries to be broadcast across all index items, if there are multiple entries.
+    mode: base # Choices: base, operate, spores
+
+  build:
+    ensure_feasibility: true # Switching on unmet demand
+
+  solve:
+    solver: gurobi
+# --8<-- [end:config]
+
+# --8<-- [start:parameter_data_definitions]
+data_definitions:
+  objective_cost_weights:
+    data: 1
+    index: monetary
+    dims: costs
+  # `bigM` sets the scale of unmet demand, which cannot be too high, otherwise the optimisation will not converge
+  bigM: 1e6
+# --8<-- [end:parameter_data_definitions]
+
+# --8<-- [start:data-tables]
+
+
+data_tables:
+  links:
+    data: data_tables/links.csv
+    rows: techs
+    columns: parameters
+  nodes:
+    data: data_tables/nodes.csv
+    rows: [nodes, techs, parameters]
+    columns: timesteps
+  nodes_base_info:
+    data: data_tables/nodes_base_info.csv
+    rows: nodes
+    columns: parameters
+  techs_carriers:
+    data: data_tables/techs_carriers.csv
+    rows: techs
+    columns: parameters
+    add_dims:
+      carriers: heat
+  techs_costs_monetary:
+    data: data_tables/techs_costs_monetary.csv
+    rows: techs
+    columns: parameters
+  techs_base_info:
+    data: data_tables/techs_base_info.csv
+    rows: techs
+    columns: parameters
+  techs_constraints:
+    data: data_tables/techs_constraints.csv
+    rows: techs
+    columns: parameters

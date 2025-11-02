@@ -1,0 +1,8 @@
+techs,cost_flow_cap,cost_flow_cap_per_distance
+supply_electricity,10,
+supply_geothermal,20,
+heat_pump,5,
+demand_electricity,,
+demand_heat,,
+SH1_to_TH1,,1
+electricity_transmission,,1
