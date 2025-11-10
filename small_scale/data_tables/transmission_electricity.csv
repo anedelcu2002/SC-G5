@@ -2,6 +2,3 @@ techs,carrier_out,carrier_in
 SH1_to_TE1,1,1
 SE1_to_TE2,1,1
 TE1_to_TE2,1,1
-D1_to_TE2,1,1
-D2_to_TE2,1,1
-D3_to_TE2,1,1

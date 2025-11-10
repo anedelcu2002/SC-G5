@@ -86,7 +86,7 @@ techs:
 
 data_tables:
   links_costs_monetary:
-    data: data_tables/links_costs_monetary.csv
+    data: data_tables/links_costs.csv
     rows: techs
     columns: parameters
     add_dims:

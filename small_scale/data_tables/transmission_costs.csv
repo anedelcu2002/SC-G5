@@ -1,8 +1,4 @@
 techs,cost_flow_cap_per_distance
-TH1_to_D1,100
-TH2_to_D2,100
-TE1_to_D1,50
-TE2_to_D2,50
 SH1_to_TH1,100
 SH1_to_TE1,50
 SE1_to_TE2,50

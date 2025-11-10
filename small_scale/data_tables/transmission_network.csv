@@ -4,9 +4,3 @@ SH1_to_TE1,#6783E3,Electricity transmission,transmission,2000,0.99,20,SH1,TE1
 SE1_to_TE2,#6783E3,Electricity transmission,transmission,2000,0.99,20,SE1,TE2
 TH1_to_TH2,#823739,Heat transmission,transmission,2000,0.98,20,TH1,TH2
 TE1_to_TE2,#6783E3,Electricity transmission,transmission,2000,0.99,20,TE1,TE2
-D1_to_TH2,#823739,Heat distribution,transmission,2000,0.98,20,D1,TH2
-D2_to_TH2,#823739,Heat distribution,transmission,2000,0.98,20,D2,TH2
-D3_to_TH2,#823739,Heat distribution,transmission,2000,0.98,20,D3,TH2
-D1_to_TE2,#6783E3,Electricity distribution,transmission,2000,0.99,20,D1,TE2
-D2_to_TE2,#6783E3,Electricity distribution,transmission,2000,0.99,20,D2,TE2
-D3_to_TE2,#6783E3,Electricity distribution,transmission,2000,0.99,20,D3,TE2
