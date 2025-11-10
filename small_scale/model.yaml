@@ -20,8 +20,12 @@ data_definitions:
     data: 1
     index: monetary
     dims: costs
+  cost_interest_rate:
+    data: 1
+    index: monetary
+    dims: costs
   # `bigM` sets the scale of unmet demand, which cannot be too high, otherwise the optimisation will not converge
-  bigM: 1e6
+  bigM: 1
 # --8<-- [end:parameter_data_definitions]
 
 techs:
@@ -31,14 +35,11 @@ techs:
     base_tech: supply
     carrier_out: electricity
     cost_flow_cap:
-        data: 150
-        index: monetary
-        dims: costs
-    cost_flow_out:
-        data: 1
+        data: 1000
         index: monetary
         dims: costs
     flow_cap_max: 2000
+    lifetime: 20
 
   supply_geothermal:
     name: "Geothermal heat extraction"
@@ -47,13 +48,10 @@ techs:
     carrier_out: heat
     flow_cap_max: 2000
     cost_flow_cap:
-      data: 150
+      data: 1000
       index: monetary
       dims: costs
-    cost_flow_out:
-        data: 1
-        index: monetary
-        dims: costs
+    lifetime: 20
 
   heat_pump:
     name: "Air-to-air heat pump"
@@ -69,10 +67,7 @@ techs:
       index: heat
       dims: carriers
     flow_out_eff: 0.95
-    cost_flow_out:
-        data: 0.1
-        index: monetary
-        dims: costs
+    lifetime: 20
 
   demand_electricity:
     name: "Electrical demand"

@@ -1,5 +1,10 @@
-﻿techs,color,name,base_tech,flow_cap_max,flow_out_eff_per_distance,link_to,link_from
-SH1_to_TH1,#823739,Local heat transmission,transmission,2000,0.98,SH1,TH1
-TH1_to_D1,#823739,Local heat transmission,transmission,2000,0.98,TH1,D1
-TH1_to_D2,#823739,Local heat transmission,transmission,2000,0.98,TH1,D2
-SE1_to_SH1,#6783E3,Local electricity transmission,transmission,2000,0.99,SE1,SH1
+﻿techs,color,name,base_tech,flow_cap_max,flow_out_eff_per_distance,lifetime,link_to,link_from
+TH1_to_D1,#823739,Local heat transmission,transmission,2000,0.98,20,D1,TH1
+TH2_to_D2,#823739,Local heat transmission,transmission,2000,0.98,20,D2,TH2
+TE1_to_D1,#6783E3,Local electricity transmission,transmission,2000,0.99,20,TE1,D1
+TE2_to_D2,#6783E3,Local electricity transmission,transmission,2000,0.99,20,TE2,D2
+SH1_to_TH1,#823739,Local heat transmission,transmission,2000,0.98,20,SH1,TH1
+SH1_to_TE1,#6783E3,Local electricity transmission,transmission,2000,0.99,20,SH1,TE1
+SE1_to_TE2,#6783E3,Local electricity transmission,transmission,2000,0.99,20,SE1,TE2
+TH1_to_TH2,#823739,Local heat transmission,transmission,2000,0.98,20,TH1,TH2
+TE1_to_TE2,#6783E3,Local electricity transmission,transmission,2000,0.99,20,TE1,TE2

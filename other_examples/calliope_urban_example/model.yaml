@@ -11,8 +11,6 @@ config:
     name: Urban-scale example model
     # What version of Calliope this model is intended for
     calliope_version: 0.7.0
-    subset:
-      timesteps: ["2005-07-01", "2005-07-02"] # Subset of timesteps
     broadcast_input_data: true  # allow single indexed parameter data entries to be broadcast across all index items, if there are multiple entries.
     math_paths:
       additional_math: "additional_math.yaml"
@@ -35,7 +33,7 @@ data_definitions:
   # `bigM` sets the scale of unmet demand, which cannot be too high, otherwise the optimisation will not converge
   bigM: 1e6
   cost_interest_rate:
-    data: 0.10
+    data: 1
     index: monetary
     dims: costs
 # --8<-- [end:parameter_data_definitions]
