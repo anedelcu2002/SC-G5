@@ -1,148 +1,452 @@
-techs,link_to,link_from
-SH1_to_TH1,TH1,SH1
-SE1_to_TE1,TE1,SE1
-TH1_to_D1,D1,TH1
-TH1_to_D2,D2,TH1
-TH1_to_D3,D3,TH1
-TH1_to_D4,D4,TH1
-TH1_to_D5,D5,TH1
-TH1_to_D6,D6,TH1
-TH1_to_D7,D7,TH1
-TH1_to_D8,D8,TH1
-TH1_to_D9,D9,TH1
-TH1_to_D10,D10,TH1
-TH1_to_D11,D11,TH1
-TH1_to_D12,D12,TH1
-TH1_to_D13,D13,TH1
-TH1_to_D14,D14,TH1
-TH1_to_D15,D15,TH1
-TH1_to_D16,D16,TH1
-TH1_to_D17,D17,TH1
-TH1_to_D18,D18,TH1
-TH1_to_D19,D19,TH1
-TH1_to_D20,D20,TH1
-TH1_to_D21,D21,TH1
-TH1_to_D22,D22,TH1
-TH1_to_D23,D23,TH1
-TH1_to_D24,D24,TH1
-TH1_to_D25,D25,TH1
-TH1_to_D26,D26,TH1
-TH1_to_D27,D27,TH1
-TH1_to_D28,D28,TH1
-TH1_to_D29,D29,TH1
-TH1_to_D30,D30,TH1
-TH1_to_D31,D31,TH1
-TH1_to_D32,D32,TH1
-TH1_to_D33,D33,TH1
-TH1_to_D34,D34,TH1
-TH1_to_D35,D35,TH1
-TH1_to_D36,D36,TH1
-TH1_to_D37,D37,TH1
-TH1_to_D38,D38,TH1
-TH1_to_D39,D39,TH1
-TH1_to_D40,D40,TH1
-TH1_to_D41,D41,TH1
-TH1_to_D42,D42,TH1
-TH1_to_D43,D43,TH1
-TH1_to_D44,D44,TH1
-TH1_to_D45,D45,TH1
-TH1_to_D46,D46,TH1
-TH1_to_D47,D47,TH1
-TH1_to_D48,D48,TH1
-TH1_to_D49,D49,TH1
-TH1_to_D50,D50,TH1
-TH1_to_D51,D51,TH1
-TH1_to_D52,D52,TH1
-TH1_to_D53,D53,TH1
-TH1_to_D54,D54,TH1
-TH1_to_D55,D55,TH1
-TH1_to_D56,D56,TH1
-TH1_to_D57,D57,TH1
-TH1_to_D58,D58,TH1
-TH1_to_D59,D59,TH1
-TH1_to_D60,D60,TH1
-TH1_to_D61,D61,TH1
-TH1_to_D62,D62,TH1
-TH1_to_D63,D63,TH1
-TH1_to_D64,D64,TH1
-TH1_to_D65,D65,TH1
-TH1_to_D66,D66,TH1
-TH1_to_D67,D67,TH1
-TH1_to_D68,D68,TH1
-TH1_to_D69,D69,TH1
-TH1_to_D70,D70,TH1
-TH1_to_D71,D71,TH1
-TH1_to_D72,D72,TH1
-TH1_to_D73,D73,TH1
-TH1_to_D74,D74,TH1
-TH1_to_D75,D75,TH1
-TH1_to_D76,D76,TH1
-TH1_to_D77,D77,TH1
-TH1_to_D78,D78,TH1
-TH1_to_D79,D79,TH1
-TH1_to_D80,D80,TH1
-TH1_to_D81,D81,TH1
-TH1_to_D82,D82,TH1
-TH1_to_D83,D83,TH1
-TH1_to_D84,D84,TH1
-TH1_to_D85,D85,TH1
-TH1_to_D86,D86,TH1
-TH1_to_D87,D87,TH1
-TH1_to_D88,D88,TH1
-TH1_to_D89,D89,TH1
-TH1_to_D90,D90,TH1
-TH1_to_D91,D91,TH1
-TH1_to_D92,D92,TH1
-TH1_to_D93,D93,TH1
-TH1_to_D94,D94,TH1
-TH1_to_D95,D95,TH1
-TH1_to_D96,D96,TH1
-TH1_to_D97,D97,TH1
-TH1_to_D98,D98,TH1
-TH1_to_D99,D99,TH1
-TH1_to_D100,D100,TH1
-TH1_to_D101,D101,TH1
-TH1_to_D102,D102,TH1
-TH1_to_D103,D103,TH1
-TH1_to_D104,D104,TH1
-TH1_to_D105,D105,TH1
-TH1_to_D106,D106,TH1
-TH1_to_D107,D107,TH1
-TH1_to_D108,D108,TH1
-TH1_to_D109,D109,TH1
-TH1_to_D110,D110,TH1
-TH1_to_D111,D111,TH1
-TH1_to_D112,D112,TH1
-TH1_to_D113,D113,TH1
-TH1_to_D114,D114,TH1
-TH1_to_D115,D115,TH1
-TH1_to_D116,D116,TH1
-TH1_to_D117,D117,TH1
-TH1_to_D118,D118,TH1
-TH1_to_D119,D119,TH1
-TH1_to_D120,D120,TH1
-TH1_to_D121,D121,TH1
-TH1_to_D122,D122,TH1
-TH1_to_D123,D123,TH1
-TH1_to_D124,D124,TH1
-TH1_to_D125,D125,TH1
-TH1_to_D126,D126,TH1
-TH1_to_D127,D127,TH1
-TH1_to_D128,D128,TH1
-TH1_to_D129,D129,TH1
-TH1_to_D130,D130,TH1
-TH1_to_D131,D131,TH1
-TH1_to_D132,D132,TH1
-TH1_to_D133,D133,TH1
-TH1_to_D134,D134,TH1
-TH1_to_D135,D135,TH1
-TH1_to_D136,D136,TH1
-TH1_to_D137,D137,TH1
-TH1_to_D138,D138,TH1
-TH1_to_D139,D139,TH1
-TH1_to_D140,D140,TH1
-TH1_to_D141,D141,TH1
-TH1_to_D142,D142,TH1
-TH1_to_D143,D143,TH1
-TH1_to_D144,D144,TH1
-TE1_to_SH1,SH1,TE1
+techs,color,name,base_tech,flow_cap_max,flow_out_eff_per_distance,lifetime,link_to,link_from
+SH1_to_TH1,#823739,Heat transmission,transmission,2000,0.98,20,SH1,TH1
+TH1_to_TH2,#823740,Heat transmission,transmission,2000,0.98,20,TH1,TH2
+TH2_to_TH3,#823741,Heat transmission,transmission,2000,0.98,20,TH2,TH3
+TH3_to_TH4,#823742,Heat transmission,transmission,2000,0.98,20,TH3,TH4
+TH4_to_TH5,#823743,Heat transmission,transmission,2000,0.98,20,TH4,TH5
+TH5_to_TH6,#823744,Heat transmission,transmission,2000,0.98,20,TH5,TH6
+TH6_to_TH7,#823745,Heat transmission,transmission,2000,0.98,20,TH6,TH7
+TH7_to_TH8,#823746,Heat transmission,transmission,2000,0.98,20,TH7,TH8
+TH8_to_TH9,#823747,Heat transmission,transmission,2000,0.98,20,TH8,TH9
+TH9_to_TH10,#823748,Heat transmission,transmission,2000,0.98,20,TH9,TH10
+TH10_to_TH11,#823749,Heat transmission,transmission,2000,0.98,20,TH10,TH11
+TH11_to_TH12,#823750,Heat transmission,transmission,2000,0.98,20,TH11,TH12
+TH12_to_TH13,#823751,Heat transmission,transmission,2000,0.98,20,TH12,TH13
+TH13_to_TH14,#823752,Heat transmission,transmission,2000,0.98,20,TH13,TH14
+TH14_to_TH15,#823753,Heat transmission,transmission,2000,0.98,20,TH14,TH15
+TH15_to_TH16,#823754,Heat transmission,transmission,2000,0.98,20,TH15,TH16
+TH16_to_TH17,#823755,Heat transmission,transmission,2000,0.98,20,TH16,TH17
+TH17_to_TH18,#823756,Heat transmission,transmission,2000,0.98,20,TH17,TH18
+TH18_to_TH19,#823757,Heat transmission,transmission,2000,0.98,20,TH18,TH19
+TH19_to_TH20,#823758,Heat transmission,transmission,2000,0.98,20,TH19,TH20
+TH20_to_TH21,#823759,Heat transmission,transmission,2000,0.98,20,TH20,TH21
+TH21_to_TH22,#823760,Heat transmission,transmission,2000,0.98,20,TH21,TH22
+TH22_to_TH23,#823761,Heat transmission,transmission,2000,0.98,20,TH22,TH23
+TH23_to_TH24,#823762,Heat transmission,transmission,2000,0.98,20,TH23,TH24
+TH24_to_TH11,#823763,Heat transmission,transmission,2000,0.98,20,TH24,TH11
+TH18_to_TH25,#823764,Heat transmission,transmission,2000,0.98,20,TH18,TH25
+TH25_to_TH26,#823765,Heat transmission,transmission,2000,0.98,20,TH25,TH26
+TH26_to_TH27,#823766,Heat transmission,transmission,2000,0.98,20,TH26,TH27
+TH27_to_TH28,#823767,Heat transmission,transmission,2000,0.98,20,TH27,TH28
+TH27_to_TH29,#823768,Heat transmission,transmission,2000,0.98,20,TH27,TH29
+TH29_to_TH30,#823769,Heat transmission,transmission,2000,0.98,20,TH29,TH30
+TH30_to_TH31,#823770,Heat transmission,transmission,2000,0.98,20,TH30,TH31
+TH27_to_TH32,#823771,Heat transmission,transmission,2000,0.98,20,TH27,TH32
+TH32_to_TH33,#823772,Heat transmission,transmission,2000,0.98,20,TH32,TH33
+TH33_to_TH34,#823773,Heat transmission,transmission,2000,0.98,20,TH33,TH34
+TH35_to_TH35,#823774,Heat transmission,transmission,2000,0.98,20,TH34,TH35
+TH35_to_TH29,#823775,Heat transmission,transmission,2000,0.98,20,TH35,TH29
+TH33_to_TH36,#823775,Heat transmission,transmission,2000,0.98,20,TH33,TH36
+TH36_to_TH37,#823776,Heat transmission,transmission,2000,0.98,20,TH36,TH37
+TH37_to_TH38,#823777,Heat transmission,transmission,2000,0.98,20,TH37,TH38
+TH38_to_TH39,#823778,Heat transmission,transmission,2000,0.98,20,TH38,TH39
+TH39_to_TH40,#823779,Heat transmission,transmission,2000,0.98,20,TH39,TH40
+TH40_to_TH41,#823780,Heat transmission,transmission,2000,0.98,20,TH40,TH41
+TH41_to_TH42,#823781,Heat transmission,transmission,2000,0.98,20,TH41,TH42
+TH42_to_TH29,#823782,Heat transmission,transmission,2000,0.98,20,TH42,TH29
+TH42_to_TH33,#823783,Heat transmission,transmission,2000,0.98,20,TH42,TH33
+TH13_to_TH43,#823784,Heat transmission,transmission,2000,0.98,20,TH13,TH43
+TH43_to_TH44,#823785,Heat transmission,transmission,2000,0.98,20,TH43,TH44
+TH44_to_TH45,#823786,Heat transmission,transmission,2000,0.98,20,TH44,TH45
+TH45_to_TH46,#823787,Heat transmission,transmission,2000,0.98,20,TH45,TH46
+TH46_to_TH47,#823788,Heat transmission,transmission,2000,0.98,20,TH46,TH47
+TH47_to_TH48,#823789,Heat transmission,transmission,2000,0.98,20,TH47,TH48
+TH48_to_TH49,#823790,Heat transmission,transmission,2000,0.98,20,TH48,TH49
+TH49_to_TH50,#823791,Heat transmission,transmission,2000,0.98,20,TH49,TH50
+TH50_to_TH51,#823792,Heat transmission,transmission,2000,0.98,20,TH50,TH51
+TH51_to_TH52,#823793,Heat transmission,transmission,2000,0.98,20,TH51,TH52
+TH52_to_TH53,#823794,Heat transmission,transmission,2000,0.98,20,TH52,TH53
+TH53_to_TH54,#823795,Heat transmission,transmission,2000,0.98,20,TH53,TH54
+TH54_to_TH55,#823796,Heat transmission,transmission,2000,0.98,20,TH54,TH55
+TH55_to_TH56,#823797,Heat transmission,transmission,2000,0.98,20,TH55,TH56
+TH56_to_TH57,#823798,Heat transmission,transmission,2000,0.98,20,TH56,TH57
+TH57_to_TH39,#823799,Heat transmission,transmission,2000,0.98,20,TH57,TH39
+TH49_to_TH58,#823800,Heat transmission,transmission,2000,0.98,20,TH49,TH58
+TH58_to_TH59,#823801,Heat transmission,transmission,2000,0.98,20,TH58,TH59
+TH59_to_TH60,#823802,Heat transmission,transmission,2000,0.98,20,TH59,TH60
+TH60_to_TH61,#823803,Heat transmission,transmission,2000,0.98,20,TH60,TH61
+TH61_to_TH62,#823804,Heat transmission,transmission,2000,0.98,20,TH61,TH62
+TH62_to_TH63,#823805,Heat transmission,transmission,2000,0.98,20,TH62,TH63
+TH63_to_TH64,#823806,Heat transmission,transmission,2000,0.98,20,TH63,TH64
+TH64_to_TH65,#823807,Heat transmission,transmission,2000,0.98,20,TH64,TH65
+TH65_to_TH66,#823808,Heat transmission,transmission,2000,0.98,20,TH65,TH66
+TH66_to_TH67,#823809,Heat transmission,transmission,2000,0.98,20,TH66,TH67
+TH67_to_TH68,#823810,Heat transmission,transmission,2000,0.98,20,TH67,TH68
+TH68_to_TH69,#823811,Heat transmission,transmission,2000,0.98,20,TH68,TH69
+TH69_to_TH70,#823812,Heat transmission,transmission,2000,0.98,20,TH69,TH70
+TH70_to_TH71,#823813,Heat transmission,transmission,2000,0.98,20,TH70,TH71
+TH71_to_TH72,#823814,Heat transmission,transmission,2000,0.98,20,TH71,TH72
+TH72_to_TH73,#823815,Heat transmission,transmission,2000,0.98,20,TH72,TH73
+TH73_to_TH52,#823816,Heat transmission,transmission,2000,0.98,20,TH73,TH52
+SH1_to_TE1,#6783E76,Electricity transmission,transmission,2000,0.99,20,SH1,TE1
+TE1_to_TE2,#6783E75,Electricity transmission,transmission,2000,0.99,20,TE1,TE2
+TE2_to_TE3,#6783E74,Electricity transmission,transmission,2000,0.99,20,TE2,TE3
+TE3_to_TE4,#6783E73,Electricity transmission,transmission,2000,0.99,20,TE3,TE4
+TE4_to_TE5,#6783E72,Electricity transmission,transmission,2000,0.99,20,TE4,TE5
+TE5_to_TE6,#6783E71,Electricity transmission,transmission,2000,0.99,20,TE5,TE6
+TE6_to_TE7,#6783E70,Electricity transmission,transmission,2000,0.99,20,TE6,TE7
+TE7_to_TE8,#6783E69,Electricity transmission,transmission,2000,0.99,20,TE7,TE8
+TE8_to_TE9,#6783E68,Electricity transmission,transmission,2000,0.99,20,TE8,TE9
+TE9_to_TE10,#6783E67,Electricity transmission,transmission,2000,0.99,20,TE9,TE10
+TE10_to_TE11,#6783E66,Electricity transmission,transmission,2000,0.99,20,TE10,TE11
+TE11_to_TE12,#6783E65,Electricity transmission,transmission,2000,0.99,20,TE11,TE12
+TE12_to_TE13,#6783E64,Electricity transmission,transmission,2000,0.99,20,TE12,TE13
+TE13_to_TE14,#6783E63,Electricity transmission,transmission,2000,0.99,20,TE13,TE14
+TE14_to_TE15,#6783E62,Electricity transmission,transmission,2000,0.99,20,TE14,TE15
+TE15_to_TE16,#6783E61,Electricity transmission,transmission,2000,0.99,20,TE15,TE16
+TE16_to_TE17,#6783E60,Electricity transmission,transmission,2000,0.99,20,TE16,TE17
+TE17_to_TE18,#6783E59,Electricity transmission,transmission,2000,0.99,20,TE17,TE18
+TE18_to_TE19,#6783E58,Electricity transmission,transmission,2000,0.99,20,TE18,TE19
+TE19_to_TE20,#6783E57,Electricity transmission,transmission,2000,0.99,20,TE19,TE20
+TE20_to_TE21,#6783E56,Electricity transmission,transmission,2000,0.99,20,TE20,TE21
+TE21_to_TE22,#6783E55,Electricity transmission,transmission,2000,0.99,20,TE21,TE22
+TE22_to_TE23,#6783E54,Electricity transmission,transmission,2000,0.99,20,TE22,TE23
+TE23_to_TE24,#6783E53,Electricity transmission,transmission,2000,0.99,20,TE23,TE24
+TE24_to_TE11,#6783E52,Electricity transmission,transmission,2000,0.99,20,TE24,TE11
+TE18_to_TE25,#6783E51,Electricity transmission,transmission,2000,0.99,20,TE18,TE25
+TE25_to_TE26,#6783E50,Electricity transmission,transmission,2000,0.99,20,TE25,TE26
+TE26_to_TE27,#6783E49,Electricity transmission,transmission,2000,0.99,20,TE26,TE27
+TE27_to_TE28,#6783E48,Electricity transmission,transmission,2000,0.99,20,TE27,TE28
+TE27_to_TE29,#6783E47,Electricity transmission,transmission,2000,0.99,20,TE27,TE29
+TE29_to_TE30,#6783E46,Electricity transmission,transmission,2000,0.99,20,TE29,TE30
+TE30_to_TE31,#6783E45,Electricity transmission,transmission,2000,0.99,20,TE30,TE31
+TE27_to_TE32,#6783E44,Electricity transmission,transmission,2000,0.99,20,TE27,TE32
+TE32_to_TE33,#6783E43,Electricity transmission,transmission,2000,0.99,20,TE32,TE33
+TE33_to_TE34,#6783E42,Electricity transmission,transmission,2000,0.99,20,TE33,TE34
+TE35_to_TE35,#6783E41,Electricity transmission,transmission,2000,0.99,20,TE34,TE35
+TE35_to_TE29,#6783E40,Electricity transmission,transmission,2000,0.99,20,TE35,TE29
+TE33_to_TE36,#6783E39,Electricity transmission,transmission,2000,0.99,20,TE33,TE36
+TE36_to_TE37,#6783E38,Electricity transmission,transmission,2000,0.99,20,TE36,TE37
+TE37_to_TE38,#6783E37,Electricity transmission,transmission,2000,0.99,20,TE37,TE38
+TE38_to_TE39,#6783E36,Electricity transmission,transmission,2000,0.99,20,TE38,TE39
+TE39_to_TE40,#6783E35,Electricity transmission,transmission,2000,0.99,20,TE39,TE40
+TE40_to_TE41,#6783E34,Electricity transmission,transmission,2000,0.99,20,TE40,TE41
+TE41_to_TE42,#6783E33,Electricity transmission,transmission,2000,0.99,20,TE41,TE42
+TE42_to_TE29,#6783E32,Electricity transmission,transmission,2000,0.99,20,TE42,TE29
+TE42_to_TE33,#6783E31,Electricity transmission,transmission,2000,0.99,20,TE42,TE33
+TE13_to_TE43,#6783E30,Electricity transmission,transmission,2000,0.99,20,TE13,TE43
+TE43_to_TE44,#6783E29,Electricity transmission,transmission,2000,0.99,20,TE43,TE44
+TE44_to_TE45,#6783E28,Electricity transmission,transmission,2000,0.99,20,TE44,TE45
+TE45_to_TE46,#6783E27,Electricity transmission,transmission,2000,0.99,20,TE45,TE46
+TE46_to_TE47,#6783E26,Electricity transmission,transmission,2000,0.99,20,TE46,TE47
+TE47_to_TE48,#6783E25,Electricity transmission,transmission,2000,0.99,20,TE47,TE48
+TE48_to_TE49,#6783E24,Electricity transmission,transmission,2000,0.99,20,TE48,TE49
+TE49_to_TE50,#6783E23,Electricity transmission,transmission,2000,0.99,20,TE49,TE50
+TE50_to_TE51,#6783E22,Electricity transmission,transmission,2000,0.99,20,TE50,TE51
+TE51_to_TE52,#6783E21,Electricity transmission,transmission,2000,0.99,20,TE51,TE52
+TE52_to_TE53,#6783E20,Electricity transmission,transmission,2000,0.99,20,TE52,TE53
+TE53_to_TE54,#6783E19,Electricity transmission,transmission,2000,0.99,20,TE53,TE54
+TE54_to_TE55,#6783E18,Electricity transmission,transmission,2000,0.99,20,TE54,TE55
+TE55_to_TE56,#6783E17,Electricity transmission,transmission,2000,0.99,20,TE55,TE56
+TE56_to_TE57,#6783E16,Electricity transmission,transmission,2000,0.99,20,TE56,TE57
+TE57_to_TE39,#6783E15,Electricity transmission,transmission,2000,0.99,20,TE57,TE39
+TE49_to_TE58,#6783E14,Electricity transmission,transmission,2000,0.99,20,TE49,TE58
+TE58_to_TE59,#6783E13,Electricity transmission,transmission,2000,0.99,20,TE58,TE59
+TE59_to_TE60,#6783E12,Electricity transmission,transmission,2000,0.99,20,TE59,TE60
+TE60_to_TE61,#6783E11,Electricity transmission,transmission,2000,0.99,20,TE60,TE61
+TE61_to_TE62,#6783E10,Electricity transmission,transmission,2000,0.99,20,TE61,TE62
+TE62_to_TE63,#6783E9,Electricity transmission,transmission,2000,0.99,20,TE62,TE63
+TE63_to_TE64,#6783E8,Electricity transmission,transmission,2000,0.99,20,TE63,TE64
+TE64_to_TE65,#6783E7,Electricity transmission,transmission,2000,0.99,20,TE64,TE65
+TE65_to_TE66,#6783E6,Electricity transmission,transmission,2000,0.99,20,TE65,TE66
+TE66_to_TE67,#6783E5,Electricity transmission,transmission,2000,0.99,20,TE66,TE67
+TE67_to_TE68,#6783E4,Electricity transmission,transmission,2000,0.99,20,TE67,TE68
+TE68_to_TE69,#6783E3,Electricity transmission,transmission,2000,0.99,20,TE68,TE69
+TE69_to_TE70,#6783E2,Electricity transmission,transmission,2000,0.99,20,TE69,TE70
+TE70_to_TE71,#6783E1,Electricity transmission,transmission,2000,0.99,20,TE70,TE71
+TE71_to_TE72,#6783E0,Electricity transmission,transmission,2000,0.99,20,TE71,TE72
+TE72_to_TE73,#6783E1,Electricity transmission,transmission,2000,0.99,20,TE72,TE73
+TE73_to_TE52,#6783E2,Electricity transmission,transmission,2000,0.99,20,TE73,TE52
+SE1_to_TE1,#6783E3,Electricity transmission,transmission,2000,0.99,20,SE1,TE1
+SE2_to_TE10,#6783E3,Electricity transmission,transmission,2000,0.99,20,SE2,TE10
+SE3_to_TE21,#6783E3,Electricity transmission,transmission,2000,0.99,20,SE3,TE21
+SE4_to_TE68,#6783E3,Electricity transmission,transmission,2000,0.99,20,SE4,TE68
+SE5_to_TE30,#6783E4,Electricity transmission,transmission,2000,0.99,20,SE5,TE30
+D1_to_TH30,#823739,Heat distribution,transmission,2000,0.98,20,D1,TH30
+D2_to_TH29,#823739,Heat distribution,transmission,2000,0.98,20,D2,TH29
+D3_to_TH28,#823739,Heat distribution,transmission,2000,0.98,20,D3,TH28
+D4_to_TH28,#823739,Heat distribution,transmission,2000,0.98,20,D4,TH28
+D5_to_TH18,#823739,Heat distribution,transmission,2000,0.98,20,D5,TH18
+D6_to_TH20,#823739,Heat distribution,transmission,2000,0.98,20,D6,TH20
+D7_to_TH20,#823739,Heat distribution,transmission,2000,0.98,20,D7,TH20
+D8_to_TH20,#823739,Heat distribution,transmission,2000,0.98,20,D8,TH20
+D9_to_TH19,#823739,Heat distribution,transmission,2000,0.98,20,D9,TH19
+D10_to_TH19,#823739,Heat distribution,transmission,2000,0.98,20,D10,TH19
+D11_to_TH19,#823739,Heat distribution,transmission,2000,0.98,20,D11,TH19
+D12_to_TH22,#823739,Heat distribution,transmission,2000,0.98,20,D12,TH22
+D13_to_TH23,#823739,Heat distribution,transmission,2000,0.98,20,D13,TH23
+D14_to_TH23,#823739,Heat distribution,transmission,2000,0.98,20,D14,TH23
+D15_to_TH23,#823739,Heat distribution,transmission,2000,0.98,20,D15,TH23
+D16_to_TH23,#823739,Heat distribution,transmission,2000,0.98,20,D16,TH23
+D17_to_TH24,#823739,Heat distribution,transmission,2000,0.98,20,D17,TH24
+D18_to_TH24,#823739,Heat distribution,transmission,2000,0.98,20,D18,TH24
+D19_to_TH24,#823739,Heat distribution,transmission,2000,0.98,20,D19,TH24
+D20_to_TH24,#823739,Heat distribution,transmission,2000,0.98,20,D20,TH24
+D21_to_TH17,#823739,Heat distribution,transmission,2000,0.98,20,D21,TH17
+D22_to_TH17,#823739,Heat distribution,transmission,2000,0.98,20,D22,TH17
+D23_to_TH17,#823739,Heat distribution,transmission,2000,0.98,20,D23,TH17
+D24_to_TH16,#823739,Heat distribution,transmission,2000,0.98,20,D24,TH16
+D25_to_TH16,#823739,Heat distribution,transmission,2000,0.98,20,D25,TH16
+D26_to_TH16,#823739,Heat distribution,transmission,2000,0.98,20,D26,TH16
+D27_to_TH15,#823739,Heat distribution,transmission,2000,0.98,20,D27,TH15
+D28_to_TH15,#823739,Heat distribution,transmission,2000,0.98,20,D28,TH15
+D29_to_TH11,#823739,Heat distribution,transmission,2000,0.98,20,D29,TH11
+D30_to_TH11,#823739,Heat distribution,transmission,2000,0.98,20,D30,TH11
+D31_to_TH12,#823739,Heat distribution,transmission,2000,0.98,20,D31,TH12
+D32_to_TH12,#823739,Heat distribution,transmission,2000,0.98,20,D32,TH12
+D33_to_TH12,#823739,Heat distribution,transmission,2000,0.98,20,D33,TH12
+D34_to_TH12,#823739,Heat distribution,transmission,2000,0.98,20,D34,TH12
+D35_to_TH25,#823739,Heat distribution,transmission,2000,0.98,20,D35,TH25
+D36_to_TH25,#823739,Heat distribution,transmission,2000,0.98,20,D36,TH25
+D37_to_TH26,#823739,Heat distribution,transmission,2000,0.98,20,D37,TH26
+D38_to_TH26,#823739,Heat distribution,transmission,2000,0.98,20,D38,TH26
+D39_to_TH27,#823739,Heat distribution,transmission,2000,0.98,20,D39,TH27
+D40_to_TH32,#823739,Heat distribution,transmission,2000,0.98,20,D40,TH32
+D41_to_TH32,#823739,Heat distribution,transmission,2000,0.98,20,D41,TH32
+D42_to_TH33,#823739,Heat distribution,transmission,2000,0.98,20,D42,TH33
+D43_to_TH17,#823739,Heat distribution,transmission,2000,0.98,20,D43,TH17
+D44_to_TH17,#823739,Heat distribution,transmission,2000,0.98,20,D44,TH17
+D45_to_TH16,#823739,Heat distribution,transmission,2000,0.98,20,D45,TH16
+D46_to_TH16,#823739,Heat distribution,transmission,2000,0.98,20,D46,TH16
+D47_to_TH15,#823739,Heat distribution,transmission,2000,0.98,20,D47,TH15
+D48_to_TH36,#823739,Heat distribution,transmission,2000,0.98,20,D48,TH36
+D49_to_TH14,#823739,Heat distribution,transmission,2000,0.98,20,D49,TH14
+D50_to_TH14,#823739,Heat distribution,transmission,2000,0.98,20,D50,TH14
+D51_to_TH14,#823739,Heat distribution,transmission,2000,0.98,20,D51,TH14
+D52_to_TH36,#823739,Heat distribution,transmission,2000,0.98,20,D52,TH36
+D53_to_TH37,#823739,Heat distribution,transmission,2000,0.98,20,D53,TH37
+D54_to_TH37,#823739,Heat distribution,transmission,2000,0.98,20,D54,TH37
+D55_to_TH33,#823739,Heat distribution,transmission,2000,0.98,20,D55,TH33
+D56_to_TH34,#823739,Heat distribution,transmission,2000,0.98,20,D56,TH34
+D57_to_TH34,#823739,Heat distribution,transmission,2000,0.98,20,D57,TH34
+D58_to_TH34,#823739,Heat distribution,transmission,2000,0.98,20,D58,TH34
+D59_to_TH35,#823739,Heat distribution,transmission,2000,0.98,20,D59,TH35
+D60_to_TH35,#823739,Heat distribution,transmission,2000,0.98,20,D60,TH35
+D61_to_TH41,#823739,Heat distribution,transmission,2000,0.98,20,D61,TH41
+D62_to_TH41,#823739,Heat distribution,transmission,2000,0.98,20,D62,TH41
+D63_to_TH37,#823739,Heat distribution,transmission,2000,0.98,20,D63,TH37
+D64_to_TH38,#823739,Heat distribution,transmission,2000,0.98,20,D64,TH38
+D65_to_TH38,#823739,Heat distribution,transmission,2000,0.98,20,D65,TH38
+D66_to_TH39,#823739,Heat distribution,transmission,2000,0.98,20,D66,TH39
+D67_to_TH39,#823739,Heat distribution,transmission,2000,0.98,20,D67,TH39
+D68_to_TH39,#823739,Heat distribution,transmission,2000,0.98,20,D68,TH39
+D69_to_TH41,#823739,Heat distribution,transmission,2000,0.98,20,D69,TH41
+D70_to_TH41,#823739,Heat distribution,transmission,2000,0.98,20,D70,TH41
+D71_to_TH31,#823739,Heat distribution,transmission,2000,0.98,20,D71,TH31
+D72_to_TH31,#823739,Heat distribution,transmission,2000,0.98,20,D72,TH31
+D73_to_TH14,#823739,Heat distribution,transmission,2000,0.98,20,D73,TH14
+D74_to_TH43,#823739,Heat distribution,transmission,2000,0.98,20,D74,TH43
+D75_to_TH43,#823739,Heat distribution,transmission,2000,0.98,20,D75,TH43
+D76_to_TH43,#823739,Heat distribution,transmission,2000,0.98,20,D76,TH43
+D77_to_TH43,#823739,Heat distribution,transmission,2000,0.98,20,D77,TH43
+D78_to_TH43,#823739,Heat distribution,transmission,2000,0.98,20,D78,TH43
+D79_to_TH37,#823739,Heat distribution,transmission,2000,0.98,20,D79,TH37
+D80_to_TH37,#823739,Heat distribution,transmission,2000,0.98,20,D80,TH37
+D81_to_TH37,#823739,Heat distribution,transmission,2000,0.98,20,D81,TH37
+D82_to_TH37,#823739,Heat distribution,transmission,2000,0.98,20,D82,TH37
+D83_to_TH37,#823739,Heat distribution,transmission,2000,0.98,20,D83,TH37
+D84_to_TH55,#823739,Heat distribution,transmission,2000,0.98,20,D84,TH55
+D85_to_TH40,#823739,Heat distribution,transmission,2000,0.98,20,D85,TH40
+D86_to_TH40,#823739,Heat distribution,transmission,2000,0.98,20,D86,TH40
+D87_to_TH40,#823739,Heat distribution,transmission,2000,0.98,20,D87,TH40
+D88_to_TH40,#823739,Heat distribution,transmission,2000,0.98,20,D88,TH40
+D89_to_TH54,#823739,Heat distribution,transmission,2000,0.98,20,D89,TH54
+D90_to_TH54,#823739,Heat distribution,transmission,2000,0.98,20,D90,TH54
+D91_to_TH73,#823739,Heat distribution,transmission,2000,0.98,20,D91,TH73
+D92_to_TH73,#823739,Heat distribution,transmission,2000,0.98,20,D92,TH73
+D93_to_TH44,#823739,Heat distribution,transmission,2000,0.98,20,D93,TH44
+D94_to_TH44,#823739,Heat distribution,transmission,2000,0.98,20,D94,TH44
+D95_to_TH44,#823739,Heat distribution,transmission,2000,0.98,20,D95,TH44
+D96_to_TH45,#823739,Heat distribution,transmission,2000,0.98,20,D96,TH45
+D97_to_TH46,#823739,Heat distribution,transmission,2000,0.98,20,D97,TH46
+D98_to_TH46,#823739,Heat distribution,transmission,2000,0.98,20,D98,TH46
+D99_to_TH53,#823739,Heat distribution,transmission,2000,0.98,20,D99,TH53
+D100_to_TH53,#823739,Heat distribution,transmission,2000,0.98,20,D100,TH53
+D101_to_TH52,#823739,Heat distribution,transmission,2000,0.98,20,D101,TH52
+D102_to_TH52,#823739,Heat distribution,transmission,2000,0.98,20,D102,TH52
+D103_to_TH48,#823739,Heat distribution,transmission,2000,0.98,20,D103,TH48
+D104_to_TH48,#823739,Heat distribution,transmission,2000,0.98,20,D104,TH48
+D105_to_TH73,#823739,Heat distribution,transmission,2000,0.98,20,D105,TH73
+D106_to_TH72,#823739,Heat distribution,transmission,2000,0.98,20,D106,TH72
+D107_to_TH72,#823739,Heat distribution,transmission,2000,0.98,20,D107,TH72
+D108_to_TH71,#823739,Heat distribution,transmission,2000,0.98,20,D108,TH71
+D109_to_TH71,#823739,Heat distribution,transmission,2000,0.98,20,D109,TH71
+D110_to_TH71,#823739,Heat distribution,transmission,2000,0.98,20,D110,TH71
+D111_to_TH70,#823739,Heat distribution,transmission,2000,0.98,20,D111,TH70
+D112_to_TH70,#823739,Heat distribution,transmission,2000,0.98,20,D112,TH70
+D113_to_TH68,#823739,Heat distribution,transmission,2000,0.98,20,D113,TH68
+D114_to_TH68,#823739,Heat distribution,transmission,2000,0.98,20,D114,TH68
+D115_to_TH67,#823739,Heat distribution,transmission,2000,0.98,20,D115,TH67
+D116_to_TH66,#823739,Heat distribution,transmission,2000,0.98,20,D116,TH66
+D117_to_TH66,#823739,Heat distribution,transmission,2000,0.98,20,D117,TH66
+D118_to_TH66,#823739,Heat distribution,transmission,2000,0.98,20,D118,TH66
+D119_to_TH65,#823739,Heat distribution,transmission,2000,0.98,20,D119,TH65
+D120_to_TH65,#823739,Heat distribution,transmission,2000,0.98,20,D120,TH65
+D121_to_TH46,#823739,Heat distribution,transmission,2000,0.98,20,D121,TH46
+D122_to_TH46,#823739,Heat distribution,transmission,2000,0.98,20,D122,TH46
+D123_to_TH47,#823739,Heat distribution,transmission,2000,0.98,20,D123,TH47
+D124_to_TH47,#823739,Heat distribution,transmission,2000,0.98,20,D124,TH47
+D125_to_TH47,#823739,Heat distribution,transmission,2000,0.98,20,D125,TH47
+D126_to_TH48,#823739,Heat distribution,transmission,2000,0.98,20,D126,TH48
+D127_to_TH48,#823739,Heat distribution,transmission,2000,0.98,20,D127,TH48
+D128_to_TH49,#823739,Heat distribution,transmission,2000,0.98,20,D128,TH49
+D129_to_TH49,#823739,Heat distribution,transmission,2000,0.98,20,D129,TH49
+D130_to_TH58,#823739,Heat distribution,transmission,2000,0.98,20,D130,TH58
+D131_to_TH58,#823739,Heat distribution,transmission,2000,0.98,20,D131,TH58
+D132_to_TH59,#823739,Heat distribution,transmission,2000,0.98,20,D132,TH59
+D133_to_TH60,#823739,Heat distribution,transmission,2000,0.98,20,D133,TH60
+D134_to_TH60,#823739,Heat distribution,transmission,2000,0.98,20,D134,TH60
+D135_to_TH61,#823739,Heat distribution,transmission,2000,0.98,20,D135,TH61
+D136_to_TH61,#823739,Heat distribution,transmission,2000,0.98,20,D136,TH61
+D137_to_TH62,#823739,Heat distribution,transmission,2000,0.98,20,D137,TH62
+D138_to_TH63,#823739,Heat distribution,transmission,2000,0.98,20,D138,TH63
+D139_to_TH63,#823739,Heat distribution,transmission,2000,0.98,20,D139,TH63
+D140_to_TH64,#823739,Heat distribution,transmission,2000,0.98,20,D140,TH64
+D141_to_TH64,#823739,Heat distribution,transmission,2000,0.98,20,D141,TH64
+D142_to_TH64,#823739,Heat distribution,transmission,2000,0.98,20,D142,TH64
+D143_to_TH64,#823739,Heat distribution,transmission,2000,0.98,20,D143,TH64
+D144_to_TH64,#823739,Heat distribution,transmission,2000,0.98,20,D144,TH64
+D1_to_TE30,#6783E3,Electricity distribution,transmission,2000,0.99,20,D1,TE30
+D2_to_TE29,#6783E3,Electricity distribution,transmission,2000,0.99,20,D2,TE29
+D3_to_TE28,#6783E3,Electricity distribution,transmission,2000,0.99,20,D3,TE28
+D4_to_TE28,#6783E3,Electricity distribution,transmission,2000,0.99,20,D4,TE28
+D5_to_TE18,#6783E3,Electricity distribution,transmission,2000,0.99,20,D5,TE18
+D6_to_TE20,#6783E3,Electricity distribution,transmission,2000,0.99,20,D6,TE20
+D7_to_TE20,#6783E3,Electricity distribution,transmission,2000,0.99,20,D7,TE20
+D8_to_TE20,#6783E3,Electricity distribution,transmission,2000,0.99,20,D8,TE20
+D9_to_TE19,#6783E3,Electricity distribution,transmission,2000,0.99,20,D9,TE19
+D10_to_TE19,#6783E3,Electricity distribution,transmission,2000,0.99,20,D10,TE19
+D11_to_TE19,#6783E3,Electricity distribution,transmission,2000,0.99,20,D11,TE19
+D12_to_TE22,#6783E3,Electricity distribution,transmission,2000,0.99,20,D12,TE22
+D13_to_TE23,#6783E3,Electricity distribution,transmission,2000,0.99,20,D13,TE23
+D14_to_TE23,#6783E3,Electricity distribution,transmission,2000,0.99,20,D14,TE23
+D15_to_TE23,#6783E3,Electricity distribution,transmission,2000,0.99,20,D15,TE23
+D16_to_TE23,#6783E3,Electricity distribution,transmission,2000,0.99,20,D16,TE23
+D17_to_TE24,#6783E3,Electricity distribution,transmission,2000,0.99,20,D17,TE24
+D18_to_TE24,#6783E3,Electricity distribution,transmission,2000,0.99,20,D18,TE24
+D19_to_TE24,#6783E3,Electricity distribution,transmission,2000,0.99,20,D19,TE24
+D20_to_TE24,#6783E3,Electricity distribution,transmission,2000,0.99,20,D20,TE24
+D21_to_TE17,#6783E3,Electricity distribution,transmission,2000,0.99,20,D21,TE17
+D22_to_TE17,#6783E3,Electricity distribution,transmission,2000,0.99,20,D22,TE17
+D23_to_TE17,#6783E3,Electricity distribution,transmission,2000,0.99,20,D23,TE17
+D24_to_TE16,#6783E3,Electricity distribution,transmission,2000,0.99,20,D24,TE16
+D25_to_TE16,#6783E3,Electricity distribution,transmission,2000,0.99,20,D25,TE16
+D26_to_TE16,#6783E3,Electricity distribution,transmission,2000,0.99,20,D26,TE16
+D27_to_TE15,#6783E3,Electricity distribution,transmission,2000,0.99,20,D27,TE15
+D28_to_TE15,#6783E3,Electricity distribution,transmission,2000,0.99,20,D28,TE15
+D29_to_TE11,#6783E3,Electricity distribution,transmission,2000,0.99,20,D29,TE11
+D30_to_TE11,#6783E3,Electricity distribution,transmission,2000,0.99,20,D30,TE11
+D31_to_TE12,#6783E3,Electricity distribution,transmission,2000,0.99,20,D31,TE12
+D32_to_TE12,#6783E3,Electricity distribution,transmission,2000,0.99,20,D32,TE12
+D33_to_TE12,#6783E3,Electricity distribution,transmission,2000,0.99,20,D33,TE12
+D34_to_TE12,#6783E3,Electricity distribution,transmission,2000,0.99,20,D34,TE12
+D35_to_TE25,#6783E3,Electricity distribution,transmission,2000,0.99,20,D35,TE25
+D36_to_TE25,#6783E3,Electricity distribution,transmission,2000,0.99,20,D36,TE25
+D37_to_TE26,#6783E3,Electricity distribution,transmission,2000,0.99,20,D37,TE26
+D38_to_TE26,#6783E3,Electricity distribution,transmission,2000,0.99,20,D38,TE26
+D39_to_TE27,#6783E3,Electricity distribution,transmission,2000,0.99,20,D39,TE27
+D40_to_TE32,#6783E3,Electricity distribution,transmission,2000,0.99,20,D40,TE32
+D41_to_TE32,#6783E3,Electricity distribution,transmission,2000,0.99,20,D41,TE32
+D42_to_TE33,#6783E3,Electricity distribution,transmission,2000,0.99,20,D42,TE33
+D43_to_TE17,#6783E3,Electricity distribution,transmission,2000,0.99,20,D43,TE17
+D44_to_TE17,#6783E3,Electricity distribution,transmission,2000,0.99,20,D44,TE17
+D45_to_TE16,#6783E3,Electricity distribution,transmission,2000,0.99,20,D45,TE16
+D46_to_TE16,#6783E3,Electricity distribution,transmission,2000,0.99,20,D46,TE16
+D47_to_TE15,#6783E3,Electricity distribution,transmission,2000,0.99,20,D47,TE15
+D48_to_TE36,#6783E3,Electricity distribution,transmission,2000,0.99,20,D48,TE36
+D49_to_TE14,#6783E3,Electricity distribution,transmission,2000,0.99,20,D49,TE14
+D50_to_TE14,#6783E3,Electricity distribution,transmission,2000,0.99,20,D50,TE14
+D51_to_TE14,#6783E3,Electricity distribution,transmission,2000,0.99,20,D51,TE14
+D52_to_TE36,#6783E3,Electricity distribution,transmission,2000,0.99,20,D52,TE36
+D53_to_TE37,#6783E3,Electricity distribution,transmission,2000,0.99,20,D53,TE37
+D54_to_TE37,#6783E3,Electricity distribution,transmission,2000,0.99,20,D54,TE37
+D55_to_TE33,#6783E3,Electricity distribution,transmission,2000,0.99,20,D55,TE33
+D56_to_TE34,#6783E3,Electricity distribution,transmission,2000,0.99,20,D56,TE34
+D57_to_TE34,#6783E3,Electricity distribution,transmission,2000,0.99,20,D57,TE34
+D58_to_TE34,#6783E3,Electricity distribution,transmission,2000,0.99,20,D58,TE34
+D59_to_TE35,#6783E3,Electricity distribution,transmission,2000,0.99,20,D59,TE35
+D60_to_TE35,#6783E3,Electricity distribution,transmission,2000,0.99,20,D60,TE35
+D61_to_TE41,#6783E3,Electricity distribution,transmission,2000,0.99,20,D61,TE41
+D62_to_TE41,#6783E3,Electricity distribution,transmission,2000,0.99,20,D62,TE41
+D63_to_TE37,#6783E3,Electricity distribution,transmission,2000,0.99,20,D63,TE37
+D64_to_TE38,#6783E3,Electricity distribution,transmission,2000,0.99,20,D64,TE38
+D65_to_TE38,#6783E3,Electricity distribution,transmission,2000,0.99,20,D65,TE38
+D66_to_TE39,#6783E3,Electricity distribution,transmission,2000,0.99,20,D66,TE39
+D67_to_TE39,#6783E3,Electricity distribution,transmission,2000,0.99,20,D67,TE39
+D68_to_TE39,#6783E3,Electricity distribution,transmission,2000,0.99,20,D68,TE39
+D69_to_TE41,#6783E3,Electricity distribution,transmission,2000,0.99,20,D69,TE41
+D70_to_TE41,#6783E3,Electricity distribution,transmission,2000,0.99,20,D70,TE41
+D71_to_TE31,#6783E3,Electricity distribution,transmission,2000,0.99,20,D71,TE31
+D72_to_TE31,#6783E3,Electricity distribution,transmission,2000,0.99,20,D72,TE31
+D73_to_TE14,#6783E3,Electricity distribution,transmission,2000,0.99,20,D73,TE14
+D74_to_TE43,#6783E3,Electricity distribution,transmission,2000,0.99,20,D74,TE43
+D75_to_TE43,#6783E3,Electricity distribution,transmission,2000,0.99,20,D75,TE43
+D76_to_TE43,#6783E3,Electricity distribution,transmission,2000,0.99,20,D76,TE43
+D77_to_TE43,#6783E3,Electricity distribution,transmission,2000,0.99,20,D77,TE43
+D78_to_TE43,#6783E3,Electricity distribution,transmission,2000,0.99,20,D78,TE43
+D79_to_TE37,#6783E3,Electricity distribution,transmission,2000,0.99,20,D79,TE37
+D80_to_TE37,#6783E3,Electricity distribution,transmission,2000,0.99,20,D80,TE37
+D81_to_TE37,#6783E3,Electricity distribution,transmission,2000,0.99,20,D81,TE37
+D82_to_TE37,#6783E3,Electricity distribution,transmission,2000,0.99,20,D82,TE37
+D83_to_TE37,#6783E3,Electricity distribution,transmission,2000,0.99,20,D83,TE37
+D84_to_TE55,#6783E3,Electricity distribution,transmission,2000,0.99,20,D84,TE55
+D85_to_TE40,#6783E3,Electricity distribution,transmission,2000,0.99,20,D85,TE40
+D86_to_TE40,#6783E3,Electricity distribution,transmission,2000,0.99,20,D86,TE40
+D87_to_TE40,#6783E3,Electricity distribution,transmission,2000,0.99,20,D87,TE40
+D88_to_TE40,#6783E3,Electricity distribution,transmission,2000,0.99,20,D88,TE40
+D89_to_TE54,#6783E3,Electricity distribution,transmission,2000,0.99,20,D89,TE54
+D90_to_TE54,#6783E3,Electricity distribution,transmission,2000,0.99,20,D90,TE54
+D91_to_TE73,#6783E3,Electricity distribution,transmission,2000,0.99,20,D91,TE73
+D92_to_TE73,#6783E3,Electricity distribution,transmission,2000,0.99,20,D92,TE73
+D93_to_TE44,#6783E3,Electricity distribution,transmission,2000,0.99,20,D93,TE44
+D94_to_TE44,#6783E3,Electricity distribution,transmission,2000,0.99,20,D94,TE44
+D95_to_TE44,#6783E3,Electricity distribution,transmission,2000,0.99,20,D95,TE44
+D96_to_TE45,#6783E3,Electricity distribution,transmission,2000,0.99,20,D96,TE45
+D97_to_TE46,#6783E3,Electricity distribution,transmission,2000,0.99,20,D97,TE46
+D98_to_TE46,#6783E3,Electricity distribution,transmission,2000,0.99,20,D98,TE46
+D99_to_TE53,#6783E3,Electricity distribution,transmission,2000,0.99,20,D99,TE53
+D100_to_TE53,#6783E3,Electricity distribution,transmission,2000,0.99,20,D100,TE53
+D101_to_TE52,#6783E3,Electricity distribution,transmission,2000,0.99,20,D101,TE52
+D102_to_TE52,#6783E3,Electricity distribution,transmission,2000,0.99,20,D102,TE52
+D103_to_TE48,#6783E3,Electricity distribution,transmission,2000,0.99,20,D103,TE48
+D104_to_TE48,#6783E3,Electricity distribution,transmission,2000,0.99,20,D104,TE48
+D105_to_TE73,#6783E3,Electricity distribution,transmission,2000,0.99,20,D105,TE73
+D106_to_TE72,#6783E3,Electricity distribution,transmission,2000,0.99,20,D106,TE72
+D107_to_TE72,#6783E3,Electricity distribution,transmission,2000,0.99,20,D107,TE72
+D108_to_TE71,#6783E3,Electricity distribution,transmission,2000,0.99,20,D108,TE71
+D109_to_TE71,#6783E3,Electricity distribution,transmission,2000,0.99,20,D109,TE71
+D110_to_TE71,#6783E3,Electricity distribution,transmission,2000,0.99,20,D110,TE71
+D111_to_TE70,#6783E3,Electricity distribution,transmission,2000,0.99,20,D111,TE70
+D112_to_TE70,#6783E3,Electricity distribution,transmission,2000,0.99,20,D112,TE70
+D113_to_TE68,#6783E3,Electricity distribution,transmission,2000,0.99,20,D113,TE68
+D114_to_TE68,#6783E3,Electricity distribution,transmission,2000,0.99,20,D114,TE68
+D115_to_TE67,#6783E3,Electricity distribution,transmission,2000,0.99,20,D115,TE67
+D116_to_TE66,#6783E3,Electricity distribution,transmission,2000,0.99,20,D116,TE66
+D117_to_TE66,#6783E3,Electricity distribution,transmission,2000,0.99,20,D117,TE66
+D118_to_TE66,#6783E3,Electricity distribution,transmission,2000,0.99,20,D118,TE66
+D119_to_TE65,#6783E3,Electricity distribution,transmission,2000,0.99,20,D119,TE65
+D120_to_TE65,#6783E3,Electricity distribution,transmission,2000,0.99,20,D120,TE65
+D121_to_TE46,#6783E3,Electricity distribution,transmission,2000,0.99,20,D121,TE46
+D122_to_TE46,#6783E3,Electricity distribution,transmission,2000,0.99,20,D122,TE46
+D123_to_TE47,#6783E3,Electricity distribution,transmission,2000,0.99,20,D123,TE47
+D124_to_TE47,#6783E3,Electricity distribution,transmission,2000,0.99,20,D124,TE47
+D125_to_TE47,#6783E3,Electricity distribution,transmission,2000,0.99,20,D125,TE47
+D126_to_TE48,#6783E3,Electricity distribution,transmission,2000,0.99,20,D126,TE48
+D127_to_TE48,#6783E3,Electricity distribution,transmission,2000,0.99,20,D127,TE48
+D128_to_TE49,#6783E3,Electricity distribution,transmission,2000,0.99,20,D128,TE49
+D129_to_TE49,#6783E3,Electricity distribution,transmission,2000,0.99,20,D129,TE49
+D130_to_TE58,#6783E3,Electricity distribution,transmission,2000,0.99,20,D130,TE58
+D131_to_TE58,#6783E3,Electricity distribution,transmission,2000,0.99,20,D131,TE58
+D132_to_TE59,#6783E3,Electricity distribution,transmission,2000,0.99,20,D132,TE59
+D133_to_TE60,#6783E3,Electricity distribution,transmission,2000,0.99,20,D133,TE60
+D134_to_TE60,#6783E3,Electricity distribution,transmission,2000,0.99,20,D134,TE60
+D135_to_TE61,#6783E3,Electricity distribution,transmission,2000,0.99,20,D135,TE61
+D136_to_TE61,#6783E3,Electricity distribution,transmission,2000,0.99,20,D136,TE61
+D137_to_TE62,#6783E3,Electricity distribution,transmission,2000,0.99,20,D137,TE62
+D138_to_TE63,#6783E3,Electricity distribution,transmission,2000,0.99,20,D138,TE63
+D139_to_TE63,#6783E3,Electricity distribution,transmission,2000,0.99,20,D139,TE63
+D140_to_TE64,#6783E3,Electricity distribution,transmission,2000,0.99,20,D140,TE64
+D141_to_TE64,#6783E3,Electricity distribution,transmission,2000,0.99,20,D141,TE64
+D142_to_TE64,#6783E3,Electricity distribution,transmission,2000,0.99,20,D142,TE64
+D143_to_TE64,#6783E3,Electricity distribution,transmission,2000,0.99,20,D143,TE64
+D144_to_TE64,#6783E3,Electricity distribution,transmission,2000,0.99,20,D144,TE64
