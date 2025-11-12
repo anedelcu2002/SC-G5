@@ -1,5 +1,5 @@
 techs,color,name,base_tech,flow_cap_max,flow_out_eff_per_distance,lifetime,link_to,link_from
-SH1_to_TH1,#823739,Heat transmission,transmission,2000,0.98,20,SH1,TH1
+TH1_to_SH1,#823739,Heat transmission,transmission,2000,0.98,20,SH1,TH1
 TH1_to_TH2,#823740,Heat transmission,transmission,2000,0.98,20,TH1,TH2
 TH2_to_TH3,#823741,Heat transmission,transmission,2000,0.98,20,TH2,TH3
 TH3_to_TH4,#823742,Heat transmission,transmission,2000,0.98,20,TH3,TH4
