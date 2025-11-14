@@ -29,24 +29,24 @@ data_definitions:
 # --8<-- [end:parameter_data_definitions]
 
 techs:
-  supply_electricity:
-    name: National grid import
-    color: '#C5ABE3'
+  supply_LV_electricity:
+    name: "Low-voltage electricity supply"
+    color: "#C5ABE3"
     base_tech: supply
     carrier_out: electricity
     cost_flow_cap:
-      data: 1000
-      index: monetary
-      dims: costs
+        data: 1000
+        index: monetary
+        dims: costs
     flow_cap_max: 2000
     lifetime: 20
 
   supply_geothermal:
-    name: Geothermal heat extraction
-    color: '#C98AAD'
+    name: "Geothermal heat supply"
+    color: "#C98AAD"
     base_tech: supply
-    carrier_out: heat
-    flow_cap_max: 2000
+    carrier_out: HQ_heat
+    flow_cap_max: 10000
     cost_flow_cap:
       data: 1000
       index: monetary
@@ -54,39 +54,62 @@ techs:
     lifetime: 20
 
   heat_pump:
-    name: Air-to-air heat pump
-    color: '#8E2999'
+    name: "Air-to-air heat pump"
+    color: "#8E2999"
     base_tech: conversion
     carrier_in: electricity
-    carrier_out: heat
+    carrier_out: LQ_heat
     cost_flow_cap:
-      data: 5
-      index: [[monetary, heat]]
-      dims: [costs, carriers]
+        data: 5
+        index: [[monetary, LQ_heat]]
+        dims: [costs, carriers]
     flow_cap_max:
       data: 50
-      index: heat
+      index: LQ_heat
+      dims: carriers
+    flow_out_eff: 0.95
+    lifetime: 20
+
+  heat_substation:
+    name: "HQ to LQ heat conversion substation"
+    color: "#8E2999"
+    base_tech: conversion
+    carrier_in: HQ_heat
+    carrier_out: LQ_heat
+    cost_flow_cap:
+        data: 5
+        index: [[monetary, LQ_heat]]
+        dims: [costs, carriers]
+    flow_cap_max:
+      data: 50
+      index: LQ_heat
       dims: carriers
     flow_out_eff: 0.95
     lifetime: 20
 
   demand_electricity:
-    name: Electrical demand
-    color: '#072486'
+    name: "Electrical demand"
+    color: "#072486"
     base_tech: demand
     carrier_in: electricity
 
   demand_heat:
-    name: Heat demand
-    color: '#660507'
+    name: "Heat demand"
+    color: "#660507"
     base_tech: demand
-    carrier_in: heat
+    carrier_in: LQ_heat
+
+  heat_main:
+    name: "Substitute for demand to make transmission nodes work"
+    color: "#660507"
+    base_tech: demand
+    carrier_in: HQ_heat
 
 # --8<-- [start:data-tables]
 
 
 data_tables:
-  links_costs_monetary:
+  links_costs:
     data: data_tables/links_costs.csv
     rows: techs
     columns: parameters
@@ -98,454 +121,32 @@ data_tables:
     columns: parameters
     add_dims:
       carriers: electricity
-  links_heat:
-    data: data_tables/links_heat.csv
+  links_HQ_heat:
+      data: data_tables/warmtenet_links_carriers.csv
+      rows: techs
+      columns: parameters
+      add_dims:
+        carriers: HQ_heat
+  links_LQ_heat:
+    data: data_tables/links_LQ_heat.csv
     rows: techs
     columns: parameters
     add_dims:
-      carriers: heat
+      carriers: LQ_heat
   links:
     data: data_tables/links.csv
     rows: techs
     columns: parameters
   nodes:
     data: data_tables/nodes.csv
-    rows: [nodes, techs, parameters]
+    rows: [nodes,techs,parameters]
     columns: timesteps
-  nodes_base_info:
-    data: data_tables/nodes_base_info.csv
+  nodes_coordinates:
+    data: data_tables/nodes_coordinates.csv
     rows: nodes
     columns: parameters
+
 nodes:
-  D1:
+  substation_multatulibuurt:
     techs:
-      heat_pump: {}
-  D2:
-    techs:
-      heat_pump: {}
-  D3:
-    techs:
-      heat_pump: {}
-  D4:
-    techs:
-      heat_pump: {}
-  D5:
-    techs:
-      heat_pump: {}
-  D6:
-    techs:
-      heat_pump: {}
-  D7:
-    techs:
-      heat_pump: {}
-  D8:
-    techs:
-      heat_pump: {}
-  D9:
-    techs:
-      heat_pump: {}
-  D10:
-    techs:
-      heat_pump: {}
-  D11:
-    techs:
-      heat_pump: {}
-  D12:
-    techs:
-      heat_pump: {}
-  D13:
-    techs:
-      heat_pump: {}
-  D14:
-    techs:
-      heat_pump: {}
-  D15:
-    techs:
-      heat_pump: {}
-  D16:
-    techs:
-      heat_pump: {}
-  D17:
-    techs:
-      heat_pump: {}
-  D18:
-    techs:
-      heat_pump: {}
-  D19:
-    techs:
-      heat_pump: {}
-  D20:
-    techs:
-      heat_pump: {}
-  D21:
-    techs:
-      heat_pump: {}
-  D22:
-    techs:
-      heat_pump: {}
-  D23:
-    techs:
-      heat_pump: {}
-  D24:
-    techs:
-      heat_pump: {}
-  D25:
-    techs:
-      heat_pump: {}
-  D26:
-    techs:
-      heat_pump: {}
-  D27:
-    techs:
-      heat_pump: {}
-  D28:
-    techs:
-      heat_pump: {}
-  D29:
-    techs:
-      heat_pump: {}
-  D30:
-    techs:
-      heat_pump: {}
-  D31:
-    techs:
-      heat_pump: {}
-  D32:
-    techs:
-      heat_pump: {}
-  D33:
-    techs:
-      heat_pump: {}
-  D34:
-    techs:
-      heat_pump: {}
-  D35:
-    techs:
-      heat_pump: {}
-  D36:
-    techs:
-      heat_pump: {}
-  D37:
-    techs:
-      heat_pump: {}
-  D38:
-    techs:
-      heat_pump: {}
-  D39:
-    techs:
-      heat_pump: {}
-  D40:
-    techs:
-      heat_pump: {}
-  D41:
-    techs:
-      heat_pump: {}
-  D42:
-    techs:
-      heat_pump: {}
-  D43:
-    techs:
-      heat_pump: {}
-  D44:
-    techs:
-      heat_pump: {}
-  D45:
-    techs:
-      heat_pump: {}
-  D46:
-    techs:
-      heat_pump: {}
-  D47:
-    techs:
-      heat_pump: {}
-  D48:
-    techs:
-      heat_pump: {}
-  D49:
-    techs:
-      heat_pump: {}
-  D50:
-    techs:
-      heat_pump: {}
-  D51:
-    techs:
-      heat_pump: {}
-  D52:
-    techs:
-      heat_pump: {}
-  D53:
-    techs:
-      heat_pump: {}
-  D54:
-    techs:
-      heat_pump: {}
-  D55:
-    techs:
-      heat_pump: {}
-  D56:
-    techs:
-      heat_pump: {}
-  D57:
-    techs:
-      heat_pump: {}
-  D58:
-    techs:
-      heat_pump: {}
-  D59:
-    techs:
-      heat_pump: {}
-  D60:
-    techs:
-      heat_pump: {}
-  D61:
-    techs:
-      heat_pump: {}
-  D62:
-    techs:
-      heat_pump: {}
-  D63:
-    techs:
-      heat_pump: {}
-  D64:
-    techs:
-      heat_pump: {}
-  D65:
-    techs:
-      heat_pump: {}
-  D66:
-    techs:
-      heat_pump: {}
-  D67:
-    techs:
-      heat_pump: {}
-  D68:
-    techs:
-      heat_pump: {}
-  D69:
-    techs:
-      heat_pump: {}
-  D70:
-    techs:
-      heat_pump: {}
-  D71:
-    techs:
-      heat_pump: {}
-  D72:
-    techs:
-      heat_pump: {}
-  D73:
-    techs:
-      heat_pump: {}
-  D74:
-    techs:
-      heat_pump: {}
-  D75:
-    techs:
-      heat_pump: {}
-  D76:
-    techs:
-      heat_pump: {}
-  D77:
-    techs:
-      heat_pump: {}
-  D78:
-    techs:
-      heat_pump: {}
-  D79:
-    techs:
-      heat_pump: {}
-  D80:
-    techs:
-      heat_pump: {}
-  D81:
-    techs:
-      heat_pump: {}
-  D82:
-    techs:
-      heat_pump: {}
-  D83:
-    techs:
-      heat_pump: {}
-  D84:
-    techs:
-      heat_pump: {}
-  D85:
-    techs:
-      heat_pump: {}
-  D86:
-    techs:
-      heat_pump: {}
-  D87:
-    techs:
-      heat_pump: {}
-  D88:
-    techs:
-      heat_pump: {}
-  D89:
-    techs:
-      heat_pump: {}
-  D90:
-    techs:
-      heat_pump: {}
-  D91:
-    techs:
-      heat_pump: {}
-  D92:
-    techs:
-      heat_pump: {}
-  D93:
-    techs:
-      heat_pump: {}
-  D94:
-    techs:
-      heat_pump: {}
-  D95:
-    techs:
-      heat_pump: {}
-  D96:
-    techs:
-      heat_pump: {}
-  D97:
-    techs:
-      heat_pump: {}
-  D98:
-    techs:
-      heat_pump: {}
-  D99:
-    techs:
-      heat_pump: {}
-  D100:
-    techs:
-      heat_pump: {}
-  D101:
-    techs:
-      heat_pump: {}
-  D102:
-    techs:
-      heat_pump: {}
-  D103:
-    techs:
-      heat_pump: {}
-  D104:
-    techs:
-      heat_pump: {}
-  D105:
-    techs:
-      heat_pump: {}
-  D106:
-    techs:
-      heat_pump: {}
-  D107:
-    techs:
-      heat_pump: {}
-  D108:
-    techs:
-      heat_pump: {}
-  D109:
-    techs:
-      heat_pump: {}
-  D110:
-    techs:
-      heat_pump: {}
-  D111:
-    techs:
-      heat_pump: {}
-  D112:
-    techs:
-      heat_pump: {}
-  D113:
-    techs:
-      heat_pump: {}
-  D114:
-    techs:
-      heat_pump: {}
-  D115:
-    techs:
-      heat_pump: {}
-  D116:
-    techs:
-      heat_pump: {}
-  D117:
-    techs:
-      heat_pump: {}
-  D118:
-    techs:
-      heat_pump: {}
-  D119:
-    techs:
-      heat_pump: {}
-  D120:
-    techs:
-      heat_pump: {}
-  D121:
-    techs:
-      heat_pump: {}
-  D122:
-    techs:
-      heat_pump: {}
-  D123:
-    techs:
-      heat_pump: {}
-  D124:
-    techs:
-      heat_pump: {}
-  D125:
-    techs:
-      heat_pump: {}
-  D126:
-    techs:
-      heat_pump: {}
-  D127:
-    techs:
-      heat_pump: {}
-  D128:
-    techs:
-      heat_pump: {}
-  D129:
-    techs:
-      heat_pump: {}
-  D130:
-    techs:
-      heat_pump: {}
-  D131:
-    techs:
-      heat_pump: {}
-  D132:
-    techs:
-      heat_pump: {}
-  D133:
-    techs:
-      heat_pump: {}
-  D134:
-    techs:
-      heat_pump: {}
-  D135:
-    techs:
-      heat_pump: {}
-  D136:
-    techs:
-      heat_pump: {}
-  D137:
-    techs:
-      heat_pump: {}
-  D138:
-    techs:
-      heat_pump: {}
-  D139:
-    techs:
-      heat_pump: {}
-  D140:
-    techs:
-      heat_pump: {}
-  D141:
-    techs:
-      heat_pump: {}
-  D142:
-    techs:
-      heat_pump: {}
-  D143:
-    techs:
-      heat_pump: {}
-  D144:
-    techs:
-      heat_pump: {}
+      heat_substation: {}

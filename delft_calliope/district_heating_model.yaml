@@ -29,8 +29,8 @@ data_definitions:
 # --8<-- [end:parameter_data_definitions]
 
 techs:
-  supply_electricity:
-    name: "National grid import"
+  supply_LV_electricity:
+    name: "Low-voltage electricity supply"
     color: "#C5ABE3"
     base_tech: supply
     carrier_out: electricity
@@ -42,11 +42,11 @@ techs:
     lifetime: 20
 
   supply_geothermal:
-    name: "Geothermal heat extraction"
+    name: "Geothermal heat supply"
     color: "#C98AAD"
     base_tech: supply
-    carrier_out: heat
-    flow_cap_max: 2000
+    carrier_out: HQ_heat
+    flow_cap_max: 10000
     cost_flow_cap:
       data: 1000
       index: monetary
@@ -58,14 +58,31 @@ techs:
     color: "#8E2999"
     base_tech: conversion
     carrier_in: electricity
-    carrier_out: heat
+    carrier_out: LQ_heat
     cost_flow_cap:
         data: 5
-        index: [[monetary, heat]]
+        index: [[monetary, LQ_heat]]
         dims: [costs, carriers]
     flow_cap_max:
       data: 50
-      index: heat
+      index: LQ_heat
+      dims: carriers
+    flow_out_eff: 0.95
+    lifetime: 20
+
+  heat_substation:
+    name: "HQ to LQ heat conversion substation"
+    color: "#8E2999"
+    base_tech: conversion
+    carrier_in: HQ_heat
+    carrier_out: LQ_heat
+    cost_flow_cap:
+        data: 5
+        index: [[monetary, LQ_heat]]
+        dims: [costs, carriers]
+    flow_cap_max:
+      data: 50
+      index: LQ_heat
       dims: carriers
     flow_out_eff: 0.95
     lifetime: 20
@@ -80,13 +97,19 @@ techs:
     name: "Heat demand"
     color: "#660507"
     base_tech: demand
-    carrier_in: heat
+    carrier_in: LQ_heat
+
+  heat_main:
+    name: "Substitute for demand to make transmission nodes work"
+    color: "#660507"
+    base_tech: demand
+    carrier_in: HQ_heat
 
 # --8<-- [start:data-tables]
 
 
 data_tables:
-  links_costs_monetary:
+  links_costs:
     data: data_tables/links_costs.csv
     rows: techs
     columns: parameters
@@ -98,12 +121,18 @@ data_tables:
     columns: parameters
     add_dims:
       carriers: electricity
-  links_heat:
-    data: data_tables/links_heat.csv
+  links_HQ_heat:
+      data: data_tables/warmtenet_links_carriers.csv
+      rows: techs
+      columns: parameters
+      add_dims:
+        carriers: HQ_heat
+  links_LQ_heat:
+    data: data_tables/links_LQ_heat.csv
     rows: techs
     columns: parameters
     add_dims:
-      carriers: heat
+      carriers: LQ_heat
   links:
     data: data_tables/links.csv
     rows: techs
@@ -112,7 +141,12 @@ data_tables:
     data: data_tables/nodes.csv
     rows: [nodes,techs,parameters]
     columns: timesteps
-  nodes_base_info:
-    data: data_tables/nodes_base_info.csv
+  nodes_coordinates:
+    data: data_tables/nodes_coordinates.csv
     rows: nodes
     columns: parameters
+
+nodes:
+  substation_multatulibuurt:
+    techs:
+      heat_substation: {}

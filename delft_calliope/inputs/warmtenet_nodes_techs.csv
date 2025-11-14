@@ -1,0 +1,10 @@
+﻿nodes,techs,parameters,timesteps,2050/01/01 00:00
+geothermie_delft,supply_geothermal,source_use_max,,10000
+warmtenet1,heat_main,sink_use_equals,,0
+warmtenet2,heat_main,sink_use_equals,,0
+warmtenet3,heat_main,sink_use_equals,,0
+warmtenet4,heat_main,sink_use_equals,,0
+warmtenet5,heat_main,sink_use_equals,,0
+warmtenet6,heat_main,sink_use_equals,,0
+warmtenet7,heat_main,sink_use_equals,,0
+warmtenet8,heat_main,sink_use_equals,,0

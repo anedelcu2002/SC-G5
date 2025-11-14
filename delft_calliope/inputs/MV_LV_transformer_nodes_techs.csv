@@ -1,0 +1,8 @@
+﻿nodes,techs,parameters,timesteps,2050/01/01 00:00
+MV_LV_transformer1,supply_LV_electricity,source_use_max,,500
+MV_LV_transformer2,supply_LV_electricity,source_use_max,,500
+MV_LV_transformer3,supply_LV_electricity,source_use_max,,500
+MV_LV_transformer4,supply_LV_electricity,source_use_max,,500
+MV_LV_transformer5,supply_LV_electricity,source_use_max,,500
+MV_LV_transformer6,supply_LV_electricity,source_use_max,,500
+MV_LV_transformer7,supply_LV_electricity,source_use_max,,500
