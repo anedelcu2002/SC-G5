@@ -53,6 +53,18 @@ techs:
       dims: costs
     lifetime: 20
 
+  supply_test:
+    name: "Test heat supply"
+    color: "#C98AAD"
+    base_tech: supply
+    carrier_out: LQ_heat
+    flow_cap_max: 10000
+    cost_flow_cap:
+      data: 1000
+      index: monetary
+      dims: costs
+    lifetime: 20
+
   heat_pump:
     name: "Air-to-air heat pump"
     color: "#8E2999"
@@ -81,7 +93,7 @@ techs:
         index: [[monetary, LQ_heat]]
         dims: [costs, carriers]
     flow_cap_max:
-      data: 50
+      data: 10000
       index: LQ_heat
       dims: carriers
     flow_out_eff: 0.95
@@ -134,11 +146,11 @@ data_tables:
     add_dims:
       carriers: LQ_heat
   links:
-    data: data_tables/links.csv
+    data: data_tables/links_techs.csv
     rows: techs
     columns: parameters
   nodes:
-    data: data_tables/nodes.csv
+    data: data_tables/nodes_techs.csv
     rows: [nodes,techs,parameters]
     columns: timesteps
   nodes_coordinates:
@@ -149,4 +161,4 @@ data_tables:
 nodes:
   substation_multatulibuurt:
     techs:
-      heat_substation: {}
+      supply_test:
