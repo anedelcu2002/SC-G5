@@ -1,0 +1,10 @@
+techs,carrier_out,carrier_in
+geothermie_delft_to_warmtenet1,1,1
+warmtenet1_to_warmtenet2,1,1
+warmtenet2_to_warmtenet3,1,1
+warmtenet3_to_warmtenet4,1,1
+warmtenet4_to_warmtenet5,1,1
+warmtenet5_to_warmtenet6,1,1
+warmtenet5_to_warmtenet7,1,1
+warmtenet7_to_warmtenet8,1,1
+warmtenet8_to_substation_multatulibuurt,1,1

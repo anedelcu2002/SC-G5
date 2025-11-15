@@ -1,0 +1,10 @@
+techs,cost_flow_cap_per_distance
+geothermie_delft_to_warmtenet1,100
+warmtenet1_to_warmtenet2,100
+warmtenet2_to_warmtenet3,100
+warmtenet3_to_warmtenet4,100
+warmtenet4_to_warmtenet5,100
+warmtenet5_to_warmtenet6,100
+warmtenet5_to_warmtenet7,100
+warmtenet7_to_warmtenet8,100
+warmtenet8_to_substation_multatulibuurt,100

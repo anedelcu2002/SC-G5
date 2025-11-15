@@ -29,8 +29,8 @@ data_definitions:
 # --8<-- [end:parameter_data_definitions]
 
 techs:
-  supply_electricity:
-    name: National grid import
+  supply_LV_electricity:
+    name: Low-voltage electricity supply
     color: '#C5ABE3'
     base_tech: supply
     carrier_out: electricity
@@ -42,11 +42,11 @@ techs:
     lifetime: 20
 
   supply_geothermal:
-    name: Geothermal heat extraction
+    name: Geothermal heat supply
     color: '#C98AAD'
     base_tech: supply
-    carrier_out: heat
-    flow_cap_max: 2000
+    carrier_out: HQ_heat
+    flow_cap_max: 10000
     cost_flow_cap:
       data: 1000
       index: monetary
@@ -58,14 +58,31 @@ techs:
     color: '#8E2999'
     base_tech: conversion
     carrier_in: electricity
-    carrier_out: heat
+    carrier_out: LQ_heat
     cost_flow_cap:
       data: 5
-      index: [[monetary, heat]]
+      index: [[monetary, LQ_heat]]
       dims: [costs, carriers]
     flow_cap_max:
-      data: 50
-      index: heat
+      data: 1000
+      index: LQ_heat
+      dims: carriers
+    flow_out_eff: 0.95
+    lifetime: 20
+
+  heat_substation:
+    name: HQ to LQ heat conversion substation
+    color: '#8E2999'
+    base_tech: conversion
+    carrier_in: HQ_heat
+    carrier_out: LQ_heat
+    cost_flow_cap:
+      data: 5
+      index: [[monetary, LQ_heat]]
+      dims: [costs, carriers]
+    flow_cap_max:
+      data: 10000
+      index: LQ_heat
       dims: carriers
     flow_out_eff: 0.95
     lifetime: 20
@@ -76,17 +93,23 @@ techs:
     base_tech: demand
     carrier_in: electricity
 
-  demand_heat:
+  demand_LQ_heat:
     name: Heat demand
     color: '#660507'
     base_tech: demand
-    carrier_in: heat
+    carrier_in: LQ_heat
+
+  heat_main:
+    name: Substitute for demand to make transmission nodes work
+    color: '#660507'
+    base_tech: demand
+    carrier_in: HQ_heat
 
 # --8<-- [start:data-tables]
 
 
 data_tables:
-  links_costs_monetary:
+  links_costs:
     data: data_tables/links_costs.csv
     rows: techs
     columns: parameters
@@ -98,454 +121,1163 @@ data_tables:
     columns: parameters
     add_dims:
       carriers: electricity
-  links_heat:
-    data: data_tables/links_heat.csv
+  links_HQ_heat:
+    data: data_tables/warmtenet_links_carriers.csv
     rows: techs
     columns: parameters
     add_dims:
-      carriers: heat
+      carriers: HQ_heat
+  links_LQ_heat:
+    data: data_tables/links_LQ_heat.csv
+    rows: techs
+    columns: parameters
+    add_dims:
+      carriers: LQ_heat
   links:
-    data: data_tables/links.csv
+    data: data_tables/links_techs.csv
     rows: techs
     columns: parameters
   nodes:
-    data: data_tables/nodes.csv
+    data: data_tables/nodes_techs.csv
     rows: [nodes, techs, parameters]
     columns: timesteps
-  nodes_base_info:
-    data: data_tables/nodes_base_info.csv
+  nodes_coordinates:
+    data: data_tables/nodes_coordinates.csv
     rows: nodes
     columns: parameters
+
 nodes:
-  D1:
+  substation_multatulibuurt:
     techs:
+      heat_substation:
+  D0503100000000190:
+    techs:
+      heat_pump: {}
+  D0503100000000191:
+    techs:
+      heat_pump: {}
+  D0503100000000193:
+    techs:
+      heat_pump: {}
+  D0503100000001933:
+    techs:
+      heat_pump: {}
+  D0503100000001936:
+    techs:
+      heat_pump: {}
+  D0503100000001937:
+    techs:
+      heat_pump: {}
+  D0503100000001938:
+    techs:
+      heat_pump: {}
+  D0503100000002020:
+    techs:
+      heat_pump: {}
+  D0503100000002021:
+    techs:
+      heat_pump: {}
+  D0503100000002023:
+    techs:
+      heat_pump: {}
+  D0503100000002025:
+    techs:
+      heat_pump: {}
+  D0503100000002026:
+    techs:
+      heat_pump: {}
+  D0503100000002031:
+    techs:
+      heat_pump: {}
+  D0503100000002032:
+    techs:
+      heat_pump: {}
+  D0503100000002033:
+    techs:
+      heat_pump: {}
+  D0503100000013778:
+    techs:
+      heat_pump: {}
+  D0503100000013779:
+    techs:
+      heat_pump: {}
+  D0503100000013780:
+    techs:
+      heat_pump: {}
+  D0503100000013831:
+    techs:
+      heat_pump: {}
+  D0503100000013832:
+    techs:
+      heat_pump: {}
+  D0503100000013834:
+    techs:
+      heat_pump: {}
+  D0503100000013838:
+    techs:
+      heat_pump: {}
+  D0503100000013839:
+    techs:
+      heat_pump: {}
+  D0503100000013840:
+    techs:
+      heat_pump: {}
+  D0503100000013841:
+    techs:
+      heat_pump: {}
+  D0503100000013842:
+    techs:
+      heat_pump: {}
+  D0503100000013843:
+    techs:
+      heat_pump: {}
+  D0503100000013844:
+    techs:
+      heat_pump: {}
+  D0503100000013845:
+    techs:
+      heat_pump: {}
+  D0503100000013846:
+    techs:
+      heat_pump: {}
+  D0503100000013849:
+    techs:
+      heat_pump: {}
+  D0503100000013850:
+    techs:
+      heat_pump: {}
+  D0503100000013851:
+    techs:
+      heat_pump: {}
+  D0503100000013852:
+    techs:
+      heat_pump: {}
+  D0503100000013853:
+    techs:
+      heat_pump: {}
+  D0503100000013854:
+    techs:
+      heat_pump: {}
+  D0503100000013855:
+    techs:
+      heat_pump: {}
+  D0503100000013864:
+    techs:
+      heat_pump: {}
+  D0503100000013866:
+    techs:
+      heat_pump: {}
+  D0503100000013867:
+    techs:
+      heat_pump: {}
+  D0503100000013868:
+    techs:
+      heat_pump: {}
+  D0503100000013869:
+    techs:
+      heat_pump: {}
+  D0503100000013870:
+    techs:
+      heat_pump: {}
+  D0503100000013871:
+    techs:
+      heat_pump: {}
+  D0503100000013872:
+    techs:
+      heat_pump: {}
+  D0503100000013873:
+    techs:
+      heat_pump: {}
+  D0503100000013875:
+    techs:
+      heat_pump: {}
+  D0503100000013876:
+    techs:
+      heat_pump: {}
+  D0503100000013877:
+    techs:
+      heat_pump: {}
+  D0503100000013878:
+    techs:
+      heat_pump: {}
+  D0503100000013880:
+    techs:
+      heat_pump: {}
+  D0503100000013881:
+    techs:
+      heat_pump: {}
+  D0503100000014645:
+    techs:
+      heat_pump: {}
+  D0503100000014648:
+    techs:
+      heat_pump: {}
+  D0503100000014649:
+    techs:
+      heat_pump: {}
+  D0503100000014654:
+    techs:
+      heat_pump: {}
+  D0503100000014719:
+    techs:
+      heat_pump: {}
+  D0503100000014723:
+    techs:
+      heat_pump: {}
+  D0503100000014725:
+    techs:
+      heat_pump: {}
+  D0503100000014726:
+    techs:
+      heat_pump: {}
+  D0503100000014729:
+    techs:
+      heat_pump: {}
+  D0503100000014731:
+    techs:
+      heat_pump: {}
+  D0503100000014733:
+    techs:
+      heat_pump: {}
+  D0503100000014739:
+    techs:
+      heat_pump: {}
+  D0503100000014741:
+    techs:
+      heat_pump: {}
+  D0503100000014744:
+    techs:
+      heat_pump: {}
+  D0503100000014745:
+    techs:
+      heat_pump: {}
+  D0503100000014747:
+    techs:
+      heat_pump: {}
+  D0503100000014748:
+    techs:
+      heat_pump: {}
+  D0503100000014835:
+    techs:
+      heat_pump: {}
+  D0503100000014836:
+    techs:
+      heat_pump: {}
+  D0503100000014837:
+    techs:
+      heat_pump: {}
+  D0503100000014838:
+    techs:
+      heat_pump: {}
+  D0503100000014843:
+    techs:
+      heat_pump: {}
+  D0503100000014847:
+    techs:
+      heat_pump: {}
+  D0503100000014848:
+    techs:
+      heat_pump: {}
+  D0503100000014850:
+    techs:
+      heat_pump: {}
+  D0503100000014852:
+    techs:
+      heat_pump: {}
+  D0503100000014854:
+    techs:
+      heat_pump: {}
+  D0503100000015289:
+    techs:
+      heat_pump: {}
+  D0503100000015290:
+    techs:
+      heat_pump: {}
+  D0503100000015291:
+    techs:
+      heat_pump: {}
+  D0503100000015292:
+    techs:
+      heat_pump: {}
+  D0503100000015293:
+    techs:
+      heat_pump: {}
+  D0503100000015294:
+    techs:
+      heat_pump: {}
+  D0503100000015295:
+    techs:
+      heat_pump: {}
+  D0503100000015297:
+    techs:
+      heat_pump: {}
+  D0503100000015298:
+    techs:
+      heat_pump: {}
+  D0503100000015299:
+    techs:
+      heat_pump: {}
+  D0503100000015300:
+    techs:
+      heat_pump: {}
+  D0503100000015304:
+    techs:
+      heat_pump: {}
+  D0503100000015305:
+    techs:
+      heat_pump: {}
+  D0503100000015306:
+    techs:
+      heat_pump: {}
+  D0503100000015307:
+    techs:
+      heat_pump: {}
+  D0503100000015312:
+    techs:
+      heat_pump: {}
+  D0503100000015314:
+    techs:
+      heat_pump: {}
+  D0503100000015316:
+    techs:
+      heat_pump: {}
+  D0503100000015317:
+    techs:
+      heat_pump: {}
+  D0503100000015318:
+    techs:
+      heat_pump: {}
+  D0503100000015402:
+    techs:
+      heat_pump: {}
+  D0503100000015404:
+    techs:
+      heat_pump: {}
+  D0503100000015405:
+    techs:
+      heat_pump: {}
+  D0503100000015406:
+    techs:
+      heat_pump: {}
+  D0503100000015408:
+    techs:
+      heat_pump: {}
+  D0503100000015409:
+    techs:
+      heat_pump: {}
+  D0503100000015410:
+    techs:
+      heat_pump: {}
+  D0503100000015412:
+    techs:
+      heat_pump: {}
+  D0503100000015413:
+    techs:
+      heat_pump: {}
+  D0503100000015414:
+    techs:
+      heat_pump: {}
+  D0503100000015415:
+    techs:
+      heat_pump: {}
+  D0503100000015416:
+    techs:
+      heat_pump: {}
+  D0503100000015418:
+    techs:
+      heat_pump: {}
+  D0503100000015420:
+    techs:
+      heat_pump: {}
+  D0503100000015424:
+    techs:
+      heat_pump: {}
+  D0503100000015425:
+    techs:
+      heat_pump: {}
+  D0503100000015428:
+    techs:
+      heat_pump: {}
+  D0503100000015431:
+    techs:
+      heat_pump: {}
+  D0503100000015432:
+    techs:
+      heat_pump: {}
+  D0503100000018688:
+    techs:
+      heat_pump: {}
+  D0503100000018691:
+    techs:
+      heat_pump: {}
+  D0503100000018692:
+    techs:
+      heat_pump: {}
+  D0503100000018693:
+    techs:
+      heat_pump: {}
+  D0503100000018694:
+    techs:
+      heat_pump: {}
+  D0503100000018695:
+    techs:
+      heat_pump: {}
+  D0503100000018698:
+    techs:
+      heat_pump: {}
+  D0503100000018699:
+    techs:
+      heat_pump: {}
+  D0503100000018700:
+    techs:
+      heat_pump: {}
+  D0503100000018701:
+    techs:
+      heat_pump: {}
+  D0503100000018704:
+    techs:
+      heat_pump: {}
+  D0503100000018705:
+    techs:
+      heat_pump: {}
+  D0503100000018706:
+    techs:
+      heat_pump: {}
+  D0503100000018707:
+    techs:
+      heat_pump: {}
+  D0503100000018708:
+    techs:
+      heat_pump: {}
+  D0503100000018710:
+    techs:
+      heat_pump: {}
+  D0503100000018711:
+    techs:
+      heat_pump: {}
+  D0503100000018712:
+    techs:
+      heat_pump: {}
+  D0503100000018785:
+    techs:
+      heat_pump: {}
+  D0503100000018786:
+    techs:
+      heat_pump: {}
+  D0503100000018787:
+    techs:
+      heat_pump: {}
+  D0503100000018788:
+    techs:
+      heat_pump: {}
+  D0503100000018789:
+    techs:
+      heat_pump: {}
+  D0503100000018790:
+    techs:
+      heat_pump: {}
+  D0503100000018791:
+    techs:
+      heat_pump: {}
+  D0503100000018792:
+    techs:
+      heat_pump: {}
+  D0503100000018793:
+    techs:
+      heat_pump: {}
+  D0503100000018794:
+    techs:
+      heat_pump: {}
+  D0503100000018795:
+    techs:
+      heat_pump: {}
+  D0503100000018796:
+    techs:
+      heat_pump: {}
+  D0503100000018797:
+    techs:
+      heat_pump: {}
+  D0503100000018798:
+    techs:
+      heat_pump: {}
+  D0503100000018799:
+    techs:
+      heat_pump: {}
+  D0503100000018800:
+    techs:
+      heat_pump: {}
+  D0503100000018801:
+    techs:
+      heat_pump: {}
+  D0503100000018802:
+    techs:
+      heat_pump: {}
+  D0503100000018803:
+    techs:
+      heat_pump: {}
+  D0503100000018804:
+    techs:
+      heat_pump: {}
+  D0503100000018805:
+    techs:
+      heat_pump: {}
+  D0503100000018806:
+    techs:
+      heat_pump: {}
+  D0503100000018807:
+    techs:
+      heat_pump: {}
+  D0503100000018808:
+    techs:
+      heat_pump: {}
+  D0503100000018809:
+    techs:
+      heat_pump: {}
+  D0503100000018810:
+    techs:
+      heat_pump: {}
+  D0503100000018811:
+    techs:
+      heat_pump: {}
+  D0503100000018812:
+    techs:
+      heat_pump: {}
+  D0503100000018813:
+    techs:
+      heat_pump: {}
+  D0503100000018814:
+    techs:
+      heat_pump: {}
+  D0503100000018815:
+    techs:
+      heat_pump: {}
+  D0503100000018879:
+    techs:
+      heat_pump: {}
+  D0503100000018880:
+    techs:
+      heat_pump: {}
+  D0503100000018881:
+    techs:
+      heat_pump: {}
+  D0503100000018882:
+    techs:
+      heat_pump: {}
+  D0503100000018883:
+    techs:
+      heat_pump: {}
+  D0503100000018884:
+    techs:
+      heat_pump: {}
+  D0503100000018892:
+    techs:
+      heat_pump: {}
+  D0503100000018893:
+    techs:
+      heat_pump: {}
+  D0503100000018894:
+    techs:
+      heat_pump: {}
+  D0503100000018895:
+    techs:
+      heat_pump: {}
+  D0503100000018896:
+    techs:
+      heat_pump: {}
+  D0503100000018897:
+    techs:
+      heat_pump: {}
+  D0503100000018899:
+    techs:
+      heat_pump: {}
+  D0503100000018900:
+    techs:
+      heat_pump: {}
+  D0503100000018901:
+    techs:
+      heat_pump: {}
+  D0503100000018902:
+    techs:
+      heat_pump: {}
+  D0503100000018903:
+    techs:
+      heat_pump: {}
+  D0503100000018904:
+    techs:
+      heat_pump: {}
+  D0503100000018905:
+    techs:
+      heat_pump: {}
+  D0503100000018906:
+    techs:
+      heat_pump: {}
+  D0503100000018907:
+    techs:
+      heat_pump: {}
+  D0503100000018908:
+    techs:
+      heat_pump: {}
+  D0503100000018909:
+    techs:
+      heat_pump: {}
+  D0503100000018910:
+    techs:
+      heat_pump: {}
+  D0503100000018911:
+    techs:
+      heat_pump: {}
+  D0503100000018912:
+    techs:
+      heat_pump: {}
+  D0503100000018979:
+    techs:
+      heat_pump: {}
+  D0503100000018980:
+    techs:
+      heat_pump: {}
+  D0503100000018981:
+    techs:
+      heat_pump: {}
+  D0503100000018982:
+    techs:
+      heat_pump: {}
+  D0503100000018983:
+    techs:
+      heat_pump: {}
+  D0503100000018984:
+    techs:
+      heat_pump: {}
+  D0503100000018985:
+    techs:
+      heat_pump: {}
+  D0503100000018986:
+    techs:
+      heat_pump: {}
+  D0503100000018987:
+    techs:
+      heat_pump: {}
+  D0503100000018988:
+    techs:
+      heat_pump: {}
+  D0503100000018989:
+    techs:
+      heat_pump: {}
+  D0503100000018990:
+    techs:
+      heat_pump: {}
+  D0503100000019096:
+    techs:
+      heat_pump: {}
+  D0503100000019098:
+    techs:
+      heat_pump: {}
+  D0503100000019099:
+    techs:
+      heat_pump: {}
+  D0503100000019100:
+    techs:
+      heat_pump: {}
+  D0503100000019102:
+    techs:
+      heat_pump: {}
+  D0503100000019103:
+    techs:
+      heat_pump: {}
+  D0503100000019104:
+    techs:
+      heat_pump: {}
+  D0503100000019105:
+    techs:
+      heat_pump: {}
+  D0503100000019106:
+    techs:
+      heat_pump: {}
+  D0503100000019107:
+    techs:
+      heat_pump: {}
+  D0503100000019108:
+    techs:
+      heat_pump: {}
+  D0503100000019109:
+    techs:
+      heat_pump: {}
+  D0503100000019110:
+    techs:
+      heat_pump: {}
+  D0503100000019111:
+    techs:
+      heat_pump: {}
+  D0503100000019112:
+    techs:
+      heat_pump: {}
+  D0503100000019113:
+    techs:
+      heat_pump: {}
+  D0503100000019114:
+    techs:
+      heat_pump: {}
+  D0503100000019115:
+    techs:
+      heat_pump: {}
+  D0503100000019116:
+    techs:
+      heat_pump: {}
+  D0503100000019117:
+    techs:
+      heat_pump: {}
+  D0503100000019194:
+    techs:
+      heat_pump: {}
+  D0503100000019195:
+    techs:
+      heat_pump: {}
+  D0503100000019196:
+    techs:
+      heat_pump: {}
+  D0503100000019197:
+    techs:
+      heat_pump: {}
+  D0503100000019198:
+    techs:
+      heat_pump: {}
+  D0503100000019223:
+    techs:
+      heat_pump: {}
+  D0503100000019224:
+    techs:
+      heat_pump: {}
+  D0503100000019225:
+    techs:
+      heat_pump: {}
+  D0503100000019226:
+    techs:
       heat_pump: {}
-  D2:
+  D0503100000019427:
     techs:
       heat_pump: {}
-  D3:
+  D0503100000019429:
     techs:
       heat_pump: {}
-  D4:
+  D0503100000019430:
     techs:
       heat_pump: {}
-  D5:
+  D0503100000019431:
     techs:
       heat_pump: {}
-  D6:
+  D0503100000019432:
     techs:
       heat_pump: {}
-  D7:
+  D0503100000019433:
     techs:
       heat_pump: {}
-  D8:
+  D0503100000019435:
     techs:
       heat_pump: {}
-  D9:
+  D0503100000019436:
     techs:
       heat_pump: {}
-  D10:
+  D0503100000019437:
     techs:
       heat_pump: {}
-  D11:
+  D0503100000019438:
     techs:
       heat_pump: {}
-  D12:
+  D0503100000019439:
     techs:
       heat_pump: {}
-  D13:
+  D0503100000019440:
     techs:
       heat_pump: {}
-  D14:
+  D0503100000019441:
     techs:
       heat_pump: {}
-  D15:
+  D0503100000019442:
     techs:
       heat_pump: {}
-  D16:
+  D0503100000019443:
     techs:
       heat_pump: {}
-  D17:
+  D0503100000019444:
     techs:
       heat_pump: {}
-  D18:
+  D0503100000019513:
     techs:
       heat_pump: {}
-  D19:
+  D0503100000019514:
     techs:
       heat_pump: {}
-  D20:
+  D0503100000019515:
     techs:
       heat_pump: {}
-  D21:
+  D0503100000019516:
     techs:
       heat_pump: {}
-  D22:
+  D0503100000019517:
     techs:
       heat_pump: {}
-  D23:
+  D0503100000019518:
     techs:
       heat_pump: {}
-  D24:
+  D0503100000019519:
     techs:
       heat_pump: {}
-  D25:
+  D0503100000019520:
     techs:
       heat_pump: {}
-  D26:
+  D0503100000019534:
     techs:
       heat_pump: {}
-  D27:
+  D0503100000019535:
     techs:
       heat_pump: {}
-  D28:
+  D0503100000019536:
     techs:
       heat_pump: {}
-  D29:
+  D0503100000019537:
     techs:
       heat_pump: {}
-  D30:
+  D0503100000019538:
     techs:
       heat_pump: {}
-  D31:
+  D0503100000019539:
     techs:
       heat_pump: {}
-  D32:
+  D0503100000019619:
     techs:
       heat_pump: {}
-  D33:
+  D0503100000019620:
     techs:
       heat_pump: {}
-  D34:
+  D0503100000019621:
     techs:
       heat_pump: {}
-  D35:
+  D0503100000019622:
     techs:
       heat_pump: {}
-  D36:
+  D0503100000019623:
     techs:
       heat_pump: {}
-  D37:
+  D0503100000019624:
     techs:
       heat_pump: {}
-  D38:
+  D0503100000019625:
     techs:
       heat_pump: {}
-  D39:
+  D0503100000019626:
     techs:
       heat_pump: {}
-  D40:
+  D0503100000019627:
     techs:
       heat_pump: {}
-  D41:
+  D0503100000019628:
     techs:
       heat_pump: {}
-  D42:
+  D0503100000019629:
     techs:
       heat_pump: {}
-  D43:
+  D0503100000019630:
     techs:
       heat_pump: {}
-  D44:
+  D0503100000019631:
     techs:
       heat_pump: {}
-  D45:
+  D0503100000019632:
     techs:
       heat_pump: {}
-  D46:
+  D0503100000019939:
     techs:
       heat_pump: {}
-  D47:
+  D0503100000019940:
     techs:
       heat_pump: {}
-  D48:
+  D0503100000019941:
     techs:
       heat_pump: {}
-  D49:
+  D0503100000019942:
     techs:
       heat_pump: {}
-  D50:
+  D0503100000019943:
     techs:
       heat_pump: {}
-  D51:
+  D0503100000019944:
     techs:
       heat_pump: {}
-  D52:
+  D0503100000019945:
     techs:
       heat_pump: {}
-  D53:
+  D0503100000019946:
     techs:
       heat_pump: {}
-  D54:
+  D0503100000019947:
     techs:
       heat_pump: {}
-  D55:
+  D0503100000019950:
     techs:
       heat_pump: {}
-  D56:
+  D0503100000019951:
     techs:
       heat_pump: {}
-  D57:
+  D0503100000019952:
     techs:
       heat_pump: {}
-  D58:
+  D0503100000019953:
     techs:
       heat_pump: {}
-  D59:
+  D0503100000020024:
     techs:
       heat_pump: {}
-  D60:
+  D0503100000020025:
     techs:
       heat_pump: {}
-  D61:
+  D0503100000020026:
     techs:
       heat_pump: {}
-  D62:
+  D0503100000020027:
     techs:
       heat_pump: {}
-  D63:
+  D0503100000020028:
     techs:
       heat_pump: {}
-  D64:
+  D0503100000020030:
     techs:
       heat_pump: {}
-  D65:
+  D0503100000020032:
     techs:
       heat_pump: {}
-  D66:
+  D0503100000020033:
     techs:
       heat_pump: {}
-  D67:
+  D0503100000020034:
     techs:
       heat_pump: {}
-  D68:
+  D0503100000020035:
     techs:
       heat_pump: {}
-  D69:
+  D0503100000020036:
     techs:
       heat_pump: {}
-  D70:
+  D0503100000020037:
     techs:
       heat_pump: {}
-  D71:
+  D0503100000020038:
     techs:
       heat_pump: {}
-  D72:
+  D0503100000020039:
     techs:
       heat_pump: {}
-  D73:
+  D0503100000020040:
     techs:
       heat_pump: {}
-  D74:
+  D0503100000020041:
     techs:
       heat_pump: {}
-  D75:
+  D0503100000020042:
     techs:
       heat_pump: {}
-  D76:
+  D0503100000020043:
     techs:
       heat_pump: {}
-  D77:
+  D0503100000020044:
     techs:
       heat_pump: {}
-  D78:
+  D0503100000020045:
     techs:
       heat_pump: {}
-  D79:
+  D0503100000020046:
     techs:
       heat_pump: {}
-  D80:
+  D0503100000020047:
     techs:
       heat_pump: {}
-  D81:
+  D0503100000020048:
     techs:
       heat_pump: {}
-  D82:
+  D0503100000020049:
     techs:
       heat_pump: {}
-  D83:
+  D0503100000020050:
     techs:
       heat_pump: {}
-  D84:
+  D0503100000020051:
     techs:
       heat_pump: {}
-  D85:
+  D0503100000020052:
     techs:
       heat_pump: {}
-  D86:
+  D0503100000020053:
     techs:
       heat_pump: {}
-  D87:
+  D0503100000020054:
     techs:
       heat_pump: {}
-  D88:
+  D0503100000020055:
     techs:
       heat_pump: {}
-  D89:
+  D0503100000020056:
     techs:
       heat_pump: {}
-  D90:
+  D0503100000020131:
     techs:
       heat_pump: {}
-  D91:
+  D0503100000020132:
     techs:
       heat_pump: {}
-  D92:
+  D0503100000020133:
     techs:
       heat_pump: {}
-  D93:
+  D0503100000020145:
     techs:
       heat_pump: {}
-  D94:
+  D0503100000020146:
     techs:
       heat_pump: {}
-  D95:
+  D0503100000020147:
     techs:
       heat_pump: {}
-  D96:
+  D0503100000020148:
     techs:
       heat_pump: {}
-  D97:
+  D0503100000020149:
     techs:
       heat_pump: {}
-  D98:
+  D0503100000020157:
     techs:
       heat_pump: {}
-  D99:
+  D0503100000020158:
     techs:
       heat_pump: {}
-  D100:
+  D0503100000020159:
     techs:
       heat_pump: {}
-  D101:
+  D0503100000020165:
     techs:
       heat_pump: {}
-  D102:
+  D0503100000028572:
     techs:
       heat_pump: {}
-  D103:
+  D0503100000028573:
     techs:
       heat_pump: {}
-  D104:
+  D0503100000028575:
     techs:
       heat_pump: {}
-  D105:
+  D0503100000030019:
     techs:
       heat_pump: {}
-  D106:
+  D0503100000030020:
     techs:
       heat_pump: {}
-  D107:
+  D0503100000030021:
     techs:
       heat_pump: {}
-  D108:
+  D0503100000030022:
     techs:
       heat_pump: {}
-  D109:
+  D0503100000030024:
     techs:
       heat_pump: {}
-  D110:
+  D0503100000030026:
     techs:
       heat_pump: {}
-  D111:
+  D0503100000030027:
     techs:
       heat_pump: {}
-  D112:
+  D0503100000030105:
     techs:
       heat_pump: {}
-  D113:
+  D0503100000030106:
     techs:
       heat_pump: {}
-  D114:
+  D0503100000030108:
     techs:
       heat_pump: {}
-  D115:
+  D0503100000030111:
     techs:
       heat_pump: {}
-  D116:
+  D0503100000030112:
     techs:
       heat_pump: {}
-  D117:
+  D0503100000030113:
     techs:
       heat_pump: {}
-  D118:
+  D0503100000030115:
     techs:
       heat_pump: {}
-  D119:
+  D0503100000030235:
     techs:
       heat_pump: {}
-  D120:
+  D0503100000030237:
     techs:
       heat_pump: {}
-  D121:
+  D0503100000030238:
     techs:
       heat_pump: {}
-  D122:
+  D0503100000030304:
     techs:
       heat_pump: {}
-  D123:
+  D0503100000030305:
     techs:
       heat_pump: {}
-  D124:
+  D0503100000031368:
     techs:
       heat_pump: {}
-  D125:
+  D0503100000031429:
     techs:
       heat_pump: {}
-  D126:
+  D0503100000031431:
     techs:
       heat_pump: {}
-  D127:
+  D0503100000031432:
     techs:
       heat_pump: {}
-  D128:
+  D0503100000031433:
     techs:
       heat_pump: {}
-  D129:
+  D0503100000031434:
     techs:
       heat_pump: {}
-  D130:
+  D0503100000031435:
     techs:
       heat_pump: {}
-  D131:
+  D0503100000031436:
     techs:
       heat_pump: {}
-  D132:
+  D0503100000031438:
     techs:
       heat_pump: {}
-  D133:
+  D0503100000031439:
     techs:
       heat_pump: {}
-  D134:
+  D0503100000031440:
     techs:
       heat_pump: {}
-  D135:
+  D0503100000031441:
     techs:
       heat_pump: {}
-  D136:
+  D0503100000031442:
     techs:
       heat_pump: {}
-  D137:
+  D0503100000031455:
     techs:
       heat_pump: {}
-  D138:
+  D0503100000031457:
     techs:
       heat_pump: {}
-  D139:
+  D0503100000031822:
     techs:
       heat_pump: {}
-  D140:
+  D0503100000031824:
     techs:
       heat_pump: {}
-  D141:
+  D0503100000032612:
     techs:
       heat_pump: {}
-  D142:
+  D0503100000032613:
     techs:
       heat_pump: {}
-  D143:
+  D0503100000032617:
     techs:
       heat_pump: {}
-  D144:
+  D0503100000032618:
     techs:
       heat_pump: {}
