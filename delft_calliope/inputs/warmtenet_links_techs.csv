@@ -1,10 +1,10 @@
 techs,color,name,base_tech,flow_cap_max,flow_out_eff_per_distance,lifetime,link_to,link_from
-geothermie_delft_to_warmtenet1,#823739,Heat transmission main,transmission,10000,0.99,20,geothermie_delft,warmtenet1
-warmtenet1_to_warmtenet2,#823740,Heat transmission main,transmission,10000,0.99,20,warmtenet1,warmtenet2
-warmtenet2_to_warmtenet3,#823741,Heat transmission main,transmission,10000,0.99,20,warmtenet2,warmtenet3
-warmtenet3_to_warmtenet4,#823742,Heat transmission main,transmission,10000,0.99,20,warmtenet3,warmtenet4
-warmtenet4_to_warmtenet5,#823743,Heat transmission main,transmission,10000,0.99,20,warmtenet4,warmtenet5
-warmtenet5_to_warmtenet6,#823744,Heat transmission main,transmission,10000,0.99,20,warmtenet5,warmtenet6
-warmtenet5_to_warmtenet7,#823745,Heat transmission main,transmission,10000,0.99,20,warmtenet6,warmtenet7
-warmtenet7_to_warmtenet8,#823746,Heat transmission main,transmission,10000,0.99,20,warmtenet7,warmtenet8
-warmtenet8_to_substation_multatulibuurt,#823747,Heat transmission main,transmission,10000,0.99,20,warmtenet8,substation_multatulibuurt
+geothermie_delft_to_warmtenet1,#823739,Heat transmission main,transmission,10000,1,20,geothermie_delft,warmtenet1
+warmtenet1_to_warmtenet2,#823740,Heat transmission main,transmission,10000,1,20,warmtenet1,warmtenet2
+warmtenet2_to_warmtenet3,#823741,Heat transmission main,transmission,10000,1,20,warmtenet2,warmtenet3
+warmtenet3_to_warmtenet4,#823742,Heat transmission main,transmission,10000,1,20,warmtenet3,warmtenet4
+warmtenet4_to_warmtenet5,#823743,Heat transmission main,transmission,10000,1,20,warmtenet4,warmtenet5
+warmtenet5_to_warmtenet6,#823744,Heat transmission main,transmission,10000,1,20,warmtenet5,warmtenet6
+warmtenet5_to_warmtenet7,#823745,Heat transmission main,transmission,10000,1,20,warmtenet6,warmtenet7
+warmtenet7_to_warmtenet8,#823746,Heat transmission main,transmission,10000,1,20,warmtenet7,warmtenet8
+warmtenet8_to_substation_multatulibuurt,#823747,Heat transmission main,transmission,10000,1,20,warmtenet8,substation_multatulibuurt
