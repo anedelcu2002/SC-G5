@@ -194,8 +194,8 @@ def main(config):
     # -------------------------------------------------------------------------
     # 5. Load and process Stedin grid data
     # -------------------------------------------------------------------------
-    with Timer("Load and process Stedin grid data"):
-        stedin_heat_gdf_delft, stedin_elec_gdf_delft = process_stedin_grids(
+    with Timer("API call to obtain and process Stedin grid data"):
+        stedin_heat_gdf_delft, stedin_elec_gdf_delft, stedin_transformers_gdf_delft = process_stedin_grids(
             bbox_coords=config['bbox_coords'],
             features_to_remove_heat=config['features_to_remove_heat'],
             features_to_remove_elec=config['features_to_remove_elec'],
@@ -260,20 +260,6 @@ def main(config):
             mode=config['mode'],
             output_folder=config['outputs_folder']
         )
-    
-    # -------------------------------------------------------------------------
-    # Print timing summary
-    # -------------------------------------------------------------------------
-    print_timing_summary()
-    
-    print("\n" + "="*80)
-    print("ANALYSIS COMPLETE")
-    print("="*80)
-    print(f"Results saved to: {config['outputs_folder']}/")
-    print(f"Network data saved to: {config['data_tables_folder']}/")
-    if config['mode'] == 'plot':
-        print(f"Visualizations saved to: {config['debug_folder']}/")
-    print("="*80 + "\n")
     
     return model, final_export_df
 
