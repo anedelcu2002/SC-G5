@@ -78,7 +78,7 @@ def process_stedin_grids(
     base_service_url="https://services-eu1.arcgis.com/IQto421Ac9MzEmFT/arcgis/rest/services/KM_Gasvervangingsdata/FeatureServer",
     gas_layer_id=1,
     lv_elec_layer_id=2,
-    transformer_layer_id=5,
+    transformer_layer_id=6,
     simplify_tolerance=0.000001,
     snap_tolerance=0.000001
 ):

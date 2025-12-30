@@ -12,7 +12,8 @@ def process_calliope_results(
     heat_capacity=4.19,
     density=1000,
     delta_T=25,
-    flow_speed=0.62
+    flow_speed=0.62,
+    distance_factors=None
 ):
     """
     Process Calliope model results, create visualizations, and export bill of materials.
@@ -35,6 +36,11 @@ def process_calliope_results(
         Temperature difference in K for pipe sizing (default: 25)
     flow_speed : float, optional
         Flow speed in m/s for pipe sizing (default: 0.62)
+    distance_factors : dict, optional
+        Multiplication factors for distances by segment type (default: all 1.0)
+        Keys: 'Heat transmission main', 'LQ heat distribution main', 
+              'LQ heat distribution secondary', 'LV electricity distribution main',
+              'LV electricity distribution secondary'
     
     Returns:
     --------
@@ -48,6 +54,16 @@ def process_calliope_results(
     """
     
     #print("Processing Calliope model results...")
+
+    # Default distance factors if not provided
+    if distance_factors is None:
+        distance_factors = {
+            'Heat transmission main': 1.0,
+            'LQ heat distribution main': 1.0,
+            'LQ heat distribution secondary': 1.0,
+            'LV electricity distribution main': 1.0,
+            'LV electricity distribution secondary': 1.0
+        }
     
     # --- 1. Extract coordinates and flow capacities from model ---
     df_coords = model.inputs[["latitude", "longitude"]].to_dataframe().reset_index()
@@ -256,6 +272,12 @@ def process_calliope_results(
         'capacity_kw': total_flow_out,
         'distance_m': tech_distances * 1000
     })
+    
+    # Apply distance multiplication factors
+    export_df['distance_m'] = export_df.apply(
+        lambda row: row['distance_m'] * distance_factors.get(row['name'], 1.0), 
+        axis=1
+    )
     
     # Calculate flow rates and pipe diameters
     export_df['flow_rate_m^3/s'] = np.where(

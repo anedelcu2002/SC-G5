@@ -2,15 +2,16 @@
 import calliope
 from ruamel.yaml import YAML
 import os
+import shutil
 
 def create_scenario_model(
     scenario,
     data_tables_folder='data_tables',
-    base_yaml_district='district_heating_model.yaml',
-    base_yaml_electrification='electrification_model.yaml'
+    base_yaml='inputs/calliope_model_config.yaml',
+    tech_efficiencies=None
 ):
     """
-    Create and configure a Calliope model based on scenario type by modifying CSV files.
+    Create and configure a Calliope model based on scenario type by modifying CSV files and YAML.
     
     Parameters:
     -----------
@@ -18,10 +19,13 @@ def create_scenario_model(
         'district_heating' or 'full_electrification'
     data_tables_folder : str, optional
         Folder containing network CSV files (default: 'data_tables')
-    base_yaml_district : str, optional
-        Path to district heating YAML configuration (default: 'district_heating_model.yaml')
-    base_yaml_electrification : str, optional
-        Path to electrification YAML configuration (default: 'electrification_model.yaml')
+    base_yaml : str, optional
+        Path to base YAML configuration (default: 'inputs/calliope_model_config.yaml')
+    tech_efficiencies : dict, optional
+        Technology efficiency parameters:
+        - 'heat_pump_cop': Heat pump coefficient of performance (default: 4.0)
+        - 'heat_substation_eff': Heat substation efficiency (default: 1.0)
+
     
     Returns:
     --------
@@ -30,8 +34,8 @@ def create_scenario_model(
     
     Side Effects:
     -------------
+    - Creates temporary YAML file in data_tables folder
     - Modifies CSV files in data_tables_folder based on scenario
-    - For full_electrification: creates modified YAML with heat pumps added to demand nodes
     
     Notes:
     ------
@@ -44,16 +48,54 @@ def create_scenario_model(
         - Adds heat pump technology to all demand nodes
         - Keeps electricity distribution network active
     """
-    
+    if tech_efficiencies is None:
+        tech_efficiencies = {
+            'heat_pump_cop': 4.0,
+            'heat_substation_eff': 1.0
+        }
+        
     #print(f"Configuring scenario: {scenario}")
     
+    # Get the directory where this script is located
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    # Get the parent directory (delft_calliope)
+    project_dir = os.path.dirname(script_dir)
+    
+    # Resolve paths relative to project directory
+    base_yaml_path = os.path.join(project_dir, base_yaml)
+    data_tables_path = os.path.join(project_dir, data_tables_folder)
+    
+    # Create temporary YAML file path in data_tables folder
+    temp_yaml_path = os.path.join(project_dir, f'{scenario}_config.yaml')
+    
+    # Copy config YAML to temporary file
+    shutil.copy2(base_yaml_path, temp_yaml_path)
+    #print(f"   Copied {base_yaml_path} to {temp_yaml_path}")
+    
+    # Load the YAML for modifications
+    yaml = YAML()
+    with open(temp_yaml_path, 'r') as f:
+        model_config = yaml.load(f)
+
+        # Apply technology efficiencies to YAML
+    if 'techs' in model_config:
+        # Update heat pump efficiency
+        if 'heat_pump' in model_config['techs']:
+            model_config['techs']['heat_pump']['flow_out_eff'] = tech_efficiencies.get('heat_pump_cop', 4.0)
+        
+        # Update heat substation efficiency
+        if 'heat_substation' in model_config['techs']:
+            model_config['techs']['heat_substation']['flow_out_eff'] = tech_efficiencies.get('heat_substation_eff', 1.0)
+        
+        # Geothermal remains as supply tech without efficiency parameter (100% by default)
+    
     # Read CSV files from data_tables folder
-    nodes_techs = pd.read_csv(os.path.join(data_tables_folder, 'nodes_techs.csv'))
-    nodes_coordinates = pd.read_csv(os.path.join(data_tables_folder, 'nodes_coordinates.csv'))
-    links_techs = pd.read_csv(os.path.join(data_tables_folder, 'links_techs.csv'))
-    links_LQ_heat = pd.read_csv(os.path.join(data_tables_folder, 'links_LQ_heat.csv'))
-    links_electricity = pd.read_csv(os.path.join(data_tables_folder, 'links_electricity.csv'))
-    links_costs = pd.read_csv(os.path.join(data_tables_folder, 'links_costs.csv'))
+    nodes_techs = pd.read_csv(os.path.join(data_tables_path, 'nodes_techs.csv'))
+    nodes_coordinates = pd.read_csv(os.path.join(data_tables_path, 'nodes_coordinates.csv'))
+    links_techs = pd.read_csv(os.path.join(data_tables_path, 'links_techs.csv'))
+    links_LQ_heat = pd.read_csv(os.path.join(data_tables_path, 'links_LQ_heat.csv'))
+    links_electricity = pd.read_csv(os.path.join(data_tables_path, 'links_electricity.csv'))
+    links_costs = pd.read_csv(os.path.join(data_tables_path, 'links_costs.csv'))
     
     if scenario == 'full_electrification':
         #print(" Configuring full electrification scenario...")
@@ -63,10 +105,6 @@ def create_scenario_model(
         #print(f"   Found {len(demand_nodes)} demand nodes")
         
         # 2. Modify YAML to add heat pumps to demand nodes
-        yaml = YAML()
-        with open(base_yaml_district, 'r') as f:
-            model_config = yaml.load(f)
-        
         # Create top-level 'nodes' key if it doesn't exist
         if 'nodes' not in model_config:
             model_config['nodes'] = {}
@@ -78,11 +116,7 @@ def create_scenario_model(
             if 'techs' not in model_config['nodes'][node_name]:
                 model_config['nodes'][node_name]['techs'] = {}
             model_config['nodes'][node_name]['techs']['heat_pump'] = {}
-        
-        # Write modified YAML
-        with open(base_yaml_electrification, 'w') as f:
-            yaml.dump(model_config, f)
-        #print(f"   Created {base_yaml_electrification} with heat pumps")
+        #print(f"   Added heat pumps to {len(demand_nodes)} demand nodes in YAML")
         
         # 3. Deactivate district heating links
         links_techs = links_techs[~links_techs['name'].str.contains("LQ heat distribution", na=False)].reset_index(drop=True)
@@ -96,16 +130,12 @@ def create_scenario_model(
         #print(f"   Deactivated heat transmission nodes")
         
         # 5. Save modified CSV files
-        links_techs.to_csv(os.path.join(data_tables_folder, 'links_techs.csv'), index=False)
-        links_LQ_heat.to_csv(os.path.join(data_tables_folder, 'links_LQ_heat.csv'), index=False)
-        links_costs.to_csv(os.path.join(data_tables_folder, 'links_costs.csv'), index=False)
-        nodes_techs.to_csv(os.path.join(data_tables_folder, 'nodes_techs.csv'), index=False)
-        nodes_coordinates.to_csv(os.path.join(data_tables_folder, 'nodes_coordinates.csv'), index=False)
-        #print(f"   Saved modified CSV files to {data_tables_folder}/")
-        
-        # 6. Load and return model
-        model = calliope.read_yaml(base_yaml_electrification)
-        #print(f"   Loaded Calliope model from {base_yaml_electrification}")
+        links_techs.to_csv(os.path.join(data_tables_path, 'links_techs.csv'), index=False)
+        links_LQ_heat.to_csv(os.path.join(data_tables_path, 'links_LQ_heat.csv'), index=False)
+        links_costs.to_csv(os.path.join(data_tables_path, 'links_costs.csv'), index=False)
+        nodes_techs.to_csv(os.path.join(data_tables_path, 'nodes_techs.csv'), index=False)
+        nodes_coordinates.to_csv(os.path.join(data_tables_path, 'nodes_coordinates.csv'), index=False)
+        #print(f"   Saved modified CSV files to {data_tables_path}/")
         
     elif scenario == 'district_heating':
         #print(" Configuring district heating scenario...")
@@ -122,19 +152,24 @@ def create_scenario_model(
         #print(f"   Deactivated electricity transmission nodes")
         
         # 3. Save modified CSV files
-        links_techs.to_csv(os.path.join(data_tables_folder, 'links_techs.csv'), index=False)
-        links_electricity.to_csv(os.path.join(data_tables_folder, 'links_electricity.csv'), index=False)
-        links_costs.to_csv(os.path.join(data_tables_folder, 'links_costs.csv'), index=False)
-        nodes_techs.to_csv(os.path.join(data_tables_folder, 'nodes_techs.csv'), index=False)
-        nodes_coordinates.to_csv(os.path.join(data_tables_folder, 'nodes_coordinates.csv'), index=False)
-        #print(f"   Saved modified CSV files to {data_tables_folder}/")
-        
-        # 4. Load and return model
-        model = calliope.read_yaml(base_yaml_district)
-        #print(f"   Loaded Calliope model from {base_yaml_district}")
+        links_techs.to_csv(os.path.join(data_tables_path, 'links_techs.csv'), index=False)
+        links_electricity.to_csv(os.path.join(data_tables_path, 'links_electricity.csv'), index=False)
+        links_costs.to_csv(os.path.join(data_tables_path, 'links_costs.csv'), index=False)
+        nodes_techs.to_csv(os.path.join(data_tables_path, 'nodes_techs.csv'), index=False)
+        nodes_coordinates.to_csv(os.path.join(data_tables_path, 'nodes_coordinates.csv'), index=False)
+        #print(f"   Saved modified CSV files to {data_tables_path}/")
         
     else:
         raise ValueError(f"Unknown scenario '{scenario}'. Must be 'district_heating' or 'full_electrification'")
     
+    # Write modified YAML
+    with open(temp_yaml_path, 'w') as f:
+        yaml.dump(model_config, f)
+    #print(f"   Saved modified YAML to {temp_yaml_path}")
+    
+    # Load and return model from temporary YAML
+    model = calliope.read_yaml(temp_yaml_path)
+    #print(f"   Loaded Calliope model from {temp_yaml_path}")
     #print(f" Scenario '{scenario}' configured successfully")
+    
     return model

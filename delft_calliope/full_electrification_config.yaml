@@ -67,7 +67,7 @@ techs:
       data: 1000
       index: LQ_heat
       dims: carriers
-    flow_out_eff: 4
+    flow_out_eff: 4.0
     lifetime: 20
 
   heat_substation:
@@ -84,7 +84,7 @@ techs:
       data: 10000
       index: LQ_heat
       dims: carriers
-    flow_out_eff: 1
+    flow_out_eff: 1.0
     lifetime: 20
 
   demand_electricity:

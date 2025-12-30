@@ -40,7 +40,7 @@ CONFIG = {
     # Run mode: 'plot' generates visualizations, 'export' skips visualization
     'mode': 'plot',
     
-    # Area code for Multatulibuurt
+    # Heat demand scenario code for Multatulibuurt
     'area': '4011',
     
     # Bounding box for BAG API [lon_min, lat_min, lon_max, lat_max]
@@ -83,7 +83,59 @@ CONFIG = {
     # Data folders
     'data_tables_folder': 'data_tables',
     'outputs_folder': 'outputs',
-    'debug_folder': 'debug'
+    'debug_folder': 'debug',
+
+    # Technology efficiencies
+    'tech_efficiencies': {
+        'heat_pump_cop': 4.0,          # Coefficient of Performance for air-source heat pumps
+        'heat_substation_eff': 1.0     # Heat substation efficiency (HQ to LQ conversion)
+    },
+
+    # Postprocessing parameters for results analysis and bill of materials
+    'postprocessing': {
+        # Pipe sizing calculation parameters
+        'pipe_sizing': {
+            'heat_capacity': 4.19,      # Heat capacity in kJ/kgK
+            'density': 1000,            # Density in kg/m3
+            'delta_T': 25,              # Temperature difference in K
+            'flow_speed': 0.62          # Flow speed in m/s
+        },
+        # Distance multiplication factors for each network segment type
+        'distance_factors': {
+            'Heat transmission main': 1.0,                  # HQ heat main network
+            'LQ heat distribution main': 1.0,               # LQ heat backbone
+            'LQ heat distribution secondary': 1.0,          # LQ heat to buildings
+            'LV electricity distribution main': 1.0,        # Electricity backbone
+            'LV electricity distribution secondary': 1.0    # Electricity to buildings
+        }
+    },
+
+    # Link technical parameters for network segments
+    'link_parameters': {
+        'Heat transmission main': {
+            'flow_cap_max': 10000,              # Maximum flow capacity (kW)
+            'flow_out_eff_per_distance': 1      # Efficiency per distance unit
+        },
+        'LQ heat distribution main': {
+            'flow_cap_max': 10000,
+            'flow_out_eff_per_distance': 1
+        },
+        'LQ heat distribution secondary': {
+            'flow_cap_max': 10000,
+            'flow_out_eff_per_distance': 1
+        },
+        'LV electricity distribution main': {
+            'flow_cap_max': 10000,
+            'flow_out_eff_per_distance': 1
+        },
+        'LV electricity distribution secondary': {
+            'flow_cap_max': 10000,
+            'flow_out_eff_per_distance': 1
+        }
+    },
+
+    # Transformer parameters
+    'transformer_supply_capacity': 1000,  # Maximum electricity supply per transformer (kW)
 }
 
 
@@ -201,7 +253,7 @@ def main(config):
             features_to_remove_elec=config['features_to_remove_elec'],
             mode=config['mode']
         )
-    
+        
     # -------------------------------------------------------------------------
     # 6. Create transmission nodes
     # -------------------------------------------------------------------------
@@ -215,27 +267,30 @@ def main(config):
     # -------------------------------------------------------------------------
     # 7. Build Calliope network structure
     # -------------------------------------------------------------------------
-    with Timer("Build Calliope network structure"):
-        network_data = build_calliope_network(
-            merged_df, 
-            heat_interp_gdf, 
-            elec_interp_gdf, 
-            stedin_heat_gdf_delft, 
-            stedin_elec_gdf_delft, 
-            spacing_m=config['spacing_m'], 
-            mode=config['mode'], 
+    with Timer("Build Calliope network"):
+        network_dfs = build_calliope_network(
+            merged_df=merged_df,
+            heat_interp_gdf=heat_interp_gdf,
+            elec_interp_gdf=elec_interp_gdf,
+            stedin_heat_gdf_delft=stedin_heat_gdf_delft,
+            stedin_elec_gdf_delft=stedin_elec_gdf_delft,
+            stedin_transformers_gdf_delft=stedin_transformers_gdf_delft,
+            spacing_m=config['spacing_m'],
+            mode=config['mode'],
             debug_single_node=config['debug_single_node'],
-            inputs_folder="inputs",
-            output_folder=config['data_tables_folder']
+            inputs_folder=config['data_tables_folder'].replace('data_tables', 'inputs'),
+            output_folder=config['data_tables_folder'],
+            link_parameters=config['link_parameters'],
+            transformer_supply_capacity=config['transformer_supply_capacity']
         )
-    
     # -------------------------------------------------------------------------
     # 8. Create scenario and configure model
     # -------------------------------------------------------------------------
     with Timer("Create scenario and configure model"):
         model = create_scenario_model(
             scenario=config['scenario'],
-            data_tables_folder=config['data_tables_folder']
+            data_tables_folder=config['data_tables_folder'],
+            tech_efficiencies=config['tech_efficiencies']
         )
     
     # -------------------------------------------------------------------------
@@ -258,7 +313,12 @@ def main(config):
             model=model,
             buildings_gdf=buildings_gdf,
             mode=config['mode'],
-            output_folder=config['outputs_folder']
+            output_folder=config['outputs_folder'],
+            heat_capacity=config['postprocessing']['pipe_sizing']['heat_capacity'],
+            density=config['postprocessing']['pipe_sizing']['density'],
+            delta_T=config['postprocessing']['pipe_sizing']['delta_T'],
+            flow_speed=config['postprocessing']['pipe_sizing']['flow_speed'],
+            distance_factors=config['postprocessing']['distance_factors']
         )
     
     return model, final_export_df
