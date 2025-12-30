@@ -43,23 +43,20 @@ CONFIG = {
     # Heat demand scenario code for Multatulibuurt
     'area': '4011',
     
-    # Bounding box for BAG API [lon_min, lat_min, lon_max, lat_max]
-    'bounding_box': [4.354481303046308, 51.990211796688996, 4.36349681889779, 51.99831039946793],
-    
     # BAG API key
     'BAG_API_KEY': 'l7c0673beb4a3f46e8a0caa164dc7b8397',
     
     # Polygon coordinates for Multatulibuurt (lon, lat pairs)
     'bbox_coords': [
-        (4.358862898190234, 51.989950476011565),
-        (4.363513483963136, 51.99116041768696),
-        (4.359959662710779, 51.997215138653104),
-        (4.356868839817735, 51.996580034452485),
-        (4.355168730042115, 51.995518297847504),
-        (4.35819822166681, 51.9901601698577),
-        (4.358862898190234, 51.989950476011565)
+        (4.3588444390090535, 51.98977145529007),
+        (4.363727554070601, 51.99104189404924),
+        (4.3599960417556245, 51.997399351063684),
+        (4.356750677717929, 51.996732491653034),
+        (4.354965562453528, 51.995617668217804),
+        (4.358146528659458, 51.98999163382852),
+        (4.3588444390090535, 51.98977145529007)
     ],
-    
+        
     # Disconnected grid features to remove
     'features_to_remove_heat': ['heat_feature3', 'heat_feature8'],
     'features_to_remove_elec': [
@@ -209,6 +206,10 @@ def main(config):
     # 1. Fetch building location data from BAG
     # -------------------------------------------------------------------------
     with Timer("API call to obtain building location data"):
+        # Derive bounding_box from polygon coordinates
+        lons = [coord[0] for coord in config['bbox_coords']]
+        lats = [coord[1] for coord in config['bbox_coords']]
+        config['bounding_box'] = [min(lons), min(lats), max(lons), max(lats)]
         all_buildings = fetch_buildings_from_BAG(
             config['bounding_box'], 
             config['BAG_API_KEY']

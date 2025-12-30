@@ -12,6 +12,8 @@ config:
 
   solve:
     solver: gurobi
+    solver_options:
+      Threads: 0  # Use all available CPU cores
 # --8<-- [end:config]
 
 # --8<-- [start:parameter_data_definitions]
