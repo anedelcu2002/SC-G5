@@ -41,7 +41,7 @@ CONFIG = {
     'mode': 'plot',
     
     # Heat demand scenario code for Multatulibuurt
-    'area': '4011',
+    'area': '4011', # 4011 for medium demand, 4262 for high demand, 
     
     # BAG API key
     'BAG_API_KEY': 'l7c0673beb4a3f46e8a0caa164dc7b8397',
@@ -55,17 +55,6 @@ CONFIG = {
         (4.354965562453528, 51.995617668217804),
         (4.358146528659458, 51.98999163382852),
         (4.3588444390090535, 51.98977145529007)
-    ],
-        
-    # Disconnected grid features to remove
-    'features_to_remove_heat': ['heat_feature3', 'heat_feature8'],
-    'features_to_remove_elec': [
-        'elec_feature277', 'elec_feature286', 'elec_feature264',
-        'elec_feature261', 'elec_feature263', 'elec_feature262',
-        'elec_feature276', 'elec_feature252', 'elec_feature253',
-        'elec_feature208', 'elec_feature251', 'elec_feature250',
-        'elec_feature128', 'elec_feature20', 'elec_feature265',
-        'elec_feature270'
     ],
     
     # Node spacing for interpolation in meters (None = corner nodes only)
@@ -235,9 +224,9 @@ def main(config):
         )
     
     # -------------------------------------------------------------------------
-    # 4. Demand node definition and visualization
+    # 4. Define and visualize demand nodes
     # -------------------------------------------------------------------------
-    with Timer("Demand node definition and visualization"):
+    with Timer("Define and visualize demand nodes"):
         merged_df, buildings_gdf = process_heat_demand(
             buildings_df, 
             config['area'], 
@@ -250,8 +239,9 @@ def main(config):
     with Timer("API call to obtain and process Stedin grid data"):
         stedin_heat_gdf_delft, stedin_elec_gdf_delft, stedin_transformers_gdf_delft = process_stedin_grids(
             bbox_coords=config['bbox_coords'],
-            features_to_remove_heat=config['features_to_remove_heat'],
-            features_to_remove_elec=config['features_to_remove_elec'],
+            buildings_df=buildings_df,  # NEW: Pass buildings
+            features_to_remove_heat=config.get('features_to_remove_heat'),  # Now optional
+            features_to_remove_elec=config.get('features_to_remove_elec'),  # Now optional
             mode=config['mode']
         )
         

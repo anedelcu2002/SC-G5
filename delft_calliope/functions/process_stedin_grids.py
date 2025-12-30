@@ -69,11 +69,37 @@ def fetch_stedin_layer_from_arcgis(bbox_coords, layer_url, layer_name="Layer", m
         #print(f"✗ Error fetching {layer_name} from ArcGIS: {e}")
         return gpd.GeoDataFrame(crs='EPSG:4326')
 
+def filter_features_within_buildings(gdf, buildings_gdf, buffer_distance=0.0001):
+    """
+    Remove grid features that are entirely within building footprints.
+    
+    Args:
+        gdf: GeoDataFrame of grid features (lines) in EPSG:4326
+        buildings_gdf: GeoDataFrame of building polygons in EPSG:28992
+        buffer_distance: Small buffer in degrees to avoid edge cases (default: ~10m)
+    
+    Returns:
+        GeoDataFrame with features inside buildings removed
+    """
+    if gdf.empty or buildings_gdf is None or buildings_gdf.empty:
+        return gdf
+    
+    # Convert grid to same CRS as buildings (EPSG:28992)
+    gdf_projected = gdf.to_crs(epsg=28992)
+    
+    # Create union of all building polygons for faster checking
+    buildings_union = buildings_gdf.unary_union
+    
+    # Filter: keep only features NOT entirely within buildings
+    mask = ~gdf_projected.geometry.apply(lambda geom: buildings_union.contains(geom))
+    
+    return gdf[mask].reset_index(drop=True)
 
 def process_stedin_grids(
     bbox_coords,
-    features_to_remove_heat,
-    features_to_remove_elec,
+    buildings_df=None,  # NEW PARAMETER
+    features_to_remove_heat=None,  # Make optional
+    features_to_remove_elec=None,  # Make optional
     mode='plot',
     base_service_url="https://services-eu1.arcgis.com/IQto421Ac9MzEmFT/arcgis/rest/services/KM_Gasvervangingsdata/FeatureServer",
     gas_layer_id=1,
@@ -131,16 +157,22 @@ def process_stedin_grids(
     
     # Process gas network
     if not stedin_heat_gdf.empty:
-        # Filter geometries that intersect the polygon (extra safety check)
         stedin_heat_gdf_delft = stedin_heat_gdf[stedin_heat_gdf.geometry.intersects(polygon)].reset_index(drop=True).copy()
         stedin_heat_gdf_delft['feature_name'] = [f"heat_feature{i}" for i in range(len(stedin_heat_gdf_delft))]
         
-        # Remove disconnected features
-        stedin_heat_gdf_delft = stedin_heat_gdf_delft[
-            ~stedin_heat_gdf_delft['feature_name'].isin(features_to_remove_heat)
-        ].reset_index(drop=True).copy()
-    else:
-        stedin_heat_gdf_delft = gpd.GeoDataFrame(crs='EPSG:4326')
+        # NEW: Remove features within buildings
+        if buildings_df is not None:
+            buildings_gdf = gpd.GeoDataFrame(buildings_df, geometry='geometry', crs='EPSG:28992')
+            stedin_heat_gdf_delft = filter_features_within_buildings(
+                stedin_heat_gdf_delft, 
+                buildings_gdf
+            )
+        
+        # OLD manual filtering (now optional fallback)
+        if features_to_remove_heat:
+            stedin_heat_gdf_delft = stedin_heat_gdf_delft[
+                ~stedin_heat_gdf_delft['feature_name'].isin(features_to_remove_heat)
+            ].reset_index(drop=True).copy()
     
     # Process electricity network
     if not stedin_elec_gdf.empty:
@@ -148,10 +180,20 @@ def process_stedin_grids(
         stedin_elec_gdf_delft = stedin_elec_gdf[stedin_elec_gdf.geometry.intersects(polygon)].reset_index(drop=True).copy()
         stedin_elec_gdf_delft['feature_name'] = [f"elec_feature{i}" for i in range(len(stedin_elec_gdf_delft))]
         
-        # Remove disconnected features
-        stedin_elec_gdf_delft = stedin_elec_gdf_delft[
-            ~stedin_elec_gdf_delft['feature_name'].isin(features_to_remove_elec)
-        ].reset_index(drop=True).copy()
+        # NEW: Remove features within buildings
+        if buildings_df is not None:
+            buildings_gdf = gpd.GeoDataFrame(buildings_df, geometry='geometry', crs='EPSG:28992')
+            stedin_elec_gdf_delft = filter_features_within_buildings(
+                stedin_elec_gdf_delft, 
+                buildings_gdf
+            )
+        
+        # OLD manual filtering (now optional fallback)
+        if features_to_remove_elec:
+            stedin_elec_gdf_delft = stedin_elec_gdf_delft[
+                ~stedin_elec_gdf_delft['feature_name'].isin(features_to_remove_elec)
+            ].reset_index(drop=True).copy()
+        
         
         # --- Clean up electricity grid topology ---
         
