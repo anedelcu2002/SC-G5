@@ -1,25 +1,35 @@
 ﻿"""
 District Heating Network Analysis - Main Workflow
-Multatulibuurt, Delft, Netherlands
-
+Delft Neighborhoods: Multatulibuurt, Holstbuurt, Mythologiebuurt, Poptahof-Zuid
 
 How to run:
 
 cd delft_calliope
-Basic: python run_analysis.py  
-District heating (default): python run_analysis.py --scenario district_heating
-Electrification: python run_analysis.py --scenario full_electrification
-Export maps (default): python run_analysis.py --mode plot      
-Don't export any maps (faster): python run_analysis.py --mode export 
-Only use a single demand node (faster): python run_analysis.py --debug 
-Node spacing in meters: python run_analysis.py --spacing 3.5
 
+# List available neighborhoods
+python run_analysis.py --list-neighborhoods
+
+# Run with default settings (Multatulibuurt, 2019, district heating)
+python run_analysis.py
+
+# Run for a different neighborhood
+python run_analysis.py --neighborhood holstbuurt --year 2019
+
+# Run with full electrification scenario
+python run_analysis.py --scenario full_electrification
+
+# Fast mode without visualizations
+python run_analysis.py --mode export
+
+# Debug mode with single demand node
+python run_analysis.py --debug
 """
 
 import pandas as pd
 import calliope
 import time
 import argparse
+import yaml
 
 from functions.BAG_buildings_API import fetch_buildings_from_BAG
 from functions.BAG_addresses_API import enrich_buildings_with_addresses
@@ -30,6 +40,7 @@ from functions.create_transmission_nodes import create_transmission_nodes
 from functions.build_calliope_network import build_calliope_network
 from functions.create_scenario_model import create_scenario_model
 from functions.process_calliope_results import process_calliope_results
+from functions.load_neighborhood_config import get_neighborhood_params, list_available_neighborhoods
 
 
 # =============================================================================
@@ -37,25 +48,15 @@ from functions.process_calliope_results import process_calliope_results
 # =============================================================================
 
 CONFIG = {
+    # Neighborhood and year selection
+    'neighborhood': 'multatulibuurt',
+    'year': 2019,
+    
     # Run mode: 'plot' generates visualizations, 'export' skips visualization
     'mode': 'plot',
     
-    # Heat demand scenario code for Multatulibuurt
-    'area': '4011', # 4011 for medium demand, 4262 for high demand, 
-    
     # BAG API key
     'BAG_API_KEY': 'l7c0673beb4a3f46e8a0caa164dc7b8397',
-    
-    # Polygon coordinates for Multatulibuurt (lon, lat pairs)
-    'bbox_coords': [
-        (4.3588444390090535, 51.98977145529007),
-        (4.363727554070601, 51.99104189404924),
-        (4.3599960417556245, 51.997399351063684),
-        (4.356750677717929, 51.996732491653034),
-        (4.354965562453528, 51.995617668217804),
-        (4.358146528659458, 51.98999163382852),
-        (4.3588444390090535, 51.98977145529007)
-    ],
     
     # Node spacing for interpolation in meters (None = corner nodes only)
     'spacing_m': 3.5,
@@ -73,55 +74,52 @@ CONFIG = {
 
     # Technology efficiencies
     'tech_efficiencies': {
-        'heat_pump_cop': 4.0,          # Coefficient of Performance for air-source heat pumps
-        'heat_substation_eff': 1.0     # Heat substation efficiency (HQ to LQ conversion)
+        'heat_pump_cop': 4.0,
+        'heat_substation_eff': 1.0
     },
 
     # Postprocessing parameters for results analysis and bill of materials
     'postprocessing': {
-        # Pipe sizing calculation parameters
         'pipe_sizing': {
-            'heat_capacity': 4.19,      # Heat capacity in kJ/kgK
-            'density': 1000,            # Density in kg/m3
-            'delta_T': 25,              # Temperature difference in K
-            'flow_speed': 0.62          # Flow speed in m/s
+            'heat_capacity': 4.19,
+            'density': 1000,
+            'delta_T': 25,
+            'flow_speed': 0.62
         },
-        # Distance multiplication factors for each network segment type
         'distance_factors': {
-            'Heat transmission main': 1.0,                  # HQ heat main network
-            'LQ heat distribution main': 1.0,               # LQ heat backbone
-            'LQ heat distribution secondary': 1.0,          # LQ heat to buildings
-            'LV electricity distribution main': 1.0,        # Electricity backbone
-            'LV electricity distribution secondary': 1.0    # Electricity to buildings
+            'Heat transmission main': 1.0,
+            'LQ heat distribution main': 1.0,
+            'LQ heat distribution secondary': 1.0,
+            'LV electricity distribution main': 1.0,
+            'LV electricity distribution secondary': 1.0
         }
     },
 
     # Link technical parameters for network segments
     'link_parameters': {
         'Heat transmission main': {
-            'flow_cap_max': 10000,              # Maximum flow capacity (kW)
-            'flow_out_eff_per_distance': 1      # Efficiency per distance unit
+            'flow_cap_max': 100000,
+            'flow_out_eff_per_distance': 1
         },
         'LQ heat distribution main': {
-            'flow_cap_max': 10000,
+            'flow_cap_max': 100000,
             'flow_out_eff_per_distance': 1
         },
         'LQ heat distribution secondary': {
-            'flow_cap_max': 10000,
+            'flow_cap_max': 100000,
             'flow_out_eff_per_distance': 1
         },
         'LV electricity distribution main': {
-            'flow_cap_max': 10000,
+            'flow_cap_max': 100000,
             'flow_out_eff_per_distance': 1
         },
         'LV electricity distribution secondary': {
-            'flow_cap_max': 10000,
+            'flow_cap_max': 100000,
             'flow_out_eff_per_distance': 1
         }
     },
 
-    # Transformer parameters
-    'transformer_supply_capacity': 1000,  # Maximum electricity supply per transformer (kW)
+    'transformer_supply_capacity': 100000,
 }
 
 
@@ -182,9 +180,35 @@ def main(config):
         Configuration dictionary with all parameters
     """
     
+    # Load neighborhood-specific parameters
+    try:
+        neighborhood_params = get_neighborhood_params(
+            config['neighborhood'],
+            config['year']
+        )
+    except ValueError as e:
+        print(f"\nERROR: {e}")
+        print("\nAvailable neighborhoods:")
+        neighborhoods = list_available_neighborhoods()
+        for nbh_id, details in neighborhoods.items():
+            print(f"  - {nbh_id}: {details['name']} (years: {', '.join(map(str, details['years']))})")
+        raise
+    
+    # Update config with neighborhood-specific parameters
+    config['area'] = neighborhood_params['area']
+    config['year'] = neighborhood_params['year']
+    config['bbox_coords'] = neighborhood_params['bbox_coords']
+    config['neighborhood_name'] = neighborhood_params['name']
+    config['substation_coords'] = neighborhood_params['substation_coords']
+    config['neighborhood_id'] = neighborhood_params['neighborhood_id']
+    
     print("\n" + "="*80)
-    print("DISTRICT HEATING NETWORK ANALYSIS - MULTATULIBUURT")
+    print(f"DISTRICT HEATING NETWORK ANALYSIS - {neighborhood_params['name'].upper()}")
     print("="*80)
+    print(f"Neighborhood: {config['neighborhood']} ({neighborhood_params['name']})")
+    print(f"Year: {config['year']}")
+    print(f"Heat demand area code: {config['area']}")
+    print(f"Substation coordinates: {config['substation_coords']}")
     print(f"Mode: {config['mode']}")
     print(f"Scenario: {config['scenario']}")
     print(f"Debug mode: {config['debug_single_node']}")
@@ -230,6 +254,7 @@ def main(config):
         merged_df, buildings_gdf = process_heat_demand(
             buildings_df, 
             config['area'], 
+            config['year'],
             mode=config['mode']
         )
     
@@ -272,7 +297,9 @@ def main(config):
             inputs_folder=config['data_tables_folder'].replace('data_tables', 'inputs'),
             output_folder=config['data_tables_folder'],
             link_parameters=config['link_parameters'],
-            transformer_supply_capacity=config['transformer_supply_capacity']
+            transformer_supply_capacity=config['transformer_supply_capacity'],
+            neighborhood_id=config['neighborhood_id'],       
+            substation_coords=config['substation_coords']    
         )
     # -------------------------------------------------------------------------
     # 8. Create scenario and configure model
@@ -281,7 +308,8 @@ def main(config):
         model = create_scenario_model(
             scenario=config['scenario'],
             data_tables_folder=config['data_tables_folder'],
-            tech_efficiencies=config['tech_efficiencies']
+            tech_efficiencies=config['tech_efficiencies'],
+            neighborhood_id=config['neighborhood_id']       
         )
     
     # -------------------------------------------------------------------------
@@ -322,7 +350,22 @@ def main(config):
 def parse_arguments():
     """Parse command line arguments"""
     parser = argparse.ArgumentParser(
-        description='District Heating Network Analysis for Multatulibuurt, Delft'
+        description='District Heating Network Analysis for Delft Neighborhoods'
+    )
+    
+    parser.add_argument(
+        '--neighborhood',
+        type=str,
+        default=CONFIG['neighborhood'],
+        help=f"Neighborhood to analyze (default: {CONFIG['neighborhood']}). "
+             f"Available: multatulibuurt, holstbuurt, mythologiebuurt, poptahofzuid"
+    )
+    
+    parser.add_argument(
+        '--year',
+        type=int,
+        default=CONFIG['year'],
+        help='Year for heat demand data (default: 2019). Available: 2013, 2019, 2020'
     )
     
     parser.add_argument(
@@ -354,6 +397,12 @@ def parse_arguments():
         help='Node spacing in meters (default: 3.5)'
     )
     
+    parser.add_argument(
+        '--list-neighborhoods',
+        action='store_true',
+        help='List all available neighborhoods and exit'
+    )
+    
     return parser.parse_args()
 
 
@@ -365,7 +414,20 @@ if __name__ == "__main__":
     # Parse command line arguments
     args = parse_arguments()
     
+    # Handle --list-neighborhoods flag
+    if args.list_neighborhoods:
+        print("\nAvailable neighborhoods:\n")
+        neighborhoods = list_available_neighborhoods()
+        for nbh_id, details in neighborhoods.items():
+            print(f"  {nbh_id}:")
+            print(f"    Name: {details['name']}")
+            print(f"    Years: {', '.join(map(str, details['years']))}")
+            print()
+        exit(0)
+    
     # Update config with command line arguments
+    CONFIG['neighborhood'] = args.neighborhood
+    CONFIG['year'] = args.year
     CONFIG['scenario'] = args.scenario
     CONFIG['mode'] = args.mode
     CONFIG['debug_single_node'] = args.debug

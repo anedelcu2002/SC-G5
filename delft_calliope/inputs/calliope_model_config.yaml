@@ -147,8 +147,3 @@ data_tables:
     data: data_tables/nodes_coordinates.csv
     rows: nodes
     columns: parameters
-
-nodes:
-  substation_multatulibuurt:
-    techs:
-      heat_substation:

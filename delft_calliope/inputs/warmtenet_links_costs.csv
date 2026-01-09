@@ -5,6 +5,12 @@ warmtenet2_to_warmtenet3,100
 warmtenet3_to_warmtenet4,100
 warmtenet4_to_warmtenet5,100
 warmtenet5_to_warmtenet6,100
-warmtenet5_to_warmtenet7,100
+warmtenet6_to_warmtenet7,100
 warmtenet7_to_warmtenet8,100
-warmtenet8_to_substation_multatulibuurt,100
+warmtenet8_to_warmtenet9,100
+warmtenet9_to_warmtenet10,100
+warmtenet10_to_warmtenet11,100
+warmtenet11_to_warmtenet12,100
+warmtenet4_to_warmtenet13,100
+warmtenet13_to_warmtenet14,100
+warmtenet14_to_warmtenet15,100

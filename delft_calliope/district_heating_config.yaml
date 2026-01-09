@@ -147,8 +147,7 @@ data_tables:
     data: data_tables/nodes_coordinates.csv
     rows: nodes
     columns: parameters
-
 nodes:
-  substation_multatulibuurt:
+  substation_poptahofzuid:
     techs:
-      heat_substation:
+      heat_substation: {}

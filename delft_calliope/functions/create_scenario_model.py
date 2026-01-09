@@ -8,7 +8,8 @@ def create_scenario_model(
     scenario,
     data_tables_folder='data_tables',
     base_yaml='inputs/calliope_model_config.yaml',
-    tech_efficiencies=None
+    tech_efficiencies=None,
+    neighborhood_id=None
 ):
     """
     Create and configure a Calliope model based on scenario type by modifying CSV files and YAML.
@@ -25,6 +26,8 @@ def create_scenario_model(
         Technology efficiency parameters:
         - 'heat_pump_cop': Heat pump coefficient of performance (default: 4.0)
         - 'heat_substation_eff': Heat substation efficiency (default: 1.0)
+    neighborhood_id : str, optional
+        Neighborhood identifier for substation naming
 
     
     Returns:
@@ -117,6 +120,7 @@ def create_scenario_model(
                 model_config['nodes'][node_name]['techs'] = {}
             model_config['nodes'][node_name]['techs']['heat_pump'] = {}
         #print(f"   Added heat pumps to {len(demand_nodes)} demand nodes in YAML")
+
         
         # 3. Deactivate district heating links
         links_techs = links_techs[~links_techs['name'].str.contains("LQ heat distribution", na=False)].reset_index(drop=True)
@@ -139,6 +143,18 @@ def create_scenario_model(
         
     elif scenario == 'district_heating':
         #print(" Configuring district heating scenario...")
+
+        # Add substation node configuration
+        if neighborhood_id is not None:
+            substation_name = f"substation_{neighborhood_id}"
+            if 'nodes' not in model_config:
+                model_config['nodes'] = {}
+            if substation_name not in model_config['nodes']:
+                model_config['nodes'][substation_name] = {}
+            if 'techs' not in model_config['nodes'][substation_name]:
+                model_config['nodes'][substation_name]['techs'] = {}
+            model_config['nodes'][substation_name]['techs']['heat_substation'] = {}
+            #print(f"   Added heat_substation tech to {substation_name} node in YAML")
         
         # 1. Deactivate electricity distribution links
         links_techs = links_techs[~links_techs['name'].str.contains("LV electricity distribution", na=False)].reset_index(drop=True)

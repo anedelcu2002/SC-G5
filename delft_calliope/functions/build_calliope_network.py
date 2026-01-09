@@ -17,7 +17,9 @@ def build_calliope_network(
     inputs_folder="inputs",
     output_folder="data_tables",
     link_parameters=None,
-    transformer_supply_capacity=1000
+    transformer_supply_capacity=100000,
+    neighborhood_id=None,              
+    substation_coords=None 
 ):
     """
     Build the complete network structure by importing base data, creating nodes and links,
@@ -54,7 +56,13 @@ def build_calliope_network(
                 'LV electricity distribution secondary'
             Values: dict with 'flow_cap_max' and 'flow_out_eff_per_distance'
     transformer_supply_capacity : int, optional
-        Maximum electricity supply capacity per transformer in kW (default: 1000)
+        Maximum electricity supply capacity per transformer in kW (default: 100000)
+    neighborhood_id : str, optional
+        Neighborhood identifier for substation naming (e.g., 'multatulibuurt')
+        If None, uses generic 'main' name
+    substation_coords : list, optional
+        [lon, lat] coordinates for the substation location
+        If None, substation will not be created
     
     Returns:
     --------
@@ -266,36 +274,101 @@ def build_calliope_network(
     # --- 4. Connect demand nodes, substations, and transformers to distribution network ---
     #print("Connecting nodes to distribution network...")
     
-    # Get substation coordinates
-    substation_row = warmtenet_nodes_coordinates[warmtenet_nodes_coordinates['nodes'] == 'substation_multatulibuurt']
-    if substation_row.empty:
-        raise ValueError("substation_multatulibuurt not found in warmtenet_nodes_coordinates")
-    sub_lon = substation_row.iloc[0]['longitude']
-    sub_lat = substation_row.iloc[0]['latitude']
+    # Create substation dynamically if coordinates provided
+    substation_link = None
+    warmtenet_to_substation_link = None
     
-    # Get transmission node coordinates
-    heat_trans_nodes_coords = heat_trans_nodes[['id', 'lon', 'lat']].copy()
+    if substation_coords is not None:
+        # Generate substation name based on neighborhood
+        substation_name = f"substation_{neighborhood_id}" if neighborhood_id else "substation_main"
+        sub_lon, sub_lat = substation_coords[0], substation_coords[1]
+        
+        # Find nearest warmtenet node to connect substation to
+        warmtenet_nodes = warmtenet_nodes_coordinates[
+            warmtenet_nodes_coordinates['nodes'].str.startswith('warmtenet')
+        ]
+        
+        if not warmtenet_nodes.empty:
+            # Calculate distances to all warmtenet nodes
+            warmtenet_lats = warmtenet_nodes['latitude'].values
+            warmtenet_lons = warmtenet_nodes['longitude'].values
+            dists = haversine_distance(sub_lat, sub_lon, warmtenet_lats, warmtenet_lons)
+            nearest_idx = np.argmin(dists)
+            nearest_warmtenet_node = warmtenet_nodes.iloc[nearest_idx]['nodes']
+            
+            #print(f"   Connecting substation '{substation_name}' to warmtenet node '{nearest_warmtenet_node}'")
+            
+            # Add substation to nodes_coordinates
+            substation_coord_row = pd.DataFrame({
+                'nodes': [substation_name],
+                'latitude': [sub_lat],
+                'longitude': [sub_lon],
+                'comment': ['']
+            })
+            nodes_coordinates = pd.concat([nodes_coordinates, substation_coord_row], ignore_index=True)
+            
+            # Add substation to nodes_techs (placeholder, actual tech defined in YAML)
+            substation_tech_row = pd.DataFrame({
+                'nodes': [substation_name],
+                'techs': ['heat_main'],
+                'parameters': ['sink_use_equals'],
+                'timesteps': [''],
+                '2050/01/01 00:00': [0]
+            })
+            nodes_techs = pd.concat([nodes_techs, substation_tech_row], ignore_index=True)
+            
+            # Create link from warmtenet to substation (HQ heat transmission)
+            warmtenet_to_substation_link = {
+                "techs": f"{nearest_warmtenet_node}_to_{substation_name}",
+                "color": "#823747",
+                "name": "Heat transmission main",
+                "base_tech": "transmission",
+                "flow_cap_max": link_parameters['Heat transmission main']['flow_cap_max'],
+                "flow_out_eff_per_distance": link_parameters['Heat transmission main']['flow_out_eff_per_distance'],
+                "lifetime": 20,
+                "link_to": nearest_warmtenet_node,
+                "link_from": substation_name
+            }
+            
+            # Add to warmtenet_links_carriers
+            warmtenet_link_carrier = pd.DataFrame({
+                'techs': [f"{nearest_warmtenet_node}_to_{substation_name}"],
+                'carrier_out': [1],
+                'carrier_in': [1]
+            })
+            warmtenet_links_carriers = pd.concat([warmtenet_links_carriers, warmtenet_link_carrier], ignore_index=True)
+            
+            # Create link from substation to nearest heat transmission node (LQ heat distribution)
+            # Get transmission node coordinates
+            heat_trans_nodes_coords = heat_trans_nodes[['id', 'lon', 'lat']].copy()
+            heat_lats = heat_trans_nodes_coords['lat'].values
+            heat_lons = heat_trans_nodes_coords['lon'].values
+            dists = haversine_distance(sub_lat, sub_lon, heat_lats, heat_lons)
+            nearest_heat_idx = np.argmin(dists)
+            nearest_heat_id = heat_trans_nodes_coords.iloc[nearest_heat_idx]['id']
+            
+            link_params = link_parameters['LQ heat distribution main']
+            substation_link = {
+                "techs": f"{substation_name}_to_{nearest_heat_id}_heat",
+                "color": "#823740",
+                "name": "LQ heat distribution main",
+                "base_tech": "transmission",
+                "flow_cap_max": link_params['flow_cap_max'],
+                "flow_out_eff_per_distance": link_params['flow_out_eff_per_distance'],
+                "lifetime": 20,
+                "link_to": nearest_heat_id,
+                "link_from": substation_name
+            }
+            
+            #print(f"   Created substation '{substation_name}' and links")
+        else:
+            print("   WARNING: No warmtenet nodes found, skipping substation creation")
+    
+    # Get transmission node coordinates for transformer connections
     elec_trans_nodes_coords = elec_trans_nodes[['id', 'lon', 'lat']].copy()
     
-    # Substation to nearest heat node (vectorized)
-    heat_lats = heat_trans_nodes_coords['lat'].values
-    heat_lons = heat_trans_nodes_coords['lon'].values
-    dists = haversine_distance(sub_lat, sub_lon, heat_lats, heat_lons)
-    nearest_heat_idx = np.argmin(dists)
-    nearest_heat_id = heat_trans_nodes_coords.iloc[nearest_heat_idx]['id']
-    
-    link_params = link_parameters['LQ heat distribution main']
-    substation_link = {
-        "techs": f"substation_multatulibuurt_to_{nearest_heat_id}_heat",
-        "color": "#823740",
-        "name": "LQ heat distribution main",
-        "base_tech": "transmission",
-        "flow_cap_max": link_params['flow_cap_max'],
-        "flow_out_eff_per_distance": link_params['flow_out_eff_per_distance'],
-        "lifetime": 20,
-        "link_to": nearest_heat_id,
-        "link_from": "substation_multatulibuurt"
-    }
+    # Get transmission node coordinates for transformer connections
+    elec_trans_nodes_coords = elec_trans_nodes[['id', 'lon', 'lat']].copy()
     
     # Transformers to nearest electricity node (vectorized)
     mv_lats = MV_LV_transformer_nodes_coordinates['latitude'].values
@@ -365,15 +438,28 @@ def build_calliope_network(
     #print(f" Created connections: 1 substation link, {len(transformer_links)} transformer links, {len(demand_heat_links)} demand heat links, {len(demand_elec_links)} demand elec links")
     
     # Combine all links
-    new_transmission_links = pd.concat([pd.DataFrame(heat_links), pd.DataFrame(elec_links)], ignore_index=True)
-    links_techs = pd.concat([
+    heat_links_df = pd.DataFrame(heat_links) if heat_links else pd.DataFrame()
+    elec_links_df = pd.DataFrame(elec_links) if elec_links else pd.DataFrame()
+    
+    links_list = [
         warmtenet_links_techs,
-        new_transmission_links,
-        pd.DataFrame([substation_link]),
+        heat_links_df,
+        elec_links_df
+    ]
+    
+    # Add substation links if they were created
+    if warmtenet_to_substation_link is not None:
+        links_list.append(pd.DataFrame([warmtenet_to_substation_link]))
+    if substation_link is not None:
+        links_list.append(pd.DataFrame([substation_link]))
+    
+    links_list.extend([
         transformer_links,
         demand_heat_links,
         demand_elec_links
-    ], ignore_index=True)
+    ])
+    
+    links_techs = pd.concat(links_list, ignore_index=True)
     
     # Remove duplicates
     links_techs = links_techs.drop_duplicates(subset=['link_from', 'link_to', 'name'])
