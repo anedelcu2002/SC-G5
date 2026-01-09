@@ -4,13 +4,14 @@ import folium
 from pyproj import Transformer
 from functions.TNO_API import fetch_residential_heat_demand
 
-def process_heat_demand(buildings_df, area, mode='plot'):
+def process_heat_demand(buildings_df, area, year, mode='plot'):
     """
     Fetches residential heat demand data, merges it with building data, and optionally visualizes it.
     
     Args:
         buildings_df (pd.DataFrame): DataFrame containing building information with geometry and coordinates.
         area (str): Area code for fetching heat demand data (e.g., '4011' for Multatulibuurt).
+        year (int): Year for fetching heat demand data. Default is 2019.
         mode (str): If 'plot', creates an interactive heat demand map visualization. Default is 'plot'.
     
     Returns:
@@ -19,7 +20,7 @@ def process_heat_demand(buildings_df, area, mode='plot'):
             - buildings_gdf: GeoDataFrame with geometry for further processing
     """
     # Fetch residential heat demand data
-    residential_heat_demand = fetch_residential_heat_demand(area)
+    residential_heat_demand = fetch_residential_heat_demand(area, year)
 
     gdf = buildings_df.copy()
     transformer = Transformer.from_crs("EPSG:28992", "EPSG:4326", always_xy=True)

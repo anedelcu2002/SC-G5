@@ -1,7 +1,8 @@
 import pandas as pd
 import requests
+from datetime import datetime
 
-def fetch_residential_heat_demand(area):
+def fetch_residential_heat_demand(area, year):
     # Fetch building GeoJSON energy consumption data for the given area
     geojson_url = f"https://hlc-api.warmteprofielengenerator.nl/building_data/geojson/{area}"
     headers = {
@@ -19,10 +20,20 @@ def fetch_residential_heat_demand(area):
     else:
         print("No features to export.")
         return pd.DataFrame()
+    
+    # Calculate timestamps for the given year
+    # Start: January 1 of the year at 00:00:00 UTC
+    start_date = datetime(year, 1, 1)
+    start_timestamp = int(start_date.timestamp() * 1000)  # Convert to milliseconds
+    
+    # End: December 31 of the year at 23:59:59 UTC
+    end_date = datetime(year, 12, 31, 23, 59, 59)
+    end_timestamp = int(end_date.timestamp() * 1000)  # Convert to milliseconds
+    
     # Fetch heat demand data from the InfluxDB/Grafana API
     query = (
         f"SELECT sum(\"P_heat\") FROM \"tot-{area}\" "
-        f"WHERE time >= 1546300800000ms and time <= 1577836799999ms GROUP BY time(1h) fill(null)"
+        f"WHERE time >= {start_timestamp}ms and time <= {end_timestamp}ms GROUP BY time(1h) fill(null)"
     )
     url = (
         "https://hlc-grafana.warmteprofielengenerator.nl/api/datasources/proxy/2/query?db=tnohlc"
@@ -34,7 +45,7 @@ def fetch_residential_heat_demand(area):
         "Accept": "application/json, text/plain, */*",
         "Accept-Language": "en-US,en;q=0.5",
         "Accept-Encoding": "gzip, deflate, br, zstd",
-        "Referer": f"https://hlc-grafana.warmteprofielengenerator.nl/d-solo/BJBoKWivz/warmtevraagprofiel-2019-{area}?orgId=1&panelId=1&from=1546300800000&to=1577836799999&theme=light",
+        "Referer": f"https://hlc-grafana.warmteprofielengenerator.nl/d-solo/BJBoKWivz/warmtevraagprofiel-{year}-{area}?orgId=1&panelId=1&from={start_timestamp}&to={end_timestamp}&theme=light",
         "x-grafana-org-id": "1",
         "DNT": "1",
         "Connection": "keep-alive",
@@ -75,4 +86,4 @@ def fetch_residential_heat_demand(area):
         return pd.DataFrame()
 
 if __name__ == "__main__":
-    df = fetch_residential_heat_demand("4011")
+    df = fetch_residential_heat_demand("4011", 2019)
