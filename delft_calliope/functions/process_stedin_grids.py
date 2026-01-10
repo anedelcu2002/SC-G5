@@ -303,7 +303,203 @@ def process_stedin_grids(
         # Add layer control for toggling
         folium.LayerControl().add_to(stedin_map)
         
-        stedin_map.save("debug/stedin_map.html")
+        stedin_map.save("debug/topology_map.html")
         #print("✓ Saved visualization to debug/stedin_map.html")
     
     return stedin_heat_gdf_delft, stedin_elec_gdf_delft, stedin_transformers_gdf_delft
+
+def process_network_topology(
+    bbox_coords,
+    buildings_df=None,
+    topology_source='stedin',
+    osm_pbf_path='inputs/delft.osm.pbf',
+    features_to_remove_heat=None,
+    features_to_remove_elec=None,
+    mode='plot',
+    base_service_url="https://services-eu1.arcgis.com/IQto421Ac9MzEmFT/arcgis/rest/services/KM_Gasvervangingsdata/FeatureServer",
+    gas_layer_id=1,
+    lv_elec_layer_id=2,
+    transformer_layer_id=6,
+    simplify_tolerance=0.000001,
+    snap_tolerance=0.000001
+):
+    """
+    Unified function to process network topology from either Stedin grids or OpenStreetMap.
+    Always fetches transformer locations from Stedin regardless of topology source.
+    
+    Args:
+        bbox_coords (list of tuples): Polygon coordinates defining the area of interest
+        buildings_df (pd.DataFrame, optional): Buildings dataframe to filter features within buildings
+        topology_source (str): 'stedin' or 'osm' - source for network topology
+        osm_pbf_path (str): Path to OSM PBF file (used when topology_source='osm')
+        features_to_remove_heat (list): Heat/gas network feature names to exclude (Stedin only)
+        features_to_remove_elec (list): Electricity network feature names to exclude (Stedin only)
+        mode (str): If 'plot', creates interactive map visualizations
+        base_service_url (str): Base URL for Stedin ArcGIS FeatureServer
+        gas_layer_id (int): Layer ID for gas network (default: 1)
+        lv_elec_layer_id (int): Layer ID for low voltage electricity grid (default: 2)
+        transformer_layer_id (int): Layer ID for MV-LV transformers (default: 6)
+        simplify_tolerance (float): Geometry simplification precision (in degrees)
+        snap_tolerance (float): Geometry snapping threshold (in degrees)
+    
+    Returns:
+        tuple: (heat_gdf, elec_gdf, transformers_gdf)
+            - heat_gdf: Heat/gas network GeoDataFrame
+            - elec_gdf: Electricity network GeoDataFrame
+            - transformers_gdf: MV-LV transformers GeoDataFrame (from Stedin)
+    """
+    if topology_source.lower() == 'osm':
+        from functions.process_osm_roads import extract_osm_roads
+        
+        # Extract roads from OSM
+        heat_gdf, elec_gdf = extract_osm_roads(
+            osm_pbf_path=osm_pbf_path,
+            bbox_coords=bbox_coords,
+            buildings_df=buildings_df
+        )
+        
+        # Apply simplification and snapping to OSM roads
+        if not heat_gdf.empty:
+            heat_gdf['geometry'] = heat_gdf['geometry'].apply(
+                lambda geom: geom.simplify(simplify_tolerance, preserve_topology=True)
+            )
+            # Snap heat features together
+            all_geoms = list(heat_gdf.geometry)
+            snapped_geoms = []
+            for i, geom in enumerate(all_geoms):
+                snapped = geom
+                for j, other in enumerate(all_geoms):
+                    if i != j:
+                        snapped = snap(snapped, other, snap_tolerance)
+                snapped_geoms.append(snapped)
+            heat_gdf['geometry'] = snapped_geoms
+        
+        if not elec_gdf.empty:
+            elec_gdf['geometry'] = elec_gdf['geometry'].apply(
+                lambda geom: geom.simplify(simplify_tolerance, preserve_topology=True)
+            )
+            # Snap electricity features together
+            all_geoms = list(elec_gdf.geometry)
+            snapped_geoms = []
+            for i, geom in enumerate(all_geoms):
+                snapped = geom
+                for j, other in enumerate(all_geoms):
+                    if i != j:
+                        snapped = snap(snapped, other, snap_tolerance)
+                snapped_geoms.append(snapped)
+            elec_gdf['geometry'] = snapped_geoms
+        
+        # Fetch transformers from Stedin (regardless of topology source)
+        transformer_layer_url = f"{base_service_url}/{transformer_layer_id}"
+        stedin_transformers_gdf = fetch_stedin_layer_from_arcgis(
+            bbox_coords, 
+            transformer_layer_url, 
+            "MV-LV Transformers"
+        )
+        
+        # Filter transformers to bounding polygon
+        polygon = Polygon(bbox_coords)
+        if not stedin_transformers_gdf.empty:
+            transformers_gdf = stedin_transformers_gdf[
+                stedin_transformers_gdf.geometry.intersects(polygon)
+            ].reset_index(drop=True).copy()
+            transformers_gdf['feature_name'] = [
+                f"transformer{i}" for i in range(len(transformers_gdf))
+            ]
+        else:
+            transformers_gdf = gpd.GeoDataFrame(crs='EPSG:4326')
+        
+        # --- Visualization for OSM (if mode=='plot') ---
+        if mode == 'plot':
+            # Use heat network for centering, fallback to elec if no heat data
+            center_gdf = heat_gdf if not heat_gdf.empty else elec_gdf
+            
+            if not center_gdf.empty:
+                # Project to local CRS for accurate centroid calculation
+                center_gdf_proj = center_gdf.to_crs(epsg=28992)
+                centroids_proj = center_gdf_proj.geometry.centroid
+                centroids_wgs = centroids_proj.to_crs(epsg=4326)
+                center = [centroids_wgs.y.mean(), centroids_wgs.x.mean()]
+            else:
+                # Fallback to bbox center
+                lons = [c[0] for c in bbox_coords]
+                lats = [c[1] for c in bbox_coords]
+                center = [sum(lats)/len(lats), sum(lons)/len(lons)]
+            
+            # Create the map
+            osm_map = folium.Map(location=center, zoom_start=15, tiles="OpenStreetMap")
+            
+            # Create FeatureGroups for each network
+            heat_group = folium.FeatureGroup(name="OSM Heat Network", show=True)
+            elec_group = folium.FeatureGroup(name="OSM Electricity Network", show=True)
+            transformer_group = folium.FeatureGroup(name="MV-LV Transformers", show=True)
+            
+            # Add heat features
+            if not heat_gdf.empty:
+                for _, row in heat_gdf.iterrows():
+                    folium.GeoJson(
+                        row.geometry,
+                        name=row['feature_name'],
+                        popup=folium.Popup(row['feature_name'], parse_html=True),
+                        style_function=lambda x: {'color': '#ff5100', 'weight': 3}
+                    ).add_to(heat_group)
+            
+            # Add electricity features
+            if not elec_gdf.empty:
+                for _, row in elec_gdf.iterrows():
+                    folium.GeoJson(
+                        row.geometry,
+                        name=row['feature_name'],
+                        popup=folium.Popup(row['feature_name'], parse_html=True),
+                        style_function=lambda x: {'color': '#3186cc', 'weight': 3}
+                    ).add_to(elec_group)
+            
+            # Add transformer features
+            if not transformers_gdf.empty:
+                for _, row in transformers_gdf.iterrows():
+                    # Get centroid if geometry is not a Point
+                    geom = row.geometry
+                    if geom.geom_type == 'Point':
+                        location = [geom.y, geom.x]
+                    else:
+                        # For Polygon/MultiPolygon, use centroid
+                        centroid = geom.centroid
+                        location = [centroid.y, centroid.x]
+                    
+                    folium.CircleMarker(
+                        location=location,
+                        radius=5,
+                        popup=folium.Popup(row['feature_name'], parse_html=True),
+                        color='#8B4513',
+                        fill=True,
+                        fillColor='#8B4513',
+                        fillOpacity=0.8
+                    ).add_to(transformer_group)
+            
+            # Add groups to map
+            heat_group.add_to(osm_map)
+            elec_group.add_to(osm_map)
+            transformer_group.add_to(osm_map)
+            
+            # Add layer control for toggling
+            folium.LayerControl().add_to(osm_map)
+            
+            osm_map.save("debug/topology_map.html")
+        
+        return heat_gdf, elec_gdf, transformers_gdf
+        
+    else:  # stedin
+        # Use existing Stedin processing (includes transformers and visualization)
+        return process_stedin_grids(
+            bbox_coords=bbox_coords,
+            buildings_df=buildings_df,
+            features_to_remove_heat=features_to_remove_heat,
+            features_to_remove_elec=features_to_remove_elec,
+            mode=mode,
+            base_service_url=base_service_url,
+            gas_layer_id=gas_layer_id,
+            lv_elec_layer_id=lv_elec_layer_id,
+            transformer_layer_id=transformer_layer_id,
+            simplify_tolerance=simplify_tolerance,
+            snap_tolerance=snap_tolerance
+        )

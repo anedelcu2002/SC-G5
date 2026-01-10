@@ -579,7 +579,7 @@ def build_calliope_network(
         
         # Save the map
         os.makedirs('debug', exist_ok=True)
-        network_map.save('debug/network_map.html')
+        network_map.save('debug/calliope_map.html')
         #print(f" Saved network visualization to debug/network_map.html")
     
     # Return all DataFrames

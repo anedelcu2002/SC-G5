@@ -13,7 +13,8 @@ def process_calliope_results(
     density=1000,
     delta_T=25,
     flow_speed=0.62,
-    distance_factors=None
+    distance_factors=None,
+    pipe_sizing_method='class' 
 ):
     """
     Process Calliope model results, create visualizations, and export bill of materials.
@@ -41,6 +42,10 @@ def process_calliope_results(
         Keys: 'Heat transmission main', 'LQ heat distribution main', 
               'LQ heat distribution secondary', 'LV electricity distribution main',
               'LV electricity distribution secondary'
+    pipe_sizing_method : str, optional
+        Method for calculating pipe diameters (default: 'class')
+        - 'class': Use maximum diameter within each segment type (all pipes of same type get same diameter)
+        - 'individual': Round each pipe diameter individually to nearest 5mm
     
     Returns:
     --------
@@ -278,16 +283,18 @@ def process_calliope_results(
         lambda row: row['distance_m'] * distance_factors.get(row['name'], 1.0), 
         axis=1
     )
+    # Calculate flow rates and pipe diameters (ONLY for heat segments)
+    # Identify heat-related segments
+    heat_segments = export_df['name'].str.contains('heat|Heat', case=False, na=False)
     
-    # Calculate flow rates and pipe diameters
     export_df['flow_rate_m^3/s'] = np.where(
-        export_df['capacity_kw'].notnull() & export_df['distance_m'].notnull(),
+        heat_segments & export_df['capacity_kw'].notnull() & export_df['distance_m'].notnull(),
         export_df['capacity_kw'] / (heat_capacity * density * delta_T),
         np.nan
     )
     
     export_df['diameter_mm'] = np.where(
-        export_df['capacity_kw'].notnull() & export_df['distance_m'].notnull(),
+        heat_segments & export_df['capacity_kw'].notnull() & export_df['distance_m'].notnull(),
         (export_df['flow_rate_m^3/s'] / np.pi / flow_speed * 4)**0.5 * 1000,
         np.nan
     )
@@ -296,30 +303,52 @@ def process_calliope_results(
     def round_up_to_5(x):
         return int(np.ceil(x / 5.0) * 5) if not np.isnan(x) else np.nan
     
-    max_heat_transmission_main = round_up_to_5(
-        export_df.loc[export_df['name'] == 'Heat transmission main', 'diameter_mm'].max()
-    )
-    max_lq_heat_distribution_main = round_up_to_5(
-        export_df.loc[export_df['name'] == 'LQ heat distribution main', 'diameter_mm'].max()
-    )
-    max_lq_heat_distribution_secondary = round_up_to_5(
-        export_df.loc[export_df['name'] == 'LQ heat distribution secondary', 'diameter_mm'].max()
-    )
+    # Apply pipe sizing method (ONLY for heat segments)
+    if pipe_sizing_method == 'class':
+        # Class-based sizing: use maximum diameter for each heat segment type
+        max_heat_transmission_main = round_up_to_5(
+            export_df.loc[export_df['name'] == 'Heat transmission main', 'diameter_mm'].max()
+        )
+        max_lq_heat_distribution_main = round_up_to_5(
+            export_df.loc[export_df['name'] == 'LQ heat distribution main', 'diameter_mm'].max()
+        )
+        max_lq_heat_distribution_secondary = round_up_to_5(
+            export_df.loc[export_df['name'] == 'LQ heat distribution secondary', 'diameter_mm'].max()
+        )
+        
+        export_df['final_diameter_mm'] = np.select(
+            [
+                export_df['name'] == 'Heat transmission main',
+                export_df['name'] == 'LQ heat distribution main',
+                export_df['name'] == 'LQ heat distribution secondary'
+            ],
+            [
+                max_heat_transmission_main,
+                max_lq_heat_distribution_main,
+                max_lq_heat_distribution_secondary
+            ],
+            default=np.nan  # Electricity segments get NaN
+        )
     
-    export_df['final_diameter_mm'] = np.select(
-        [
-            export_df['name'] == 'Heat transmission main',
-            export_df['name'] == 'LQ heat distribution main',
-            export_df['name'] == 'LQ heat distribution secondary'
-        ],
-        [
-            max_heat_transmission_main,
-            max_lq_heat_distribution_main,
-            max_lq_heat_distribution_secondary
-        ],
-        default=np.nan
-    )
+    elif pipe_sizing_method == 'individual':
+        # Individual sizing: round each heat pipe diameter individually to nearest 5mm
+        # Electricity segments remain NaN
+        export_df['final_diameter_mm'] = np.where(
+            heat_segments,
+            export_df['diameter_mm'].apply(round_up_to_5),
+            np.nan
+        )
     
+    else:
+        raise ValueError(f"Invalid pipe_sizing_method '{pipe_sizing_method}'. Must be 'class' or 'individual'")
+    
+    export_df['name'] = export_df.apply(
+        lambda row: f"{row['name']}_DN{int(row['final_diameter_mm'])}" 
+                    if pd.notnull(row['final_diameter_mm']) 
+                    else row['name'],
+        axis=1
+    )
+
     # Filter and sort
     final_export_df = export_df[export_df['capacity_kw'] > 0].sort_values(
         by=['name', 'capacity_kw'],

@@ -78,7 +78,7 @@ def fetch_buildings_from_BAG(bounding_box, BAG_API_KEY):
         return buildings
 
     all_buildings = []
-    with ThreadPoolExecutor(max_workers=4) as executor:
+    with ThreadPoolExecutor(max_workers=2) as executor:
         future_to_tile = {executor.submit(fetch_tile, tile): i for i, tile in enumerate(tiles)}
         for future in as_completed(future_to_tile):
             buildings = future.result()

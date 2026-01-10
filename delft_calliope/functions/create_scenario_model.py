@@ -1,8 +1,10 @@
-﻿import pandas as pd
+﻿from time import time
+import pandas as pd
 import calliope
 from ruamel.yaml import YAML
 import os
 import shutil
+import time
 
 def create_scenario_model(
     scenario,
@@ -17,7 +19,7 @@ def create_scenario_model(
     Parameters:
     -----------
     scenario : str
-        'district_heating' or 'full_electrification'
+        'district_heating', 'full_electrification', or 'hybrid'
     data_tables_folder : str, optional
         Folder containing network CSV files (default: 'data_tables')
     base_yaml : str, optional
@@ -50,6 +52,12 @@ def create_scenario_model(
         - Deactivates heat distribution links and nodes
         - Adds heat pump technology to all demand nodes
         - Keeps electricity distribution network active
+    
+    Hybrid scenario:
+        - Large buildings (≥threshold kW): Use district heating
+        - Small buildings (<threshold kW): Use heat pumps
+        - Keeps both transmission networks active
+        - Selectively removes secondary links based on building size
     """
     if tech_efficiencies is None:
         tech_efficiencies = {
@@ -69,7 +77,7 @@ def create_scenario_model(
     data_tables_path = os.path.join(project_dir, data_tables_folder)
     
     # Create temporary YAML file path in data_tables folder
-    temp_yaml_path = os.path.join(project_dir, f'{scenario}_config.yaml')
+    temp_yaml_path = os.path.join(project_dir, f'{scenario}_config_{os.getpid()}_{int(time.time()*1000)}.yaml')
     
     # Copy config YAML to temporary file
     shutil.copy2(base_yaml_path, temp_yaml_path)
@@ -174,9 +182,84 @@ def create_scenario_model(
         nodes_techs.to_csv(os.path.join(data_tables_path, 'nodes_techs.csv'), index=False)
         nodes_coordinates.to_csv(os.path.join(data_tables_path, 'nodes_coordinates.csv'), index=False)
         #print(f"   Saved modified CSV files to {data_tables_path}/")
+    elif scenario == 'hybrid':
+        #print(" Configuring hybrid scenario...")
         
+        # Get demand threshold from tech_efficiencies
+        demand_threshold_kW = tech_efficiencies.get('hybrid_threshold_kW', 50)
+        #print(f"   Using demand threshold: {demand_threshold_kW} kW")
+        
+        # Get demand nodes with their heat demand values
+        demand_techs = nodes_techs[
+            (nodes_techs['techs'] == 'demand_LQ_heat') & 
+            (nodes_techs['nodes'].str.startswith('D'))
+        ].copy()
+        
+        # Classify buildings by demand
+        large_buildings_mask = demand_techs['2050/01/01 00:00'] >= demand_threshold_kW
+        small_buildings_mask = demand_techs['2050/01/01 00:00'] < demand_threshold_kW
+        
+        large_buildings = demand_techs[large_buildings_mask]['nodes'].values
+        small_buildings = demand_techs[small_buildings_mask]['nodes'].values
+        
+        #print(f"   Large buildings (≥{demand_threshold_kW} kW): {len(large_buildings)}")
+        #print(f"   Small buildings (<{demand_threshold_kW} kW): {len(small_buildings)}")
+        
+        # 1. Add heat pumps to small buildings in YAML
+        if 'nodes' not in model_config:
+            model_config['nodes'] = {}
+        
+        for node_name in small_buildings:
+            if node_name not in model_config['nodes']:
+                model_config['nodes'][node_name] = {}
+            if 'techs' not in model_config['nodes'][node_name]:
+                model_config['nodes'][node_name]['techs'] = {}
+            model_config['nodes'][node_name]['techs']['heat_pump'] = {}
+        #print(f"   Added heat pumps to {len(small_buildings)} small buildings in YAML")
+        
+        # Add substation node configuration if specified
+        if neighborhood_id is not None:
+            substation_name = f"substation_{neighborhood_id}"
+            if substation_name not in model_config['nodes']:
+                model_config['nodes'][substation_name] = {}
+            if 'techs' not in model_config['nodes'][substation_name]:
+                model_config['nodes'][substation_name]['techs'] = {}
+            model_config['nodes'][substation_name]['techs']['heat_substation'] = {}
+            #print(f"   Added heat_substation tech to {substation_name} node in YAML")
+        
+        # 2. Remove electricity secondary links for large buildings (they use district heating)
+        if len(large_buildings) > 0:
+            # Create pattern to match links starting with large building nodes
+            large_building_patterns = [f"^{node}_to_.*_electricity$" for node in large_buildings]
+            pattern = '|'.join(large_building_patterns)
+            
+            links_electricity = links_electricity[~links_electricity['techs'].str.match(pattern, na=False)].reset_index(drop=True)
+            links_costs = links_costs[~links_costs['techs'].str.match(pattern, na=False)].reset_index(drop=True)
+            #print(f"   Removed electricity links for {len(large_buildings)} large buildings")
+        
+        # 3. Remove heat secondary links for small buildings (they use heat pumps)
+        if len(small_buildings) > 0:
+            # Create pattern to match links starting with small building nodes
+            small_building_patterns = [f"^{node}_to_.*_heat$" for node in small_buildings]
+            pattern = '|'.join(small_building_patterns)
+            
+            links_LQ_heat = links_LQ_heat[~links_LQ_heat['techs'].str.match(pattern, na=False)].reset_index(drop=True)
+            links_costs = links_costs[~links_costs['techs'].str.match(pattern, na=False)].reset_index(drop=True)
+            #print(f"   Removed heat links for {len(small_buildings)} small buildings")
+        
+        # 4. Keep both transmission networks intact (don't delete transmission nodes/links)
+        # No deletion of transmission nodes - both networks stay active
+        
+        # 5. Save modified CSV files
+        links_techs.to_csv(os.path.join(data_tables_path, 'links_techs.csv'), index=False)
+        links_LQ_heat.to_csv(os.path.join(data_tables_path, 'links_LQ_heat.csv'), index=False)
+        links_electricity.to_csv(os.path.join(data_tables_path, 'links_electricity.csv'), index=False)
+        links_costs.to_csv(os.path.join(data_tables_path, 'links_costs.csv'), index=False)
+        nodes_techs.to_csv(os.path.join(data_tables_path, 'nodes_techs.csv'), index=False)
+        nodes_coordinates.to_csv(os.path.join(data_tables_path, 'nodes_coordinates.csv'), index=False)
+        #print(f"   Saved modified CSV files to {data_tables_path}/")
     else:
-        raise ValueError(f"Unknown scenario '{scenario}'. Must be 'district_heating' or 'full_electrification'")
+        raise ValueError(f"Unknown scenario '{scenario}'. Must be 'district_heating', 'full_electrification', or 'hybrid'.")
     
     # Write modified YAML
     with open(temp_yaml_path, 'w') as f:

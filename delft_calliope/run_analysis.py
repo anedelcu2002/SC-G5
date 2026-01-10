@@ -18,11 +18,15 @@ python run_analysis.py --neighborhood holstbuurt --year 2019
 # Run with full electrification scenario
 python run_analysis.py --scenario full_electrification
 
+# Run with hybrid scenario
+python run_analysis.py --scenario hybrid
+
 # Fast mode without visualizations
 python run_analysis.py --mode export
 
 # Debug mode with single demand node
 python run_analysis.py --debug
+
 """
 
 import pandas as pd
@@ -54,14 +58,17 @@ CONFIG = {
     
     # Run mode: 'plot' generates visualizations, 'export' skips visualization
     'mode': 'plot',
+
+    # Network topology source: 'stedin' (default) or 'osm' (OpenStreetMap roads)
+    'topology_source': 'stedin',
     
     # BAG API key
     'BAG_API_KEY': 'l7c0673beb4a3f46e8a0caa164dc7b8397',
     
     # Node spacing for interpolation in meters (None = corner nodes only)
-    'spacing_m': 3.5,
+    'spacing_m': 5,
     
-    # Scenario: 'district_heating' or 'full_electrification'
+    # Scenario: 'district_heating' or 'full_electrification' or 'hybrid'
     'scenario': 'district_heating',
     
     # Debug mode: use only one demand node for faster testing
@@ -75,7 +82,8 @@ CONFIG = {
     # Technology efficiencies
     'tech_efficiencies': {
         'heat_pump_cop': 4.0,
-        'heat_substation_eff': 1.0
+        'heat_substation_eff': 1.0,
+        'hybrid_threshold_kW': 50
     },
 
     # Postprocessing parameters for results analysis and bill of materials
@@ -86,6 +94,7 @@ CONFIG = {
             'delta_T': 25,
             'flow_speed': 0.62
         },
+        'pipe_sizing_method': 'individual',  # Options: 'class' or 'individual'
         'distance_factors': {
             'Heat transmission main': 1.0,
             'LQ heat distribution main': 1.0,
@@ -257,16 +266,19 @@ def main(config):
             config['year'],
             mode=config['mode']
         )
-    
     # -------------------------------------------------------------------------
-    # 5. Load and process Stedin grid data
+    # 5. Load and process network topology (Stedin or OSM)
     # -------------------------------------------------------------------------
-    with Timer("API call to obtain and process Stedin grid data"):
-        stedin_heat_gdf_delft, stedin_elec_gdf_delft, stedin_transformers_gdf_delft = process_stedin_grids(
+    with Timer(f"Load and process network topology ({config['topology_source'].upper()})"):
+        from functions.process_stedin_grids import process_network_topology
+        
+        stedin_heat_gdf_delft, stedin_elec_gdf_delft, stedin_transformers_gdf_delft = process_network_topology(
             bbox_coords=config['bbox_coords'],
-            buildings_df=buildings_df,  # NEW: Pass buildings
-            features_to_remove_heat=config.get('features_to_remove_heat'),  # Now optional
-            features_to_remove_elec=config.get('features_to_remove_elec'),  # Now optional
+            buildings_df=buildings_df,
+            topology_source=config['topology_source'],
+            osm_pbf_path='inputs/delft.osm.pbf',
+            features_to_remove_heat=config.get('features_to_remove_heat'),
+            features_to_remove_elec=config.get('features_to_remove_elec'),
             mode=config['mode']
         )
         
@@ -328,7 +340,7 @@ def main(config):
     # 11. Process Calliope results
     # -------------------------------------------------------------------------
     with Timer("Process Calliope results"):
-        final_export_df = process_calliope_results(
+            final_export_df = process_calliope_results(
             model=model,
             buildings_gdf=buildings_gdf,
             mode=config['mode'],
@@ -337,7 +349,8 @@ def main(config):
             density=config['postprocessing']['pipe_sizing']['density'],
             delta_T=config['postprocessing']['pipe_sizing']['delta_T'],
             flow_speed=config['postprocessing']['pipe_sizing']['flow_speed'],
-            distance_factors=config['postprocessing']['distance_factors']
+            distance_factors=config['postprocessing']['distance_factors'],
+            pipe_sizing_method=config['postprocessing']['pipe_sizing_method'] 
         )
     
     return model, final_export_df
@@ -365,16 +378,14 @@ def parse_arguments():
         '--year',
         type=int,
         default=CONFIG['year'],
-        help='Year for heat demand data (default: 2019). Available: 2013, 2019, 2020'
+        help='Year for heat demand data (default: 2019). Available: 2013 (cold), 2019 (normal), 2020 (warm)'
     )
     
-    parser.add_argument(
-        '--scenario',
-        type=str,
-        choices=['district_heating', 'full_electrification'],
-        default=CONFIG['scenario'],
-        help='Scenario to run (default: district_heating)'
-    )
+    parser.add_argument('--scenario', type=str, default=None,
+                      help="Scenario type: 'district_heating', 'full_electrification', or 'hybrid'")
+    
+    parser.add_argument('--threshold', type=float, default=None,
+                      help="Demand threshold in kW for hybrid scenario (default: 50)")
     
     parser.add_argument(
         '--mode',
@@ -402,6 +413,29 @@ def parse_arguments():
         action='store_true',
         help='List all available neighborhoods and exit'
     )
+
+    parser.add_argument(
+        '--topology_source',
+        type=str,
+        choices=['stedin', 'osm'],
+        default='stedin',
+        help="Network topology source: 'stedin' (grid data) or 'osm' (OpenStreetMap roads)"
+    )
+
+    parser.add_argument(
+        '--pipe-sizing',
+        type=str,
+        choices=['class', 'individual'],
+        default='individual',
+        help="Pipe sizing method: 'class' (uniform per type) or 'individual' (per pipe)"
+    )
+
+    parser.add_argument(
+    '--output-folder',
+    type=str,
+    default=None,
+    help="Output folder for results (default: 'outputs')"
+)
     
     return parser.parse_args()
 
@@ -432,7 +466,12 @@ if __name__ == "__main__":
     CONFIG['mode'] = args.mode
     CONFIG['debug_single_node'] = args.debug
     CONFIG['spacing_m'] = args.spacing
-    
+    if args.topology_source:
+        CONFIG['topology_source'] = args.topology_source
+    if args.threshold:
+        CONFIG['tech_efficiencies']['hybrid_threshold_kW'] = args.threshold
+    if args.output_folder:
+        CONFIG['outputs_folder'] = args.output_folder
     # Run main workflow
     try:
         model, results = main(CONFIG)
