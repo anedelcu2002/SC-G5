@@ -2,26 +2,39 @@
 import geopandas as gpd
 import folium
 from pyproj import Transformer
+from shapely import area
 from functions.TNO_API import fetch_residential_heat_demand
 
-def process_heat_demand(buildings_df, area, year, mode='plot'):
+def process_heat_demand(buildings_df, area, year, mode='plot', online=True, csv_path='inputs/heat_demand_cache'):
     """
     Fetches residential heat demand data, merges it with building data, and optionally visualizes it.
     
     Args:
         buildings_df (pd.DataFrame): DataFrame containing building information with geometry and coordinates.
-        area (str): Area code for fetching heat demand data (e.g., '4011' for Multatulibuurt).
-        year (int): Year for fetching heat demand data. Default is 2019.
+        area (str): Area code for fetching heat demand data (e.g., '4341' for Mythologiebuurt 2020).
+        year (int): Year for fetching heat demand data (used only for online API calls).
         mode (str): If 'plot', creates an interactive heat demand map visualization. Default is 'plot'.
+        online (bool): If True, fetch from TNO API; if False, load from CSV file. Default is True.
+        csv_path (str): Path to directory containing CSV cache files. Default is 'inputs/heat_demand_cache'.
     
     Returns:
         tuple: (merged_df, buildings_gdf)
             - merged_df: DataFrame with buildings and their heat demand data
             - buildings_gdf: GeoDataFrame with geometry for further processing
     """
-    # Fetch residential heat demand data
-    residential_heat_demand = fetch_residential_heat_demand(area, year)
+    # Fetch residential heat demand data (online or offline)
+    residential_heat_demand = fetch_residential_heat_demand(area, year, online=online, csv_path=csv_path)
 
+    # Ensure IDs are strings and properly formatted (add leading zero if needed)
+    if 'id' in residential_heat_demand.columns:
+        residential_heat_demand['id'] = residential_heat_demand['id'].astype(str)
+        # Add leading zero if ID is 15 digits (BAG IDs are 16 digits)
+        residential_heat_demand['id'] = residential_heat_demand['id'].apply(
+            lambda x: f'0{x}' if len(x) == 15 else x
+        )
+
+    gdf = buildings_df.copy()
+    
     gdf = buildings_df.copy()
     transformer = Transformer.from_crs("EPSG:28992", "EPSG:4326", always_xy=True)
 

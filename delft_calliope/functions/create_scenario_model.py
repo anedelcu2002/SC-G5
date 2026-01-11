@@ -77,7 +77,7 @@ def create_scenario_model(
     data_tables_path = os.path.join(project_dir, data_tables_folder)
     
     # Create temporary YAML file path in data_tables folder
-    temp_yaml_path = os.path.join(project_dir, f'{scenario}_config_{os.getpid()}_{int(time.time()*1000)}.yaml')
+    temp_yaml_path = os.path.join(data_tables_path, f'{scenario}_config.yaml')
     
     # Copy config YAML to temporary file
     shutil.copy2(base_yaml_path, temp_yaml_path)
@@ -87,6 +87,19 @@ def create_scenario_model(
     yaml = YAML()
     with open(temp_yaml_path, 'r') as f:
         model_config = yaml.load(f)
+
+    if 'data_tables' in model_config:
+        for table_name, table_config in model_config['data_tables'].items():
+            if isinstance(table_config, dict) and 'data' in table_config:
+                # Replace 'data_tables/' with './' since YAML is now in data_tables folder
+                if isinstance(table_config['data'], str):
+                    table_config['data'] = table_config['data'].replace('data_tables/', './')
+            elif isinstance(table_config, list):
+                for item in table_config:
+                    if isinstance(item, dict) and 'data' in item:
+                        if isinstance(item['data'], str):
+                            item['data'] = item['data'].replace('data_tables/', './')
+
 
         # Apply technology efficiencies to YAML
     if 'techs' in model_config:

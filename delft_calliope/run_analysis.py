@@ -35,7 +35,7 @@ import time
 import argparse
 import yaml
 
-from functions.BAG_buildings_API import fetch_buildings_from_BAG
+from functions.BAG_buildings_API import fetch_buildings_from_BAG, load_buildings_from_cache
 from functions.BAG_addresses_API import enrich_buildings_with_addresses
 from functions.process_buildings import process_and_visualize_buildings
 from functions.process_heat_demand import process_heat_demand
@@ -74,10 +74,16 @@ CONFIG = {
     # Debug mode: use only one demand node for faster testing
     'debug_single_node': False,
     
+    # Data source mode: True = fetch from APIs, False = load from cached files
+    'online': True,  # When False, uses cached files for both heat demand and BAG data
+    'heat_demand_csv_path': 'inputs/heat_demand_cache',  # Path to heat demand CSV cache
+    'bag_cache_path': 'inputs/bag_cache',  # Path to BAG pickle cache
+
     # Data folders
     'data_tables_folder': 'data_tables',
     'outputs_folder': 'outputs',
     'debug_folder': 'debug',
+    'inputs_folder': 'inputs',
 
     # Technology efficiencies
     'tech_efficiencies': {
@@ -225,29 +231,33 @@ def main(config):
     print("="*80 + "\n")
     
     # -------------------------------------------------------------------------
-    # 1. Fetch building location data from BAG
+    # 1. Fetch building data from BAG (or load from cache)
     # -------------------------------------------------------------------------
-    with Timer("API call to obtain building location data"):
-        # Derive bounding_box from polygon coordinates
-        lons = [coord[0] for coord in config['bbox_coords']]
-        lats = [coord[1] for coord in config['bbox_coords']]
-        config['bounding_box'] = [min(lons), min(lats), max(lons), max(lats)]
-        all_buildings = fetch_buildings_from_BAG(
-            config['bounding_box'], 
-            config['BAG_API_KEY']
-        )
+    # Derive bounding_box from polygon coordinates
+    lons = [coord[0] for coord in config['bbox_coords']]
+    lats = [coord[1] for coord in config['bbox_coords']]
+    config['bounding_box'] = [min(lons), min(lats), max(lons), max(lats)]
+    
+    with Timer("Obtain building location and address data"):
+        if config['online']:
+            # Online mode: Fetch from BAG API
+            all_buildings = fetch_buildings_from_BAG(
+                config['bounding_box'], 
+                config['BAG_API_KEY']
+            )
+            building_addresses = enrich_buildings_with_addresses(
+                all_buildings, 
+                config['BAG_API_KEY']
+            )
+        else:
+            # Offline mode: Load from cache and filter to bounding box
+            all_buildings, building_addresses = load_buildings_from_cache(
+                config['bounding_box'],
+                cache_path=config['bag_cache_path']
+            )
     
     # -------------------------------------------------------------------------
-    # 2. Fetch building address data from BAG
-    # -------------------------------------------------------------------------
-    with Timer("API call to obtain building address data"):
-        building_addresses = enrich_buildings_with_addresses(
-            all_buildings, 
-            config['BAG_API_KEY']
-        )
-    
-    # -------------------------------------------------------------------------
-    # 3. Create building dataframe and visualize
+    # 2. Create building dataframe and visualize
     # -------------------------------------------------------------------------
     with Timer("Create building dataframe and visualize"):
         buildings_df = process_and_visualize_buildings(
@@ -257,17 +267,19 @@ def main(config):
         )
     
     # -------------------------------------------------------------------------
-    # 4. Define and visualize demand nodes
+    # 3. Define and visualize demand nodes
     # -------------------------------------------------------------------------
     with Timer("Define and visualize demand nodes"):
         merged_df, buildings_gdf = process_heat_demand(
             buildings_df, 
             config['area'], 
             config['year'],
-            mode=config['mode']
+            mode=config['mode'],
+            online=config['online'],
+            csv_path=config['heat_demand_csv_path']
         )
     # -------------------------------------------------------------------------
-    # 5. Load and process network topology (Stedin or OSM)
+    # 4. Load and process network topology (Stedin or OSM)
     # -------------------------------------------------------------------------
     with Timer(f"Load and process network topology ({config['topology_source'].upper()})"):
         from functions.process_stedin_grids import process_network_topology
@@ -283,7 +295,7 @@ def main(config):
         )
         
     # -------------------------------------------------------------------------
-    # 6. Create transmission nodes
+    # 5. Create transmission nodes
     # -------------------------------------------------------------------------
     with Timer("Create transmission nodes"):
         heat_interp_gdf, elec_interp_gdf = create_transmission_nodes(
@@ -293,7 +305,7 @@ def main(config):
         )
     
     # -------------------------------------------------------------------------
-    # 7. Build Calliope network structure
+    # 6. Build Calliope network structure
     # -------------------------------------------------------------------------
     with Timer("Build Calliope network"):
         network_dfs = build_calliope_network(
@@ -306,7 +318,7 @@ def main(config):
             spacing_m=config['spacing_m'],
             mode=config['mode'],
             debug_single_node=config['debug_single_node'],
-            inputs_folder=config['data_tables_folder'].replace('data_tables', 'inputs'),
+            inputs_folder=config['inputs_folder'],
             output_folder=config['data_tables_folder'],
             link_parameters=config['link_parameters'],
             transformer_supply_capacity=config['transformer_supply_capacity'],
@@ -314,7 +326,7 @@ def main(config):
             substation_coords=config['substation_coords']    
         )
     # -------------------------------------------------------------------------
-    # 8. Create scenario and configure model
+    # 7. Create scenario and configure model
     # -------------------------------------------------------------------------
     with Timer("Create scenario and configure model"):
         model = create_scenario_model(
@@ -325,19 +337,19 @@ def main(config):
         )
     
     # -------------------------------------------------------------------------
-    # 9. Build Calliope model
+    # 8. Build Calliope model
     # -------------------------------------------------------------------------
     with Timer("Build Calliope model"):
         model.build()
     
     # -------------------------------------------------------------------------
-    # 10. Solve Calliope model
+    # 9. Solve Calliope model
     # -------------------------------------------------------------------------
     with Timer("Solve Calliope model"):
         model.solve()
     
     # -------------------------------------------------------------------------
-    # 11. Process Calliope results
+    # 10. Process Calliope results
     # -------------------------------------------------------------------------
     with Timer("Process Calliope results"):
             final_export_df = process_calliope_results(
@@ -381,11 +393,17 @@ def parse_arguments():
         help='Year for heat demand data (default: 2019). Available: 2013 (cold), 2019 (normal), 2020 (warm)'
     )
     
-    parser.add_argument('--scenario', type=str, default=None,
-                      help="Scenario type: 'district_heating', 'full_electrification', or 'hybrid'")
+    parser.add_argument('--scenario', 
+        type=str, 
+        default=CONFIG['scenario'],
+        help="Scenario type: 'district_heating', 'full_electrification', or 'hybrid'"
+    )
     
-    parser.add_argument('--threshold', type=float, default=None,
-                      help="Demand threshold in kW for hybrid scenario (default: 50)")
+    parser.add_argument('--threshold', 
+        type=float, 
+        default=CONFIG['tech_efficiencies']['hybrid_threshold_kW'],
+        help="Demand threshold in kW for hybrid scenario (default: 50)"
+    )
     
     parser.add_argument(
         '--mode',
@@ -431,11 +449,24 @@ def parse_arguments():
     )
 
     parser.add_argument(
-    '--output-folder',
-    type=str,
-    default=None,
-    help="Output folder for results (default: 'outputs')"
-)
+        '--output-folder',
+        type=str,
+        default=CONFIG['outputs_folder'],
+        help="Output folder for results (default: 'outputs')"
+    )
+    
+    parser.add_argument(
+        '--data-tables-folder',
+        type=str,
+        default=CONFIG['data_tables_folder'],
+        help="Data tables folder for intermediate CSV files (default: 'data_tables')"
+    )
+
+    parser.add_argument('--offline', 
+        action='store_true',
+        default=True,
+        help='Use cached files for both heat demand and BAG building data instead of APIs'
+    )
     
     return parser.parse_args()
 
@@ -472,6 +503,11 @@ if __name__ == "__main__":
         CONFIG['tech_efficiencies']['hybrid_threshold_kW'] = args.threshold
     if args.output_folder:
         CONFIG['outputs_folder'] = args.output_folder
+    if args.data_tables_folder:
+        CONFIG['data_tables_folder'] = args.data_tables_folder
+    if args.offline:
+        CONFIG['online'] = False
+
     # Run main workflow
     try:
         model, results = main(CONFIG)

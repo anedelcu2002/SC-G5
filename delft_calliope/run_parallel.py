@@ -10,6 +10,8 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 from datetime import datetime
 import pandas as pd
 import json
+import time
+import random
 
 # =============================================================================
 # CONFIGURATION
@@ -18,19 +20,19 @@ import json
 # Define all parameter combinations to run
 NEIGHBORHOODS = [
 #                 'multatulibuurt', 
-#                 'holstbuurt', 
+                 'holstbuurt', 
 #                 'mythologiebuurt',
-                 'poptahofzuid'
+#                 'poptahofzuid'
                  ]
 YEARS = [
-#         2013, 
+         2013, 
          2019, 
-#         2020
+         2020
          ]
 SCENARIOS = [
              'district_heating', 
-             'full_electrification', 
-             'hybrid'
+#             'full_electrification', 
+#             'hybrid'
              ]
 TOPOLOGY_SOURCES = [
                     'stedin', 
@@ -40,7 +42,7 @@ TOPOLOGY_SOURCES = [
 # Execution settings - OPTIMIZED FOR 16 CORES
 # Strategy: Run 4 scenarios in parallel, each using 4 Gurobi threads
 # Total: 4 processes × 4 threads = 16 cores fully utilized
-MAX_WORKERS = 2  # Number of parallel scenario runs
+MAX_WORKERS = 1  # Number of parallel scenario runs
 GUROBI_THREADS = 0  # Threads per Gurobi solve (16 cores / 4 workers = 4 threads each)
 
 MODE = 'plot'  # Use 'export' to skip visualizations for faster execution
@@ -62,14 +64,19 @@ def run_single_scenario(neighborhood, year, scenario, topology_source):
     --------
     dict : Results with status, timing, and output information
     """
+    time.sleep(random.uniform(0, 5))  # Stagger start times to reduce I/O contention
+
     # Create unique identifier for this run
     run_id = f"{neighborhood}_{year}_{scenario}_{topology_source}"
     
-    # Create output directory for this specific run
+    # Create output directory structure for this specific run
     output_dir = os.path.join(RESULTS_BASE_DIR, TIMESTAMP, run_id)
-    os.makedirs(output_dir, exist_ok=True)
-    
-    # Build command - IMPORTANT: Override Gurobi threads
+    data_tables_dir = os.path.join(output_dir, 'data_tables')
+    outputs_dir = os.path.join(output_dir, 'outputs')
+    os.makedirs(data_tables_dir, exist_ok=True)
+    os.makedirs(outputs_dir, exist_ok=True)
+
+    # Build command - IMPORTANT: Pass isolated folders
     cmd = [
         'python',
         'run_analysis.py',
@@ -78,7 +85,8 @@ def run_single_scenario(neighborhood, year, scenario, topology_source):
         '--scenario', scenario,
         '--topology_source', topology_source,
         '--mode', MODE,
-        '--output-folder', output_dir
+        '--data-tables-folder', data_tables_dir,  # NEW: Isolated data tables
+        '--output-folder', outputs_dir              # Updated: outputs subfolder
     ]
     
     print(f"Starting: {run_id}")

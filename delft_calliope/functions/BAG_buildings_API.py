@@ -3,6 +3,8 @@ import numpy as np
 import math
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pyproj import Transformer
+import pickle
+import os
 
 def fetch_buildings_from_BAG(bounding_box, BAG_API_KEY):
     """
@@ -85,3 +87,73 @@ def fetch_buildings_from_BAG(bounding_box, BAG_API_KEY):
             all_buildings.extend(buildings)
 
     return all_buildings
+
+def load_buildings_from_cache(bounding_box, cache_path='inputs/bag_cache'):
+    """
+    Loads building and address data from cached pickle files and filters to bounding box.
+    
+    Args:
+        bounding_box (list): [min_lon, min_lat, max_lon, max_lat] in WGS84.
+        cache_path (str): Path to directory containing cached pickle files.
+    
+    Returns:
+        tuple: (all_buildings, building_addresses) - filtered to bounding box
+    """
+    
+    buildings_file = os.path.join(cache_path, 'delft_all_buildings.pkl')
+    addresses_file = os.path.join(cache_path, 'delft_building_addresses.pkl')
+    
+    if not os.path.exists(buildings_file) or not os.path.exists(addresses_file):
+        raise FileNotFoundError(
+            f"BAG cache files not found in {cache_path}/\n"
+            f"Required files: delft_all_buildings.pkl, delft_building_addresses.pkl\n"
+            f"Please run cache_bag_data.ipynb to create cache files."
+        )
+    
+    # Load full cache
+    #print(f"Loading BAG data from cache: {cache_path}/")
+    with open(buildings_file, 'rb') as f:
+        all_buildings_full = pickle.load(f)
+    
+    with open(addresses_file, 'rb') as f:
+        building_addresses_full = pickle.load(f)
+    
+    #print(f"Loaded {len(all_buildings_full):,} buildings from cache")
+    
+    # Convert bounding box to RD New coordinates for filtering
+    min_lon, min_lat, max_lon, max_lat = bounding_box
+    transformer = Transformer.from_crs("EPSG:4326", "EPSG:28992", always_xy=True)
+    min_x, min_y = transformer.transform(min_lon, min_lat)
+    max_x, max_y = transformer.transform(max_lon, max_lat)
+    
+    # Filter buildings by bounding box
+    all_buildings = []
+    for building in all_buildings_full:
+        if 'pand' in building and isinstance(building['pand'], dict):
+            pand_data = building['pand']
+            if 'geometrie' in pand_data and 'coordinates' in pand_data['geometrie']:
+                coords = pand_data['geometrie']['coordinates'][0]
+                # Check if centroid is within bounding box
+                centroid_x = sum(c[0] for c in coords) / len(coords)
+                centroid_y = sum(c[1] for c in coords) / len(coords)
+                
+                if min_x <= centroid_x <= max_x and min_y <= centroid_y <= max_y:
+                    all_buildings.append(building)
+    
+    # Filter addresses to match filtered buildings
+    building_ids = set()
+    for building in all_buildings:
+        if 'pand' in building and isinstance(building['pand'], dict):
+            pand_id = building['pand'].get('identificatie')
+        elif 'identificatie' in building:
+            pand_id = building.get('identificatie')
+        else:
+            continue
+        if pand_id:
+            building_ids.add(pand_id)
+    
+    building_addresses = {k: v for k, v in building_addresses_full.items() if k in building_ids}
+    
+    #print(f"Filtered to {len(all_buildings):,} buildings in bounding box")
+    
+    return all_buildings, building_addresses

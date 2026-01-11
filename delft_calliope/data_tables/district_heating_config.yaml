@@ -40,7 +40,7 @@ techs:
       data: 1000
       index: monetary
       dims: costs
-    flow_cap_max: 2000
+    flow_cap_max: 200000
     lifetime: 20
 
   supply_geothermal:
@@ -48,7 +48,7 @@ techs:
     color: '#C98AAD'
     base_tech: supply
     carrier_out: HQ_heat
-    flow_cap_max: 10000
+    flow_cap_max: 100000
     cost_flow_cap:
       data: 1000
       index: monetary
@@ -66,7 +66,7 @@ techs:
       index: [[monetary, LQ_heat]]
       dims: [costs, carriers]
     flow_cap_max:
-      data: 1000
+      data: 100000
       index: LQ_heat
       dims: carriers
     flow_out_eff: 4.0
@@ -83,7 +83,7 @@ techs:
       index: [[monetary, LQ_heat]]
       dims: [costs, carriers]
     flow_cap_max:
-      data: 10000
+      data: 100000
       index: LQ_heat
       dims: carriers
     flow_out_eff: 1.0
@@ -112,39 +112,39 @@ techs:
 
 data_tables:
   links_costs:
-    data: data_tables/links_costs.csv
+    data: ./links_costs.csv
     rows: techs
     columns: parameters
     add_dims:
       costs: monetary
   links_electricity:
-    data: data_tables/links_electricity.csv
+    data: ./links_electricity.csv
     rows: techs
     columns: parameters
     add_dims:
       carriers: electricity
   links_HQ_heat:
-    data: data_tables/warmtenet_links_carriers.csv
+    data: ./warmtenet_links_carriers.csv
     rows: techs
     columns: parameters
     add_dims:
       carriers: HQ_heat
   links_LQ_heat:
-    data: data_tables/links_LQ_heat.csv
+    data: ./links_LQ_heat.csv
     rows: techs
     columns: parameters
     add_dims:
       carriers: LQ_heat
   links:
-    data: data_tables/links_techs.csv
+    data: ./links_techs.csv
     rows: techs
     columns: parameters
   nodes:
-    data: data_tables/nodes_techs.csv
+    data: ./nodes_techs.csv
     rows: [nodes, techs, parameters]
     columns: timesteps
   nodes_coordinates:
-    data: data_tables/nodes_coordinates.csv
+    data: ./nodes_coordinates.csv
     rows: nodes
     columns: parameters
 nodes:
