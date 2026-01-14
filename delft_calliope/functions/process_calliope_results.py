@@ -250,7 +250,81 @@ def process_calliope_results(
                     max_width=250
                 )
             ).add_to(building_group)
+
+        # Add floating statistics box
+        # Extract model size from summary
+        num_nodes = int(len(model.inputs.coords.get('nodes', [])))
+        num_techs = int(len(model.inputs.coords.get('techs', [])))
+        num_carriers = int(len(model.inputs.coords.get('carriers', [])))
+        num_timesteps = int(len(model.inputs.coords.get('timesteps', [])))
+        num_links = int((model.inputs.base_tech == "transmission").sum()) if 'base_tech' in model.inputs else 0
         
+        # Build statistics HTML
+        stats_html = f"""
+        <div style="position: fixed; 
+                    bottom: 10px; 
+                    left: 10px; 
+                    width: 300px; 
+                    background-color: white; 
+                    border: 2px solid grey; 
+                    border-radius: 5px;
+                    z-index: 9999; 
+                    font-size: 12px;
+                    padding: 10px;
+                    box-shadow: 0 0 10px rgba(0,0,0,0.3);">
+            <h4 style="margin: 0 0 10px 0; color: #333;">Model Statistics</h4>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="background-color: #f0f0f0;"><td colspan="2" style="padding: 5px; font-weight: bold;">Model Size</td></tr>
+                <tr><td style="padding: 3px; padding-left: 10px;">Nodes:</td><td style="text-align: right; padding: 3px;">{num_nodes}</td></tr>
+                <tr><td style="padding: 3px; padding-left: 10px;">Links:</td><td style="text-align: right; padding: 3px;">{num_links}</td></tr>
+        """
+        
+        # Add results summary if model is solved
+        if hasattr(model, 'results') and len(model.results.data_vars) > 0:
+            try:
+                stats_html += '<tr style="background-color: #f0f0f0;"><td colspan="2" style="padding: 5px; padding-top: 10px; font-weight: bold;">Results Summary</td></tr>'
+                
+                 # Initialize variables to track values for efficiency calculation
+                geo_cap = 0.0
+                hp_cap = 0.0
+                heat_demand = 0.0
+
+                # Supply geothermal capacity
+                try:
+                    geo_cap = float(model.results['flow_out'].sel(techs='supply_geothermal').sum())
+                    stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Supply Geothermal:</td><td style="text-align: right; padding: 3px;">{geo_cap:,.0f} kW</td></tr>'
+                except (KeyError, ValueError):
+                    stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Supply Geothermal:</td><td style="text-align: right; padding: 3px;">0 kW</td></tr>'
+                
+                # Heat pump capacity
+                try:
+                    hp_cap = float(model.results['flow_out'].sel(techs='heat_pump').sum())
+                    stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Heat Pumps:</td><td style="text-align: right; padding: 3px;">{hp_cap:,.0f} kW</td></tr>'
+                except (KeyError, ValueError):
+                    stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Heat Pumps:</td><td style="text-align: right; padding: 3px;">0 kW</td></tr>'
+            
+                # Total heat demand
+                try:
+                    heat_demand = abs(float(model.results['flow_in'].sel(techs='demand_LQ_heat').sum()))
+                    stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Total Heat Demand:</td><td style="text-align: right; padding: 3px;">{heat_demand:,.0f} kW</td></tr>'
+                except (KeyError, ValueError):
+                    stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Total Heat Demand:</td><td style="text-align: right; padding: 3px;">0 kW</td></tr>'
+            
+                # District heating efficiency (only if heat pump = 0)
+                if hp_cap == 0.0 and geo_cap > 0:
+                    efficiency = heat_demand / geo_cap
+                    stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">DH Efficiency:</td><td style="text-align: right; padding: 3px;">{efficiency:.3f}</td></tr>'
+       
+            except Exception:
+                pass
+        
+        stats_html += """
+            </table>
+        </div>
+        """
+        
+        map_fig.get_root().html.add_child(folium.Element(stats_html))
+
         # Add LayerControl
         folium.LayerControl().add_to(map_fig)
         

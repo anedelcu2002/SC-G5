@@ -31,12 +31,12 @@ YEARS = [
          ]
 SCENARIOS = [
              'district_heating', 
-#             'full_electrification', 
+             'full_electrification', 
 #             'hybrid'
              ]
 TOPOLOGY_SOURCES = [
                     'stedin', 
-#                    'osm'
+                    'osm'
                     ]
 
 # Execution settings - OPTIMIZED FOR 16 CORES
@@ -176,6 +176,9 @@ def aggregate_scenario_summaries(results_list, timestamp):
     """
     Aggregate individual scenario summaries into a master summary
     
+    Automatically flattens nested JSON structures so changes to summary
+    format don't break aggregation.
+    
     Parameters:
     -----------
     results_list : list
@@ -193,6 +196,7 @@ def aggregate_scenario_summaries(results_list, timestamp):
         # Load the scenario summary JSON if it exists
         summary_path = os.path.join(result['output_dir'], 'outputs', 'scenario_summary.json')
         
+        # Start with basic run metadata
         summary_row = {
             'run_id': result['run_id'],
             'neighborhood': result['neighborhood'],
@@ -208,28 +212,11 @@ def aggregate_scenario_summaries(results_list, timestamp):
                 with open(summary_path, 'r') as f:
                     scenario_summary = json.load(f)
                 
-                # Extract key metrics
-                if 'model_size' in scenario_summary:
-                    summary_row.update({
-                        'num_nodes': scenario_summary['model_size'].get('num_nodes', 0),
-                        'num_timesteps': scenario_summary['model_size'].get('num_timesteps', 0),
-                    })
+                # Recursively flatten the entire JSON structure
+                flattened = _flatten_dict(scenario_summary)
                 
-                if 'results_summary' in scenario_summary:
-                    results = scenario_summary['results_summary']
-                    summary_row.update({
-                        'total_cost': results.get('total_cost', None),
-                        'total_capacity_installed': results.get('total_capacity_installed', None),
-                        'total_energy_supplied': results.get('total_energy_supplied', None),
-                        'num_pipes': results.get('num_pipes', None),
-                        'total_pipe_cost': results.get('total_pipe_cost', None),
-                    })
-                
-                if 'solver_info' in scenario_summary:
-                    summary_row['solver_status'] = scenario_summary['solver_info'].get('solver_status', 'unknown')
-                
-                if 'execution_times' in scenario_summary:
-                    summary_row['total_execution_time'] = scenario_summary['execution_times'].get('total_seconds', result['duration_seconds'])
+                # Add all flattened fields to the summary row
+                summary_row.update(flattened)
                 
             except Exception as e:
                 summary_row['summary_load_error'] = str(e)
@@ -239,6 +226,49 @@ def aggregate_scenario_summaries(results_list, timestamp):
         summaries.append(summary_row)
     
     return pd.DataFrame(summaries)
+
+
+def _flatten_dict(d, parent_key='', sep='_'):
+    """
+    Recursively flatten a nested dictionary
+    
+    Parameters:
+    -----------
+    d : dict
+        Dictionary to flatten
+    parent_key : str
+        Prefix for keys (used in recursion)
+    sep : str
+        Separator between nested keys
+    
+    Returns:
+    --------
+    dict : Flattened dictionary
+    
+    Examples:
+    ---------
+    >>> _flatten_dict({'a': {'b': 1, 'c': 2}})
+    {'a_b': 1, 'a_c': 2}
+    """
+    items = []
+    for k, v in d.items():
+        new_key = f"{parent_key}{sep}{k}" if parent_key else k
+        
+        if isinstance(v, dict):
+            # Recursively flatten nested dicts
+            items.extend(_flatten_dict(v, new_key, sep=sep).items())
+        elif isinstance(v, list):
+            # Convert lists to comma-separated strings or skip if complex
+            if v and isinstance(v[0], (dict, list)):
+                # Skip complex nested structures
+                items.append((new_key, str(v)))
+            else:
+                items.append((new_key, ', '.join(map(str, v))))
+        else:
+            # Regular value
+            items.append((new_key, v))
+    
+    return dict(items)
 
 def run_parallel_scenarios():
     """
@@ -356,3 +386,51 @@ def save_results_summary(results):
             print(f"  {idx}: {row['sum']}/{row['count']} ({row['rate']}%)")
     
     print(f"{'='*80}\n")
+
+# =============================================================================
+# MAIN EXECUTION
+# =============================================================================
+
+if __name__ == "__main__":
+    import sys
+    
+    # Change to delft_calliope directory
+    if not os.path.exists('run_analysis.py'):
+        print("ERROR: Must run from delft_calliope directory")
+        sys.exit(1)
+    
+    # Show configuration
+    print("\n" + "="*80)
+    print("PARALLEL EXECUTION CONFIGURATION")
+    print("="*80)
+    print(f"CPU Cores: 16 (detected)")
+    print(f"Parallel workers: {MAX_WORKERS}")
+    print(f"Gurobi threads per worker: {GUROBI_THREADS}")
+    print(f"Total utilization: {MAX_WORKERS * GUROBI_THREADS} cores")
+    print(f"\nScenario combinations:")
+    print(f"  Neighborhoods: {len(NEIGHBORHOODS)}")
+    print(f"  Years: {len(YEARS)}")
+    print(f"  Scenarios: {len(SCENARIOS)}")
+    print(f"  Topology sources: {len(TOPOLOGY_SOURCES)}")
+    print(f"  Total: {len(NEIGHBORHOODS) * len(YEARS) * len(SCENARIOS) * len(TOPOLOGY_SOURCES)} runs")
+    print("="*80)
+    
+    response = input("\nProceed? (yes/no): ")
+    if response.lower() not in ['yes', 'y']:
+        print("Execution cancelled.")
+        sys.exit(0)
+    
+    # Run parallel execution
+    start_time = datetime.now()
+    results = run_parallel_scenarios()
+    end_time = datetime.now()
+    
+    # Save results
+    save_results_summary(results)
+    
+    wall_time = (end_time - start_time).total_seconds()
+    cpu_time = sum(r['duration_seconds'] for r in results)
+    print(f"\nTotal wall clock time: {wall_time:.1f}s ({wall_time/60:.1f} minutes)")
+    print(f"Total CPU time: {cpu_time:.1f}s ({cpu_time/60:.1f} minutes)")
+    print(f"Speedup factor: {cpu_time / wall_time:.1f}x")
+    print(f"Core utilization efficiency: {(cpu_time / wall_time) / 16 * 100:.1f}%\n")
