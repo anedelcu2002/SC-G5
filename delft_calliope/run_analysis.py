@@ -39,12 +39,13 @@ from functions.BAG_buildings_API import fetch_buildings_from_BAG, load_buildings
 from functions.BAG_addresses_API import enrich_buildings_with_addresses
 from functions.process_buildings import process_and_visualize_buildings
 from functions.process_heat_demand import process_heat_demand
-from functions.process_stedin_grids import process_stedin_grids
 from functions.create_transmission_nodes import create_transmission_nodes
 from functions.build_calliope_network import build_calliope_network
 from functions.create_scenario_model import create_scenario_model
 from functions.process_calliope_results import process_calliope_results
 from functions.load_neighborhood_config import get_neighborhood_params, list_available_neighborhoods
+from functions.process_stedin_grids import process_network_topology
+from functions.save_summary import save_scenario_summary
 
 
 # =============================================================================
@@ -282,8 +283,6 @@ def main(config):
     # 4. Load and process network topology (Stedin or OSM)
     # -------------------------------------------------------------------------
     with Timer(f"Load and process network topology ({config['topology_source'].upper()})"):
-        from functions.process_stedin_grids import process_network_topology
-        
         stedin_heat_gdf_delft, stedin_elec_gdf_delft, stedin_transformers_gdf_delft = process_network_topology(
             bbox_coords=config['bbox_coords'],
             buildings_df=buildings_df,
@@ -363,6 +362,18 @@ def main(config):
             flow_speed=config['postprocessing']['pipe_sizing']['flow_speed'],
             distance_factors=config['postprocessing']['distance_factors'],
             pipe_sizing_method=config['postprocessing']['pipe_sizing_method'] 
+        )
+            
+    # -------------------------------------------------------------------------
+    # 11. Save scenario summary
+    # -------------------------------------------------------------------------
+    with Timer("Save scenario summary"):
+        scenario_summary = save_scenario_summary(
+            config=config,
+            model=model,
+            results_df=final_export_df,
+            output_folder=config['outputs_folder'],
+            execution_times=execution_times
         )
     
     return model, final_export_df
@@ -515,4 +526,36 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"\nERROR: Analysis failed with exception:")
         print(f"{type(e).__name__}: {e}\n")
+
+        try:
+            import os
+            import json
+            from datetime import datetime
+            
+            error_summary = {
+                'scenario_info': {
+                    'neighborhood': CONFIG['neighborhood'],
+                    'year': CONFIG['year'],
+                    'scenario_type': CONFIG['scenario'],
+                    'topology_source': CONFIG['topology_source'],
+                    'timestamp': datetime.now().isoformat(),
+                },
+                'status': 'FAILED',
+                'error': {
+                    'type': type(e).__name__,
+                    'message': str(e)
+                },
+                'execution_times': execution_times
+            }
+            
+            output_path = os.path.join(CONFIG['outputs_folder'], 'scenario_summary.json')
+            os.makedirs(CONFIG['outputs_folder'], exist_ok=True)
+            with open(output_path, 'w') as f:
+                json.dump(error_summary, f, indent=2, default=str)
+            
+            print(f"Error summary saved to: {output_path}")
+        except:
+            pass  # If summary save fails, don't mask the original error
+        
         raise
+        

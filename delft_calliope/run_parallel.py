@@ -20,9 +20,9 @@ import random
 # Define all parameter combinations to run
 NEIGHBORHOODS = [
 #                 'multatulibuurt', 
-                 'holstbuurt', 
+#                 'holstbuurt', 
 #                 'mythologiebuurt',
-#                 'poptahofzuid'
+                 'poptahofzuid'
                  ]
 YEARS = [
          2013, 
@@ -36,13 +36,13 @@ SCENARIOS = [
              ]
 TOPOLOGY_SOURCES = [
                     'stedin', 
-                    'osm'
+#                    'osm'
                     ]
 
 # Execution settings - OPTIMIZED FOR 16 CORES
 # Strategy: Run 4 scenarios in parallel, each using 4 Gurobi threads
 # Total: 4 processes × 4 threads = 16 cores fully utilized
-MAX_WORKERS = 1  # Number of parallel scenario runs
+MAX_WORKERS = 2  # Number of parallel scenario runs
 GUROBI_THREADS = 0  # Threads per Gurobi solve (16 cores / 4 workers = 4 threads each)
 
 MODE = 'plot'  # Use 'export' to skip visualizations for faster execution
@@ -172,6 +172,73 @@ def run_single_scenario(neighborhood, year, scenario, topology_source):
             'timestamp': start_time.isoformat()
         }
 
+def aggregate_scenario_summaries(results_list, timestamp):
+    """
+    Aggregate individual scenario summaries into a master summary
+    
+    Parameters:
+    -----------
+    results_list : list
+        List of result dictionaries from parallel runs
+    timestamp : str
+        Timestamp for this batch run
+    
+    Returns:
+    --------
+    pd.DataFrame : Aggregated summary table
+    """
+    summaries = []
+    
+    for result in results_list:
+        # Load the scenario summary JSON if it exists
+        summary_path = os.path.join(result['output_dir'], 'outputs', 'scenario_summary.json')
+        
+        summary_row = {
+            'run_id': result['run_id'],
+            'neighborhood': result['neighborhood'],
+            'year': result['year'],
+            'scenario': result['scenario'],
+            'topology_source': result['topology_source'],
+            'success': result['success'],
+            'duration_seconds': result['duration_seconds'],
+        }
+        
+        if os.path.exists(summary_path):
+            try:
+                with open(summary_path, 'r') as f:
+                    scenario_summary = json.load(f)
+                
+                # Extract key metrics
+                if 'model_size' in scenario_summary:
+                    summary_row.update({
+                        'num_nodes': scenario_summary['model_size'].get('num_nodes', 0),
+                        'num_timesteps': scenario_summary['model_size'].get('num_timesteps', 0),
+                    })
+                
+                if 'results_summary' in scenario_summary:
+                    results = scenario_summary['results_summary']
+                    summary_row.update({
+                        'total_cost': results.get('total_cost', None),
+                        'total_capacity_installed': results.get('total_capacity_installed', None),
+                        'total_energy_supplied': results.get('total_energy_supplied', None),
+                        'num_pipes': results.get('num_pipes', None),
+                        'total_pipe_cost': results.get('total_pipe_cost', None),
+                    })
+                
+                if 'solver_info' in scenario_summary:
+                    summary_row['solver_status'] = scenario_summary['solver_info'].get('solver_status', 'unknown')
+                
+                if 'execution_times' in scenario_summary:
+                    summary_row['total_execution_time'] = scenario_summary['execution_times'].get('total_seconds', result['duration_seconds'])
+                
+            except Exception as e:
+                summary_row['summary_load_error'] = str(e)
+        else:
+            summary_row['summary_exists'] = False
+        
+        summaries.append(summary_row)
+    
+    return pd.DataFrame(summaries)
 
 def run_parallel_scenarios():
     """
@@ -234,7 +301,7 @@ def save_results_summary(results):
     # Convert to DataFrame
     df = pd.DataFrame(results)
     
-    # Save to CSV
+    # Save execution summary to CSV
     summary_file = os.path.join(RESULTS_BASE_DIR, TIMESTAMP, 'execution_summary.csv')
     df.to_csv(summary_file, index=False)
     
@@ -242,6 +309,12 @@ def save_results_summary(results):
     json_file = os.path.join(RESULTS_BASE_DIR, TIMESTAMP, 'execution_summary.json')
     with open(json_file, 'w') as f:
         json.dump(results, f, indent=2)
+    
+    # NEW: Create aggregated scenario summaries
+    print("\nAggregating scenario summaries...")
+    aggregated_summary = aggregate_scenario_summaries(results, TIMESTAMP)
+    scenarios_file = os.path.join(RESULTS_BASE_DIR, TIMESTAMP, 'scenarios_summary.csv')
+    aggregated_summary.to_csv(scenarios_file, index=False)
     
     # Print summary statistics
     print(f"\n{'='*80}")
@@ -255,6 +328,7 @@ def save_results_summary(results):
     print(f"\nResults saved to:")
     print(f"  - {summary_file}")
     print(f"  - {json_file}")
+    print(f"  - {scenarios_file}")  # NEW
     print(f"{'='*80}\n")
     
     # Print failures if any
@@ -282,52 +356,3 @@ def save_results_summary(results):
             print(f"  {idx}: {row['sum']}/{row['count']} ({row['rate']}%)")
     
     print(f"{'='*80}\n")
-
-
-# =============================================================================
-# MAIN EXECUTION
-# =============================================================================
-
-if __name__ == "__main__":
-    import sys
-    
-    # Change to delft_calliope directory
-    if not os.path.exists('run_analysis.py'):
-        print("ERROR: Must run from delft_calliope directory")
-        sys.exit(1)
-    
-    # Show configuration
-    print("\n" + "="*80)
-    print("PARALLEL EXECUTION CONFIGURATION")
-    print("="*80)
-    print(f"CPU Cores: 16 (detected)")
-    print(f"Parallel workers: {MAX_WORKERS}")
-    print(f"Gurobi threads per worker: {GUROBI_THREADS}")
-    print(f"Total utilization: {MAX_WORKERS * GUROBI_THREADS} cores")
-    print(f"\nScenario combinations:")
-    print(f"  Neighborhoods: {len(NEIGHBORHOODS)}")
-    print(f"  Years: {len(YEARS)}")
-    print(f"  Scenarios: {len(SCENARIOS)}")
-    print(f"  Topology sources: {len(TOPOLOGY_SOURCES)}")
-    print(f"  Total: {len(NEIGHBORHOODS) * len(YEARS) * len(SCENARIOS) * len(TOPOLOGY_SOURCES)} runs")
-    print("="*80)
-    
-    response = input("\nProceed? (yes/no): ")
-    if response.lower() not in ['yes', 'y']:
-        print("Execution cancelled.")
-        sys.exit(0)
-    
-    # Run parallel execution
-    start_time = datetime.now()
-    results = run_parallel_scenarios()
-    end_time = datetime.now()
-    
-    # Save results
-    save_results_summary(results)
-    
-    wall_time = (end_time - start_time).total_seconds()
-    cpu_time = sum(r['duration_seconds'] for r in results)
-    print(f"\nTotal wall clock time: {wall_time:.1f}s ({wall_time/60:.1f} minutes)")
-    print(f"Total CPU time: {cpu_time:.1f}s ({cpu_time/60:.1f} minutes)")
-    print(f"Speedup factor: {cpu_time / wall_time:.1f}x")
-    print(f"Core utilization efficiency: {(cpu_time / wall_time) / 16 * 100:.1f}%\n")

@@ -97,7 +97,7 @@ def filter_features_within_buildings(gdf, buildings_gdf, buffer_distance=0.0001)
 
 def process_stedin_grids(
     bbox_coords,
-    buildings_df=None,  # NEW PARAMETER
+    buildings_df=None,
     features_to_remove_heat=None,  # Make optional
     features_to_remove_elec=None,  # Make optional
     mode='plot',
