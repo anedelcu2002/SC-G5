@@ -343,7 +343,7 @@ def save_results_summary(results):
     # NEW: Create aggregated scenario summaries
     print("\nAggregating scenario summaries...")
     aggregated_summary = aggregate_scenario_summaries(results, TIMESTAMP)
-    scenarios_file = os.path.join(RESULTS_BASE_DIR, TIMESTAMP, 'scenarios_summary.csv')
+    scenarios_file = os.path.join(RESULTS_BASE_DIR, TIMESTAMP, 'scenario_summary.csv')
     aggregated_summary.to_csv(scenarios_file, index=False)
     
     # Print summary statistics
