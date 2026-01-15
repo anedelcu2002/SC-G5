@@ -76,9 +76,10 @@ CONFIG = {
     'debug_single_node': False,
     
     # Data source mode: True = fetch from APIs, False = load from cached files
-    'online': True,  # When False, uses cached files for both heat demand and BAG data
+    'online': False,  # When False, uses cached files for all data inputs
     'heat_demand_csv_path': 'inputs/heat_demand_cache',  # Path to heat demand CSV cache
     'bag_cache_path': 'inputs/bag_cache',  # Path to BAG pickle cache
+    'stedin_cache_path': 'inputs/stedin_cache',  # Path to Stedin pickle cache
 
     # Data folders
     'data_tables_folder': 'data_tables',
@@ -288,8 +289,8 @@ def main(config):
             buildings_df=buildings_df,
             topology_source=config['topology_source'],
             osm_pbf_path='inputs/delft.osm.pbf',
-            features_to_remove_heat=config.get('features_to_remove_heat'),
-            features_to_remove_elec=config.get('features_to_remove_elec'),
+            online=config['online'],  
+            cache_path=config['stedin_cache_path'],  
             mode=config['mode']
         )
         
