@@ -3,7 +3,9 @@ import os
 from datetime import datetime
 
 def save_scenario_summary(config, model, results_df, output_folder, execution_times, 
-                          apply_heat_losses=False, total_system_losses_kw=0.0, supply_losses=None):
+                          apply_heat_losses=False, total_system_losses_kw=0.0,
+                          apply_electricity_losses=False, total_electricity_losses_kw=0.0,  # NEW
+                          supply_losses=None):
     """
     Save comprehensive scenario summary to JSON file
     
@@ -63,8 +65,16 @@ def save_scenario_summary(config, model, results_df, output_folder, execution_ti
         'heat_loss_info': {
             'apply_heat_losses': apply_heat_losses,
             'total_system_losses_kw': total_system_losses_kw,
-            'supply_losses': supply_losses
-        }
+        },
+        
+        # Electricity loss information (NEW)
+        'electricity_loss_info': {
+            'apply_electricity_losses': apply_electricity_losses,
+            'total_lv_losses_kw': total_electricity_losses_kw,
+        },
+        
+        # Supply/transformer losses
+        'supply_losses': supply_losses
     }
     
     # Add results summary if model was solved successfully
@@ -96,6 +106,29 @@ def save_scenario_summary(config, model, results_df, output_folder, execution_ti
                     summary['results_summary']['heat_pump_capacity_kW'] = heat_pump_cap
                 except (KeyError, ValueError):
                     summary['results_summary']['heat_pump_capacity_kW'] = 0.0
+                
+                # Add total heat pump electricity consumption capacity
+                try:
+                    heat_pump_elec_cap = float(model.results.flow_cap.sel(techs='heat_pump', carriers='electricity').sum())
+                    summary['results_summary']['heat_pump_electricity_capacity_kW'] = heat_pump_elec_cap
+                except (KeyError, ValueError):
+                    summary['results_summary']['heat_pump_electricity_capacity_kW'] = 0.0
+                
+                # Add supply electricity capacity
+                try:
+                    supply_elec_cap = float(flow_caps.sel(techs='supply_LV_electricity').sum())
+                    
+                    # Apply electricity losses if calculated
+                    if apply_electricity_losses and total_electricity_losses_kw > 0:
+                        supply_elec_cap_adjusted = supply_elec_cap + total_electricity_losses_kw
+                        summary['results_summary']['supply_LV_electricity_capacity_original_kW'] = supply_elec_cap
+                        summary['results_summary']['supply_LV_electricity_capacity_adjusted_kW'] = supply_elec_cap_adjusted
+                        summary['results_summary']['supply_LV_electricity_additional_for_losses_kW'] = total_electricity_losses_kw
+                    else:
+                        summary['results_summary']['supply_LV_electricity_capacity_kW'] = supply_elec_cap
+                        
+                except (KeyError, ValueError):
+                    summary['results_summary']['supply_LV_electricity_capacity_kW'] = 0.0
                     
                 try:
                     heat_demand = abs(float(model.results['flow_in'].sel(techs='demand_LQ_heat').sum()))
@@ -109,6 +142,23 @@ def save_scenario_summary(config, model, results_df, output_folder, execution_ti
                         'total_system_losses_kW': total_system_losses_kw,
                         'loss_percentage': (total_system_losses_kw / heat_demand * 100) if heat_demand > 0 else 0.0,
                         'supply_node_losses': supply_losses
+                    }
+
+                # Add electricity loss summary if applicable
+                if apply_electricity_losses and total_electricity_losses_kw > 0:
+                    # Get total heat pump electricity demand from model
+                    try:
+                        total_hp_elec = abs(float(
+                            model.results.flow_cap
+                            .sel(techs='heat_pump', carriers='electricity')
+                            .sum()
+                        ))
+                    except (KeyError, ValueError):
+                        total_hp_elec = 0.0
+                    
+                    summary['results_summary']['electricity_losses'] = {
+                        'total_lv_losses_kW': total_electricity_losses_kw,
+                        'loss_percentage': (total_electricity_losses_kw / total_hp_elec * 100) if total_hp_elec > 0 else 0.0,
                     }
 
                 # District heating efficiency (only when heat pump is not used)
@@ -133,6 +183,6 @@ def save_scenario_summary(config, model, results_df, output_folder, execution_ti
     with open(output_path, 'w') as f:
         json.dump(summary, f, indent=2, default=str)
     
-    print(f"\nScenario summary saved to: {output_path}")
+    #print(f"\nScenario summary saved to: {output_path}")
     
     return summary

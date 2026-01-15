@@ -115,7 +115,12 @@ CONFIG = {
             'LQ heat distribution main': 15.0,    # W/m
             'LQ heat distribution secondary': 10.0 # W/m
         },
-        'apply_heat_losses': True
+        'apply_heat_losses': True,
+        'electricity_resistance_rates': {
+            'LV electricity distribution main': 0.247,       # Ω/km
+            'LV electricity distribution secondary': 0.247   # Ω/km
+        },
+        'apply_electricity_losses': True
     },
 
     # Link technical parameters for network segments
@@ -358,7 +363,7 @@ def main(config):
     # 10. Process Calliope results
     # -------------------------------------------------------------------------
     with Timer("Process Calliope results"):
-        final_export_df, total_system_losses_kw, supply_losses = process_calliope_results(
+        final_export_df, total_system_losses_kw, total_electricity_losses_kw, supply_losses = process_calliope_results(
             model=model,
             buildings_gdf=buildings_gdf,
             mode=config['mode'],
@@ -370,7 +375,9 @@ def main(config):
             distance_factors=config['postprocessing']['distance_factors'],
             pipe_sizing_method=config['postprocessing']['pipe_sizing_method'],
             heat_loss_rates=config['postprocessing'].get('heat_loss_rates'),
-            apply_heat_losses=config['postprocessing'].get('apply_heat_losses', False)
+            apply_heat_losses=config['postprocessing'].get('apply_heat_losses', False),
+            electricity_resistance_rates=config['postprocessing'].get('electricity_resistance_rates'),  # NEW
+            apply_electricity_losses=config['postprocessing'].get('apply_electricity_losses', False)    # NEW
         )
             
     # -------------------------------------------------------------------------
@@ -385,6 +392,8 @@ def main(config):
             execution_times=execution_times,
             apply_heat_losses=config['postprocessing'].get('apply_heat_losses', False),
             total_system_losses_kw=total_system_losses_kw,
+            apply_electricity_losses=config['postprocessing'].get('apply_electricity_losses', False),  # NEW
+            total_electricity_losses_kw=total_electricity_losses_kw,  # NEW
             supply_losses=supply_losses
         )
     

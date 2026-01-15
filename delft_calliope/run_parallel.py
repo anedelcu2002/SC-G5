@@ -21,8 +21,8 @@ import random
 NEIGHBORHOODS = [
 #                 'multatulibuurt', 
 #                 'holstbuurt', 
-#                 'mythologiebuurt',
-                 'poptahofzuid'
+                 'mythologiebuurt',
+#                 'poptahofzuid'
                  ]
 YEARS = [
 #         2013, 
@@ -31,18 +31,18 @@ YEARS = [
          ]
 SCENARIOS = [
              'district_heating', 
-#             'full_electrification', 
-#             'hybrid'
+             'full_electrification', 
+             'hybrid'
              ]
 TOPOLOGY_SOURCES = [
-                    'stedin', 
+#                    'stedin', 
                     'osm'
                     ]
 
 # Execution settings - OPTIMIZED FOR 16 CORES
 # Strategy: Run 4 scenarios in parallel, each using 4 Gurobi threads
 # Total: 4 processes × 4 threads = 16 cores fully utilized
-MAX_WORKERS = 2  # Number of parallel scenario runs
+MAX_WORKERS = 4  # Number of parallel scenario runs
 GUROBI_THREADS = 0  # Threads per Gurobi solve (16 cores / 4 workers = 4 threads each)
 
 MODE = 'plot'  # Use 'export' to skip visualizations for faster execution
@@ -284,13 +284,10 @@ def run_parallel_scenarios():
     
     total_runs = len(combinations)
     print(f"\n{'='*80}")
-    print(f"PARALLEL SCENARIO EXECUTION - OPTIMIZED FOR 16 CORES")
+    print(f"PARALLEL SCENARIO EXECUTION")
     print(f"{'='*80}")
     print(f"Total combinations: {total_runs}")
     print(f"Max parallel workers: {MAX_WORKERS}")
-    print(f"Gurobi threads per worker: {GUROBI_THREADS}")
-    print(f"Total core utilization: {MAX_WORKERS} × {GUROBI_THREADS} = {MAX_WORKERS * GUROBI_THREADS} cores")
-    print(f"API thread pools: 4 threads per worker (I/O bound, minimal CPU impact)")
     print(f"\nNeighborhoods: {', '.join(NEIGHBORHOODS)}")
     print(f"Years: {', '.join(map(str, YEARS))}")
     print(f"Scenarios: {', '.join(SCENARIOS)}")

@@ -17,7 +17,9 @@ def process_calliope_results(
     distance_factors=None,
     pipe_sizing_method='class',
     heat_loss_rates=None,
-    apply_heat_losses=False
+    apply_heat_losses=False,
+    electricity_resistance_rates=None,
+    apply_electricity_losses=False
 ):
     """
     Process Calliope model results, create visualizations, and export bill of materials.
@@ -55,7 +57,13 @@ def process_calliope_results(
         Example: {'Heat transmission main': 20, 'LQ heat distribution main': 15, 'LQ heat distribution secondary': 10}
     apply_heat_losses : bool, optional
         Whether to apply heat losses and recalculate required capacities (default: False)
-    
+    electricity_resistance_rates : dict, optional
+            Resistance values in Ohms/km for each cable type (default: None, no losses applied)
+            Keys: 'LV electricity distribution main', 'LV electricity distribution secondary'
+            Example: {'LV electricity distribution main': 0.247, 'LV electricity distribution secondary': 0.247}
+    apply_electricity_losses : bool, optional
+        Whether to apply electricity I²R losses and recalculate required capacities (default: False)
+        
     Returns:
     --------
     pd.DataFrame
@@ -84,6 +92,13 @@ def process_calliope_results(
             'LQ heat distribution main': 15.0,   # W/m
             'LQ heat distribution secondary': 10.0  # W/m
         }
+
+    # Default electricity resistance rates if applying losses
+    if apply_electricity_losses and electricity_resistance_rates is None:
+        electricity_resistance_rates = {
+            'LV electricity distribution main': 0.247,       # Ω/km
+            'LV electricity distribution secondary': 0.247   # Ω/km
+        }
     
     # --- 1. Extract coordinates and flow capacities from model ---
     df_coords = model.inputs[["latitude", "longitude"]].to_dataframe().reset_index()
@@ -103,7 +118,10 @@ def process_calliope_results(
     # --- Heat loss calculations (if applicable) ---
 
     total_system_losses_kw = 0.0
-    supply_losses = {}  # Initialize here so it's available later
+    total_LQ_losses_kw = 0.0     
+    total_HQ_losses_kw = 0.0      
+    total_LV_losses_kw = 0.0      
+    supply_losses = {} 
     adjusted_capacities = {}
     
     if apply_heat_losses and heat_loss_rates is not None:
@@ -251,7 +269,6 @@ def process_calliope_results(
                 break
         
         if not substation_name or substation_name not in neighbors:
-            print(f"   ERROR: Substation not found in LQ network")
             substation_name = None
             substation_total_demand = 0.0
         else:
@@ -376,7 +393,6 @@ def process_calliope_results(
                 break
         
         if not geothermal_name or geothermal_name not in neighbors_HQ:
-            print(f"   ERROR: Geothermal not found in HQ network")
             total_HQ_losses_kw = 0.0
         else:
             # BFS from geothermal to build tree relationships
@@ -478,6 +494,220 @@ def process_calliope_results(
         #print(f"  HQ network losses: {total_HQ_losses_kw:.2f} kW ({len(segment_losses_HQ)} segments)")
         #print(f"  Total system losses: {total_system_losses_kw:.2f} kW")
         #print("="*60 + "\n")
+
+    # ================================================================
+    # LV ELECTRICITY NETWORK LOSS ALGORITHM (MULTI-CLUSTER)
+    # Loss = I² × R × distance, where I = P / V
+    # V = 400V (line voltage), R from electricity_resistance_rates (Ω/km)
+    # ================================================================
+
+    LV_VOLTAGE = 400  # Volts
+    total_LV_losses_kw = 0.0
+
+    if apply_electricity_losses and electricity_resistance_rates is not None:
+        # Build LV electricity network graph
+        G_LV = nx.DiGraph()
+        
+        # Separate electricity links
+        df_links_elec = df_capacity_coords[
+            df_capacity_coords['carriers'].str.contains('electricity', case=False, na=False)
+        ].copy()
+        
+        # Build the electricity network graph
+        for idx, row in df_links_elec.iterrows():
+            parts = row['techs'].rsplit('_to_', 1)
+            if len(parts) == 2:
+                link_from_carrier, link_to_carrier = parts
+                link_from = link_from_carrier.replace('_electricity', '')
+                link_to = link_to_carrier.replace('_electricity', '')
+                
+                tech_name = tech_names.get(row['techs'], 'Unknown')
+                distance_km = tech_distances.get(row['techs'], 0)
+                distance_km_adjusted = distance_km * distance_factors.get(tech_name, 1.0)
+                resistance_per_km = electricity_resistance_rates.get(tech_name, 0.0)
+                
+                G_LV.add_edge(
+                    link_to,
+                    link_from,
+                    tech=row['techs'],
+                    tech_name=tech_name,
+                    capacity_kw=row['Flow capacity (kW)'],
+                    distance_km=distance_km_adjusted,
+                    resistance_per_km=resistance_per_km
+                )
+        
+        # Build undirected edge mapping
+        edges_undirected_LV = {}
+        for u, v, data in G_LV.edges(data=True):
+            key = tuple(sorted([u, v]))
+            if key not in edges_undirected_LV:
+                edges_undirected_LV[key] = {
+                    'tech': data['tech'],
+                    'distance_km': data['distance_km'],
+                    'resistance_per_km': data['resistance_per_km']
+                }
+        
+        # Build adjacency list
+        neighbors_LV = {}
+        for (a, b), data in edges_undirected_LV.items():
+            if a not in neighbors_LV:
+                neighbors_LV[a] = []
+            if b not in neighbors_LV:
+                neighbors_LV[b] = []
+            neighbors_LV[a].append((b, data))
+            neighbors_LV[b].append((a, data))
+        
+        # ============================================================
+        # NEW: Find ALL transformer nodes (roots of each cluster)
+        # ============================================================
+        transformer_nodes = []
+        for node in all_nodes:
+            node_str = str(node)
+            if ('transformer' in node_str.lower() or 'trafo' in node_str.lower()) and node_str in neighbors_LV:
+                transformer_nodes.append(node_str)
+        
+        # ============================================================
+        # NEW: Build electricity demand lookup from heat pump flow_in
+        # ============================================================
+        elec_demand_lookup = {}
+        
+        # Check if heat_pump tech exists in the model first
+        if 'heat_pump' in model.inputs.coords.get('techs', []):
+            try:
+                heat_pump_flow_in = (
+                    model.results.flow_cap
+                    .sel(techs='heat_pump', carriers='electricity')
+                    .to_series()
+                    .dropna()
+                )
+                
+                for node, capacity in heat_pump_flow_in.items():
+                    if capacity > 0:
+                        elec_demand_lookup[str(node)] = abs(float(capacity))
+                        
+            except (KeyError, ValueError):
+                # Try alternative method: flow_in instead of flow_cap
+                try:
+                    heat_pump_flow_in = (
+                        model.results.flow_in
+                        .sel(techs='heat_pump', carriers='electricity')
+                        .max(dim='timesteps')
+                        .to_series()
+                        .dropna()
+                    )
+                    
+                    for node, demand in heat_pump_flow_in.items():
+                        if demand > 0:
+                            elec_demand_lookup[str(node)] = abs(float(demand))
+                            
+                except (KeyError, ValueError):
+                    pass  # No heat pump data available, leave elec_demand_lookup empty
+        
+        # ============================================================
+        # NEW: Process EACH transformer cluster independently
+        # ============================================================
+        all_segment_losses_LV = {}
+        all_edge_capacity_LV = {}
+        
+        for transformer_name in transformer_nodes:
+            # BFS from this transformer to build tree relationships
+            parent_of_LV = {}
+            children_of_LV = {}
+            edge_to_parent_LV = {}
+            
+            visited_LV = set()
+            queue_LV = [transformer_name]
+            visited_LV.add(transformer_name)
+            children_of_LV[transformer_name] = []
+            
+            while queue_LV:
+                current = queue_LV.pop(0)
+                
+                for neighbor, edge_data in neighbors_LV.get(current, []):
+                    if neighbor not in visited_LV:
+                        visited_LV.add(neighbor)
+                        
+                        parent_of_LV[neighbor] = current
+                        edge_to_parent_LV[neighbor] = edge_data
+                        
+                        if current not in children_of_LV:
+                            children_of_LV[current] = []
+                        children_of_LV[current].append(neighbor)
+                        
+                        if neighbor not in children_of_LV:
+                            children_of_LV[neighbor] = []
+                        
+                        queue_LV.append(neighbor)
+            
+            # Initialize required power at each node in this cluster
+            required_LV = {}
+            for node in visited_LV:
+                required_LV[node] = elec_demand_lookup.get(node, 0.0)
+            
+            # Find initial leaves (nodes with no children)
+            leaves_LV = set()
+            for node in visited_LV:
+                if len(children_of_LV[node]) == 0:
+                    leaves_LV.add(node)
+            
+            # Collapse branches with I²R loss calculation
+            edge_capacity_LV = {}
+            segment_losses_LV = {}
+            
+            while leaves_LV:
+                next_leaves = set()
+                
+                for leaf in leaves_LV:
+                    if leaf in parent_of_LV:
+                        parent = parent_of_LV[leaf]
+                        edge = edge_to_parent_LV[leaf]
+                        tech = edge['tech']
+                        distance_km = edge['distance_km']
+                        resistance_per_km = edge['resistance_per_km']
+                        
+                        # Power flowing through this edge
+                        power_kw = required_LV[leaf]
+                        
+                        # I²R loss calculation
+                        power_w = power_kw * 1000
+                        current_a = power_w / LV_VOLTAGE
+                        resistance_ohms = resistance_per_km * distance_km
+                        loss_w = (current_a ** 2) * resistance_ohms
+                        edge_loss_kw = loss_w / 1000
+                        
+                        # Edge capacity = demand + loss
+                        edge_capacity_LV[tech] = power_kw + edge_loss_kw
+                        segment_losses_LV[tech] = edge_loss_kw
+                        
+                        # Propagate to parent
+                        required_LV[parent] = required_LV.get(parent, 0.0) + edge_capacity_LV[tech]
+                        
+                        children_of_LV[parent].remove(leaf)
+                        
+                        if len(children_of_LV[parent]) == 0:
+                            next_leaves.add(parent)
+                
+                leaves_LV = next_leaves
+            
+            # Store results for this cluster
+            cluster_losses = sum(segment_losses_LV.values())
+            all_segment_losses_LV.update(segment_losses_LV)
+            all_edge_capacity_LV.update(edge_capacity_LV)
+            
+            # Store transformer demand (for reporting)
+            transformer_total_demand = required_LV.get(transformer_name, 0.0)
+            supply_losses[transformer_name] = cluster_losses
+        
+        # ============================================================
+        # Aggregate results across all clusters
+        # ============================================================
+        total_LV_losses_kw = sum(all_segment_losses_LV.values())
+        
+        for tech, capacity in all_edge_capacity_LV.items():
+            adjusted_capacities[tech] = capacity
+        
+        #print(f"LV electricity losses: {total_LV_losses_kw:.2f} kW across {len(all_segment_losses_LV)} segments")
+        #print(f"Processed {len(transformer_nodes)} transformer clusters")
 
 
     # --- 2. Visualize results (if mode=='plot') ---
@@ -752,17 +982,31 @@ def process_calliope_results(
                     stats_html += '<tr style="background-color: #fff3cd;"><td colspan="2" style="padding: 5px; padding-top: 10px; font-weight: bold;">Heat Losses</td></tr>'
                     stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Total System Losses:</td><td style="text-align: right; padding: 3px;"><b>{total_system_losses_kw:,.2f} kW</b></td></tr>'
                     
-                    # Calculate loss percentage
-                    if heat_demand > 0:
+                    # Calculate loss percentage only if not hybrid (both heat pump and geothermal active)
+                    is_hybrid = hp_cap > 0 and geo_cap_original > 0
+                    if heat_demand > 0 and not is_hybrid:
                         loss_percentage = (total_system_losses_kw / heat_demand) * 100
                         stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Loss Percentage:</td><td style="text-align: right; padding: 3px;">{loss_percentage:.1f}%</td></tr>'
-                
+
                 # District heating efficiency (only if heat pump = 0)
                 if hp_cap == 0.0 and geo_cap_adjusted > 0:
                     # Efficiency = demand / original supply (before adding capacity for losses)
                     efficiency = heat_demand / geo_cap_adjusted
                     stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">DH Efficiency:</td><td style="text-align: right; padding: 3px;">{efficiency:.3f}</td></tr>'       
             
+                # Add electricity loss information if calculated
+                if apply_electricity_losses and total_LV_losses_kw > 0:
+                    stats_html += '<tr style="background-color: #cce5ff;"><td colspan="2" style="padding: 5px; padding-top: 10px; font-weight: bold;">Electricity Losses</td></tr>'
+                    stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Total LV Losses:</td><td style="text-align: right; padding: 3px;"><b>{total_LV_losses_kw:,.2f} kW</b></td></tr>'
+                    stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Transformer clusters:</td><td style="text-align: right; padding: 3px;">{len(transformer_nodes)}</td></tr>'
+                    
+                    # Calculate loss percentage only if not hybrid (both heat pump and geothermal active)
+                    is_hybrid = hp_cap > 0 and geo_cap_original > 0
+                    total_hp_elec_demand = sum(elec_demand_lookup.values())
+                    if total_hp_elec_demand > 0 and not is_hybrid:
+                        elec_loss_percentage = (total_LV_losses_kw / total_hp_elec_demand) * 100
+                        stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Loss Percentage:</td><td style="text-align: right; padding: 3px;">{elec_loss_percentage:.1f}%</td></tr>'
+
             except Exception:
                 pass
         
@@ -782,13 +1026,6 @@ def process_calliope_results(
         #print(f" Saved system map to {output_folder}/system_map.html")
     
     # --- 3. Export bill of materials ---
-    #print("Calculating bill of materials...")
-    
-    # --- 3. Export bill of materials ---
-    print("\n" + "="*60)
-    print("BUILDING BILL OF MATERIALS")
-    print("="*60)
-    
     tech_names = model.inputs.name.to_series().dropna()
     tech_distances = model.inputs.distance.to_series().dropna()
     
@@ -799,38 +1036,45 @@ def process_calliope_results(
         .dropna()
     )
     
-    # Apply adjusted capacities if heat losses were calculated
-    if apply_heat_losses and len(adjusted_capacities) > 0:
-        print("\n1. Applying heat loss adjustments to bill of materials...")
+    # Apply adjusted capacities if losses were calculated
+    if (apply_heat_losses or apply_electricity_losses) and len(adjusted_capacities) > 0:
+        #print("\n1. Applying loss adjustments to transmission links...")
         
-        # Update transmission link capacities (both HQ_heat and LQ_heat)
+        # Update transmission link capacities
         updated_count = 0
         for tech_idx in total_flow_out.index:
             if tech_idx in adjusted_capacities:
                 original = total_flow_out[tech_idx]
                 total_flow_out[tech_idx] = adjusted_capacities[tech_idx]
-                if updated_count < 5:  # Show first few
-                    print(f"   Updated {tech_idx}: {original:.2f} -> {adjusted_capacities[tech_idx]:.2f} kW")
                 updated_count += 1
         
-        print(f"   Total transmission links updated: {updated_count}")
+        #print(f"   Total transmission links updated: {updated_count}")
         
-        # Update supply node capacities (supply_geothermal, heat_substation, etc.)
-        print("\n2. Updating supply node capacities...")
+        # Update supply node capacities
+        #print("\n2. Updating supply node capacities...")
         supply_updated = 0
         
         for supply_node, loss_kw in supply_losses.items():
-            # Map supply nodes to tech names in bill of materials
             matched_techs = []
             
-            # Match by keywords in tech name
-            if 'geotherm' in supply_node.lower():
+            # Check if this is a transformer (electricity network supply)
+            if 'transformer' in supply_node.lower() or 'trafo' in supply_node.lower():
+                # Look for "Low-voltage electricity supply" or similar
+                for tech_idx in total_flow_out.index:
+                    tech_str = str(tech_idx).lower()
+                    if ('low-voltage' in tech_str or 'low voltage' in tech_str or 'lv' in tech_str) and \
+                       'electricity' in tech_str and 'supply' in tech_str:
+                        matched_techs.append(tech_idx)
+                        
+            # Check if this is a geothermal supply (heat network)
+            elif 'geotherm' in supply_node.lower():
                 # Look for "Geothermal heat supply"
                 for tech_idx in total_flow_out.index:
                     tech_str = str(tech_idx).lower()
                     if 'geothermal' in tech_str and 'supply' in tech_str:
                         matched_techs.append(tech_idx)
             
+            # Check if this is a heat substation
             elif 'substation' in supply_node.lower():
                 # Look for "HQ to LQ heat conversion substation"
                 for tech_idx in total_flow_out.index:
@@ -838,19 +1082,37 @@ def process_calliope_results(
                     if 'substation' in tech_str and ('conversion' in tech_str or 'hq' in tech_str or 'lq' in tech_str):
                         matched_techs.append(tech_idx)
             
-            # Apply the loss to matched techs
+            # Apply the loss to matched techs (only once, not per transformer)
             if len(matched_techs) > 0:
-                for tech_idx in matched_techs:
-                    original = total_flow_out[tech_idx]
-                    total_flow_out[tech_idx] += loss_kw
-                    print(f"   Updated '{tech_idx}': {original:.2f} -> {total_flow_out[tech_idx]:.2f} kW (+{loss_kw:.2f} kW)")
-                    supply_updated += 1
-            else:
-                print(f"   WARNING: No matching tech found for supply node '{supply_node}'")
+                # For transformers, aggregate all losses and apply once
+                if 'transformer' in supply_node.lower():
+                    # Check if we already updated this tech
+                    if matched_techs[0] not in [t for t, _ in locals().get('_updated_techs', [])]:
+                        # Aggregate all transformer losses
+                        total_transformer_losses = sum(
+                            loss for node, loss in supply_losses.items() 
+                            if 'transformer' in node.lower()
+                        )
+                        
+                        tech_idx = matched_techs[0]
+                        original = total_flow_out[tech_idx]
+                        total_flow_out[tech_idx] += total_transformer_losses
+                        #print(f"   Updated '{tech_idx}': {original:.2f} -> {total_flow_out[tech_idx]:.2f} kW (+{total_transformer_losses:.2f} kW total LV losses)")
+                        supply_updated += 1
+                        
+                        # Mark as updated to avoid duplicate updates
+                        if '_updated_techs' not in locals():
+                            _updated_techs = []
+                        _updated_techs.append((tech_idx, supply_node))
+                else:
+                    # For non-transformer supplies, apply individual losses
+                    for tech_idx in matched_techs:
+                        original = total_flow_out[tech_idx]
+                        total_flow_out[tech_idx] += loss_kw
+                        #print(f"   Updated '{tech_idx}': {original:.2f} -> {total_flow_out[tech_idx]:.2f} kW (+{loss_kw:.2f} kW)")
+                        supply_updated += 1
         
-        print(f"   Total supply techs updated: {supply_updated}")
-        print("="*60 + "\n")
-    
+        
     export_df = pd.DataFrame({
         'name': tech_names,
         'capacity_kw': total_flow_out,
@@ -939,4 +1201,4 @@ def process_calliope_results(
     final_export_df.to_csv(os.path.join(output_folder, 'bill_of_materials.csv'), index=False)
     #print(f" Saved bill of materials to {output_folder}/bill_of_materials.csv")
     
-    return final_export_df, total_system_losses_kw, supply_losses
+    return export_df, total_system_losses_kw, total_LV_losses_kw, supply_losses
