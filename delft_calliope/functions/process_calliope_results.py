@@ -88,9 +88,9 @@ def process_calliope_results(
     # Default heat loss rates if applying losses
     if apply_heat_losses and heat_loss_rates is None:
         heat_loss_rates = {
-            'Heat transmission main': 20.0,      # W/m
-            'LQ heat distribution main': 15.0,   # W/m
-            'LQ heat distribution secondary': 10.0  # W/m
+            'Heat transmission main': 65.8,      # W/m
+            'LQ heat distribution main': 52,     # W/m
+            'LQ heat distribution secondary': 29 # W/m
         }
 
     # Default electricity resistance rates if applying losses
@@ -604,7 +604,7 @@ def process_calliope_results(
                     pass  # No heat pump data available, leave elec_demand_lookup empty
         
         # ============================================================
-        # NEW: Process EACH transformer cluster independently
+        # Process each transformer cluster independently
         # ============================================================
         all_segment_losses_LV = {}
         all_edge_capacity_LV = {}
@@ -979,8 +979,8 @@ def process_calliope_results(
             
                 # Add heat loss information if calculated
                 if apply_heat_losses and total_system_losses_kw > 0:
-                    stats_html += '<tr style="background-color: #fff3cd;"><td colspan="2" style="padding: 5px; padding-top: 10px; font-weight: bold;">Heat Losses</td></tr>'
-                    stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Total System Losses:</td><td style="text-align: right; padding: 3px;"><b>{total_system_losses_kw:,.2f} kW</b></td></tr>'
+                    stats_html += '<tr style="background-color: #fff3cd;"><td colspan="2" style="padding: 5px; padding-top: 10px; font-weight: bold;">Heat Transmission Losses</td></tr>'
+                    stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Pipe Losses:</td><td style="text-align: right; padding: 3px;"><b>{total_system_losses_kw:,.2f} kW</b></td></tr>'
                     
                     # Calculate loss percentage only if not hybrid (both heat pump and geothermal active)
                     is_hybrid = hp_cap > 0 and geo_cap_original > 0
@@ -996,7 +996,7 @@ def process_calliope_results(
             
                 # Add electricity loss information if calculated
                 if apply_electricity_losses and total_LV_losses_kw > 0:
-                    stats_html += '<tr style="background-color: #cce5ff;"><td colspan="2" style="padding: 5px; padding-top: 10px; font-weight: bold;">Electricity Losses</td></tr>'
+                    stats_html += '<tr style="background-color: #cce5ff;"><td colspan="2" style="padding: 5px; padding-top: 10px; font-weight: bold;">Electricity Transmission Losses</td></tr>'
                     stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Total LV Losses:</td><td style="text-align: right; padding: 3px;"><b>{total_LV_losses_kw:,.2f} kW</b></td></tr>'
                     stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Transformer clusters:</td><td style="text-align: right; padding: 3px;">{len(transformer_nodes)}</td></tr>'
                     

@@ -90,7 +90,7 @@ CONFIG = {
     # Technology efficiencies
     'tech_efficiencies': {
         'heat_pump_cop': 4.0,
-        'heat_substation_eff': 1.0,
+        'heat_substation_eff': 0.9,
         'hybrid_threshold_kW': 50
     },
 
@@ -111,16 +111,16 @@ CONFIG = {
             'LV electricity distribution secondary': 1.0
         },
         'heat_loss_rates': {
-            'Heat transmission main': 20.0,       # W/m
-            'LQ heat distribution main': 15.0,    # W/m
-            'LQ heat distribution secondary': 10.0 # W/m
+            'Heat transmission main': 65.8,       # W/m
+            'LQ heat distribution main': 52,      # W/m
+            'LQ heat distribution secondary': 29  # W/m
         },
-        'apply_heat_losses': True,
+        'apply_heat_losses': False,
         'electricity_resistance_rates': {
             'LV electricity distribution main': 0.247,       # Ω/km
             'LV electricity distribution secondary': 0.247   # Ω/km
         },
-        'apply_electricity_losses': True
+        'apply_electricity_losses': False
     },
 
     # Link technical parameters for network segments
