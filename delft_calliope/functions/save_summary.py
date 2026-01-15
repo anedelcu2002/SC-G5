@@ -2,7 +2,8 @@ import json
 import os
 from datetime import datetime
 
-def save_scenario_summary(config, model, results_df, output_folder, execution_times):
+def save_scenario_summary(config, model, results_df, output_folder, execution_times, 
+                          apply_heat_losses=False, total_system_losses_kw=0.0, supply_losses=None):
     """
     Save comprehensive scenario summary to JSON file
     
@@ -18,7 +19,16 @@ def save_scenario_summary(config, model, results_df, output_folder, execution_ti
         Path to output folder
     execution_times : dict
         Dictionary of execution times
+    apply_heat_losses : bool, optional
+        Whether heat losses were applied (default: False)
+    total_system_losses_kw : float, optional
+        Total system heat losses in kW (default: 0.0)
+    supply_losses : dict, optional
+        Dictionary of losses per supply node (default: None)
     """
+    
+    if supply_losses is None:
+        supply_losses = {}
     
     summary = {
         # Scenario identification
@@ -47,6 +57,13 @@ def save_scenario_summary(config, model, results_df, output_folder, execution_ti
         # Execution times
         'execution_time': {
             'total_seconds': sum(execution_times.values()),
+        },
+        
+        # Heat loss information
+        'heat_loss_info': {
+            'apply_heat_losses': apply_heat_losses,
+            'total_system_losses_kw': total_system_losses_kw,
+            'supply_losses': supply_losses
         }
     }
     
@@ -60,24 +77,44 @@ def save_scenario_summary(config, model, results_df, output_folder, execution_ti
                 
                 # Capacity by tech
                 try:
-                    geothermal_cap = float(flow_caps.sel(techs='supply_geothermal').sum())
-                    summary['results_summary']['supply_geothermal_capacity_kW'] = geothermal_cap
+                    geothermal_cap_original = float(flow_caps.sel(techs='supply_geothermal').sum())
+                    
+                    # Apply heat losses if calculated
+                    if apply_heat_losses and 'geothermie_delft' in supply_losses:
+                        geothermal_cap_adjusted = geothermal_cap_original + supply_losses['geothermie_delft']
+                        summary['results_summary']['supply_geothermal_capacity_original_kW'] = geothermal_cap_original
+                        summary['results_summary']['supply_geothermal_capacity_adjusted_kW'] = geothermal_cap_adjusted
+                        summary['results_summary']['supply_geothermal_additional_for_losses_kW'] = supply_losses['geothermie_delft']
+                    else:
+                        summary['results_summary']['supply_geothermal_capacity_kW'] = geothermal_cap_original
+                        
                 except (KeyError, ValueError):
                     summary['results_summary']['supply_geothermal_capacity_kW'] = 0.0
+                    
                 try:
                     heat_pump_cap = float(flow_caps.sel(techs='heat_pump').sum())
                     summary['results_summary']['heat_pump_capacity_kW'] = heat_pump_cap
                 except (KeyError, ValueError):
                     summary['results_summary']['heat_pump_capacity_kW'] = 0.0
+                    
                 try:
                     heat_demand = abs(float(model.results['flow_in'].sel(techs='demand_LQ_heat').sum()))
                     summary['results_summary']['total_heat_demand_kW'] = heat_demand
                 except (KeyError, ValueError):
                     summary['results_summary']['total_heat_demand_kW'] = 0.0
 
+                # Add heat loss summary if applicable
+                if apply_heat_losses and total_system_losses_kw > 0:
+                    summary['results_summary']['heat_losses'] = {
+                        'total_system_losses_kW': total_system_losses_kw,
+                        'loss_percentage': (total_system_losses_kw / heat_demand * 100) if heat_demand > 0 else 0.0,
+                        'supply_node_losses': supply_losses
+                    }
+
                 # District heating efficiency (only when heat pump is not used)
                 if summary['results_summary'].get('heat_pump_capacity_kW', 0) == 0.0:
-                    geothermal_cap = summary['results_summary'].get('supply_geothermal_capacity_kW', 0.0)
+                    # Use original capacity for efficiency calculation (before adding losses)
+                    geothermal_cap = geothermal_cap_adjusted
                     heat_demand = summary['results_summary'].get('total_heat_demand_kW', 0.0)
                     
                     if geothermal_cap > 0:

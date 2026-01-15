@@ -102,14 +102,20 @@ CONFIG = {
             'delta_T': 25,
             'flow_speed': 0.62
         },
-        'pipe_sizing_method': 'individual',  # Options: 'class' or 'individual'
+        'pipe_sizing_method': 'individual',
         'distance_factors': {
             'Heat transmission main': 1.0,
             'LQ heat distribution main': 1.0,
             'LQ heat distribution secondary': 1.0,
             'LV electricity distribution main': 1.0,
             'LV electricity distribution secondary': 1.0
-        }
+        },
+        'heat_loss_rates': {
+            'Heat transmission main': 20.0,       # W/m
+            'LQ heat distribution main': 15.0,    # W/m
+            'LQ heat distribution secondary': 10.0 # W/m
+        },
+        'apply_heat_losses': True
     },
 
     # Link technical parameters for network segments
@@ -352,7 +358,7 @@ def main(config):
     # 10. Process Calliope results
     # -------------------------------------------------------------------------
     with Timer("Process Calliope results"):
-            final_export_df = process_calliope_results(
+        final_export_df, total_system_losses_kw, supply_losses = process_calliope_results(
             model=model,
             buildings_gdf=buildings_gdf,
             mode=config['mode'],
@@ -362,7 +368,9 @@ def main(config):
             delta_T=config['postprocessing']['pipe_sizing']['delta_T'],
             flow_speed=config['postprocessing']['pipe_sizing']['flow_speed'],
             distance_factors=config['postprocessing']['distance_factors'],
-            pipe_sizing_method=config['postprocessing']['pipe_sizing_method'] 
+            pipe_sizing_method=config['postprocessing']['pipe_sizing_method'],
+            heat_loss_rates=config['postprocessing'].get('heat_loss_rates'),
+            apply_heat_losses=config['postprocessing'].get('apply_heat_losses', False)
         )
             
     # -------------------------------------------------------------------------
@@ -374,7 +382,10 @@ def main(config):
             model=model,
             results_df=final_export_df,
             output_folder=config['outputs_folder'],
-            execution_times=execution_times
+            execution_times=execution_times,
+            apply_heat_losses=config['postprocessing'].get('apply_heat_losses', False),
+            total_system_losses_kw=total_system_losses_kw,
+            supply_losses=supply_losses
         )
     
     return model, final_export_df

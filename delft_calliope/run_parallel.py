@@ -25,13 +25,13 @@ NEIGHBORHOODS = [
                  'poptahofzuid'
                  ]
 YEARS = [
-         2013, 
+#         2013, 
          2019, 
-         2020
+#         2020
          ]
 SCENARIOS = [
              'district_heating', 
-             'full_electrification', 
+#             'full_electrification', 
 #             'hybrid'
              ]
 TOPOLOGY_SOURCES = [
