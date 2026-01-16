@@ -85,11 +85,11 @@ def build_calliope_network(
     # Default link parameters if not provided
     if link_parameters is None:
         link_parameters = {
-            'Heat transmission main': {'flow_cap_max': 10000, 'flow_out_eff_per_distance': 1},
-            'LQ heat distribution main': {'flow_cap_max': 10000, 'flow_out_eff_per_distance': 1},
-            'LQ heat distribution secondary': {'flow_cap_max': 10000, 'flow_out_eff_per_distance': 1},
-            'LV electricity distribution main': {'flow_cap_max': 10000, 'flow_out_eff_per_distance': 1},
-            'LV electricity distribution secondary': {'flow_cap_max': 10000, 'flow_out_eff_per_distance': 1}
+            'Heat transmission main': {'flow_cap_max': 100000, 'flow_out_eff_per_distance': 1},
+            'LQ heat distribution main': {'flow_cap_max': 100000, 'flow_out_eff_per_distance': 1},
+            'LQ heat distribution secondary': {'flow_cap_max': 100000, 'flow_out_eff_per_distance': 1},
+            'LV electricity distribution main': {'flow_cap_max': 100000, 'flow_out_eff_per_distance': 1},
+            'LV electricity distribution secondary': {'flow_cap_max': 100000, 'flow_out_eff_per_distance': 1}
         }
 
      # --- 1. Import CSV files from inputs folder ---
@@ -227,6 +227,10 @@ def build_calliope_network(
                     if pt1 in coord_to_id_heat and pt2 in coord_to_id_heat:
                         node_from = coord_to_id_heat[pt1]
                         node_to = coord_to_id_heat[pt2]
+
+                        if node_from == node_to:
+                            continue
+
                         link_name_heat = f"{node_from}_to_{node_to}_heat"
                         heat_links.append({
                             "techs": link_name_heat,
@@ -256,6 +260,10 @@ def build_calliope_network(
                     if pt1 in coord_to_id_elec and pt2 in coord_to_id_elec:
                         node_from = coord_to_id_elec[pt1]
                         node_to = coord_to_id_elec[pt2]
+
+                        if node_from == node_to:
+                            continue
+
                         link_name_elec = f"{node_from}_to_{node_to}_electricity"
                         elec_links.append({
                             "techs": link_name_elec,
@@ -579,7 +587,7 @@ def build_calliope_network(
         
         # Save the map
         os.makedirs('debug', exist_ok=True)
-        network_map.save('debug/network_map.html')
+        network_map.save('debug/calliope_map.html')
         #print(f" Saved network visualization to debug/network_map.html")
     
     # Return all DataFrames

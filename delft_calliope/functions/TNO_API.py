@@ -2,7 +2,57 @@ import pandas as pd
 import requests
 from datetime import datetime
 
-def fetch_residential_heat_demand(area, year):
+def fetch_residential_heat_demand(area, year, online=True, csv_path='inputs/heat_demand_cache'):
+    """
+    Fetch residential heat demand data either from TNO API (online) or from CSV cache (offline).
+    
+    Args:
+        area (str): Area code for the neighborhood (e.g., '4315', '4341').
+        year (int): Year for fetching heat demand data (e.g., 2019, 2020).
+        online (bool): If True, fetch from TNO API; if False, load from CSV file. Default is True.
+        csv_path (str): Path to directory containing CSV cache files. Default is 'inputs/heat_demand_cache'.
+    
+    Returns:
+        pd.DataFrame: DataFrame with columns ['id', 'Warmtevraag', 'share', 'Peak heat demand (kW)']
+    """
+    
+    if not online:
+        # Offline mode: Load from CSV (area code only, no year in filename)
+        import os
+        csv_file = os.path.join(csv_path, f"{area}.csv")
+        try:
+            # Read CSV and select only required columns
+            df_full = pd.read_csv(csv_file)
+            
+            # Verify required columns exist
+            required_columns = ['id', 'Warmtevraag', 'share', 'Peak heat demand (kW)']
+            missing_columns = [col for col in required_columns if col not in df_full.columns]
+            
+            if missing_columns:
+                raise ValueError(
+                    f"CSV file missing required columns: {missing_columns}\n"
+                    f"Required columns: {required_columns}\n"
+                    f"Found columns: {list(df_full.columns)}"
+                )
+            
+            # Select only the required columns, ignoring any extras
+            building_heat_demand = df_full[required_columns].copy()
+            
+            #print(f"Loaded heat demand data from CSV: {csv_file}")
+            #print(f"Found {len(building_heat_demand)} buildings with heat demand data")
+            return building_heat_demand
+            
+        except FileNotFoundError:
+            raise FileNotFoundError(
+                f"Heat demand CSV file not found: {csv_file}\n"
+                f"Please ensure the file exists or set online=True to fetch from API."
+            )
+        except Exception as e:
+            raise Exception(f"Error loading CSV file {csv_file}: {str(e)}")
+    
+    # Online mode: Fetch from API (existing code below)
+    print(f"Fetching heat demand data from TNO API for area {area}, year {year}...")
+    
     # Fetch building GeoJSON energy consumption data for the given area
     geojson_url = f"https://hlc-api.warmteprofielengenerator.nl/building_data/geojson/{area}"
     headers = {
@@ -79,7 +129,7 @@ def fetch_residential_heat_demand(area, year):
         max_heat = heat_df["sum"].max()
         # Multiply share by max_heat
         building_heat_demand["Peak heat demand (kW)"] = building_heat_demand["share"] * max_heat/1000
-        #print("Residential heat demand data fetched and calculated successfully.")
+        print(f"Heat demand data fetched successfully from API")
         return building_heat_demand
     else:
         print("Data not available for calculation.")

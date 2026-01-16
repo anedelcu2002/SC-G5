@@ -33,7 +33,7 @@ neighborhoods:
       2013:
         "4329"
       2020:
-        "4340"
+        "4340" 
     substation_coords: [4.353405, 51.996097]
   mythologiebuurt:
     name: "Mythologiebuurt"
@@ -66,4 +66,4 @@ neighborhoods:
         "4333"
       2020:
         "4342"
-    substation_coords: [4.353416, 51.999326]
+    substation_coords: [4.353322, 51.999261]

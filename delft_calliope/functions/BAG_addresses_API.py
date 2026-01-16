@@ -119,7 +119,7 @@ def enrich_buildings_with_addresses(all_buildings, BAG_API_KEY):
 
     # Parallel address fetching
     building_addresses = {}
-    with ThreadPoolExecutor(max_workers=4) as executor:
+    with ThreadPoolExecutor(max_workers=2) as executor:
         future_to_building = {executor.submit(fetch_addresses_for_building, bid): bid for bid in building_ids}
         for future in as_completed(future_to_building):
             pand_id, raw_addresses = future.result()
