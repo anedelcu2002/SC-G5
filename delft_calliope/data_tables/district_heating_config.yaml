@@ -8,7 +8,7 @@ config:
     mode: base # Choices: base, operate, spores
 
   build:
-    ensure_feasibility: true # Switching on unmet demand
+    ensure_feasibility: false # Switching on unmet demand
 
   solve:
     solver: gurobi
@@ -86,7 +86,7 @@ techs:
       data: 100000
       index: LQ_heat
       dims: carriers
-    flow_out_eff: 1.0
+    flow_out_eff: 0.9
     lifetime: 20
 
   demand_electricity:
@@ -148,6 +148,6 @@ data_tables:
     rows: nodes
     columns: parameters
 nodes:
-  substation_poptahofzuid:
+  substation_mythologiebuurt:
     techs:
       heat_substation: {}

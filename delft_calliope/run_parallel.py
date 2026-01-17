@@ -19,15 +19,15 @@ import random
 
 # Define all parameter combinations to run
 NEIGHBORHOODS = [
-#                 'multatulibuurt', 
-#                 'holstbuurt', 
+                 'multatulibuurt', 
+                 'holstbuurt', 
                  'mythologiebuurt',
-#                 'poptahofzuid'
+                 'poptahofzuid'
                  ]
 YEARS = [
-#         2013, 
+         2013, 
          2019, 
-#         2020
+         2020
          ]
 SCENARIOS = [
              'district_heating', 
@@ -35,14 +35,81 @@ SCENARIOS = [
              'hybrid'
              ]
 TOPOLOGY_SOURCES = [
-#                    'stedin', 
+                    'stedin', 
                     'osm'
                     ]
+SPACING_M = [5.0]  # Node spacing in meters
 
-# Execution settings - OPTIMIZED FOR 16 CORES
-# Strategy: Run 4 scenarios in parallel, each using 4 Gurobi threads
-# Total: 4 processes × 4 threads = 16 cores fully utilized
-MAX_WORKERS = 4  # Number of parallel scenario runs
+# District heating parameters
+HEAT_PUMP_COP = [
+#                 3, 
+                 4.0, 
+#                 5.5
+                 ]  # Heat pump coefficient of performance
+HEAT_SUBSTATION_EFF = [
+#                       0.81, 
+                       0.9, 
+#                       0.99
+                       ]  # Heat substation efficiency
+DELTA_T = [25]  # Temperature difference for pipe sizing (°C)
+FLOW_SPEED = [
+#            0.56, 
+            0.62, 
+#            0.68
+            ]  # Flow speed for pipe sizing (m/s)
+DISTANCE_FACTOR_HEAT_TRANS_MAIN = [1.0] # no variation expected
+DISTANCE_FACTOR_HEAT_DIST_MAIN = [
+#    0.9, 
+    1.0, 
+#    1.1
+    ] # 10% variation
+DISTANCE_FACTOR_HEAT_DIST_SEC = [
+#    0.9, 
+    1.0, 
+#    1.1
+    ] # 10% variation
+HEAT_LOSS_RATE_TRANS_MAIN = [
+#    59.2, 
+    65.8, 
+#    72.4
+    ] # 10% variation
+HEAT_LOSS_RATE_DIST_MAIN = [
+#    46.8, 
+    52, 
+#    57.2
+    ]
+HEAT_LOSS_RATE_DIST_SEC = [
+#    26.1, 
+    29, 
+#    31.9
+    ]
+
+# Heat pump parameters
+DISTANCE_FACTOR_ELEC_DIST_MAIN = [
+#    0.9, 
+    1.0, 
+#    1.1
+    ]
+DISTANCE_FACTOR_ELEC_DIST_SEC = [
+#    0.9, 
+    1.0, 
+#    1.1
+    ]
+ELEC_RESISTANCE_MAIN = [
+#    0.222, 
+    0.247, 
+#    0.272
+    ]
+ELEC_RESISTANCE_SEC = [
+#    0.222, 
+    0.247, 
+#    0.272
+    ]
+
+
+
+# Parallel execution settings
+MAX_WORKERS = 1  # Number of parallel scenario runs
 GUROBI_THREADS = 0  # Threads per Gurobi solve (16 cores / 4 workers = 4 threads each)
 
 MODE = 'plot'  # Use 'export' to skip visualizations for faster execution
@@ -53,10 +120,104 @@ TIMESTAMP = datetime.now().strftime('%Y%m%d_%H%M%S')
 
 
 # =============================================================================
+# PARAMETER CONSTRAINTS
+# =============================================================================
+
+def generate_valid_combinations():
+    """
+    Generator that yields only valid parameter combinations based on scenario type.
+    
+    Constraints:
+    - district_heating: Only uses first value of heat pump parameters (no variation)
+    - full_electrification: Only uses first value of district heating parameters (no variation)
+    - hybrid: Can vary both parameter sets
+    
+    This avoids materializing invalid combinations in memory.
+    
+    Yields:
+    -------
+    tuple : Valid parameter combination
+    """
+    total_generated = 0
+    total_valid = 0
+    
+    for combo in itertools.product(
+        NEIGHBORHOODS, YEARS, SCENARIOS, TOPOLOGY_SOURCES,
+        SPACING_M, HEAT_PUMP_COP, HEAT_SUBSTATION_EFF,
+        DELTA_T, FLOW_SPEED,
+        DISTANCE_FACTOR_HEAT_TRANS_MAIN, DISTANCE_FACTOR_HEAT_DIST_MAIN,
+        DISTANCE_FACTOR_HEAT_DIST_SEC, DISTANCE_FACTOR_ELEC_DIST_MAIN,
+        DISTANCE_FACTOR_ELEC_DIST_SEC,
+        HEAT_LOSS_RATE_TRANS_MAIN, HEAT_LOSS_RATE_DIST_MAIN,
+        HEAT_LOSS_RATE_DIST_SEC,
+        ELEC_RESISTANCE_MAIN, ELEC_RESISTANCE_SEC
+    ):
+        total_generated += 1
+        
+        # Unpack combination
+        (neighborhood, year, scenario, topology_source,
+         spacing_m, heat_pump_cop, heat_substation_eff,
+         delta_t, flow_speed,
+         distance_factor_heat_trans_main, distance_factor_heat_dist_main,
+         distance_factor_heat_dist_sec, distance_factor_elec_dist_main,
+         distance_factor_elec_dist_sec,
+         heat_loss_rate_trans_main, heat_loss_rate_dist_main,
+         heat_loss_rate_dist_sec,
+         elec_resistance_main, elec_resistance_sec) = combo
+        
+        # Apply scenario-specific constraints
+        if scenario == 'district_heating':
+            # District heating doesn't use heat pumps - skip if heat pump params are varied
+            if (distance_factor_elec_dist_main != DISTANCE_FACTOR_ELEC_DIST_MAIN[0] or
+                distance_factor_elec_dist_sec != DISTANCE_FACTOR_ELEC_DIST_SEC[0] or
+                elec_resistance_main != ELEC_RESISTANCE_MAIN[0] or
+                elec_resistance_sec != ELEC_RESISTANCE_SEC[0]):
+                continue
+        
+        elif scenario == 'full_electrification':
+            # Full electrification doesn't use district heating - skip if district heating params are varied
+            if (heat_pump_cop != HEAT_PUMP_COP[0] or
+                heat_substation_eff != HEAT_SUBSTATION_EFF[0] or
+                delta_t != DELTA_T[0] or
+                flow_speed != FLOW_SPEED[0] or
+                distance_factor_heat_trans_main != DISTANCE_FACTOR_HEAT_TRANS_MAIN[0] or
+                distance_factor_heat_dist_main != DISTANCE_FACTOR_HEAT_DIST_MAIN[0] or
+                distance_factor_heat_dist_sec != DISTANCE_FACTOR_HEAT_DIST_SEC[0] or
+                heat_loss_rate_trans_main != HEAT_LOSS_RATE_TRANS_MAIN[0] or
+                heat_loss_rate_dist_main != HEAT_LOSS_RATE_DIST_MAIN[0] or
+                heat_loss_rate_dist_sec != HEAT_LOSS_RATE_DIST_SEC[0]):
+                continue
+        
+        # hybrid scenario can vary all parameters - no constraints
+        
+        total_valid += 1
+        yield combo
+    
+    # Print filtering statistics
+    if total_generated > total_valid:
+        filtered_out = total_generated - total_valid
+        pct_filtered = (filtered_out / total_generated * 100)
+        print(f"Constraint filtering: {filtered_out:,} combinations filtered out ({pct_filtered:.1f}%)")
+        print(f"Valid combinations: {total_valid:,} / {total_generated:,}\n")
+
+
+# =============================================================================
 # EXECUTION FUNCTIONS
 # =============================================================================
 
-def run_single_scenario(neighborhood, year, scenario, topology_source):
+def run_single_scenario(neighborhood, year, scenario, topology_source,
+                       spacing_m, heat_pump_cop, heat_substation_eff,
+                       delta_t, flow_speed,
+                       distance_factor_heat_trans_main,
+                       distance_factor_heat_dist_main,
+                       distance_factor_heat_dist_sec,
+                       distance_factor_elec_dist_main,
+                       distance_factor_elec_dist_sec,
+                       heat_loss_rate_trans_main,
+                       heat_loss_rate_dist_main,
+                       heat_loss_rate_dist_sec,
+                       elec_resistance_main,
+                       elec_resistance_sec):
     """
     Run a single scenario combination
     
@@ -64,19 +225,55 @@ def run_single_scenario(neighborhood, year, scenario, topology_source):
     --------
     dict : Results with status, timing, and output information
     """
+    import hashlib
+    
     time.sleep(random.uniform(0, 5))  # Stagger start times to reduce I/O contention
 
-    # Create unique identifier for this run
-    run_id = f"{neighborhood}_{year}_{scenario}_{topology_source}"
+    # Create parameter dictionary for tracking
+    params = {
+        'neighborhood': neighborhood,
+        'year': year,
+        'scenario': scenario,
+        'topology_source': topology_source,
+        'spacing_m': spacing_m,
+        'heat_pump_cop': heat_pump_cop,
+        'heat_substation_eff': heat_substation_eff,
+        'delta_t': delta_t,
+        'flow_speed': flow_speed,
+        'distance_factor_heat_trans_main': distance_factor_heat_trans_main,
+        'distance_factor_heat_dist_main': distance_factor_heat_dist_main,
+        'distance_factor_heat_dist_sec': distance_factor_heat_dist_sec,
+        'distance_factor_elec_dist_main': distance_factor_elec_dist_main,
+        'distance_factor_elec_dist_sec': distance_factor_elec_dist_sec,
+        'heat_loss_rate_trans_main': heat_loss_rate_trans_main,
+        'heat_loss_rate_dist_main': heat_loss_rate_dist_main,
+        'heat_loss_rate_dist_sec': heat_loss_rate_dist_sec,
+        'elec_resistance_main': elec_resistance_main,
+        'elec_resistance_sec': elec_resistance_sec,
+    }
+    
+    # Generate hash from parameters for unique identification
+    param_str = json.dumps(params, sort_keys=True)
+    param_hash = hashlib.md5(param_str.encode()).hexdigest()[:8]
+    
+    # Create unique identifier with hash
+    run_id = f"{neighborhood}_{year}_{scenario}_{topology_source}_{param_hash}"
     
     # Create output directory structure for this specific run
     output_dir = os.path.join(RESULTS_BASE_DIR, TIMESTAMP, run_id)
     data_tables_dir = os.path.join(output_dir, 'data_tables')
     outputs_dir = os.path.join(output_dir, 'outputs')
+    debug_dir = os.path.join(output_dir, 'debug')
     os.makedirs(data_tables_dir, exist_ok=True)
     os.makedirs(outputs_dir, exist_ok=True)
+    os.makedirs(debug_dir, exist_ok=True)
+    
+    # Save full parameters to JSON for reference
+    params_file = os.path.join(output_dir, 'parameters.json')
+    with open(params_file, 'w') as f:
+        json.dump(params, f, indent=2)
 
-    # Build command - IMPORTANT: Pass isolated folders
+    # Build command with all parameters
     cmd = [
         'python',
         'run_analysis.py',
@@ -85,8 +282,24 @@ def run_single_scenario(neighborhood, year, scenario, topology_source):
         '--scenario', scenario,
         '--topology_source', topology_source,
         '--mode', MODE,
-        '--data-tables-folder', data_tables_dir,  # NEW: Isolated data tables
-        '--output-folder', outputs_dir              # Updated: outputs subfolder
+        '--data-tables-folder', data_tables_dir,
+        '--output-folder', outputs_dir,
+        '--debug-folder', debug_dir,
+        '--spacing', str(spacing_m),
+        '--heat-pump-cop', str(heat_pump_cop),
+        '--heat-substation-eff', str(heat_substation_eff),
+        '--delta-t', str(delta_t),
+        '--flow-speed', str(flow_speed),
+        '--distance-factor-heat-trans-main', str(distance_factor_heat_trans_main),
+        '--distance-factor-heat-dist-main', str(distance_factor_heat_dist_main),
+        '--distance-factor-heat-dist-sec', str(distance_factor_heat_dist_sec),
+        '--distance-factor-elec-dist-main', str(distance_factor_elec_dist_main),
+        '--distance-factor-elec-dist-sec', str(distance_factor_elec_dist_sec),
+        '--heat-loss-rate-trans-main', str(heat_loss_rate_trans_main),
+        '--heat-loss-rate-dist-main', str(heat_loss_rate_dist_main),
+        '--heat-loss-rate-dist-sec', str(heat_loss_rate_dist_sec),
+        '--elec-resistance-main', str(elec_resistance_main),
+        '--elec-resistance-sec', str(elec_resistance_sec),
     ]
     
     print(f"Starting: {run_id}")
@@ -121,30 +334,24 @@ def run_single_scenario(neighborhood, year, scenario, topology_source):
         # Determine success
         success = result.returncode == 0
         
-        return {
+        result_dict = {
             'run_id': run_id,
-            'neighborhood': neighborhood,
-            'year': year,
-            'scenario': scenario,
-            'topology_source': topology_source,
             'success': success,
             'duration_seconds': duration,
             'returncode': result.returncode,
             'output_dir': output_dir,
             'timestamp': start_time.isoformat()
         }
+        result_dict.update(params)  # Add all parameters
+        return result_dict
         
     except subprocess.TimeoutExpired:
         end_time = datetime.now()
         duration = (end_time - start_time).total_seconds()
         print(f"TIMEOUT: {run_id} (exceeded 1 hour)")
         
-        return {
+        result_dict = {
             'run_id': run_id,
-            'neighborhood': neighborhood,
-            'year': year,
-            'scenario': scenario,
-            'topology_source': topology_source,
             'success': False,
             'duration_seconds': duration,
             'returncode': -1,
@@ -152,18 +359,16 @@ def run_single_scenario(neighborhood, year, scenario, topology_source):
             'output_dir': output_dir,
             'timestamp': start_time.isoformat()
         }
+        result_dict.update(params)  # Add all parameters
+        return result_dict
         
     except Exception as e:
         end_time = datetime.now()
         duration = (end_time - start_time).total_seconds()
         print(f"ERROR: {run_id} - {str(e)}")
         
-        return {
+        result_dict = {
             'run_id': run_id,
-            'neighborhood': neighborhood,
-            'year': year,
-            'scenario': scenario,
-            'topology_source': topology_source,
             'success': False,
             'duration_seconds': duration,
             'returncode': -1,
@@ -171,6 +376,8 @@ def run_single_scenario(neighborhood, year, scenario, topology_source):
             'output_dir': output_dir,
             'timestamp': start_time.isoformat()
         }
+        result_dict.update(params)  # Add all parameters
+        return result_dict
 
 def aggregate_scenario_summaries(results_list, timestamp):
     """
@@ -274,13 +481,9 @@ def run_parallel_scenarios():
     """
     Execute all scenario combinations in parallel
     """
-    # Generate all combinations
-    combinations = list(itertools.product(
-        NEIGHBORHOODS,
-        YEARS,
-        SCENARIOS,
-        TOPOLOGY_SOURCES
-    ))
+    # Generate valid combinations efficiently (filters during generation)
+    print("Generating valid parameter combinations...")
+    combinations = list(generate_valid_combinations())
     
     total_runs = len(combinations)
     print(f"\n{'='*80}")
@@ -288,11 +491,20 @@ def run_parallel_scenarios():
     print(f"{'='*80}")
     print(f"Total combinations: {total_runs}")
     print(f"Max parallel workers: {MAX_WORKERS}")
-    print(f"\nNeighborhoods: {', '.join(NEIGHBORHOODS)}")
-    print(f"Years: {', '.join(map(str, YEARS))}")
-    print(f"Scenarios: {', '.join(SCENARIOS)}")
-    print(f"Topology sources: {', '.join(TOPOLOGY_SOURCES)}")
-    print(f"Results directory: {os.path.join(RESULTS_BASE_DIR, TIMESTAMP)}")
+    print(f"\nParameter Ranges:")
+    print(f"  Neighborhoods ({len(NEIGHBORHOODS)}): {NEIGHBORHOODS}")
+    print(f"  Years ({len(YEARS)}): {YEARS}")
+    print(f"  Scenarios ({len(SCENARIOS)}): {SCENARIOS}")
+    print(f"  Topology sources ({len(TOPOLOGY_SOURCES)}): {TOPOLOGY_SOURCES}")
+    print(f"  Spacing (m) ({len(SPACING_M)}): {SPACING_M}")
+    print(f"  Heat pump COP ({len(HEAT_PUMP_COP)}): {HEAT_PUMP_COP}")
+    print(f"  Heat substation eff ({len(HEAT_SUBSTATION_EFF)}): {HEAT_SUBSTATION_EFF}")
+    print(f"  Delta T (°C) ({len(DELTA_T)}): {DELTA_T}")
+    print(f"  Flow speed (m/s) ({len(FLOW_SPEED)}): {FLOW_SPEED}")
+    print(f"  Distance factors: {len(DISTANCE_FACTOR_HEAT_TRANS_MAIN) * len(DISTANCE_FACTOR_HEAT_DIST_MAIN) * len(DISTANCE_FACTOR_HEAT_DIST_SEC) * len(DISTANCE_FACTOR_ELEC_DIST_MAIN) * len(DISTANCE_FACTOR_ELEC_DIST_SEC)} combinations")
+    print(f"  Heat loss rates: {len(HEAT_LOSS_RATE_TRANS_MAIN) * len(HEAT_LOSS_RATE_DIST_MAIN) * len(HEAT_LOSS_RATE_DIST_SEC)} combinations")
+    print(f"  Elec resistance: {len(ELEC_RESISTANCE_MAIN) * len(ELEC_RESISTANCE_SEC)} combinations")
+    print(f"\nResults directory: {os.path.join(RESULTS_BASE_DIR, TIMESTAMP)}")
     print(f"{'='*80}\n")
     
     # Create base results directory
@@ -375,12 +587,18 @@ def save_results_summary(results):
     print(f"SUCCESS RATE BY CATEGORY")
     print(f"{'='*80}")
     
-    for category in ['neighborhood', 'year', 'scenario', 'topology_source']:
-        print(f"\n{category.upper()}:")
-        category_stats = df.groupby(category)['success'].agg(['sum', 'count'])
-        category_stats['rate'] = (category_stats['sum'] / category_stats['count'] * 100).round(1)
-        for idx, row in category_stats.iterrows():
-            print(f"  {idx}: {row['sum']}/{row['count']} ({row['rate']}%)")
+    # Show stats for categories with multiple values
+    categories = ['neighborhood', 'year', 'scenario', 'topology_source', 
+                  'spacing_m', 'heat_pump_cop', 'heat_substation_eff', 
+                  'delta_t', 'flow_speed']
+    
+    for category in categories:
+        if category in df.columns and len(df[category].unique()) > 1:
+            print(f"\n{category.upper()}:")
+            category_stats = df.groupby(category)['success'].agg(['sum', 'count'])
+            category_stats['rate'] = (category_stats['sum'] / category_stats['count'] * 100).round(1)
+            for idx, row in category_stats.iterrows():
+                print(f"  {idx}: {row['sum']}/{row['count']} ({row['rate']}%)")
     
     print(f"{'='*80}\n")
 

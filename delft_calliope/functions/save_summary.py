@@ -40,10 +40,19 @@ def save_scenario_summary(config, model, results_df, output_folder, execution_ti
             'scenario_type': config['scenario'],
             'topology_source': config['topology_source'],
             'timestamp': datetime.now().isoformat(),
+            'spacing_m': config.get('spacing_m'),
         },
         
         # Technology parameters
         'technology_parameters': config['tech_efficiencies'],
+        
+        # Postprocessing parameters
+        'postprocessing_parameters': {
+            'pipe_sizing': config['postprocessing']['pipe_sizing'],
+            'distance_factors': config['postprocessing']['distance_factors'],
+            'heat_loss_rates': config['postprocessing']['heat_loss_rates'],
+            'electricity_resistance_rates': config['postprocessing']['electricity_resistance_rates'],
+        },
         
         # Model size and complexity
         'model_size': {

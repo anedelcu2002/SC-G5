@@ -16,6 +16,7 @@ def build_calliope_network(
     debug_single_node=False,
     inputs_folder="inputs",
     output_folder="data_tables",
+    debug_folder='debug',
     link_parameters=None,
     transformer_supply_capacity=100000,
     neighborhood_id=None,              
@@ -586,8 +587,8 @@ def build_calliope_network(
         folium.LayerControl().add_to(network_map)
         
         # Save the map
-        os.makedirs('debug', exist_ok=True)
-        network_map.save('debug/calliope_map.html')
+        os.makedirs(debug_folder, exist_ok=True)
+        network_map.save(os.path.join(debug_folder, 'calliope_map.html'))
         #print(f" Saved network visualization to debug/network_map.html")
     
     # Return all DataFrames
