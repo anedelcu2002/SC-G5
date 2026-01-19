@@ -19,23 +19,23 @@ import random
 
 # Define all parameter combinations to run
 NEIGHBORHOODS = [
-                 'multatulibuurt', 
+#                 'multatulibuurt', 
                  'holstbuurt', 
-                 'mythologiebuurt',
-                 'poptahofzuid'
+#                 'mythologiebuurt',
+#                 'poptahofzuid'
                  ]
 YEARS = [
          2013, 
-         2019, 
-         2020
+#         2019, 
+#         2020
          ]
 SCENARIOS = [
-             'district_heating', 
+#             'district_heating', 
              'full_electrification', 
-             'hybrid'
+#             'hybrid'
              ]
 TOPOLOGY_SOURCES = [
-                    'stedin', 
+#                    'stedin', 
                     'osm'
                     ]
 SPACING_M = [5.0]  # Node spacing in meters
@@ -106,7 +106,9 @@ ELEC_RESISTANCE_SEC = [
 #    0.272
     ]
 
-
+# Loss calculation enable/disable
+APPLY_HEAT_LOSSES = [True]  # Set to [True, False] to test both
+APPLY_ELECTRICITY_LOSSES = [True]  # Set to [True, False] to test both
 
 # Parallel execution settings
 MAX_WORKERS = 1  # Number of parallel scenario runs
@@ -148,6 +150,7 @@ def generate_valid_combinations():
         DISTANCE_FACTOR_HEAT_TRANS_MAIN, DISTANCE_FACTOR_HEAT_DIST_MAIN,
         DISTANCE_FACTOR_HEAT_DIST_SEC, DISTANCE_FACTOR_ELEC_DIST_MAIN,
         DISTANCE_FACTOR_ELEC_DIST_SEC,
+        APPLY_HEAT_LOSSES, APPLY_ELECTRICITY_LOSSES,
         HEAT_LOSS_RATE_TRANS_MAIN, HEAT_LOSS_RATE_DIST_MAIN,
         HEAT_LOSS_RATE_DIST_SEC,
         ELEC_RESISTANCE_MAIN, ELEC_RESISTANCE_SEC
@@ -161,6 +164,7 @@ def generate_valid_combinations():
          distance_factor_heat_trans_main, distance_factor_heat_dist_main,
          distance_factor_heat_dist_sec, distance_factor_elec_dist_main,
          distance_factor_elec_dist_sec,
+         apply_heat_losses, apply_electricity_losses,
          heat_loss_rate_trans_main, heat_loss_rate_dist_main,
          heat_loss_rate_dist_sec,
          elec_resistance_main, elec_resistance_sec) = combo
@@ -213,6 +217,8 @@ def run_single_scenario(neighborhood, year, scenario, topology_source,
                        distance_factor_heat_dist_sec,
                        distance_factor_elec_dist_main,
                        distance_factor_elec_dist_sec,
+                       apply_heat_losses,
+                       apply_electricity_losses,
                        heat_loss_rate_trans_main,
                        heat_loss_rate_dist_main,
                        heat_loss_rate_dist_sec,
@@ -227,7 +233,7 @@ def run_single_scenario(neighborhood, year, scenario, topology_source,
     """
     import hashlib
     
-    time.sleep(random.uniform(0, 5))  # Stagger start times to reduce I/O contention
+    time.sleep(random.uniform(0, 1))  # Stagger start times to reduce I/O contention
 
     # Create parameter dictionary for tracking
     params = {
@@ -245,11 +251,15 @@ def run_single_scenario(neighborhood, year, scenario, topology_source,
         'distance_factor_heat_dist_sec': distance_factor_heat_dist_sec,
         'distance_factor_elec_dist_main': distance_factor_elec_dist_main,
         'distance_factor_elec_dist_sec': distance_factor_elec_dist_sec,
+        'apply_heat_losses': apply_heat_losses,
+        'apply_electricity_losses': apply_electricity_losses,
         'heat_loss_rate_trans_main': heat_loss_rate_trans_main,
         'heat_loss_rate_dist_main': heat_loss_rate_dist_main,
         'heat_loss_rate_dist_sec': heat_loss_rate_dist_sec,
         'elec_resistance_main': elec_resistance_main,
         'elec_resistance_sec': elec_resistance_sec,
+        'apply_heat_losses': apply_heat_losses,
+        'apply_electricity_losses': apply_electricity_losses,
     }
     
     # Generate hash from parameters for unique identification
@@ -300,6 +310,8 @@ def run_single_scenario(neighborhood, year, scenario, topology_source,
         '--heat-loss-rate-dist-sec', str(heat_loss_rate_dist_sec),
         '--elec-resistance-main', str(elec_resistance_main),
         '--elec-resistance-sec', str(elec_resistance_sec),
+        '--apply-heat-losses', str(apply_heat_losses).lower(),
+        '--apply-electricity-losses', str(apply_electricity_losses).lower(),
     ]
     
     print(f"Starting: {run_id}")

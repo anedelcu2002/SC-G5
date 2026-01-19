@@ -115,12 +115,12 @@ CONFIG = {
             'LQ heat distribution main': 52,      # W/m
             'LQ heat distribution secondary': 29  # W/m
         },
-        'apply_heat_losses': False,
+        'apply_heat_losses': True,
         'electricity_resistance_rates': {
             'LV electricity distribution main': 0.247,       # Ω/km
             'LV electricity distribution secondary': 0.247   # Ω/km
         },
-        'apply_electricity_losses': False
+        'apply_electricity_losses': True
     },
 
     # Link technical parameters for network segments
@@ -340,6 +340,13 @@ def main(config):
             neighborhood_id=config['neighborhood_id'],       
             substation_coords=config['substation_coords']
         )
+        
+        # Extract connectivity info
+        connectivity_info = network_dfs.get('connectivity_info', {
+            'num_isolated_demand_nodes': 0,
+            'isolated_demand_nodes': [],
+            'total_demand_nodes': 0
+        })
     # -------------------------------------------------------------------------
     # 7. Create scenario and configure model
     # -------------------------------------------------------------------------
@@ -367,7 +374,7 @@ def main(config):
     # 10. Process Calliope results
     # -------------------------------------------------------------------------
     with Timer("Process Calliope results"):
-        final_export_df, total_system_losses_kw, total_electricity_losses_kw, supply_losses = process_calliope_results(
+        final_export_df, total_system_losses_kw, total_electricity_losses_kw, supply_losses, total_unmet_demand_kw, num_unmet_nodes, total_demand_nodes = process_calliope_results(
             model=model,
             buildings_gdf=buildings_gdf,
             mode=config['mode'],
@@ -398,7 +405,11 @@ def main(config):
             total_system_losses_kw=total_system_losses_kw,
             apply_electricity_losses=config['postprocessing'].get('apply_electricity_losses', False),  # NEW
             total_electricity_losses_kw=total_electricity_losses_kw,  # NEW
-            supply_losses=supply_losses
+            supply_losses=supply_losses,
+            total_unmet_demand_kw=total_unmet_demand_kw,
+            num_unmet_nodes=num_unmet_nodes,
+            total_demand_nodes=total_demand_nodes,
+            connectivity_info=connectivity_info
         )
     
     return model, final_export_df
@@ -593,6 +604,19 @@ def parse_arguments():
         help='Electricity resistance for LV distribution secondary in Ω/km (default: 0.247)'
     )
     
+    # Loss calculation enable/disable flags
+    parser.add_argument('--apply-heat-losses',
+        type=lambda x: x.lower() == 'true',
+        default=CONFIG['postprocessing']['apply_heat_losses'],
+        help='Apply heat transmission losses (default: True)'
+    )
+    
+    parser.add_argument('--apply-electricity-losses',
+        type=lambda x: x.lower() == 'true',
+        default=CONFIG['postprocessing']['apply_electricity_losses'],
+        help='Apply electricity transmission losses (default: True)'
+    )
+    
     parser.add_argument('--debug-folder',
         type=str,
         default=CONFIG['debug_folder'],
@@ -664,6 +688,10 @@ if __name__ == "__main__":
     # Update electricity resistance rates
     CONFIG['postprocessing']['electricity_resistance_rates']['LV electricity distribution main'] = args.elec_resistance_main
     CONFIG['postprocessing']['electricity_resistance_rates']['LV electricity distribution secondary'] = args.elec_resistance_sec
+    
+    # Update loss calculation enable/disable flags
+    CONFIG['postprocessing']['apply_heat_losses'] = args.apply_heat_losses
+    CONFIG['postprocessing']['apply_electricity_losses'] = args.apply_electricity_losses
 
     # Run main workflow
     try:
