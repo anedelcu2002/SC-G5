@@ -1,0 +1,12 @@
+ModelWarning: Only one timestep defined. Inferring timestep resolution to be 1 hour
+Traceback (most recent call last):
+  File "C:\Users\alexn\Documents\GitHub\SC-G5\delft_calliope\run_analysis.py", line 698, in <module>
+    model, results = main(CONFIG)
+                     ^^^^^^^^^^^^
+  File "C:\Users\alexn\Documents\GitHub\SC-G5\delft_calliope\run_analysis.py", line 377, in main
+    final_export_df, total_system_losses_kw, total_electricity_losses_kw, supply_losses, total_unmet_demand_kw, num_unmet_nodes, total_demand_nodes = process_calliope_results(
+                                                                                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\alexn\Documents\GitHub\SC-G5\delft_calliope\functions\process_calliope_results.py", line 500, in process_calliope_results
+    print(f"  LQ network losses: {total_LQ_losses_kw:.2f} kW ({len(segment_losses_LQ)} segments)")
+                                                                   ^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'segment_losses_LQ' where it is not associated with a value

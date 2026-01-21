@@ -1,0 +1,33 @@
+
+================================================================================
+DISTRICT HEATING NETWORK ANALYSIS - MULTATULIBUURT
+================================================================================
+Neighborhood: multatulibuurt (Multatulibuurt)
+Year: 2019
+Heat demand area code: 4315
+Substation coordinates: [4.355181, 51.995783]
+Mode: plot
+Scenario: full_electrification
+Debug mode: False
+Spacing: 5.0m
+================================================================================
+
+ Obtain building location and address data: 0.169s
+ Create building dataframe and visualize: 0.863s
+ Define and visualize demand nodes: 0.645s
+ Load and process network topology (OSM): 12.831s
+ Create transmission nodes: 0.226s
+ Build Calliope network: 13.671s
+ Create scenario and configure model: 131.880s
+ Build Calliope model: 145.034s
+ Solve Calliope model: 16.084s
+
+============================================================
+SUMMARY:
+  Total building demand: 4735.98 kW
+ Process Calliope results: 0.480s
+
+ERROR: Analysis failed with exception:
+UnboundLocalError: cannot access local variable 'segment_losses_LQ' where it is not associated with a value
+
+Error summary saved to: parallel_results\20260120_152512\multatulibuurt_2019_full_electrification_osm_a5340097\outputs\scenario_summary.json

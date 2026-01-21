@@ -1,0 +1,26 @@
+{
+  "scenario_info": {
+    "neighborhood": "multatulibuurt",
+    "year": 2019,
+    "scenario_type": "full_electrification",
+    "topology_source": "stedin",
+    "timestamp": "2026-01-20T15:39:54.683059"
+  },
+  "status": "FAILED",
+  "error": {
+    "type": "UnboundLocalError",
+    "message": "cannot access local variable 'segment_losses_LQ' where it is not associated with a value"
+  },
+  "execution_times": {
+    "Obtain building location and address data": 0.16539470001589507,
+    "Create building dataframe and visualize": 0.8881550999940373,
+    "Define and visualize demand nodes": 0.6859924999880604,
+    "Load and process network topology (STEDIN)": 1.605875000008382,
+    "Create transmission nodes": 0.32844699994893745,
+    "Build Calliope network": 19.48159839998698,
+    "Create scenario and configure model": 187.51873419998446,
+    "Build Calliope model": 326.54423230001703,
+    "Solve Calliope model": 45.99103160004597,
+    "Process Calliope results": 1.5985775999724865
+  }
+}

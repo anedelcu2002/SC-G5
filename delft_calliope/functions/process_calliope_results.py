@@ -275,6 +275,10 @@ def process_calliope_results(
                 substation_name = str(node)
                 break
         
+        # Initialize LQ variables (may be overwritten if substation is found)
+        segment_losses_LQ = {}
+        total_LQ_losses_kw = 0.0
+        
         if not substation_name or substation_name not in neighbors:
             substation_name = None
             substation_total_demand = 0.0
@@ -398,6 +402,10 @@ def process_calliope_results(
             if 'geothermie' in str(node).lower() or 'geothermal' in str(node).lower():
                 geothermal_name = str(node)
                 break
+        
+        # Initialize HQ variables (may be overwritten if geothermal is found)
+        segment_losses_HQ = {}
+        total_HQ_losses_kw = 0.0
         
         if not geothermal_name or geothermal_name not in neighbors_HQ:
             total_HQ_losses_kw = 0.0

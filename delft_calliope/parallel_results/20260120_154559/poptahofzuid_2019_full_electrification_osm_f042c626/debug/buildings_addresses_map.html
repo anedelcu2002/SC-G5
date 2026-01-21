@@ -1,0 +1,2417 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_3bd608b8e64bb51981d8050d7d738fd4 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+        <div style="position: fixed; bottom: 50px; left: 50px; width: 220px; height: 110px; 
+                    background-color: white; border:2px solid grey; z-index:9999; 
+                    font-size:14px; padding: 10px">
+            <b>Building Statistics</b><br>
+            Total buildings: 48<br>
+            With addresses: 48<br>
+            Without addresses: 0<br><br>
+            <span style="color: #3186cc;">■</span> Has address<br>
+            <span style="color: #cccccc;">■</span> No address
+        </div>
+        
+    
+            <div class="folium-map" id="map_3bd608b8e64bb51981d8050d7d738fd4" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_3bd608b8e64bb51981d8050d7d738fd4 = L.map(
+                "map_3bd608b8e64bb51981d8050d7d738fd4",
+                {
+                    center: [51.99792920423477, 4.351906952062316],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 16,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_96ee69e24d1fe8ef6f74b5cbf0622dc2 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_96ee69e24d1fe8ef6f74b5cbf0622dc2.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_2c8bcf729c098f9b4e26ccfd40f34650_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_2c8bcf729c098f9b4e26ccfd40f34650_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_2c8bcf729c098f9b4e26ccfd40f34650 = L.geoJson(null, {
+                onEachFeature: geo_json_2c8bcf729c098f9b4e26ccfd40f34650_onEachFeature,
+            
+                style: geo_json_2c8bcf729c098f9b4e26ccfd40f34650_styler,
+            ...{
+}
+        });
+
+        function geo_json_2c8bcf729c098f9b4e26ccfd40f34650_add (data) {
+            geo_json_2c8bcf729c098f9b4e26ccfd40f34650
+                .addData(data);
+        }
+            geo_json_2c8bcf729c098f9b4e26ccfd40f34650_add({"features": [{"geometry": {"coordinates": [[[4.352027359074649, 51.99897168819683, 0.0], [4.352035406479681, 51.99894292296367, 0.0], [4.352034273312752, 51.998942805130405, 0.0], [4.352192909775949, 51.99836913394668, 0.0], [4.3522220393729265, 51.998372086778524, 0.0], [4.352242521092972, 51.99829734538546, 0.0], [4.352427472949883, 51.99831652694507, 0.0], [4.352408141072831, 51.998387521167075, 0.0], [4.3524265331927605, 51.998389426718134, 0.0], [4.352416636531482, 51.99842577124062, 0.0], [4.352454539400587, 51.99842970003845, 0.0], [4.35244518299202, 51.998464089758315, 0.0], [4.352388699087337, 51.99845823576501, 0.0], [4.352279142729544, 51.99885644629298, 0.0], [4.352339286410525, 51.99886275499208, 0.0], [4.352331926305874, 51.9988895128014, 0.0], [4.35237431750936, 51.998893957498005, 0.0], [4.35229323459337, 51.99900049864008, 0.0], [4.352288750743372, 51.99899917381176, 0.0], [4.352289125938199, 51.99899869171699, 0.0], [4.352241357505503, 51.99899376823778, 0.0], [4.35223941650418, 51.99900088826223, 0.0], [4.352046500405984, 51.99898089030069, 0.0], [4.3520484248024385, 51.998973860021, 0.0], [4.352027359074649, 51.99897168819683, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_dbefca5e205701d845de750bd04c07ef = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_180db111f28994339a96b79dac8b39ab = $(`<div id="html_180db111f28994339a96b79dac8b39ab" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Akropolishof 50-147, Taj Mahalplaats 2-18</span><br><br>                 <b>Building ID:</b> 0503100000030049<br>                 <b>Number of addresses:</b> 104<br>                 <b>Construction year:</b> 2009<br>                 <b>Centroid (lon, lat):</b> 4.35223, 51.99867             </div>             </div>`)[0];
+                popup_dbefca5e205701d845de750bd04c07ef.setContent(html_180db111f28994339a96b79dac8b39ab);
+            
+        
+
+        geo_json_2c8bcf729c098f9b4e26ccfd40f34650.bindPopup(popup_dbefca5e205701d845de750bd04c07ef)
+        ;
+
+        
+    
+    
+            geo_json_2c8bcf729c098f9b4e26ccfd40f34650.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_a1d9b8d387ba136e40241d8df049b8c7_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_a1d9b8d387ba136e40241d8df049b8c7_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_a1d9b8d387ba136e40241d8df049b8c7 = L.geoJson(null, {
+                onEachFeature: geo_json_a1d9b8d387ba136e40241d8df049b8c7_onEachFeature,
+            
+                style: geo_json_a1d9b8d387ba136e40241d8df049b8c7_styler,
+            ...{
+}
+        });
+
+        function geo_json_a1d9b8d387ba136e40241d8df049b8c7_add (data) {
+            geo_json_a1d9b8d387ba136e40241d8df049b8c7
+                .addData(data);
+        }
+            geo_json_a1d9b8d387ba136e40241d8df049b8c7_add({"features": [{"geometry": {"coordinates": [[[4.351329476083369, 51.99802289317741, 0.0], [4.351353550389474, 51.9979351587987, 0.0], [4.351428161660696, 51.997942988582864, 0.0], [4.351404087703794, 51.99803071399016, 0.0], [4.351329476083369, 51.99802289317741, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_ae12a4dd9ced7991a7d76acaf86622ed = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5eeeac91a3426cf1a1190c71b4ecc19a = $(`<div id="html_5eeeac91a3426cf1a1190c71b4ecc19a" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Taj Mahalplaats 3</span><br><br>                 <b>Building ID:</b> 0503100000033569<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2012<br>                 <b>Centroid (lon, lat):</b> 4.35138, 51.99798             </div>             </div>`)[0];
+                popup_ae12a4dd9ced7991a7d76acaf86622ed.setContent(html_5eeeac91a3426cf1a1190c71b4ecc19a);
+            
+        
+
+        geo_json_a1d9b8d387ba136e40241d8df049b8c7.bindPopup(popup_ae12a4dd9ced7991a7d76acaf86622ed)
+        ;
+
+        
+    
+    
+            geo_json_a1d9b8d387ba136e40241d8df049b8c7.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_6de6b812361cd60908abaf2fcf61818e_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_6de6b812361cd60908abaf2fcf61818e_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_6de6b812361cd60908abaf2fcf61818e = L.geoJson(null, {
+                onEachFeature: geo_json_6de6b812361cd60908abaf2fcf61818e_onEachFeature,
+            
+                style: geo_json_6de6b812361cd60908abaf2fcf61818e_styler,
+            ...{
+}
+        });
+
+        function geo_json_6de6b812361cd60908abaf2fcf61818e_add (data) {
+            geo_json_6de6b812361cd60908abaf2fcf61818e
+                .addData(data);
+        }
+            geo_json_6de6b812361cd60908abaf2fcf61818e_add({"features": [{"geometry": {"coordinates": [[[4.353407332055441, 51.9967270228546, 0.0], [4.353399902689994, 51.996742301444655, 0.0], [4.351660357000229, 51.9964291449518, 0.0], [4.351534991133006, 51.9964065764418, 0.0], [4.351542348905074, 51.99639127036877, 0.0], [4.351723947894622, 51.99600606291591, 0.0], [4.3517512480313245, 51.995948181629636, 0.0], [4.353113951447206, 51.99619353141471, 0.0], [4.353095204326347, 51.996232944299955, 0.0], [4.353093840608734, 51.99623588063802, 0.0], [4.353128805775928, 51.99624209353312, 0.0], [4.3535967145988845, 51.99632632140961, 0.0], [4.353407332055441, 51.9967270228546, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_cc381eda0a525af16ab202870093acb2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_05b43533dca22e76a459bccacab0a30e = $(`<div id="html_05b43533dca22e76a459bccacab0a30e" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Martinus Nijhofflaan 1-19, Roland Holstlaan 20</span><br><br>                 <b>Building ID:</b> 0503100000035337<br>                 <b>Number of addresses:</b> 68<br>                 <b>Construction year:</b> 2017<br>                 <b>Centroid (lon, lat):</b> 4.35256, 51.99635             </div>             </div>`)[0];
+                popup_cc381eda0a525af16ab202870093acb2.setContent(html_05b43533dca22e76a459bccacab0a30e);
+            
+        
+
+        geo_json_6de6b812361cd60908abaf2fcf61818e.bindPopup(popup_cc381eda0a525af16ab202870093acb2)
+        ;
+
+        
+    
+    
+            geo_json_6de6b812361cd60908abaf2fcf61818e.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_50ba302f09f7d0a966455f06d76261a0_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_50ba302f09f7d0a966455f06d76261a0_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_50ba302f09f7d0a966455f06d76261a0 = L.geoJson(null, {
+                onEachFeature: geo_json_50ba302f09f7d0a966455f06d76261a0_onEachFeature,
+            
+                style: geo_json_50ba302f09f7d0a966455f06d76261a0_styler,
+            ...{
+}
+        });
+
+        function geo_json_50ba302f09f7d0a966455f06d76261a0_add (data) {
+            geo_json_50ba302f09f7d0a966455f06d76261a0
+                .addData(data);
+        }
+            geo_json_50ba302f09f7d0a966455f06d76261a0_add({"features": [{"geometry": {"coordinates": [[[4.353966677570375, 51.998835472677754, 0.0], [4.354026308357382, 51.998620741842906, 0.0], [4.354025306022582, 51.998620634166244, 0.0], [4.3540403831346755, 51.99855912146267, 0.0], [4.354465350601379, 51.9986038495091, 0.0], [4.354463872150235, 51.99860923879263, 0.0], [4.354491591016956, 51.998612124747645, 0.0], [4.3545013826630194, 51.99861314550812, 0.0], [4.354442095519483, 51.99883012678139, 0.0], [4.354427799085784, 51.998882423892155, 0.0], [4.354398859733439, 51.99887941035767, 0.0], [4.354392564957977, 51.998902330439314, 0.0], [4.354388384860257, 51.99891752973855, 0.0], [4.354380754853057, 51.99894531002077, 0.0], [4.354376541280337, 51.99896069779021, 0.0], [4.354370104472027, 51.99898409302942, 0.0], [4.354365859495193, 51.99899957939943, 0.0], [4.354354843988127, 51.9990396715641, 0.0], [4.35434034816988, 51.999092398375275, 0.0], [4.3543116851165005, 51.99908939623405, 0.0], [4.354301461501627, 51.99912671781055, 0.0], [4.354274766330255, 51.99922413762597, 0.0], [4.354267817966226, 51.99924950590111, 0.0], [4.354134146779926, 51.99923558644493, 0.0], [4.354134385677119, 51.999234698652714, 0.0], [4.354089451184085, 51.99923000754656, 0.0], [4.354162634728516, 51.99896303597726, 0.0], [4.354191341784198, 51.998966020564055, 0.0], [4.354219712546429, 51.99886224242519, 0.0], [4.354134307079481, 51.998853205058126, 0.0], [4.35410265214656, 51.9988498619929, 0.0], [4.353979737517199, 51.998836854762125, 0.0], [4.353966677570375, 51.998835472677754, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_a709cd3d1b1d0ca0b0fa6048589ca6cf = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_30fb38088c97c92b2051abcaea5f4c23 = $(`<div id="html_30fb38088c97c92b2051abcaea5f4c23" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Papsouwselaan 446-470</span><br><br>                 <b>Building ID:</b> 0503100000000169<br>                 <b>Number of addresses:</b> 6<br>                 <b>Construction year:</b> 1968<br>                 <b>Centroid (lon, lat):</b> 4.35424, 51.99884             </div>             </div>`)[0];
+                popup_a709cd3d1b1d0ca0b0fa6048589ca6cf.setContent(html_30fb38088c97c92b2051abcaea5f4c23);
+            
+        
+
+        geo_json_50ba302f09f7d0a966455f06d76261a0.bindPopup(popup_a709cd3d1b1d0ca0b0fa6048589ca6cf)
+        ;
+
+        
+    
+    
+            geo_json_50ba302f09f7d0a966455f06d76261a0.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_b73a015a055b45eb994527f6f93a0bb8_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_b73a015a055b45eb994527f6f93a0bb8_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_b73a015a055b45eb994527f6f93a0bb8 = L.geoJson(null, {
+                onEachFeature: geo_json_b73a015a055b45eb994527f6f93a0bb8_onEachFeature,
+            
+                style: geo_json_b73a015a055b45eb994527f6f93a0bb8_styler,
+            ...{
+}
+        });
+
+        function geo_json_b73a015a055b45eb994527f6f93a0bb8_add (data) {
+            geo_json_b73a015a055b45eb994527f6f93a0bb8
+                .addData(data);
+        }
+            geo_json_b73a015a055b45eb994527f6f93a0bb8_add({"features": [{"geometry": {"coordinates": [[[4.352845493297756, 51.99886864362134, 0.0], [4.352980071169884, 51.998380432071706, 0.0], [4.3531836450727734, 51.998401681718626, 0.0], [4.3530493016837, 51.99888992251338, 0.0], [4.352845493297756, 51.99886864362134, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_d5a55f6f29ef3de241f08877a0d4eb2e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9cc634c8bb61e42059dcc48792b93946 = $(`<div id="html_9cc634c8bb61e42059dcc48792b93946" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Akropolishof 10-29</span><br><br>                 <b>Building ID:</b> 0503100000030052<br>                 <b>Number of addresses:</b> 20<br>                 <b>Construction year:</b> 2009<br>                 <b>Centroid (lon, lat):</b> 4.35301, 51.99864             </div>             </div>`)[0];
+                popup_d5a55f6f29ef3de241f08877a0d4eb2e.setContent(html_9cc634c8bb61e42059dcc48792b93946);
+            
+        
+
+        geo_json_b73a015a055b45eb994527f6f93a0bb8.bindPopup(popup_d5a55f6f29ef3de241f08877a0d4eb2e)
+        ;
+
+        
+    
+    
+            geo_json_b73a015a055b45eb994527f6f93a0bb8.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_d94c124c006240c39d41d7ef6aa6e27d_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_d94c124c006240c39d41d7ef6aa6e27d_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_d94c124c006240c39d41d7ef6aa6e27d = L.geoJson(null, {
+                onEachFeature: geo_json_d94c124c006240c39d41d7ef6aa6e27d_onEachFeature,
+            
+                style: geo_json_d94c124c006240c39d41d7ef6aa6e27d_styler,
+            ...{
+}
+        });
+
+        function geo_json_d94c124c006240c39d41d7ef6aa6e27d_add (data) {
+            geo_json_d94c124c006240c39d41d7ef6aa6e27d
+                .addData(data);
+        }
+            geo_json_d94c124c006240c39d41d7ef6aa6e27d_add({"features": [{"geometry": {"coordinates": [[[4.353597472392288, 51.99872109314989, 0.0], [4.353651396024509, 51.99852027194501, 0.0], [4.353831211130303, 51.99853935224052, 0.0], [4.353820384889942, 51.99857879882966, 0.0], [4.353871507418504, 51.99858413763936, 0.0], [4.353870929690032, 51.99858708987603, 0.0], [4.353852988566367, 51.99858519750071, 0.0], [4.353835497374199, 51.99864845078466, 0.0], [4.353853375105832, 51.99865056732545, 0.0], [4.353860070104092, 51.998651363194405, 0.0], [4.3538512292833795, 51.9986855418152, 0.0], [4.353810686991838, 51.99868112287507, 0.0], [4.353811114900086, 51.99867961651713, 0.0], [4.353793157111014, 51.99867781387438, 0.0], [4.353777553957458, 51.99873433315342, 0.0], [4.353898502010685, 51.99874672108149, 0.0], [4.3538401824360236, 51.99895886560814, 0.0], [4.353821760237131, 51.999025859034724, 0.0], [4.353809569669015, 51.99907015657175, 0.0], [4.353784870335647, 51.999159917389036, 0.0], [4.353774364096824, 51.99919810835214, 0.0], [4.3535486258674965, 51.99917415720405, 0.0], [4.353551870437134, 51.99916291376926, 0.0], [4.353565932397607, 51.99916442155438, 0.0], [4.35356659901965, 51.999162036393365, 0.0], [4.3535674707417655, 51.999162124949066, 0.0], [4.3535736897121, 51.99913998626792, 0.0], [4.3535453915040145, 51.999136951189364, 0.0], [4.353484306076445, 51.99913041011836, 0.0], [4.353552609915533, 51.998883854509856, 0.0], [4.353597472392288, 51.99872109314989, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_6141b405df30ecef009c2dd2edd7407d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_61046b9df9c329c1e4a25afabbac217f = $(`<div id="html_61046b9df9c329c1e4a25afabbac217f" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Papsouwselaan 230-436</span><br><br>                 <b>Building ID:</b> 0503100000000168<br>                 <b>Number of addresses:</b> 103<br>                 <b>Construction year:</b> 1964<br>                 <b>Centroid (lon, lat):</b> 4.35370, 51.99888             </div>             </div>`)[0];
+                popup_6141b405df30ecef009c2dd2edd7407d.setContent(html_61046b9df9c329c1e4a25afabbac217f);
+            
+        
+
+        geo_json_d94c124c006240c39d41d7ef6aa6e27d.bindPopup(popup_6141b405df30ecef009c2dd2edd7407d)
+        ;
+
+        
+    
+    
+            geo_json_d94c124c006240c39d41d7ef6aa6e27d.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_147bb3aa0f21870000feace4e61a1c7b_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_147bb3aa0f21870000feace4e61a1c7b_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_147bb3aa0f21870000feace4e61a1c7b = L.geoJson(null, {
+                onEachFeature: geo_json_147bb3aa0f21870000feace4e61a1c7b_onEachFeature,
+            
+                style: geo_json_147bb3aa0f21870000feace4e61a1c7b_styler,
+            ...{
+}
+        });
+
+        function geo_json_147bb3aa0f21870000feace4e61a1c7b_add (data) {
+            geo_json_147bb3aa0f21870000feace4e61a1c7b
+                .addData(data);
+        }
+            geo_json_147bb3aa0f21870000feace4e61a1c7b_add({"features": [{"geometry": {"coordinates": [[[4.353051619822096, 51.9983076854067, 0.0], [4.3530780941876825, 51.998211090870726, 0.0], [4.353152750734098, 51.99821888399904, 0.0], [4.353126276524529, 51.99831547855212, 0.0], [4.353051619822096, 51.9983076854067, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_77e53735231214179b53e3c3557a48dc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5c92a6dfd84a837f9156b329d07478ca = $(`<div id="html_5c92a6dfd84a837f9156b329d07478ca" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Akropolishof 8</span><br><br>                 <b>Building ID:</b> 0503100000031378<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2009<br>                 <b>Centroid (lon, lat):</b> 4.35310, 51.99826             </div>             </div>`)[0];
+                popup_77e53735231214179b53e3c3557a48dc.setContent(html_5c92a6dfd84a837f9156b329d07478ca);
+            
+        
+
+        geo_json_147bb3aa0f21870000feace4e61a1c7b.bindPopup(popup_77e53735231214179b53e3c3557a48dc)
+        ;
+
+        
+    
+    
+            geo_json_147bb3aa0f21870000feace4e61a1c7b.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_b941462703c6f78fe1a22d89fb85a38f_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_b941462703c6f78fe1a22d89fb85a38f_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_b941462703c6f78fe1a22d89fb85a38f = L.geoJson(null, {
+                onEachFeature: geo_json_b941462703c6f78fe1a22d89fb85a38f_onEachFeature,
+            
+                style: geo_json_b941462703c6f78fe1a22d89fb85a38f_styler,
+            ...{
+}
+        });
+
+        function geo_json_b941462703c6f78fe1a22d89fb85a38f_add (data) {
+            geo_json_b941462703c6f78fe1a22d89fb85a38f
+                .addData(data);
+        }
+            geo_json_b941462703c6f78fe1a22d89fb85a38f_add({"features": [{"geometry": {"coordinates": [[[4.352827650079791, 51.99828429669961, 0.0], [4.352854124498782, 51.99818772018888, 0.0], [4.352928780966377, 51.9981955134591, 0.0], [4.352902306496062, 51.9982920989739, 0.0], [4.352827650079791, 51.99828429669961, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_c24274d51ac013a90ffa6e9f63c5f6f5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_432204eb51d82b6f77521fbc303c416e = $(`<div id="html_432204eb51d82b6f77521fbc303c416e" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Akropolishof 5</span><br><br>                 <b>Building ID:</b> 0503100000031383<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2009<br>                 <b>Centroid (lon, lat):</b> 4.35288, 51.99824             </div>             </div>`)[0];
+                popup_c24274d51ac013a90ffa6e9f63c5f6f5.setContent(html_432204eb51d82b6f77521fbc303c416e);
+            
+        
+
+        geo_json_b941462703c6f78fe1a22d89fb85a38f.bindPopup(popup_c24274d51ac013a90ffa6e9f63c5f6f5)
+        ;
+
+        
+    
+    
+            geo_json_b941462703c6f78fe1a22d89fb85a38f.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_7d527a47457e2beb04046eef3295af30_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_7d527a47457e2beb04046eef3295af30_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_7d527a47457e2beb04046eef3295af30 = L.geoJson(null, {
+                onEachFeature: geo_json_7d527a47457e2beb04046eef3295af30_onEachFeature,
+            
+                style: geo_json_7d527a47457e2beb04046eef3295af30_styler,
+            ...{
+}
+        });
+
+        function geo_json_7d527a47457e2beb04046eef3295af30_add (data) {
+            geo_json_7d527a47457e2beb04046eef3295af30
+                .addData(data);
+        }
+            geo_json_7d527a47457e2beb04046eef3295af30_add({"features": [{"geometry": {"coordinates": [[[4.351428161660696, 51.997942988582864, 0.0], [4.351502773165893, 51.997950809332835, 0.0], [4.351478699558172, 51.99803852576873, 0.0], [4.351404087703794, 51.99803071399016, 0.0], [4.351428161660696, 51.997942988582864, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_041e15b6cfb32dcf0e2cf712d80826c6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8b0c42ab1252a981bf3ba8d9fa48c195 = $(`<div id="html_8b0c42ab1252a981bf3ba8d9fa48c195" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Taj Mahalplaats 5</span><br><br>                 <b>Building ID:</b> 0503100000033570<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2012<br>                 <b>Centroid (lon, lat):</b> 4.35145, 51.99799             </div>             </div>`)[0];
+                popup_041e15b6cfb32dcf0e2cf712d80826c6.setContent(html_8b0c42ab1252a981bf3ba8d9fa48c195);
+            
+        
+
+        geo_json_7d527a47457e2beb04046eef3295af30.bindPopup(popup_041e15b6cfb32dcf0e2cf712d80826c6)
+        ;
+
+        
+    
+    
+            geo_json_7d527a47457e2beb04046eef3295af30.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_aa75d214eea4b441952c9ac5f575ba7d_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_aa75d214eea4b441952c9ac5f575ba7d_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_aa75d214eea4b441952c9ac5f575ba7d = L.geoJson(null, {
+                onEachFeature: geo_json_aa75d214eea4b441952c9ac5f575ba7d_onEachFeature,
+            
+                style: geo_json_aa75d214eea4b441952c9ac5f575ba7d_styler,
+            ...{
+}
+        });
+
+        function geo_json_aa75d214eea4b441952c9ac5f575ba7d_add (data) {
+            geo_json_aa75d214eea4b441952c9ac5f575ba7d
+                .addData(data);
+        }
+            geo_json_aa75d214eea4b441952c9ac5f575ba7d_add({"features": [{"geometry": {"coordinates": [[[4.35297696314594, 51.998299892213936, 0.0], [4.353003437460252, 51.99820330668207, 0.0], [4.3530780941876825, 51.998211090870726, 0.0], [4.353051619822096, 51.9983076854067, 0.0], [4.35297696314594, 51.998299892213936, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_b090b37ed094d4662bfeb99000b6c479 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_70756f1f094c552d78f4cd1de1b30f42 = $(`<div id="html_70756f1f094c552d78f4cd1de1b30f42" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Akropolishof 7</span><br><br>                 <b>Building ID:</b> 0503100000031379<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2009<br>                 <b>Centroid (lon, lat):</b> 4.35303, 51.99826             </div>             </div>`)[0];
+                popup_b090b37ed094d4662bfeb99000b6c479.setContent(html_70756f1f094c552d78f4cd1de1b30f42);
+            
+        
+
+        geo_json_aa75d214eea4b441952c9ac5f575ba7d.bindPopup(popup_b090b37ed094d4662bfeb99000b6c479)
+        ;
+
+        
+    
+    
+            geo_json_aa75d214eea4b441952c9ac5f575ba7d.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_c62e79fea9d3c342abf4ea5f7e6c64ec_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_c62e79fea9d3c342abf4ea5f7e6c64ec_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_c62e79fea9d3c342abf4ea5f7e6c64ec = L.geoJson(null, {
+                onEachFeature: geo_json_c62e79fea9d3c342abf4ea5f7e6c64ec_onEachFeature,
+            
+                style: geo_json_c62e79fea9d3c342abf4ea5f7e6c64ec_styler,
+            ...{
+}
+        });
+
+        function geo_json_c62e79fea9d3c342abf4ea5f7e6c64ec_add (data) {
+            geo_json_c62e79fea9d3c342abf4ea5f7e6c64ec
+                .addData(data);
+        }
+            geo_json_c62e79fea9d3c342abf4ea5f7e6c64ec_add({"features": [{"geometry": {"coordinates": [[[4.351726607632064, 51.99797428028621, 0.0], [4.351801219035161, 51.99798210983415, 0.0], [4.351777131849354, 51.99806980823016, 0.0], [4.351702520097175, 51.99806198765366, 0.0], [4.351726607632064, 51.99797428028621, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_64eea0d635e2af83b681ddb565b82b8b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_06713971d7ce6e4180a52e86434ae4e8 = $(`<div id="html_06713971d7ce6e4180a52e86434ae4e8" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Taj Mahalplaats 13</span><br><br>                 <b>Building ID:</b> 0503100000033574<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2012<br>                 <b>Centroid (lon, lat):</b> 4.35175, 51.99802             </div>             </div>`)[0];
+                popup_64eea0d635e2af83b681ddb565b82b8b.setContent(html_06713971d7ce6e4180a52e86434ae4e8);
+            
+        
+
+        geo_json_c62e79fea9d3c342abf4ea5f7e6c64ec.bindPopup(popup_64eea0d635e2af83b681ddb565b82b8b)
+        ;
+
+        
+    
+    
+            geo_json_c62e79fea9d3c342abf4ea5f7e6c64ec.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_b6ecb3f92e2e504f3870b354d6aec614_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_b6ecb3f92e2e504f3870b354d6aec614_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_b6ecb3f92e2e504f3870b354d6aec614 = L.geoJson(null, {
+                onEachFeature: geo_json_b6ecb3f92e2e504f3870b354d6aec614_onEachFeature,
+            
+                style: geo_json_b6ecb3f92e2e504f3870b354d6aec614_styler,
+            ...{
+}
+        });
+
+        function geo_json_b6ecb3f92e2e504f3870b354d6aec614_add (data) {
+            geo_json_b6ecb3f92e2e504f3870b354d6aec614
+                .addData(data);
+        }
+            geo_json_b6ecb3f92e2e504f3870b354d6aec614_add({"features": [{"geometry": {"coordinates": [[[4.353647645358032, 51.99635060701123, 0.0], [4.353654159404323, 51.99633712711232, 0.0], [4.353961378910319, 51.99639234650562, 0.0], [4.353852631927021, 51.99662231351979, 0.0], [4.353817079805008, 51.99669778577234, 0.0], [4.353816992865364, 51.9966977670313, 0.0], [4.353813134279546, 51.99670596687431, 0.0], [4.353813159255092, 51.996706146869364, 0.0], [4.353778761891814, 51.99677889666008, 0.0], [4.353774658127154, 51.99678762468701, 0.0], [4.3537651478304085, 51.99680790076698, 0.0], [4.353399902689994, 51.996742301444655, 0.0], [4.353407332055441, 51.9967270228546, 0.0], [4.3535967145988845, 51.99632632140961, 0.0], [4.353605749757958, 51.996327919874645, 0.0], [4.353599092446174, 51.996341928850974, 0.0], [4.353647645358032, 51.99635060701123, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_0643a165ab68a73e3e6f21548b298003 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5aec8a243670ef7421e8a65a1ced5c03 = $(`<div id="html_5aec8a243670ef7421e8a65a1ced5c03" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Delflandplein 4-524, Martinus Nijhofflaan 1-1, Roland Holstlaan 22</span><br><br>                 <b>Building ID:</b> 0503100000037336<br>                 <b>Number of addresses:</b> 264<br>                 <b>Construction year:</b> 2023<br>                 <b>Centroid (lon, lat):</b> 4.35368, 51.99657             </div>             </div>`)[0];
+                popup_0643a165ab68a73e3e6f21548b298003.setContent(html_5aec8a243670ef7421e8a65a1ced5c03);
+            
+        
+
+        geo_json_b6ecb3f92e2e504f3870b354d6aec614.bindPopup(popup_0643a165ab68a73e3e6f21548b298003)
+        ;
+
+        
+    
+    
+            geo_json_b6ecb3f92e2e504f3870b354d6aec614.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_c32364314ff211c21b277756af1314db_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_c32364314ff211c21b277756af1314db_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_c32364314ff211c21b277756af1314db = L.geoJson(null, {
+                onEachFeature: geo_json_c32364314ff211c21b277756af1314db_onEachFeature,
+            
+                style: geo_json_c32364314ff211c21b277756af1314db_styler,
+            ...{
+}
+        });
+
+        function geo_json_c32364314ff211c21b277756af1314db_add (data) {
+            geo_json_c32364314ff211c21b277756af1314db
+                .addData(data);
+        }
+            geo_json_c32364314ff211c21b277756af1314db_add({"features": [{"geometry": {"coordinates": [[[4.3522277243772995, 51.99712272246148, 0.0], [4.352145107446234, 51.99710785645037, 0.0], [4.352145489265276, 51.997107086773056, 0.0], [4.352140182622711, 51.99710608728561, 0.0], [4.352139739455278, 51.9971069912551, 0.0], [4.352125469101188, 51.99710444775133, 0.0], [4.352061527802313, 51.9970930628115, 0.0], [4.352065312079146, 51.997084943269655, 0.0], [4.351945420743109, 51.99706358292142, 0.0], [4.351929688352965, 51.9970972423561, 0.0], [4.351374193117566, 51.99699748635695, 0.0], [4.351463622826989, 51.996808178618416, 0.0], [4.351464463720353, 51.99680833882898, 0.0], [4.351464708704827, 51.99680781963552, 0.0], [4.351476742444227, 51.996810100837585, 0.0], [4.3514761468258465, 51.9968113000929, 0.0], [4.351484980255536, 51.99681280705717, 0.0], [4.351544844454291, 51.9968235272169, 0.0], [4.3515454111605525, 51.99682231871799, 0.0], [4.3515606083942195, 51.99682507719238, 0.0], [4.351560027129317, 51.99682628556325, 0.0], [4.351628577138139, 51.99683860122674, 0.0], [4.351629129283322, 51.99683739259931, 0.0], [4.351644183427809, 51.99684004193816, 0.0], [4.351712732858471, 51.99685238451361, 0.0], [4.351727930942921, 51.996855107018554, 0.0], [4.351727364241153, 51.99685631551836, 0.0], [4.351795881488955, 51.996868792593695, 0.0], [4.351796448189038, 51.99686758409359, 0.0], [4.3518119235279125, 51.99687028206075, 0.0], [4.351811371387239, 51.996871490689045, 0.0], [4.351879833558436, 51.99688383239874, 0.0], [4.3518804002564515, 51.996882623898244, 0.0], [4.351895700482218, 51.99688533829122, 0.0], [4.35189513378458, 51.99688654679183, 0.0], [4.351964161729722, 51.99689898331767, 0.0], [4.351964742984701, 51.99689777494484, 0.0], [4.351979896385485, 51.996900541967854, 0.0], [4.351979315130877, 51.99690175034079, 0.0], [4.352047984541371, 51.99691394995455, 0.0], [4.3520485512352485, 51.996912741453215, 0.0], [4.352063836300149, 51.99691548265722, 0.0], [4.35206326960665, 51.99691669115861, 0.0], [4.35213176145017, 51.99692901500425, 0.0], [4.352132386170719, 51.996927816001715, 0.0], [4.352144475723454, 51.99693020549142, 0.0], [4.35230308059449, 51.99695879151973, 0.0], [4.352305009896963, 51.99695911410559, 0.0], [4.3522277243772995, 51.99712272246148, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_e4734c4dc9c625fe078d69464440110f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8272ef67459822addcc0743aacebfb7e = $(`<div id="html_8272ef67459822addcc0743aacebfb7e" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Martinus Nijhofflaan 476-682</span><br><br>                 <b>Building ID:</b> 0503100000035763<br>                 <b>Number of addresses:</b> 102<br>                 <b>Construction year:</b> 2018<br>                 <b>Centroid (lon, lat):</b> 4.35183, 51.99697             </div>             </div>`)[0];
+                popup_e4734c4dc9c625fe078d69464440110f.setContent(html_8272ef67459822addcc0743aacebfb7e);
+            
+        
+
+        geo_json_c32364314ff211c21b277756af1314db.bindPopup(popup_e4734c4dc9c625fe078d69464440110f)
+        ;
+
+        
+    
+    
+            geo_json_c32364314ff211c21b277756af1314db.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_55462e15a6ba9043b3af9f09831f9e31_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_55462e15a6ba9043b3af9f09831f9e31_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_55462e15a6ba9043b3af9f09831f9e31 = L.geoJson(null, {
+                onEachFeature: geo_json_55462e15a6ba9043b3af9f09831f9e31_onEachFeature,
+            
+                style: geo_json_55462e15a6ba9043b3af9f09831f9e31_styler,
+            ...{
+}
+        });
+
+        function geo_json_55462e15a6ba9043b3af9f09831f9e31_add (data) {
+            geo_json_55462e15a6ba9043b3af9f09831f9e31
+                .addData(data);
+        }
+            geo_json_55462e15a6ba9043b3af9f09831f9e31_add({"features": [{"geometry": {"coordinates": [[[4.350735761277156, 51.99861347824572, 0.0], [4.35071408635858, 51.99861121093154, 0.0], [4.350838575724607, 51.99815785223468, 0.0], [4.350850052342661, 51.998159049937506, 0.0], [4.350859544890233, 51.9981244907478, 0.0], [4.350848068488483, 51.998123284058984, 0.0], [4.350873859740132, 51.99802935364198, 0.0], [4.351239219949597, 51.99806758192004, 0.0], [4.351208389240231, 51.99817985910499, 0.0], [4.351068128217773, 51.99816518598719, 0.0], [4.351061974508831, 51.99818760377277, 0.0], [4.351018770438383, 51.99818307953029, 0.0], [4.350897512191047, 51.998624619638285, 0.0], [4.350940876414294, 51.99862916331034, 0.0], [4.350923592618816, 51.998692085427486, 0.0], [4.35133967174537, 51.998735703804364, 0.0], [4.351349607422229, 51.99869960240896, 0.0], [4.351463008627799, 51.99871147697623, 0.0], [4.351470776627489, 51.99868347336635, 0.0], [4.351491600076341, 51.99868540945053, 0.0], [4.351498070574893, 51.998661879823615, 0.0], [4.351477252949499, 51.998659692105754, 0.0], [4.351497274401623, 51.99858728387056, 0.0], [4.351518037700329, 51.998589300320006, 0.0], [4.351533157427061, 51.99853428718387, 0.0], [4.35151226706128, 51.998532098831625, 0.0], [4.3515326086517545, 51.99845843497721, 0.0], [4.351553491274996, 51.99846032662796, 0.0], [4.351568593655563, 51.99840543018831, 0.0], [4.351547688788481, 51.99840324171434, 0.0], [4.3515677850903876, 51.99833073524795, 0.0], [4.351588577600198, 51.99833274295403, 0.0], [4.351603664296405, 51.99827789131529, 0.0], [4.351583224352611, 51.99827575188261, 0.0], [4.351602842359579, 51.9982031423237, 0.0], [4.351623616308597, 51.99820532064765, 0.0], [4.351632200959186, 51.99817410622721, 0.0], [4.351700827673411, 51.99818129890034, 0.0], [4.351704357295055, 51.99816844902804, 0.0], [4.351823509931595, 51.99818093116984, 0.0], [4.351677446686154, 51.99871193490408, 0.0], [4.351665519593409, 51.99871068837519, 0.0], [4.3516561231998345, 51.99874488891859, 0.0], [4.351668051961911, 51.99874606355282, 0.0], [4.351641888588019, 51.99883976613229, 0.0], [4.350700619481193, 51.998741456694425, 0.0], [4.350735761277156, 51.99861347824572, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_2159aaaf5e43c9767393368c93b16e19 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8236f029f9b06b954781d4084bdf93f0 = $(`<div id="html_8236f029f9b06b954781d4084bdf93f0" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Palmyraplaats 2-210, Taj Mahalplaats 17-113</span><br><br>                 <b>Building ID:</b> 0503100000033567<br>                 <b>Number of addresses:</b> 154<br>                 <b>Construction year:</b> 2012<br>                 <b>Centroid (lon, lat):</b> 4.35124, 51.99847             </div>             </div>`)[0];
+                popup_2159aaaf5e43c9767393368c93b16e19.setContent(html_8236f029f9b06b954781d4084bdf93f0);
+            
+        
+
+        geo_json_55462e15a6ba9043b3af9f09831f9e31.bindPopup(popup_2159aaaf5e43c9767393368c93b16e19)
+        ;
+
+        
+    
+    
+            geo_json_55462e15a6ba9043b3af9f09831f9e31.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_b423792f7c268b0eee5dd2cd8a733206_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_b423792f7c268b0eee5dd2cd8a733206_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_b423792f7c268b0eee5dd2cd8a733206 = L.geoJson(null, {
+                onEachFeature: geo_json_b423792f7c268b0eee5dd2cd8a733206_onEachFeature,
+            
+                style: geo_json_b423792f7c268b0eee5dd2cd8a733206_styler,
+            ...{
+}
+        });
+
+        function geo_json_b423792f7c268b0eee5dd2cd8a733206_add (data) {
+            geo_json_b423792f7c268b0eee5dd2cd8a733206
+                .addData(data);
+        }
+            geo_json_b423792f7c268b0eee5dd2cd8a733206_add({"features": [{"geometry": {"coordinates": [[[4.351069805246305, 51.996299793473455, 0.0], [4.351066653246238, 51.996299451112414, 0.0], [4.351063578193817, 51.99629892965303, 0.0], [4.351060565322564, 51.99629823795406, 0.0], [4.35105768701137, 51.996297394630396, 0.0], [4.351054914142573, 51.99629639942564, 0.0], [4.351052319510399, 51.99629525298084, 0.0], [4.351049873581831, 51.99629397301354, 0.0], [4.35104763438456, 51.99629256902339, 0.0], [4.351045601918588, 51.996291041010466, 0.0], [4.351043775976236, 51.99628939796171, 0.0], [4.3510421850521475, 51.99628766709448, 0.0], [4.351040858263974, 51.99628584866509, 0.0], [4.351039794988671, 51.99628396963441, 0.0], [4.351039009577372, 51.996282039117744, 0.0], [4.35103850161469, 51.99628007508885, 0.0], [4.351038270892919, 51.99627808653478, 0.0], [4.351038331347829, 51.99627610054459, 0.0], [4.35103866842055, 51.99627411699015, 0.0], [4.351039296046856, 51.9962721629604, 0.0], [4.351040255203439, 51.99627035567055, 0.0], [4.351041460406349, 51.99626861346869, 0.0], [4.351042926214391, 51.99626693648305, 0.0], [4.351044608535708, 51.99626534230295, 0.0], [4.351046521513772, 51.99626384903049, 0.0], [4.351048621264413, 51.99626246526803, 0.0], [4.351050922138785, 51.99626120013074, 0.0], [4.351053394811562, 51.99626006234917, 0.0], [4.351056009749755, 51.996259069640864, 0.0], [4.351058855137027, 51.99625818682704, 0.0], [4.351061813049079, 51.99625747579099, 0.0], [4.351064854575957, 51.99625692728933, 0.0], [4.351067964951191, 51.996256550180775, 0.0], [4.351071129615993, 51.99625634433718, 0.0], [4.35107430468625, 51.99625631836088, 0.0], [4.351077475603171, 51.996256472123704, 0.0], [4.351080598690315, 51.99625680524116, 0.0], [4.35123299443546, 51.99628425041896, 0.0], [4.35123589415993, 51.99628479729676, 0.0], [4.351238703001669, 51.99628549618384, 0.0], [4.351241406609491, 51.996286337965074, 0.0], [4.351243990424579, 51.996287322512195, 0.0], [4.351246425536911, 51.99628844058205, 0.0], [4.3512486828288175, 51.99628969191826, 0.0], [4.3512507629232, 51.99629104955993, 0.0], [4.351252651261218, 51.99629251337888, 0.0], [4.351254318725188, 51.99629408311889, 0.0], [4.351255808368724, 51.99629578612524, 0.0], [4.351257048643402, 51.99629756783538, 0.0], [4.351258025405615, 51.99629941014725, 0.0], [4.351258738862966, 51.996301304073825, 0.0], [4.351259160520632, 51.99630322239798, 0.0], [4.3512593049374155, 51.99630516524784, 0.0], [4.351259172736179, 51.996307105662474, 0.0], [4.351258764332139, 51.99630902566803, 0.0], [4.351258065374052, 51.99631091614935, 0.0], [4.351257134512524, 51.9963127596452, 0.0], [4.3512559284862595, 51.9963145377971, 0.0], [4.351254476412916, 51.996316250861426, 0.0], [4.351252779123004, 51.99631786289028, 0.0], [4.351250865526575, 51.996319383127, 0.0], [4.3512487214800295, 51.99632079346943, 0.0], [4.351246391075176, 51.99632207632819, 0.0], [4.351243889078507, 51.99632322284441, 0.0], [4.351241215490025, 51.99632423301813, 0.0], [4.351238619678905, 51.9963250281456, 0.0], [4.351235925070274, 51.996325687571385, 0.0], [4.351233146222998, 51.99632621142365, 0.0], [4.351230312462437, 51.99632659097182, 0.0], [4.351227438555108, 51.99632681735705, 0.0], [4.351224538852251, 51.99632689969449, 0.0], [4.351221642679228, 51.99632682925349, 0.0], [4.351218764387287, 51.99632661514925, 0.0], [4.351215918742941, 51.996326248522905, 0.0], [4.351195168708879, 51.996322443360654, 0.0], [4.351083485224262, 51.996302035279264, 0.0], [4.351069805246305, 51.996299793473455, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_992499e84b3bb97226c9c60f109f716d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_772cad179ae9c5a2a9ceb8162133c91e = $(`<div id="html_772cad179ae9c5a2a9ceb8162133c91e" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Martinus Nijhofflaan 21</span><br><br>                 <b>Building ID:</b> 0503100000033352<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2011<br>                 <b>Centroid (lon, lat):</b> 4.35115, 51.99629             </div>             </div>`)[0];
+                popup_992499e84b3bb97226c9c60f109f716d.setContent(html_772cad179ae9c5a2a9ceb8162133c91e);
+            
+        
+
+        geo_json_b423792f7c268b0eee5dd2cd8a733206.bindPopup(popup_992499e84b3bb97226c9c60f109f716d)
+        ;
+
+        
+    
+    
+            geo_json_b423792f7c268b0eee5dd2cd8a733206.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_8307d86db8294df15aef891da369c041_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_8307d86db8294df15aef891da369c041_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_8307d86db8294df15aef891da369c041 = L.geoJson(null, {
+                onEachFeature: geo_json_8307d86db8294df15aef891da369c041_onEachFeature,
+            
+                style: geo_json_8307d86db8294df15aef891da369c041_styler,
+            ...{
+}
+        });
+
+        function geo_json_8307d86db8294df15aef891da369c041_add (data) {
+            geo_json_8307d86db8294df15aef891da369c041
+                .addData(data);
+        }
+            geo_json_8307d86db8294df15aef891da369c041_add({"features": [{"geometry": {"coordinates": [[[4.351651996047789, 51.99796645967797, 0.0], [4.351726607632064, 51.99797428028621, 0.0], [4.351702520097175, 51.99806198765366, 0.0], [4.35162790837135, 51.99805416702985, 0.0], [4.351651996047789, 51.99796645967797, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_9c9511fbacfdc573162c8516d3175194 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_04385a5f6c85b6826f7c053b91be4a57 = $(`<div id="html_04385a5f6c85b6826f7c053b91be4a57" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Taj Mahalplaats 11</span><br><br>                 <b>Building ID:</b> 0503100000033575<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2012<br>                 <b>Centroid (lon, lat):</b> 4.35168, 51.99801             </div>             </div>`)[0];
+                popup_9c9511fbacfdc573162c8516d3175194.setContent(html_04385a5f6c85b6826f7c053b91be4a57);
+            
+        
+
+        geo_json_8307d86db8294df15aef891da369c041.bindPopup(popup_9c9511fbacfdc573162c8516d3175194)
+        ;
+
+        
+    
+    
+            geo_json_8307d86db8294df15aef891da369c041.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_ef4f6c2866f30cf742c7abc7ad1339f8_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_ef4f6c2866f30cf742c7abc7ad1339f8_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_ef4f6c2866f30cf742c7abc7ad1339f8 = L.geoJson(null, {
+                onEachFeature: geo_json_ef4f6c2866f30cf742c7abc7ad1339f8_onEachFeature,
+            
+                style: geo_json_ef4f6c2866f30cf742c7abc7ad1339f8_styler,
+            ...{
+}
+        });
+
+        function geo_json_ef4f6c2866f30cf742c7abc7ad1339f8_add (data) {
+            geo_json_ef4f6c2866f30cf742c7abc7ad1339f8
+                .addData(data);
+        }
+            geo_json_ef4f6c2866f30cf742c7abc7ad1339f8_add({"features": [{"geometry": {"coordinates": [[[4.355086939904823, 51.999314832255735, 0.0], [4.355062003561769, 51.99931188096094, 0.0], [4.355291966772047, 51.998482255650316, 0.0], [4.3553704778894495, 51.99819729857236, 0.0], [4.355434298114321, 51.99796661274102, 0.0], [4.355450525392768, 51.99796830108594, 0.0], [4.355449507768993, 51.99797202250837, 0.0], [4.355458427594875, 51.997972954647274, 0.0], [4.355459445217931, 51.997969233224765, 0.0], [4.355738125821701, 51.9979983009872, 0.0], [4.355366269127887, 51.999344544735806, 0.0], [4.355366704889131, 51.99934459350046, 0.0], [4.355346668984275, 51.9994172539092, 0.0], [4.355344582281113, 51.99942313225233, 0.0], [4.355340327108794, 51.999428317423174, 0.0], [4.355332443837927, 51.999433587635686, 0.0], [4.355324056723374, 51.999436705111286, 0.0], [4.355315544404346, 51.99943830238458, 0.0], [4.355307817948744, 51.9994386571077, 0.0], [4.355300796077448, 51.99943813710808, 0.0], [4.35529392448137, 51.9994367824692, 0.0], [4.355091381049566, 51.9993749522161, 0.0], [4.355097794206923, 51.99936965114867, 0.0], [4.355112156533361, 51.999316994990636, 0.0], [4.355086932999599, 51.999314499610264, 0.0], [4.355086939904823, 51.999314832255735, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_32569f211e278a8173e10fe97fa7d4b2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c7b5c9378a9d22e844b70843c048b4f8 = $(`<div id="html_c7b5c9378a9d22e844b70843c048b4f8" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Icarusweg 24-30, Papsouwselaan 121-283</span><br><br>                 <b>Building ID:</b> 0503100000032956<br>                 <b>Number of addresses:</b> 97<br>                 <b>Construction year:</b> 1967<br>                 <b>Centroid (lon, lat):</b> 4.35539, 51.99869             </div>             </div>`)[0];
+                popup_32569f211e278a8173e10fe97fa7d4b2.setContent(html_c7b5c9378a9d22e844b70843c048b4f8);
+            
+        
+
+        geo_json_ef4f6c2866f30cf742c7abc7ad1339f8.bindPopup(popup_32569f211e278a8173e10fe97fa7d4b2)
+        ;
+
+        
+    
+    
+            geo_json_ef4f6c2866f30cf742c7abc7ad1339f8.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_03bff20a002bfa4ae991337ef7f788d4_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_03bff20a002bfa4ae991337ef7f788d4_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_03bff20a002bfa4ae991337ef7f788d4 = L.geoJson(null, {
+                onEachFeature: geo_json_03bff20a002bfa4ae991337ef7f788d4_onEachFeature,
+            
+                style: geo_json_03bff20a002bfa4ae991337ef7f788d4_styler,
+            ...{
+}
+        });
+
+        function geo_json_03bff20a002bfa4ae991337ef7f788d4_add (data) {
+            geo_json_03bff20a002bfa4ae991337ef7f788d4
+                .addData(data);
+        }
+            geo_json_03bff20a002bfa4ae991337ef7f788d4_add({"features": [{"geometry": {"coordinates": [[[4.353774891268893, 51.99806325214129, 0.0], [4.353804330284389, 51.99806857134951, 0.0], [4.354484788467202, 51.998187336084776, 0.0], [4.354568234058674, 51.99820174927738, 0.0], [4.354568157949657, 51.99820189243006, 0.0], [4.354576350863735, 51.998202773313075, 0.0], [4.354575288862639, 51.99820652130527, 0.0], [4.3546030357789665, 51.99820944343688, 0.0], [4.354524107129734, 51.99849461209896, 0.0], [4.354493068636886, 51.99860677141157, 0.0], [4.354465364953979, 51.99860385862383, 0.0], [4.354465477221275, 51.99860341016995, 0.0], [4.354324359112935, 51.99858854466339, 0.0], [4.354116096383803, 51.99856659066708, 0.0], [4.353652158690509, 51.99851751009803, 0.0], [4.3536519674025245, 51.99851822752067, 0.0], [4.3536373527922825, 51.99851669691307, 0.0], [4.353763721793074, 51.99806199449988, 0.0], [4.353774891268893, 51.99806325214129, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_7127c61694877972fbe036848dde91be = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_68516586797efbffec249fcd5d4ff602 = $(`<div id="html_68516586797efbffec249fcd5d4ff602" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Papsouwselaan 474-474, Troelstralaan 7-9</span><br><br>                 <b>Building ID:</b> 0503100000033305<br>                 <b>Number of addresses:</b> 10<br>                 <b>Construction year:</b> 2010<br>                 <b>Centroid (lon, lat):</b> 4.35412, 51.99835             </div>             </div>`)[0];
+                popup_7127c61694877972fbe036848dde91be.setContent(html_68516586797efbffec249fcd5d4ff602);
+            
+        
+
+        geo_json_03bff20a002bfa4ae991337ef7f788d4.bindPopup(popup_7127c61694877972fbe036848dde91be)
+        ;
+
+        
+    
+    
+            geo_json_03bff20a002bfa4ae991337ef7f788d4.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_a2563ea14b6f7182b315d95e72d38fa2_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_a2563ea14b6f7182b315d95e72d38fa2_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_a2563ea14b6f7182b315d95e72d38fa2 = L.geoJson(null, {
+                onEachFeature: geo_json_a2563ea14b6f7182b315d95e72d38fa2_onEachFeature,
+            
+                style: geo_json_a2563ea14b6f7182b315d95e72d38fa2_styler,
+            ...{
+}
+        });
+
+        function geo_json_a2563ea14b6f7182b315d95e72d38fa2_add (data) {
+            geo_json_a2563ea14b6f7182b315d95e72d38fa2
+                .addData(data);
+        }
+            geo_json_a2563ea14b6f7182b315d95e72d38fa2_add({"features": [{"geometry": {"coordinates": [[[4.352902306496062, 51.9982920989739, 0.0], [4.352928780966377, 51.9981955134591, 0.0], [4.353003437460252, 51.99820330668207, 0.0], [4.35297696314594, 51.998299892213936, 0.0], [4.352902306496062, 51.9982920989739, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_969c5ca901a9f43b91823acabcf0fadb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_dcfd6d760d6ee5289ad4e08b76bfa857 = $(`<div id="html_dcfd6d760d6ee5289ad4e08b76bfa857" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Akropolishof 6</span><br><br>                 <b>Building ID:</b> 0503100000031382<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2009<br>                 <b>Centroid (lon, lat):</b> 4.35295, 51.99825             </div>             </div>`)[0];
+                popup_969c5ca901a9f43b91823acabcf0fadb.setContent(html_dcfd6d760d6ee5289ad4e08b76bfa857);
+            
+        
+
+        geo_json_a2563ea14b6f7182b315d95e72d38fa2.bindPopup(popup_969c5ca901a9f43b91823acabcf0fadb)
+        ;
+
+        
+    
+    
+            geo_json_a2563ea14b6f7182b315d95e72d38fa2.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_462df0c9c134f23a9642ea6650c33126_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_462df0c9c134f23a9642ea6650c33126_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_462df0c9c134f23a9642ea6650c33126 = L.geoJson(null, {
+                onEachFeature: geo_json_462df0c9c134f23a9642ea6650c33126_onEachFeature,
+            
+                style: geo_json_462df0c9c134f23a9642ea6650c33126_styler,
+            ...{
+}
+        });
+
+        function geo_json_462df0c9c134f23a9642ea6650c33126_add (data) {
+            geo_json_462df0c9c134f23a9642ea6650c33126
+                .addData(data);
+        }
+            geo_json_462df0c9c134f23a9642ea6650c33126_add({"features": [{"geometry": {"coordinates": [[[4.351278938936999, 51.99792733795422, 0.0], [4.351353550389474, 51.9979351587987, 0.0], [4.351329476083369, 51.99802289317741, 0.0], [4.351254864489297, 51.99801507231737, 0.0], [4.351278938936999, 51.99792733795422, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_ce88ef72150b28d0b4d92e0e375e7e2b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ec3d52fe2f9295c0e51d7e5a18ada785 = $(`<div id="html_ec3d52fe2f9295c0e51d7e5a18ada785" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Taj Mahalplaats 1</span><br><br>                 <b>Building ID:</b> 0503100000033568<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2012<br>                 <b>Centroid (lon, lat):</b> 4.35130, 51.99798             </div>             </div>`)[0];
+                popup_ce88ef72150b28d0b4d92e0e375e7e2b.setContent(html_ec3d52fe2f9295c0e51d7e5a18ada785);
+            
+        
+
+        geo_json_462df0c9c134f23a9642ea6650c33126.bindPopup(popup_ce88ef72150b28d0b4d92e0e375e7e2b)
+        ;
+
+        
+    
+    
+            geo_json_462df0c9c134f23a9642ea6650c33126.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_41bdd69bc3a7fb209d54828dd4d1af29_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_41bdd69bc3a7fb209d54828dd4d1af29_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_41bdd69bc3a7fb209d54828dd4d1af29 = L.geoJson(null, {
+                onEachFeature: geo_json_41bdd69bc3a7fb209d54828dd4d1af29_onEachFeature,
+            
+                style: geo_json_41bdd69bc3a7fb209d54828dd4d1af29_styler,
+            ...{
+}
+        });
+
+        function geo_json_41bdd69bc3a7fb209d54828dd4d1af29_add (data) {
+            geo_json_41bdd69bc3a7fb209d54828dd4d1af29
+                .addData(data);
+        }
+            geo_json_41bdd69bc3a7fb209d54828dd4d1af29_add({"features": [{"geometry": {"coordinates": [[[4.351502773165893, 51.997950809332835, 0.0], [4.351577384489867, 51.99795863902251, 0.0], [4.3515533112312905, 51.99804634648699, 0.0], [4.351478699558172, 51.99803852576873, 0.0], [4.351502773165893, 51.997950809332835, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_3e06624f3c59fe5cd922f406a9c511c8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fe59cebeb68643ea77b78eb415886517 = $(`<div id="html_fe59cebeb68643ea77b78eb415886517" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Taj Mahalplaats 7</span><br><br>                 <b>Building ID:</b> 0503100000033571<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2012<br>                 <b>Centroid (lon, lat):</b> 4.35153, 51.99800             </div>             </div>`)[0];
+                popup_3e06624f3c59fe5cd922f406a9c511c8.setContent(html_fe59cebeb68643ea77b78eb415886517);
+            
+        
+
+        geo_json_41bdd69bc3a7fb209d54828dd4d1af29.bindPopup(popup_3e06624f3c59fe5cd922f406a9c511c8)
+        ;
+
+        
+    
+    
+            geo_json_41bdd69bc3a7fb209d54828dd4d1af29.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_a2c8a20c1eee4adc1f8b9507fe75837d_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_a2c8a20c1eee4adc1f8b9507fe75837d_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_a2c8a20c1eee4adc1f8b9507fe75837d = L.geoJson(null, {
+                onEachFeature: geo_json_a2c8a20c1eee4adc1f8b9507fe75837d_onEachFeature,
+            
+                style: geo_json_a2c8a20c1eee4adc1f8b9507fe75837d_styler,
+            ...{
+}
+        });
+
+        function geo_json_a2c8a20c1eee4adc1f8b9507fe75837d_add (data) {
+            geo_json_a2c8a20c1eee4adc1f8b9507fe75837d
+                .addData(data);
+        }
+            geo_json_a2c8a20c1eee4adc1f8b9507fe75837d_add({"features": [{"geometry": {"coordinates": [[[4.353126276524529, 51.99831547855212, 0.0], [4.353152750734098, 51.99821888399904, 0.0], [4.353231678466253, 51.998227119103404, 0.0], [4.353205102712338, 51.99832370379207, 0.0], [4.353126276524529, 51.99831547855212, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_3bcc96c9450f2c84dbab6eea3f865d2d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e1fd4364c150ecd1e90f749327fb2eab = $(`<div id="html_e1fd4364c150ecd1e90f749327fb2eab" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Akropolishof 9</span><br><br>                 <b>Building ID:</b> 0503100000031377<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2009<br>                 <b>Centroid (lon, lat):</b> 4.35318, 51.99827             </div>             </div>`)[0];
+                popup_3bcc96c9450f2c84dbab6eea3f865d2d.setContent(html_e1fd4364c150ecd1e90f749327fb2eab);
+            
+        
+
+        geo_json_a2c8a20c1eee4adc1f8b9507fe75837d.bindPopup(popup_3bcc96c9450f2c84dbab6eea3f865d2d)
+        ;
+
+        
+    
+    
+            geo_json_a2c8a20c1eee4adc1f8b9507fe75837d.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_0278c146f8259e7579e370a640d3ecd4_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_0278c146f8259e7579e370a640d3ecd4_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_0278c146f8259e7579e370a640d3ecd4 = L.geoJson(null, {
+                onEachFeature: geo_json_0278c146f8259e7579e370a640d3ecd4_onEachFeature,
+            
+                style: geo_json_0278c146f8259e7579e370a640d3ecd4_styler,
+            ...{
+}
+        });
+
+        function geo_json_0278c146f8259e7579e370a640d3ecd4_add (data) {
+            geo_json_0278c146f8259e7579e370a640d3ecd4
+                .addData(data);
+        }
+            geo_json_0278c146f8259e7579e370a640d3ecd4_add({"features": [{"geometry": {"coordinates": [[[4.352752993482486, 51.99827650336499, 0.0], [4.352779467850125, 51.99817993585831, 0.0], [4.352854124498782, 51.99818772018888, 0.0], [4.352827650079791, 51.99828429669961, 0.0], [4.352752993482486, 51.99827650336499, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_8ace6980ee8d244b32b2641a81e10415 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_eed293d1294f713672ce93f29dbeced4 = $(`<div id="html_eed293d1294f713672ce93f29dbeced4" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Akropolishof 4</span><br><br>                 <b>Building ID:</b> 0503100000031381<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2009<br>                 <b>Centroid (lon, lat):</b> 4.35280, 51.99823             </div>             </div>`)[0];
+                popup_8ace6980ee8d244b32b2641a81e10415.setContent(html_eed293d1294f713672ce93f29dbeced4);
+            
+        
+
+        geo_json_0278c146f8259e7579e370a640d3ecd4.bindPopup(popup_8ace6980ee8d244b32b2641a81e10415)
+        ;
+
+        
+    
+    
+            geo_json_0278c146f8259e7579e370a640d3ecd4.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_414176fd5721ed0511f92df4e80420ad_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_414176fd5721ed0511f92df4e80420ad_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_414176fd5721ed0511f92df4e80420ad = L.geoJson(null, {
+                onEachFeature: geo_json_414176fd5721ed0511f92df4e80420ad_onEachFeature,
+            
+                style: geo_json_414176fd5721ed0511f92df4e80420ad_styler,
+            ...{
+}
+        });
+
+        function geo_json_414176fd5721ed0511f92df4e80420ad_add (data) {
+            geo_json_414176fd5721ed0511f92df4e80420ad
+                .addData(data);
+        }
+            geo_json_414176fd5721ed0511f92df4e80420ad_add({"features": [{"geometry": {"coordinates": [[[4.351801219035161, 51.99798210983415, 0.0], [4.351875830672155, 51.99798993034786, 0.0], [4.351851743627886, 51.99807762875943, 0.0], [4.351777131849354, 51.99806980823016, 0.0], [4.351801219035161, 51.99798210983415, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_119070979bbc496c373ac81d35a92098 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6ea0c228f1f22c633de19a397129020c = $(`<div id="html_6ea0c228f1f22c633de19a397129020c" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Taj Mahalplaats 15</span><br><br>                 <b>Building ID:</b> 0503100000033573<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2012<br>                 <b>Centroid (lon, lat):</b> 4.35183, 51.99803             </div>             </div>`)[0];
+                popup_119070979bbc496c373ac81d35a92098.setContent(html_6ea0c228f1f22c633de19a397129020c);
+            
+        
+
+        geo_json_414176fd5721ed0511f92df4e80420ad.bindPopup(popup_119070979bbc496c373ac81d35a92098)
+        ;
+
+        
+    
+    
+            geo_json_414176fd5721ed0511f92df4e80420ad.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_2c6e31650de6aec45d60b2dc672caba7_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_2c6e31650de6aec45d60b2dc672caba7_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_2c6e31650de6aec45d60b2dc672caba7 = L.geoJson(null, {
+                onEachFeature: geo_json_2c6e31650de6aec45d60b2dc672caba7_onEachFeature,
+            
+                style: geo_json_2c6e31650de6aec45d60b2dc672caba7_styler,
+            ...{
+}
+        });
+
+        function geo_json_2c6e31650de6aec45d60b2dc672caba7_add (data) {
+            geo_json_2c6e31650de6aec45d60b2dc672caba7
+                .addData(data);
+        }
+            geo_json_2c6e31650de6aec45d60b2dc672caba7_add({"features": [{"geometry": {"coordinates": [[[4.353824128076948, 51.99950251899623, 0.0], [4.3538226897547565, 51.99950237153435, 0.0], [4.353830601753242, 51.999473748818595, 0.0], [4.3538320398674095, 51.999473905267315, 0.0], [4.353846879096695, 51.999420210744276, 0.0], [4.353933401929852, 51.99942946486572, 0.0], [4.353933624201079, 51.99942866681575, 0.0], [4.353939202556425, 51.99942926411056, 0.0], [4.3540252896659135, 51.999438469394555, 0.0], [4.353994353327874, 51.99954927216277, 0.0], [4.353903512380082, 51.99953970152054, 0.0], [4.3539037512835055, 51.999538813728805, 0.0], [4.353816629425602, 51.99952963522584, 0.0], [4.353824128076948, 51.99950251899623, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_05586e3a1b2b7e8638efbca568985be0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1644d762f55c8f4669c0c9249b1576e2 = $(`<div id="html_1644d762f55c8f4669c0c9249b1576e2" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Papsouwselaan 442-444</span><br><br>                 <b>Building ID:</b> 0503100000028043<br>                 <b>Number of addresses:</b> 2<br>                 <b>Construction year:</b> 1968<br>                 <b>Centroid (lon, lat):</b> 4.35392, 51.99948             </div>             </div>`)[0];
+                popup_05586e3a1b2b7e8638efbca568985be0.setContent(html_1644d762f55c8f4669c0c9249b1576e2);
+            
+        
+
+        geo_json_2c6e31650de6aec45d60b2dc672caba7.bindPopup(popup_05586e3a1b2b7e8638efbca568985be0)
+        ;
+
+        
+    
+    
+            geo_json_2c6e31650de6aec45d60b2dc672caba7.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_3ae376273c0bcdf0ca07c071d0b66427_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_3ae376273c0bcdf0ca07c071d0b66427_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_3ae376273c0bcdf0ca07c071d0b66427 = L.geoJson(null, {
+                onEachFeature: geo_json_3ae376273c0bcdf0ca07c071d0b66427_onEachFeature,
+            
+                style: geo_json_3ae376273c0bcdf0ca07c071d0b66427_styler,
+            ...{
+}
+        });
+
+        function geo_json_3ae376273c0bcdf0ca07c071d0b66427_add (data) {
+            geo_json_3ae376273c0bcdf0ca07c071d0b66427
+                .addData(data);
+        }
+            geo_json_3ae376273c0bcdf0ca07c071d0b66427_add({"features": [{"geometry": {"coordinates": [[[4.352603680366715, 51.99826091655375, 0.0], [4.35263015483893, 51.99816435806823, 0.0], [4.352704811435072, 51.99817214249345, 0.0], [4.35267833691146, 51.99826870998297, 0.0], [4.352603680366715, 51.99826091655375, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_0f5a2ebc4338ccb761d6cd98a31930d3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_05a7a780444885d44580c60864035cde = $(`<div id="html_05a7a780444885d44580c60864035cde" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Akropolishof 2</span><br><br>                 <b>Building ID:</b> 0503100000030050<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2009<br>                 <b>Centroid (lon, lat):</b> 4.35265, 51.99822             </div>             </div>`)[0];
+                popup_0f5a2ebc4338ccb761d6cd98a31930d3.setContent(html_05a7a780444885d44580c60864035cde);
+            
+        
+
+        geo_json_3ae376273c0bcdf0ca07c071d0b66427.bindPopup(popup_0f5a2ebc4338ccb761d6cd98a31930d3)
+        ;
+
+        
+    
+    
+            geo_json_3ae376273c0bcdf0ca07c071d0b66427.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_01dad0ed0954d90d2c75e16df04c60ac_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_01dad0ed0954d90d2c75e16df04c60ac_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_01dad0ed0954d90d2c75e16df04c60ac = L.geoJson(null, {
+                onEachFeature: geo_json_01dad0ed0954d90d2c75e16df04c60ac_onEachFeature,
+            
+                style: geo_json_01dad0ed0954d90d2c75e16df04c60ac_styler,
+            ...{
+}
+        });
+
+        function geo_json_01dad0ed0954d90d2c75e16df04c60ac_add (data) {
+            geo_json_01dad0ed0954d90d2c75e16df04c60ac
+                .addData(data);
+        }
+            geo_json_01dad0ed0954d90d2c75e16df04c60ac_add({"features": [{"geometry": {"coordinates": [[[4.35271191957682, 51.99890421564113, 0.0], [4.352710481484917, 51.99890405917878, 0.0], [4.352711260434067, 51.99890122557051, 0.0], [4.352804439999613, 51.9989109884867, 0.0], [4.3528036608488385, 51.99891383108254, 0.0], [4.3528022227563, 51.998913674621264, 0.0], [4.352791255565518, 51.998953506398486, 0.0], [4.352946264364424, 51.998969754250595, 0.0], [4.352951002226246, 51.9989524924814, 0.0], [4.352955738118877, 51.998952992531365, 0.0], [4.352962751221028, 51.99892737321139, 0.0], [4.352966368501781, 51.998927755564566, 0.0], [4.352970755771756, 51.99891180307578, 0.0], [4.353041258511872, 51.9989191642548, 0.0], [4.353025061719325, 51.998978015305326, 0.0], [4.353009787291786, 51.999033494676596, 0.0], [4.353008029502375, 51.99903330844197, 0.0], [4.352997030442623, 51.99907326579962, 0.0], [4.3528754504654525, 51.999060466899905, 0.0], [4.352873559046099, 51.99906733568402, 0.0], [4.352775468729161, 51.99905706224208, 0.0], [4.352774118563562, 51.99906193128354, 0.0], [4.352659539472839, 51.999049930778966, 0.0], [4.352660889857866, 51.99904505275187, 0.0], [4.352562363884517, 51.999034730357806, 0.0], [4.352564255142718, 51.999027870565776, 0.0], [4.3524431251075475, 51.999015147083895, 0.0], [4.3524690355404925, 51.998919716267615, 0.0], [4.3527009670753, 51.99894403855075, 0.0], [4.35271191957682, 51.99890421564113, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_510d42ca35cdcb59342707bbe25b5166 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9474dc0e5e304b1b072fd954492aaf53 = $(`<div id="html_9474dc0e5e304b1b072fd954492aaf53" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Akropolishof 30-146</span><br><br>                 <b>Building ID:</b> 0503100000032908<br>                 <b>Number of addresses:</b> 23<br>                 <b>Construction year:</b> 2009<br>                 <b>Centroid (lon, lat):</b> 4.35275, 51.99899             </div>             </div>`)[0];
+                popup_510d42ca35cdcb59342707bbe25b5166.setContent(html_9474dc0e5e304b1b072fd954492aaf53);
+            
+        
+
+        geo_json_01dad0ed0954d90d2c75e16df04c60ac.bindPopup(popup_510d42ca35cdcb59342707bbe25b5166)
+        ;
+
+        
+    
+    
+            geo_json_01dad0ed0954d90d2c75e16df04c60ac.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_9f4cfe0f1a2b6d0742a7f4f959966856_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_9f4cfe0f1a2b6d0742a7f4f959966856_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_9f4cfe0f1a2b6d0742a7f4f959966856 = L.geoJson(null, {
+                onEachFeature: geo_json_9f4cfe0f1a2b6d0742a7f4f959966856_onEachFeature,
+            
+                style: geo_json_9f4cfe0f1a2b6d0742a7f4f959966856_styler,
+            ...{
+}
+        });
+
+        function geo_json_9f4cfe0f1a2b6d0742a7f4f959966856_add (data) {
+            geo_json_9f4cfe0f1a2b6d0742a7f4f959966856
+                .addData(data);
+        }
+            geo_json_9f4cfe0f1a2b6d0742a7f4f959966856_add({"features": [{"geometry": {"coordinates": [[[4.352530389536007, 51.99825326092772, 0.0], [4.352556791364078, 51.998156701819006, 0.0], [4.35263015483893, 51.99816435806823, 0.0], [4.352603680366715, 51.99826091655375, 0.0], [4.352533222205755, 51.99825356448577, 0.0], [4.352530389536007, 51.99825326092772, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_0b68b20a03a651e079dad6a7c55c46cc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_acd2cf5c7fac628f910898705e686f30 = $(`<div id="html_acd2cf5c7fac628f910898705e686f30" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Akropolishof 1</span><br><br>                 <b>Building ID:</b> 0503100000031380<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2009<br>                 <b>Centroid (lon, lat):</b> 4.35258, 51.99821             </div>             </div>`)[0];
+                popup_0b68b20a03a651e079dad6a7c55c46cc.setContent(html_acd2cf5c7fac628f910898705e686f30);
+            
+        
+
+        geo_json_9f4cfe0f1a2b6d0742a7f4f959966856.bindPopup(popup_0b68b20a03a651e079dad6a7c55c46cc)
+        ;
+
+        
+    
+    
+            geo_json_9f4cfe0f1a2b6d0742a7f4f959966856.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_e1c76eb967ebb725fd63c1a53da1908f_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_e1c76eb967ebb725fd63c1a53da1908f_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_e1c76eb967ebb725fd63c1a53da1908f = L.geoJson(null, {
+                onEachFeature: geo_json_e1c76eb967ebb725fd63c1a53da1908f_onEachFeature,
+            
+                style: geo_json_e1c76eb967ebb725fd63c1a53da1908f_styler,
+            ...{
+}
+        });
+
+        function geo_json_e1c76eb967ebb725fd63c1a53da1908f_add (data) {
+            geo_json_e1c76eb967ebb725fd63c1a53da1908f
+                .addData(data);
+        }
+            geo_json_e1c76eb967ebb725fd63c1a53da1908f_add({"features": [{"geometry": {"coordinates": [[[4.354711740726859, 51.997493101344254, 0.0], [4.3546458026922155, 51.997481107038, 0.0], [4.354660046919604, 51.997451281395435, 0.0], [4.354725970562016, 51.99746326657889, 0.0], [4.354711740726859, 51.997493101344254, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_26b6e82574beab0bcbbf0bf07b67d0af = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8a757211dda8154e6e696e217ada4731 = $(`<div id="html_8a757211dda8154e6e696e217ada4731" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Papsouwselaan 482 A</span><br><br>                 <b>Building ID:</b> 0503100000034844<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2014<br>                 <b>Centroid (lon, lat):</b> 4.35469, 51.99747             </div>             </div>`)[0];
+                popup_26b6e82574beab0bcbbf0bf07b67d0af.setContent(html_8a757211dda8154e6e696e217ada4731);
+            
+        
+
+        geo_json_e1c76eb967ebb725fd63c1a53da1908f.bindPopup(popup_26b6e82574beab0bcbbf0bf07b67d0af)
+        ;
+
+        
+    
+    
+            geo_json_e1c76eb967ebb725fd63c1a53da1908f.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_91621b9523415c146a95928af42040d7_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_91621b9523415c146a95928af42040d7_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_91621b9523415c146a95928af42040d7 = L.geoJson(null, {
+                onEachFeature: geo_json_91621b9523415c146a95928af42040d7_onEachFeature,
+            
+                style: geo_json_91621b9523415c146a95928af42040d7_styler,
+            ...{
+}
+        });
+
+        function geo_json_91621b9523415c146a95928af42040d7_add (data) {
+            geo_json_91621b9523415c146a95928af42040d7
+                .addData(data);
+        }
+            geo_json_91621b9523415c146a95928af42040d7_add({"features": [{"geometry": {"coordinates": [[[4.354202250493779, 51.99731372626959, 0.0], [4.35420309113356, 51.997313266232126, 0.0], [4.354203415576485, 51.99731308930449, 0.0], [4.354204666357881, 51.997312525001924, 0.0], [4.354205988278779, 51.997312033234095, 0.0], [4.354207381339193, 51.99731161400101, 0.0], [4.35420883097994, 51.99731126717487, 0.0], [4.354210307875623, 51.997311001486985, 0.0], [4.354211826792474, 51.99731080807826, 0.0], [4.354213372757232, 51.99731070479476, 0.0], [4.354214931210721, 51.99731069150874, 0.0], [4.3542164734486795, 51.997310749990596, 0.0], [4.354217999057025, 51.99731089821434, 0.0], [4.354219508242812, 51.997311127192965, 0.0], [4.354220971887684, 51.99731143667084, 0.0], [4.354222390198694, 51.99731181766102, 0.0], [4.354223748409622, 51.9973122790227, 0.0], [4.354225046727512, 51.997312811768886, 0.0], [4.354226241474828, 51.99731341551617, 0.0], [4.354227361976975, 51.99731408153326, 0.0], [4.3542283938818125, 51.99731480070528, 0.0], [4.354229308070978, 51.997315572776735, 0.0], [4.354230104751504, 51.997316388760595, 0.0], [4.3542307839233905, 51.99731724865687, 0.0], [4.354231345793672, 51.99731814347857, 0.0], [4.354231499112343, 51.99731844145431, 0.0], [4.354231776217243, 51.99731905512408, 0.0], [4.354232089546237, 51.99731999270804, 0.0], [4.354232256869319, 51.99732094698795, 0.0], [4.35423227839352, 51.99732190897679, 0.0], [4.354232183651286, 51.99732286095629, 0.0], [4.354231943524234, 51.99732380267081, 0.0], [4.354231572571545, 51.99732473424813, 0.0], [4.354239621449565, 51.99732617119602, 0.0], [4.354239560107234, 51.99732630548935, 0.0], [4.354612340984086, 51.99739311885171, 0.0], [4.354540190984351, 51.997546526518796, 0.0], [4.354610040839517, 51.997559391165815, 0.0], [4.354627532973444, 51.99752322097915, 0.0], [4.35462676443756, 51.99752307940379, 0.0], [4.354646058280077, 51.99748265535145, 0.0], [4.35477113341817, 51.99750539774001, 0.0], [4.354753934601872, 51.99754274805142, 0.0], [4.354752539764426, 51.997545774022576, 0.0], [4.3547517710208155, 51.997545641434996, 0.0], [4.354734802016951, 51.9975831285916, 0.0], [4.354703251078978, 51.99757783602858, 0.0], [4.354676718326049, 51.99763223705413, 0.0], [4.354678951764227, 51.997632634179574, 0.0], [4.354669579143264, 51.99765263288449, 0.0], [4.354666102410379, 51.99766006306902, 0.0], [4.354664846875219, 51.997662730710026, 0.0], [4.3546665291310775, 51.99766303311164, 0.0], [4.354664937148736, 51.99766639892572, 0.0], [4.354663254892763, 51.9976660965241, 0.0], [4.354635850980848, 51.99772417529775, 0.0], [4.354637533238811, 51.99772447769978, 0.0], [4.354636308888376, 51.997727055726315, 0.0], [4.354635941252081, 51.997727843513424, 0.0], [4.354634258994003, 51.99772754111139, 0.0], [4.3546329722667645, 51.99773029836621, 0.0], [4.354630153444883, 51.997736350049856, 0.0], [4.354619905986994, 51.997758291640466, 0.0], [4.354681861093867, 51.99776936112218, 0.0], [4.3544974041689155, 51.99816057932392, 0.0], [4.354488325372408, 51.99817982553477, 0.0], [4.354484788467202, 51.998187336084776, 0.0], [4.353804330284389, 51.99806857134951, 0.0], [4.353774891268893, 51.99806325214129, 0.0], [4.353784407347337, 51.998028836756234, 0.0], [4.353791438153738, 51.99802959063478, 0.0], [4.3538023435015925, 51.99798986608819, 0.0], [4.353576658502624, 51.99794934010181, 0.0], [4.353573786523247, 51.99795579578932, 0.0], [4.353562471144821, 51.99795076155768, 0.0], [4.35357912217005, 51.99791511447314, 0.0], [4.3535808533569496, 51.997911399333425, 0.0], [4.353591039391681, 51.99788961908911, 0.0], [4.353592816533587, 51.99788580547625, 0.0], [4.353614093355456, 51.997840266409874, 0.0], [4.353628629662472, 51.997809176035574, 0.0], [4.353509622719489, 51.997787870011486, 0.0], [4.3529074397590986, 51.9976800707497, 0.0], [4.352894155686395, 51.997677688818705, 0.0], [4.3529040542269275, 51.99765702071391, 0.0], [4.352918511790416, 51.997626837599164, 0.0], [4.3528418895182375, 51.99761340005723, 0.0], [4.352842410448684, 51.9976122810379, 0.0], [4.352815726084984, 51.99760750714902, 0.0], [4.352730684337942, 51.997592287657596, 0.0], [4.352653266939831, 51.99775531983366, 0.0], [4.352654804421632, 51.997755585036174, 0.0], [4.352630416188991, 51.99781033705299, 0.0], [4.352615151400819, 51.997807964643485, 0.0], [4.3526169411080105, 51.997804241043134, 0.0], [4.352523216756996, 51.99778663495134, 0.0], [4.352521090976105, 51.997791038743145, 0.0], [4.352506049152896, 51.99778847052653, 0.0], [4.352507692860282, 51.99778476362164, 0.0], [4.352414334857995, 51.99776706178711, 0.0], [4.352412194715446, 51.9977714564619, 0.0], [4.352397152490315, 51.99776890620533, 0.0], [4.352398681390679, 51.99776512638206, 0.0], [4.352305349065211, 51.997747577495616, 0.0], [4.352303119897596, 51.997752043295876, 0.0], [4.352288179185618, 51.997749511895634, 0.0], [4.352289767368911, 51.997745687651125, 0.0], [4.352196275389602, 51.997728119295964, 0.0], [4.352193886889509, 51.99773254773773, 0.0], [4.352178989660759, 51.99773002569472, 0.0], [4.352180285836671, 51.997726234838495, 0.0], [4.3521474642585805, 51.99772048097391, 0.0], [4.352139810343107, 51.99773662942307, 0.0], [4.351893998069657, 51.997692534382544, 0.0], [4.351901407463113, 51.99767625795454, 0.0], [4.3518683944044625, 51.997670601203694, 0.0], [4.351866294297027, 51.997673890600396, 0.0], [4.351852069739049, 51.997671248590905, 0.0], [4.351853599479089, 51.997666803611565, 0.0], [4.351760084178068, 51.99765025942406, 0.0], [4.351757438968059, 51.99765445189005, 0.0], [4.351743041579232, 51.99765172744748, 0.0], [4.351744513714894, 51.99764725499626, 0.0], [4.351650692750683, 51.997630708031686, 0.0], [4.351648297737616, 51.99763478584278, 0.0], [4.351633609176309, 51.99763205882444, 0.0], [4.351635471931867, 51.99762769767742, 0.0], [4.351542043942057, 51.997611163072655, 0.0], [4.3515394297008045, 51.99761527490728, 0.0], [4.351524697682377, 51.997612538504065, 0.0], [4.351526460193496, 51.997608104566105, 0.0], [4.351432897307459, 51.99759173947391, 0.0], [4.351430460259763, 51.997595745000375, 0.0], [4.351415450175267, 51.99759306905738, 0.0], [4.351417271141048, 51.99758862664678, 0.0], [4.35132366735744, 51.99757214425292, 0.0], [4.351321390452896, 51.99757615118685, 0.0], [4.351306307377652, 51.997573483576154, 0.0], [4.351308260840113, 51.99756897941198, 0.0], [4.351215003030122, 51.99755265278606, 0.0], [4.351212361720352, 51.997556674487484, 0.0], [4.351197236849345, 51.997553925595675, 0.0], [4.351199132915495, 51.997549384972764, 0.0], [4.351105683839737, 51.99753314646372, 0.0], [4.351103216816912, 51.9975371876748, 0.0], [4.351088005226829, 51.99753441103894, 0.0], [4.351111430283941, 51.997484235130685, 0.0], [4.351112416573284, 51.99748440561266, 0.0], [4.3511371580437475, 51.99743145476528, 0.0], [4.351075234240741, 51.997420347728735, 0.0], [4.35107512692678, 51.99742058049235, 0.0], [4.351074873813095, 51.99742082096098, 0.0], [4.35107247516267, 51.997423163892584, 0.0], [4.351068571765696, 51.997426976725045, 0.0], [4.351057264999829, 51.99743040976374, 0.0], [4.351044509679876, 51.99743036037451, 0.0], [4.351033695798054, 51.997426328067895, 0.0], [4.35102776539704, 51.99741955223613, 0.0], [4.3510278828605, 51.99741194875567, 0.0], [4.351022705578508, 51.9974110222673, 0.0], [4.3509667858707335, 51.99740098377379, 0.0], [4.350952733255593, 51.997398469011756, 0.0], [4.3501185354299166, 51.99724881870923, 0.0], [4.350119954899141, 51.997245370535026, 0.0], [4.350130553640221, 51.997222812191325, 0.0], [4.350134121977871, 51.99721523013386, 0.0], [4.350144720912457, 51.997192662801766, 0.0], [4.350109985460514, 51.99718657689026, 0.0], [4.350062000976823, 51.997177866327185, 0.0], [4.350075568870614, 51.99714844874373, 0.0], [4.350201965232514, 51.99688033042255, 0.0], [4.350185882666472, 51.99687744711609, 0.0], [4.350221684997641, 51.996801501723446, 0.0], [4.350298213576031, 51.99681511993687, 0.0], [4.350312628907336, 51.996817682918596, 0.0], [4.350313149891446, 51.996816563910464, 0.0], [4.350314556711624, 51.99681681001498, 0.0], [4.35031921395528, 51.996806846528536, 0.0], [4.350326016276507, 51.99679228170476, 0.0], [4.350331469054399, 51.99679325559584, 0.0], [4.350331101558149, 51.996794034382454, 0.0], [4.350428614954541, 51.99681138798267, 0.0], [4.350428982449245, 51.99681060919575, 0.0], [4.350434435231634, 51.99681158308208, 0.0], [4.3504321676639215, 51.99681644401677, 0.0], [4.350422454739381, 51.99683723041154, 0.0], [4.350438567879071, 51.99684005103353, 0.0], [4.350481236552695, 51.99684751910437, 0.0], [4.350495593461165, 51.99685009053765, 0.0], [4.350587174011292, 51.99686645690372, 0.0], [4.35071582208665, 51.99688944184462, 0.0], [4.351100447034367, 51.99695880667534, 0.0], [4.351236370006324, 51.99698270903115, 0.0], [4.351287579967834, 51.99696526316904, 0.0], [4.3512896805174, 51.99696762773403, 0.0], [4.35127400499528, 51.99697296391282, 0.0], [4.3512928081900215, 51.99699297668381, 0.0], [4.3518798592840415, 51.99709840397421, 0.0], [4.351879537564534, 51.99709909328036, 0.0], [4.3519769047734425, 51.997116525201804, 0.0], [4.351977747645206, 51.997114707892855, 0.0], [4.351977181914872, 51.99711461302813, 0.0], [4.351990401675391, 51.99708634273361, 0.0], [4.35199297500184, 51.9970808462559, 0.0], [4.352050549509616, 51.99709110556183, 0.0], [4.352125469101188, 51.99710444775133, 0.0], [4.352139739455278, 51.9971069912551, 0.0], [4.352140182622711, 51.99710608728561, 0.0], [4.352145489265276, 51.997107086773056, 0.0], [4.352145107446234, 51.99710785645037, 0.0], [4.3522277243772995, 51.99712272246148, 0.0], [4.352238151098796, 51.99712460293322, 0.0], [4.352238533123826, 51.997123824268606, 0.0], [4.352243898214601, 51.99712481527687, 0.0], [4.352243393286166, 51.997125871512935, 0.0], [4.352246148730988, 51.99712636316373, 0.0], [4.352259606692665, 51.997128773664954, 0.0], [4.35289700471647, 51.99724296224776, 0.0], [4.353499977777844, 51.997350975288306, 0.0], [4.353509259195619, 51.99735263884396, 0.0], [4.353582539032862, 51.99736576794273, 0.0], [4.353596902831608, 51.99733520639412, 0.0], [4.35376224296282, 51.997364829374995, 0.0], [4.353804734672924, 51.997372438500065, 0.0], [4.353814784844467, 51.99737423462539, 0.0], [4.353814929815091, 51.99737426286482, 0.0], [4.35381839579373, 51.99737488656113, 0.0], [4.353818931256218, 51.99737376766518, 0.0], [4.353820787584487, 51.997374098573964, 0.0], [4.35382438418175, 51.99737474139468, 0.0], [4.353824047102398, 51.997375466526194, 0.0], [4.353854809524583, 51.997380842290426, 0.0], [4.353856656557113, 51.997379680978725, 0.0], [4.353858675814576, 51.997378629044775, 0.0], [4.353860823826487, 51.997377677118024, 0.0], [4.353863085412303, 51.99737685203151, 0.0], [4.353865475338357, 51.997376144926136, 0.0], [4.353867935160742, 51.99737556427746, 0.0], [4.353870479231564, 51.99737511920033, 0.0], [4.35387306387324, 51.99737480931112, 0.0], [4.353875703437886, 51.99737464372472, 0.0], [4.353878339895834, 51.997374612942735, 0.0], [4.353880973247107, 51.99737471696519, 0.0], [4.3538835739591075, 51.997374973510304, 0.0], [4.353886142653191, 51.997375355617216, 0.0], [4.353888650003866, 51.99737587201715, 0.0], [4.353891066685645, 51.99737653144147, 0.0], [4.35389337876067, 51.99737730680143, 0.0], [4.353895586228953, 51.99737819809698, 0.0], [4.3538976597649945, 51.997379214059414, 0.0], [4.353899585430921, 51.99738032760006, 0.0], [4.35390133410833, 51.9973815384632, 0.0], [4.353902920356422, 51.99738284677666, 0.0], [4.353904315678104, 51.99738422532391, 0.0], [4.353905520073367, 51.99738567410497, 0.0], [4.3539065191901, 51.997387184004985, 0.0], [4.35390729888329, 51.99738873692222, 0.0], [4.353907859152921, 51.99739033285666, 0.0], [4.35393738302736, 51.99739574266772, 0.0], [4.3539377960075765, 51.99739488337055, 0.0], [4.353942958168341, 51.997395836563896, 0.0], [4.35394323375779, 51.99739588392762, 0.0], [4.3539429432572065, 51.9973964836255, 0.0], [4.353947409475652, 51.997397304864954, 0.0], [4.353947916976953, 51.99739739920885, 0.0], [4.35395647232463, 51.99739897545486, 0.0], [4.3540159978658615, 51.99740991609405, 0.0], [4.354069637113634, 51.997295860921334, 0.0], [4.354189759317293, 51.99731738291905, 0.0], [4.354189836047144, 51.9973172128057, 0.0], [4.354197464362522, 51.99731857415438, 0.0], [4.354197965727372, 51.99731767068826, 0.0], [4.354198582944524, 51.99731679520549, 0.0], [4.354199330366106, 51.997315956820835, 0.0], [4.35420019343293, 51.99731515540651, 0.0], [4.354201171523851, 51.997314417923285, 0.0], [4.354202250493779, 51.99731372626959, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_16cb9c53298e1738fec3e8d410a05886 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7b24a9984d5aa8602c6e15fc677eb633 = $(`<div id="html_7b24a9984d5aa8602c6e15fc677eb633" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Aart van der Leeuwlaan 3-5, Martinus Nijhofflaan 2-102, Papsouwselaan 474-492, Troelstralaan 7-75</span><br><br>                 <b>Building ID:</b> 0503100000025533<br>                 <b>Number of addresses:</b> 289<br>                 <b>Construction year:</b> 1968<br>                 <b>Centroid (lon, lat):</b> 4.35254, 51.99745             </div>             </div>`)[0];
+                popup_16cb9c53298e1738fec3e8d410a05886.setContent(html_7b24a9984d5aa8602c6e15fc677eb633);
+            
+        
+
+        geo_json_91621b9523415c146a95928af42040d7.bindPopup(popup_16cb9c53298e1738fec3e8d410a05886)
+        ;
+
+        
+    
+    
+            geo_json_91621b9523415c146a95928af42040d7.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_04be576312dfc8db7824621eac00893e_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_04be576312dfc8db7824621eac00893e_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_04be576312dfc8db7824621eac00893e = L.geoJson(null, {
+                onEachFeature: geo_json_04be576312dfc8db7824621eac00893e_onEachFeature,
+            
+                style: geo_json_04be576312dfc8db7824621eac00893e_styler,
+            ...{
+}
+        });
+
+        function geo_json_04be576312dfc8db7824621eac00893e_add (data) {
+            geo_json_04be576312dfc8db7824621eac00893e
+                .addData(data);
+        }
+            geo_json_04be576312dfc8db7824621eac00893e_add({"features": [{"geometry": {"coordinates": [[[4.35267833691146, 51.99826870998297, 0.0], [4.352704811435072, 51.99817214249345, 0.0], [4.352779467850125, 51.99817993585831, 0.0], [4.352752993482486, 51.99827650336499, 0.0], [4.35267833691146, 51.99826870998297, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_c3287f7059bf9e78f1ca6c770d10e5bd = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2d53b910b789173e3846187270dcc3d5 = $(`<div id="html_2d53b910b789173e3846187270dcc3d5" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Akropolishof 3</span><br><br>                 <b>Building ID:</b> 0503100000030051<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2009<br>                 <b>Centroid (lon, lat):</b> 4.35273, 51.99822             </div>             </div>`)[0];
+                popup_c3287f7059bf9e78f1ca6c770d10e5bd.setContent(html_2d53b910b789173e3846187270dcc3d5);
+            
+        
+
+        geo_json_04be576312dfc8db7824621eac00893e.bindPopup(popup_c3287f7059bf9e78f1ca6c770d10e5bd)
+        ;
+
+        
+    
+    
+            geo_json_04be576312dfc8db7824621eac00893e.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_b7bda0b6abd6ccc1b8d9f0aef4c5d6a0_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_b7bda0b6abd6ccc1b8d9f0aef4c5d6a0_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_b7bda0b6abd6ccc1b8d9f0aef4c5d6a0 = L.geoJson(null, {
+                onEachFeature: geo_json_b7bda0b6abd6ccc1b8d9f0aef4c5d6a0_onEachFeature,
+            
+                style: geo_json_b7bda0b6abd6ccc1b8d9f0aef4c5d6a0_styler,
+            ...{
+}
+        });
+
+        function geo_json_b7bda0b6abd6ccc1b8d9f0aef4c5d6a0_add (data) {
+            geo_json_b7bda0b6abd6ccc1b8d9f0aef4c5d6a0
+                .addData(data);
+        }
+            geo_json_b7bda0b6abd6ccc1b8d9f0aef4c5d6a0_add({"features": [{"geometry": {"coordinates": [[[4.351527810208938, 51.99957084483021, 0.0], [4.351482310106431, 51.99956604887467, 0.0], [4.351482071154942, 51.99956693666134, 0.0], [4.351466582062057, 51.99956542505596, 0.0], [4.351478082364994, 51.99952400707475, 0.0], [4.351478560267652, 51.99952223150141, 0.0], [4.351481053360408, 51.99951328263605, 0.0], [4.3514815456151075, 51.99951151617781, 0.0], [4.351488011881536, 51.999488175280725, 0.0], [4.351589502792935, 51.99949878533585, 0.0], [4.3515684291948675, 51.99957512140724, 0.0], [4.351564980523816, 51.9995876124348, 0.0], [4.351524361526916, 51.99958333585654, 0.0], [4.351527810208938, 51.99957084483021, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_8637a127d06c75ea724a2cff73f4e296 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_85ed7446e5921a753115d333821bd24c = $(`<div id="html_85ed7446e5921a753115d333821bd24c" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Poptahof Noord 150</span><br><br>                 <b>Building ID:</b> 0503100000011829<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 1962<br>                 <b>Centroid (lon, lat):</b> 4.35153, 51.99953             </div>             </div>`)[0];
+                popup_8637a127d06c75ea724a2cff73f4e296.setContent(html_85ed7446e5921a753115d333821bd24c);
+            
+        
+
+        geo_json_b7bda0b6abd6ccc1b8d9f0aef4c5d6a0.bindPopup(popup_8637a127d06c75ea724a2cff73f4e296)
+        ;
+
+        
+    
+    
+            geo_json_b7bda0b6abd6ccc1b8d9f0aef4c5d6a0.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_d836d2c34b1e4fd863dc74342bff051e_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_d836d2c34b1e4fd863dc74342bff051e_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_d836d2c34b1e4fd863dc74342bff051e = L.geoJson(null, {
+                onEachFeature: geo_json_d836d2c34b1e4fd863dc74342bff051e_onEachFeature,
+            
+                style: geo_json_d836d2c34b1e4fd863dc74342bff051e_styler,
+            ...{
+}
+        });
+
+        function geo_json_d836d2c34b1e4fd863dc74342bff051e_add (data) {
+            geo_json_d836d2c34b1e4fd863dc74342bff051e
+                .addData(data);
+        }
+            geo_json_d836d2c34b1e4fd863dc74342bff051e_add({"features": [{"geometry": {"coordinates": [[[4.352803164106316, 51.99704991221841, 0.0], [4.352803822282658, 51.997048524742, 0.0], [4.352818948327266, 51.997051219505515, 0.0], [4.352818290358678, 51.99705259799506, 0.0], [4.352886897019863, 51.997065012295444, 0.0], [4.3528875260756505, 51.99706362456263, 0.0], [4.352902785028076, 51.997066239584406, 0.0], [4.352902155972723, 51.99706762731729, 0.0], [4.35297083713429, 51.997079970312974, 0.0], [4.352971495098603, 51.99707859182255, 0.0], [4.352973989313973, 51.99707904520526, 0.0], [4.352904800293594, 51.99722633858984, 0.0], [4.35289700471647, 51.99724296224776, 0.0], [4.352892182250924, 51.997253167077446, 0.0], [4.3522230088726, 51.99713270348583, 0.0], [4.3522277243772995, 51.99712272246148, 0.0], [4.352235425151144, 51.997106430597576, 0.0], [4.352305071451999, 51.99695897082632, 0.0], [4.352315600052174, 51.996960852187385, 0.0], [4.352315033364872, 51.99696206068999, 0.0], [4.352383716482372, 51.99697430517107, 0.0], [4.352384283167986, 51.996973096668114, 0.0], [4.352399525011888, 51.9969758194706, 0.0], [4.352398881383201, 51.99697720707271, 0.0], [4.352467429367641, 51.99698963009204, 0.0], [4.352468087346069, 51.996988251604506, 0.0], [4.352483414273426, 51.996991074020805, 0.0], [4.352482756295427, 51.99699245250846, 0.0], [4.352551413705785, 51.997004552844395, 0.0], [4.352552071681855, 51.99700317435639, 0.0], [4.352567239921443, 51.997005932444964, 0.0], [4.3526360646196105, 51.99701835779837, 0.0], [4.352651161318303, 51.9970210613144, 0.0], [4.352650517904092, 51.99702243993101, 0.0], [4.352719301047154, 51.997034774982154, 0.0], [4.352719973370261, 51.99703340560813, 0.0], [4.35273509733127, 51.99703619025209, 0.0], [4.3527344393603284, 51.997037568741135, 0.0], [4.352803164106316, 51.99704991221841, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_f33c8cf8f112dad189d637b1ca2c8a31 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b65d63b71ecf9acccbf0a0fb8f84b025 = $(`<div id="html_b65d63b71ecf9acccbf0a0fb8f84b025" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Martinus Nijhofflaan 290-474</span><br><br>                 <b>Building ID:</b> 0503100000035282<br>                 <b>Number of addresses:</b> 89<br>                 <b>Construction year:</b> 2016<br>                 <b>Centroid (lon, lat):</b> 4.35260, 51.99711             </div>             </div>`)[0];
+                popup_f33c8cf8f112dad189d637b1ca2c8a31.setContent(html_b65d63b71ecf9acccbf0a0fb8f84b025);
+            
+        
+
+        geo_json_d836d2c34b1e4fd863dc74342bff051e.bindPopup(popup_f33c8cf8f112dad189d637b1ca2c8a31)
+        ;
+
+        
+    
+    
+            geo_json_d836d2c34b1e4fd863dc74342bff051e.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_9a2e882bd173685447b6c086c3b71c35_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_9a2e882bd173685447b6c086c3b71c35_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_9a2e882bd173685447b6c086c3b71c35 = L.geoJson(null, {
+                onEachFeature: geo_json_9a2e882bd173685447b6c086c3b71c35_onEachFeature,
+            
+                style: geo_json_9a2e882bd173685447b6c086c3b71c35_styler,
+            ...{
+}
+        });
+
+        function geo_json_9a2e882bd173685447b6c086c3b71c35_add (data) {
+            geo_json_9a2e882bd173685447b6c086c3b71c35
+                .addData(data);
+        }
+            geo_json_9a2e882bd173685447b6c086c3b71c35_add({"features": [{"geometry": {"coordinates": [[[4.353489784718322, 51.99717346510594, 0.0], [4.353558437087727, 51.99718580750352, 0.0], [4.353559049286415, 51.997184518495764, 0.0], [4.3535743484752105, 51.99718728659272, 0.0], [4.353573766016719, 51.997188548895366, 0.0], [4.3536422586964, 51.997200871863484, 0.0], [4.353642885659189, 51.99719957399624, 0.0], [4.353654282535324, 51.99720169657122, 0.0], [4.353658168641984, 51.99720241385018, 0.0], [4.3536575418867525, 51.99720370273052, 0.0], [4.353691317351481, 51.9972097611829, 0.0], [4.353726224088996, 51.99721601832519, 0.0], [4.353726836490423, 51.997214720329666, 0.0], [4.353734696063369, 51.99721615564979, 0.0], [4.353742091401163, 51.997217514982154, 0.0], [4.353741669304771, 51.99721876970513, 0.0], [4.353775734525481, 51.99722489359929, 0.0], [4.353810046225543, 51.99723106459195, 0.0], [4.353810687535938, 51.997229775838655, 0.0], [4.35381877778235, 51.99723131205544, 0.0], [4.353824432447509, 51.99723237744449, 0.0], [4.353820155657266, 51.99724166125794, 0.0], [4.353818052657304, 51.99724129222781, 0.0], [4.3537981196159725, 51.99728351728223, 0.0], [4.353800206815811, 51.99728394010667, 0.0], [4.353795796083207, 51.997293348585934, 0.0], [4.353793693288157, 51.9972929705684, 0.0], [4.3537736713955395, 51.997335257759886, 0.0], [4.35377571222727, 51.997335797031745, 0.0], [4.35376224296282, 51.997364829374995, 0.0], [4.353760266022784, 51.99736909966393, 0.0], [4.353594988671628, 51.997339279478545, 0.0], [4.353582539032862, 51.99736576794273, 0.0], [4.35357784029154, 51.99736492666938, 0.0], [4.353572774454433, 51.99737558781626, 0.0], [4.352892182250924, 51.997253167077446, 0.0], [4.35289700471647, 51.99724296224776, 0.0], [4.352904800293594, 51.99722633858984, 0.0], [4.352973989313973, 51.99707904520526, 0.0], [4.352986735978077, 51.99708135948394, 0.0], [4.352986078014189, 51.99708273797442, 0.0], [4.353054995534272, 51.997095568392325, 0.0], [4.353055639144402, 51.99709418078654, 0.0], [4.353063513855369, 51.99709558931849, 0.0], [4.353071040806438, 51.99709692288354, 0.0], [4.353070501390492, 51.99709821252839, 0.0], [4.353104782533397, 51.99710443739221, 0.0], [4.353123721080411, 51.997107884721856, 0.0], [4.353138831569133, 51.99711062425124, 0.0], [4.353139443778826, 51.99710933524572, 0.0], [4.3531547730702105, 51.99711205871813, 0.0], [4.3531541178053486, 51.99711332037904, 0.0], [4.35318544113982, 51.99711898889001, 0.0], [4.353222884182267, 51.997125762852065, 0.0], [4.35322348203788, 51.997124464731236, 0.0], [4.353238695902864, 51.99712714223452, 0.0], [4.353238128616563, 51.99712837770253, 0.0], [4.353306663337601, 51.99714076415815, 0.0], [4.35330727554289, 51.997139475151755, 0.0], [4.353322617549042, 51.99714227961296, 0.0], [4.3533911550086986, 51.99715454918888, 0.0], [4.353406398012301, 51.99715722692639, 0.0], [4.353405814927867, 51.99715851618906, 0.0], [4.353474556470473, 51.99717077852019, 0.0], [4.35347515431942, 51.99716948039807, 0.0], [4.353490382566863, 51.99717216698375, 0.0], [4.353489784718322, 51.99717346510594, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_858ad6d7a634afff1e5431042f29beee = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_eb6edbea0f039c221f2a960446e45f54 = $(`<div id="html_eb6edbea0f039c221f2a960446e45f54" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Martinus Nijhofflaan 100-278</span><br><br>                 <b>Building ID:</b> 0503100000034895<br>                 <b>Number of addresses:</b> 87<br>                 <b>Construction year:</b> 2015<br>                 <b>Centroid (lon, lat):</b> 4.35334, 51.99724             </div>             </div>`)[0];
+                popup_858ad6d7a634afff1e5431042f29beee.setContent(html_eb6edbea0f039c221f2a960446e45f54);
+            
+        
+
+        geo_json_9a2e882bd173685447b6c086c3b71c35.bindPopup(popup_858ad6d7a634afff1e5431042f29beee)
+        ;
+
+        
+    
+    
+            geo_json_9a2e882bd173685447b6c086c3b71c35.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_cd62d8a72e69fcb28b463a052dce395e_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_cd62d8a72e69fcb28b463a052dce395e_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_cd62d8a72e69fcb28b463a052dce395e = L.geoJson(null, {
+                onEachFeature: geo_json_cd62d8a72e69fcb28b463a052dce395e_onEachFeature,
+            
+                style: geo_json_cd62d8a72e69fcb28b463a052dce395e_styler,
+            ...{
+}
+        });
+
+        function geo_json_cd62d8a72e69fcb28b463a052dce395e_add (data) {
+            geo_json_cd62d8a72e69fcb28b463a052dce395e
+                .addData(data);
+        }
+            geo_json_cd62d8a72e69fcb28b463a052dce395e_add({"features": [{"geometry": {"coordinates": [[[4.351577384489867, 51.99795863902251, 0.0], [4.351651996047789, 51.99796645967797, 0.0], [4.35162790837135, 51.99805416702985, 0.0], [4.3515533112312905, 51.99804634648699, 0.0], [4.351577384489867, 51.99795863902251, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_b14379e3e266f3a0562bb23efce621d6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a51eaa30f8d543a1b27c7a40342c9dc9 = $(`<div id="html_a51eaa30f8d543a1b27c7a40342c9dc9" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Taj Mahalplaats 9</span><br><br>                 <b>Building ID:</b> 0503100000033572<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2012<br>                 <b>Centroid (lon, lat):</b> 4.35160, 51.99801             </div>             </div>`)[0];
+                popup_b14379e3e266f3a0562bb23efce621d6.setContent(html_a51eaa30f8d543a1b27c7a40342c9dc9);
+            
+        
+
+        geo_json_cd62d8a72e69fcb28b463a052dce395e.bindPopup(popup_b14379e3e266f3a0562bb23efce621d6)
+        ;
+
+        
+    
+    
+            geo_json_cd62d8a72e69fcb28b463a052dce395e.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_284236cdd672615bc78734df8a2e4ad5_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_284236cdd672615bc78734df8a2e4ad5_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_284236cdd672615bc78734df8a2e4ad5 = L.geoJson(null, {
+                onEachFeature: geo_json_284236cdd672615bc78734df8a2e4ad5_onEachFeature,
+            
+                style: geo_json_284236cdd672615bc78734df8a2e4ad5_styler,
+            ...{
+}
+        });
+
+        function geo_json_284236cdd672615bc78734df8a2e4ad5_add (data) {
+            geo_json_284236cdd672615bc78734df8a2e4ad5
+                .addData(data);
+        }
+            geo_json_284236cdd672615bc78734df8a2e4ad5_add({"features": [{"geometry": {"coordinates": [[[4.3500040622251115, 51.99759884899638, 0.0], [4.350010615909978, 51.997574897703885, 0.0], [4.350029172944662, 51.997505443088826, 0.0], [4.350094081394847, 51.99751216348534, 0.0], [4.350075143646508, 51.997582972061736, 0.0], [4.350068939609279, 51.99760565901994, 0.0], [4.3500690558754895, 51.997605669033426, 0.0], [4.350063056277561, 51.99762770161148, 0.0], [4.349997871662612, 51.99762095179851, 0.0], [4.350003873370526, 51.99759882935429, 0.0], [4.3500040622251115, 51.99759884899638, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_503ad888e200fbb4cd6dcb8ad6bad9e5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_606a148e8346dd654fe6210ca6cfbb12 = $(`<div id="html_606a148e8346dd654fe6210ca6cfbb12" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Troelstralaan 226</span><br><br>                 <b>Building ID:</b> 0503100000031080<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 1991<br>                 <b>Centroid (lon, lat):</b> 4.35005, 51.99757             </div>             </div>`)[0];
+                popup_503ad888e200fbb4cd6dcb8ad6bad9e5.setContent(html_606a148e8346dd654fe6210ca6cfbb12);
+            
+        
+
+        geo_json_284236cdd672615bc78734df8a2e4ad5.bindPopup(popup_503ad888e200fbb4cd6dcb8ad6bad9e5)
+        ;
+
+        
+    
+    
+            geo_json_284236cdd672615bc78734df8a2e4ad5.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_c4f55cd14c10868dadb495a09e152fd3_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_c4f55cd14c10868dadb495a09e152fd3_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_c4f55cd14c10868dadb495a09e152fd3 = L.geoJson(null, {
+                onEachFeature: geo_json_c4f55cd14c10868dadb495a09e152fd3_onEachFeature,
+            
+                style: geo_json_c4f55cd14c10868dadb495a09e152fd3_styler,
+            ...{
+}
+        });
+
+        function geo_json_c4f55cd14c10868dadb495a09e152fd3_add (data) {
+            geo_json_c4f55cd14c10868dadb495a09e152fd3
+                .addData(data);
+        }
+            geo_json_c4f55cd14c10868dadb495a09e152fd3_add({"features": [{"geometry": {"coordinates": [[[4.349874859520794, 51.99758528764075, 0.0], [4.349881365436579, 51.99756151570968, 0.0], [4.349899937224894, 51.997492061243776, 0.0], [4.349964555075013, 51.997498752184036, 0.0], [4.349946253968153, 51.99756721128976, 0.0], [4.349939460863061, 51.997592068336274, 0.0], [4.349874859520794, 51.99758528764075, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_e27b1b645a8249250a8c04beba30fde0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_edb768ca90b33214d8ba09005c03fddc = $(`<div id="html_edb768ca90b33214d8ba09005c03fddc" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Troelstralaan 230</span><br><br>                 <b>Building ID:</b> 0503100000011550<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 1991<br>                 <b>Centroid (lon, lat):</b> 4.34992, 51.99754             </div>             </div>`)[0];
+                popup_e27b1b645a8249250a8c04beba30fde0.setContent(html_edb768ca90b33214d8ba09005c03fddc);
+            
+        
+
+        geo_json_c4f55cd14c10868dadb495a09e152fd3.bindPopup(popup_e27b1b645a8249250a8c04beba30fde0)
+        ;
+
+        
+    
+    
+            geo_json_c4f55cd14c10868dadb495a09e152fd3.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_ee27a9c7efd7a8a378b504b86c3f018f_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_ee27a9c7efd7a8a378b504b86c3f018f_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_ee27a9c7efd7a8a378b504b86c3f018f = L.geoJson(null, {
+                onEachFeature: geo_json_ee27a9c7efd7a8a378b504b86c3f018f_onEachFeature,
+            
+                style: geo_json_ee27a9c7efd7a8a378b504b86c3f018f_styler,
+            ...{
+}
+        });
+
+        function geo_json_ee27a9c7efd7a8a378b504b86c3f018f_add (data) {
+            geo_json_ee27a9c7efd7a8a378b504b86c3f018f
+                .addData(data);
+        }
+            geo_json_ee27a9c7efd7a8a378b504b86c3f018f_add({"features": [{"geometry": {"coordinates": [[[4.349687241329944, 51.99754242902808, 0.0], [4.34968108473119, 51.99756494559838, 0.0], [4.349674980330127, 51.99758709408816, 0.0], [4.3496093619681435, 51.99758021439193, 0.0], [4.349607923721805, 51.99758006687867, 0.0], [4.349639461423347, 51.99746508170044, 0.0], [4.349706069440451, 51.99747197909504, 0.0], [4.349687241329944, 51.99754242902808, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_c0bf7e512c975ba74159f7e09b151146 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d50c21a13475701bf8a2d558fcaf49fb = $(`<div id="html_d50c21a13475701bf8a2d558fcaf49fb" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Troelstralaan 238</span><br><br>                 <b>Building ID:</b> 0503100000001498<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 1991<br>                 <b>Centroid (lon, lat):</b> 4.34966, 51.99753             </div>             </div>`)[0];
+                popup_c0bf7e512c975ba74159f7e09b151146.setContent(html_d50c21a13475701bf8a2d558fcaf49fb);
+            
+        
+
+        geo_json_ee27a9c7efd7a8a378b504b86c3f018f.bindPopup(popup_c0bf7e512c975ba74159f7e09b151146)
+        ;
+
+        
+    
+    
+            geo_json_ee27a9c7efd7a8a378b504b86c3f018f.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_baa982cd97c1a0a58f39ce58c4de7b3c_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_baa982cd97c1a0a58f39ce58c4de7b3c_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_baa982cd97c1a0a58f39ce58c4de7b3c = L.geoJson(null, {
+                onEachFeature: geo_json_baa982cd97c1a0a58f39ce58c4de7b3c_onEachFeature,
+            
+                style: geo_json_baa982cd97c1a0a58f39ce58c4de7b3c_styler,
+            ...{
+}
+        });
+
+        function geo_json_baa982cd97c1a0a58f39ce58c4de7b3c_add (data) {
+            geo_json_baa982cd97c1a0a58f39ce58c4de7b3c
+                .addData(data);
+        }
+            geo_json_baa982cd97c1a0a58f39ce58c4de7b3c_add({"features": [{"geometry": {"coordinates": [[[4.350207659850254, 51.99806149849671, 0.0], [4.350267013465584, 51.99784626362457, 0.0], [4.350285675284074, 51.997778562710685, 0.0], [4.350295100801899, 51.99774439847849, 0.0], [4.350324602452965, 51.99763741318846, 0.0], [4.350346363964693, 51.99755845864591, 0.0], [4.35034924129917, 51.997548012059134, 0.0], [4.350355694136314, 51.99752463514227, 0.0], [4.350363130592862, 51.997525473699795, 0.0], [4.350359030958253, 51.99753839941191, 0.0], [4.350418138681192, 51.997544708967816, 0.0], [4.350425503385073, 51.997545501945304, 0.0], [4.350507301344433, 51.99755423159286, 0.0], [4.350516380302412, 51.99755520146473, 0.0], [4.350515100018885, 51.997559558737215, 0.0], [4.350432017264762, 51.99786208154263, 0.0], [4.350395368415446, 51.99799539496727, 0.0], [4.350373664386656, 51.998074376987475, 0.0], [4.3503720192574145, 51.99807876699891, 0.0], [4.350207659850254, 51.99806149849671, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_a6f10781008b763ff029e5e3992ee528 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_54eaecdb27a907f64f73c912205556df = $(`<div id="html_54eaecdb27a907f64f73c912205556df" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Troelstralaan 162-222</span><br><br>                 <b>Building ID:</b> 0503100000011552<br>                 <b>Number of addresses:</b> 31<br>                 <b>Construction year:</b> 1963<br>                 <b>Centroid (lon, lat):</b> 4.35036, 51.99781             </div>             </div>`)[0];
+                popup_a6f10781008b763ff029e5e3992ee528.setContent(html_54eaecdb27a907f64f73c912205556df);
+            
+        
+
+        geo_json_baa982cd97c1a0a58f39ce58c4de7b3c.bindPopup(popup_a6f10781008b763ff029e5e3992ee528)
+        ;
+
+        
+    
+    
+            geo_json_baa982cd97c1a0a58f39ce58c4de7b3c.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_35e5b8defda62705161769060cad42f8_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_35e5b8defda62705161769060cad42f8_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_35e5b8defda62705161769060cad42f8 = L.geoJson(null, {
+                onEachFeature: geo_json_35e5b8defda62705161769060cad42f8_onEachFeature,
+            
+                style: geo_json_35e5b8defda62705161769060cad42f8_styler,
+            ...{
+}
+        });
+
+        function geo_json_35e5b8defda62705161769060cad42f8_add (data) {
+            geo_json_35e5b8defda62705161769060cad42f8
+                .addData(data);
+        }
+            geo_json_35e5b8defda62705161769060cad42f8_add({"features": [{"geometry": {"coordinates": [[[4.349760215972386, 51.997948853305225, 0.0], [4.349750818913994, 51.99798302673596, 0.0], [4.349738776218749, 51.997981752024536, 0.0], [4.34973535961622, 51.997995357896286, 0.0], [4.349733660326924, 51.99799516313935, 0.0], [4.349726985170191, 51.99801869087233, 0.0], [4.349683409095077, 51.99801389319417, 0.0], [4.349633480441162, 51.998194253485416, 0.0], [4.349584777075985, 51.99837010319632, 0.0], [4.34956356250377, 51.99844674331458, 0.0], [4.349561151028958, 51.998446488342836, 0.0], [4.349559683843929, 51.99844633158525, 0.0], [4.349384197440591, 51.99842781326165, 0.0], [4.349384927920311, 51.99842519497743, 0.0], [4.3495049997667, 51.99799086386354, 0.0], [4.349516200301153, 51.997992032296054, 0.0], [4.349525310304916, 51.9979589439953, 0.0], [4.349514109986472, 51.997957766576704, 0.0], [4.349552440315932, 51.997818607546066, 0.0], [4.34972937077567, 51.99783755184993, 0.0], [4.34973184024813, 51.997837816318544, 0.0], [4.34971199370281, 51.99790947974917, 0.0], [4.349708482249826, 51.99792214994994, 0.0], [4.3497022220290384, 51.99794473751712, 0.0], [4.349719872153343, 51.997946600996336, 0.0], [4.349720204722577, 51.997944815159364, 0.0], [4.349760215972386, 51.997948853305225, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_b982f096b24ea42e365d4dc7bc8a9fed = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bdd9435c489eba1a3ff7ff1b803dfe20 = $(`<div id="html_bdd9435c489eba1a3ff7ff1b803dfe20" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Poptahof Zuid 456-555</span><br><br>                 <b>Building ID:</b> 0503100000001499<br>                 <b>Number of addresses:</b> 100<br>                 <b>Construction year:</b> 1963<br>                 <b>Centroid (lon, lat):</b> 4.34956, 51.99813             </div>             </div>`)[0];
+                popup_b982f096b24ea42e365d4dc7bc8a9fed.setContent(html_bdd9435c489eba1a3ff7ff1b803dfe20);
+            
+        
+
+        geo_json_35e5b8defda62705161769060cad42f8.bindPopup(popup_b982f096b24ea42e365d4dc7bc8a9fed)
+        ;
+
+        
+    
+    
+            geo_json_35e5b8defda62705161769060cad42f8.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_166be62c122cbc10b282d15acd0152a4_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_166be62c122cbc10b282d15acd0152a4_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_166be62c122cbc10b282d15acd0152a4 = L.geoJson(null, {
+                onEachFeature: geo_json_166be62c122cbc10b282d15acd0152a4_onEachFeature,
+            
+                style: geo_json_166be62c122cbc10b282d15acd0152a4_styler,
+            ...{
+}
+        });
+
+        function geo_json_166be62c122cbc10b282d15acd0152a4_add (data) {
+            geo_json_166be62c122cbc10b282d15acd0152a4
+                .addData(data);
+        }
+            geo_json_166be62c122cbc10b282d15acd0152a4_add({"features": [{"geometry": {"coordinates": [[[4.349336344878038, 51.99717903711572, 0.0], [4.34933134282518, 51.99716739745965, 0.0], [4.349329647310986, 51.99716767014706, 0.0], [4.349325543550074, 51.997158114823996, 0.0], [4.3493272390639275, 51.99715784213661, 0.0], [4.349299159616016, 51.99709257855849, 0.0], [4.34929696225654, 51.99708748051112, 0.0], [4.349304650501851, 51.99708624494633, 0.0], [4.349305381984434, 51.9970879862345, 0.0], [4.349317224984109, 51.99708529517403, 0.0], [4.349314352352021, 51.9970653327003, 0.0], [4.349312763123702, 51.99706541756026, 0.0], [4.349311345527185, 51.99705557132031, 0.0], [4.349312934755157, 51.99705548646034, 0.0], [4.34930150893892, 51.99697598769732, 0.0], [4.3492999197137445, 51.99697607255709, 0.0], [4.3492985021227355, 51.99696622631684, 0.0], [4.3493000913475655, 51.99696614145705, 0.0], [4.34929738386675, 51.996947223138825, 0.0], [4.349305213515119, 51.99694679781244, 0.0], [4.3493053759473455, 51.996947958799105, 0.0], [4.349316138402012, 51.99694979754797, 0.0], [4.349324267306274, 51.996854030754925, 0.0], [4.349322666646781, 51.996853980682275, 0.0], [4.349323506741287, 51.99684410941049, 0.0], [4.34932510740043, 51.99684415948314, 0.0], [4.349328490861031, 51.99680430605886, 0.0], [4.349332806137803, 51.99675187654522, 0.0], [4.349333212333145, 51.99675194304931, 0.0], [4.349414253421527, 51.996766248831776, 0.0], [4.349459110483344, 51.996774159047455, 0.0], [4.349481038606973, 51.99677802883692, 0.0], [4.349481437315716, 51.996777160440196, 0.0], [4.3494968390630415, 51.99677988503036, 0.0], [4.349496440354571, 51.99678075342714, 0.0], [4.34950618614349, 51.99678247532809, 0.0], [4.349579163112445, 51.99679538853248, 0.0], [4.3495796223431, 51.996794421792416, 0.0], [4.349595009127474, 51.99679716421525, 0.0], [4.349594564872052, 51.996798113109875, 0.0], [4.3496665121542515, 51.99681084639348, 0.0], [4.349670822622944, 51.996801401224175, 0.0], [4.349782326159456, 51.99682080231046, 0.0], [4.3497806537686765, 51.99682448195971, 0.0], [4.349770480693588, 51.99684689121693, 0.0], [4.349772017919023, 51.99684716544398, 0.0], [4.349767618657525, 51.99685667275561, 0.0], [4.349766081431794, 51.99685639852848, 0.0], [4.349742476340093, 51.99690738158456, 0.0], [4.349744013567426, 51.99690765581199, 0.0], [4.34973961429397, 51.996917163122426, 0.0], [4.349738077066339, 51.99691688889495, 0.0], [4.349693150373687, 51.99701393128904, 0.0], [4.349692889976719, 51.99701448629818, 0.0], [4.349650037682344, 51.99702439165448, 0.0], [4.349645498611441, 51.99703427525804, 0.0], [4.349663541058762, 51.9970374186155, 0.0], [4.349652268880672, 51.99706201143665, 0.0], [4.349634197514065, 51.99705885883374, 0.0], [4.349629523035403, 51.99706830079204, 0.0], [4.349689349633945, 51.99711651380834, 0.0], [4.349664967757821, 51.99712805617743, 0.0], [4.3496659398928275, 51.99712883778453, 0.0], [4.34965323355843, 51.99713485610922, 0.0], [4.349652261423518, 51.99713407450203, 0.0], [4.349584106561544, 51.997166354559575, 0.0], [4.349585078695961, 51.99716713616733, 0.0], [4.34957237233988, 51.9971731544832, 0.0], [4.3495714002055585, 51.997172372875355, 0.0], [4.349514788535405, 51.997199181626215, 0.0], [4.349515760669318, 51.99719996323452, 0.0], [4.349503054294654, 51.99720598154284, 0.0], [4.349502082160833, 51.99720519993439, 0.0], [4.3494454704078755, 51.99723200865157, 0.0], [4.349446442541281, 51.9972327902605, 0.0], [4.349433736148029, 51.997238808561185, 0.0], [4.349432764014716, 51.99723802695221, 0.0], [4.349376314201705, 51.99726475616548, 0.0], [4.349363078953964, 51.99724643713907, 0.0], [4.349361613471011, 51.99724683769875, 0.0], [4.34935509474914, 51.99723780939458, 0.0], [4.349356560231855, 51.99723740883498, 0.0], [4.349318420497667, 51.997184631854054, 0.0], [4.3493256016886175, 51.99718265473487, 0.0], [4.349326377893546, 51.997183722258065, 0.0], [4.349336344878038, 51.99717903711572, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_00afbe9b56c26d950bca9e5b9bc96cc7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_dd9ba8d28709e7994da6f4db9fcea0ce = $(`<div id="html_dd9ba8d28709e7994da6f4db9fcea0ce" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Aart van der Leeuwlaan 4</span><br><br>                 <b>Building ID:</b> 0503100000000144<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2004<br>                 <b>Centroid (lon, lat):</b> 4.34950, 51.99698             </div>             </div>`)[0];
+                popup_00afbe9b56c26d950bca9e5b9bc96cc7.setContent(html_dd9ba8d28709e7994da6f4db9fcea0ce);
+            
+        
+
+        geo_json_166be62c122cbc10b282d15acd0152a4.bindPopup(popup_00afbe9b56c26d950bca9e5b9bc96cc7)
+        ;
+
+        
+    
+    
+            geo_json_166be62c122cbc10b282d15acd0152a4.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_9952cb8da61c58eb6b16ae764427e47f_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_9952cb8da61c58eb6b16ae764427e47f_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_9952cb8da61c58eb6b16ae764427e47f = L.geoJson(null, {
+                onEachFeature: geo_json_9952cb8da61c58eb6b16ae764427e47f_onEachFeature,
+            
+                style: geo_json_9952cb8da61c58eb6b16ae764427e47f_styler,
+            ...{
+}
+        });
+
+        function geo_json_9952cb8da61c58eb6b16ae764427e47f_add (data) {
+            geo_json_9952cb8da61c58eb6b16ae764427e47f
+                .addData(data);
+        }
+            geo_json_9952cb8da61c58eb6b16ae764427e47f_add({"features": [{"geometry": {"coordinates": [[[4.349939460863061, 51.997592068336274, 0.0], [4.349946253968153, 51.99756721128976, 0.0], [4.349964555075013, 51.997498752184036, 0.0], [4.350029172944662, 51.997505443088826, 0.0], [4.350010615909978, 51.997574897703885, 0.0], [4.3500040622251115, 51.99759884899638, 0.0], [4.349939460863061, 51.997592068336274, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_473f063366bb709d6e553eed7216fc2d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_de7e3544239d483af51d5f7e302cfb5a = $(`<div id="html_de7e3544239d483af51d5f7e302cfb5a" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Troelstralaan 228</span><br><br>                 <b>Building ID:</b> 0503100000011554<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 1991<br>                 <b>Centroid (lon, lat):</b> 4.34998, 51.99755             </div>             </div>`)[0];
+                popup_473f063366bb709d6e553eed7216fc2d.setContent(html_de7e3544239d483af51d5f7e302cfb5a);
+            
+        
+
+        geo_json_9952cb8da61c58eb6b16ae764427e47f.bindPopup(popup_473f063366bb709d6e553eed7216fc2d)
+        ;
+
+        
+    
+    
+            geo_json_9952cb8da61c58eb6b16ae764427e47f.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_11712e651ccf9bbd3489578d4e11771b_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_11712e651ccf9bbd3489578d4e11771b_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_11712e651ccf9bbd3489578d4e11771b = L.geoJson(null, {
+                onEachFeature: geo_json_11712e651ccf9bbd3489578d4e11771b_onEachFeature,
+            
+                style: geo_json_11712e651ccf9bbd3489578d4e11771b_styler,
+            ...{
+}
+        });
+
+        function geo_json_11712e651ccf9bbd3489578d4e11771b_add (data) {
+            geo_json_11712e651ccf9bbd3489578d4e11771b
+                .addData(data);
+        }
+            geo_json_11712e651ccf9bbd3489578d4e11771b_add({"features": [{"geometry": {"coordinates": [[[4.350142908731318, 51.99758896254852, 0.0], [4.350130492610606, 51.99763468696311, 0.0], [4.350063056277561, 51.99762770161148, 0.0], [4.3500690558754895, 51.997605669033426, 0.0], [4.350075143646508, 51.997582972061736, 0.0], [4.350094081394847, 51.99751216348534, 0.0], [4.350161590147499, 51.99751915844735, 0.0], [4.350142908731318, 51.99758896254852, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_11f950e46a7fbdd20fde1f0abf5eea14 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e1b9f2eb548f80962fa3ba36ef1e5bef = $(`<div id="html_e1b9f2eb548f80962fa3ba36ef1e5bef" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Troelstralaan 224</span><br><br>                 <b>Building ID:</b> 0503100000011458<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 1991<br>                 <b>Centroid (lon, lat):</b> 4.35011, 51.99757             </div>             </div>`)[0];
+                popup_11f950e46a7fbdd20fde1f0abf5eea14.setContent(html_e1b9f2eb548f80962fa3ba36ef1e5bef);
+            
+        
+
+        geo_json_11712e651ccf9bbd3489578d4e11771b.bindPopup(popup_11f950e46a7fbdd20fde1f0abf5eea14)
+        ;
+
+        
+    
+    
+            geo_json_11712e651ccf9bbd3489578d4e11771b.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_878b98757ba52afecba3b67298a4004d_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_878b98757ba52afecba3b67298a4004d_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_878b98757ba52afecba3b67298a4004d = L.geoJson(null, {
+                onEachFeature: geo_json_878b98757ba52afecba3b67298a4004d_onEachFeature,
+            
+                style: geo_json_878b98757ba52afecba3b67298a4004d_styler,
+            ...{
+}
+        });
+
+        function geo_json_878b98757ba52afecba3b67298a4004d_add (data) {
+            geo_json_878b98757ba52afecba3b67298a4004d
+                .addData(data);
+        }
+            geo_json_878b98757ba52afecba3b67298a4004d_add({"features": [{"geometry": {"coordinates": [[[4.349745671454861, 51.997571726271794, 0.0], [4.349752129808494, 51.99754812471508, 0.0], [4.349770687231963, 51.997478670141646, 0.0], [4.3498353193943045, 51.997485370268066, 0.0], [4.3498171141842485, 51.9975534526712, 0.0], [4.3498102581983105, 51.997578506909804, 0.0], [4.349745671454861, 51.997571726271794, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_62e09c31a17b254a06db9dab2e77d525 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_49b9c7d86f8dbb032e87b294781bbd5c = $(`<div id="html_49b9c7d86f8dbb032e87b294781bbd5c" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Troelstralaan 234</span><br><br>                 <b>Building ID:</b> 0503100000011553<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 1991<br>                 <b>Centroid (lon, lat):</b> 4.34979, 51.99753             </div>             </div>`)[0];
+                popup_62e09c31a17b254a06db9dab2e77d525.setContent(html_49b9c7d86f8dbb032e87b294781bbd5c);
+            
+        
+
+        geo_json_878b98757ba52afecba3b67298a4004d.bindPopup(popup_62e09c31a17b254a06db9dab2e77d525)
+        ;
+
+        
+    
+    
+            geo_json_878b98757ba52afecba3b67298a4004d.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_9ac4604091f4f145d32c4dfccd396b36_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_9ac4604091f4f145d32c4dfccd396b36_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_9ac4604091f4f145d32c4dfccd396b36 = L.geoJson(null, {
+                onEachFeature: geo_json_9ac4604091f4f145d32c4dfccd396b36_onEachFeature,
+            
+                style: geo_json_9ac4604091f4f145d32c4dfccd396b36_styler,
+            ...{
+}
+        });
+
+        function geo_json_9ac4604091f4f145d32c4dfccd396b36_add (data) {
+            geo_json_9ac4604091f4f145d32c4dfccd396b36
+                .addData(data);
+        }
+            geo_json_9ac4604091f4f145d32c4dfccd396b36_add({"features": [{"geometry": {"coordinates": [[[4.34968108473119, 51.99756494559838, 0.0], [4.349687241329944, 51.99754242902808, 0.0], [4.349703184059141, 51.99748276717017, 0.0], [4.349705877678047, 51.997472714485106, 0.0], [4.349706069440451, 51.99747197909504, 0.0], [4.349770687231963, 51.997478670141646, 0.0], [4.349752129808494, 51.99754812471508, 0.0], [4.349745671454861, 51.997571726271794, 0.0], [4.34968108473119, 51.99756494559838, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_532ce6038dfb4b9662368f1b510c293c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2b3903eb616fcc50edb0b407c585815d = $(`<div id="html_2b3903eb616fcc50edb0b407c585815d" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Troelstralaan 236</span><br><br>                 <b>Building ID:</b> 0503100000027952<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 1991<br>                 <b>Centroid (lon, lat):</b> 4.34973, 51.99752             </div>             </div>`)[0];
+                popup_532ce6038dfb4b9662368f1b510c293c.setContent(html_2b3903eb616fcc50edb0b407c585815d);
+            
+        
+
+        geo_json_9ac4604091f4f145d32c4dfccd396b36.bindPopup(popup_532ce6038dfb4b9662368f1b510c293c)
+        ;
+
+        
+    
+    
+            geo_json_9ac4604091f4f145d32c4dfccd396b36.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_8bc393f7147c078c6861dd8c677cffa3_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_8bc393f7147c078c6861dd8c677cffa3_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_8bc393f7147c078c6861dd8c677cffa3 = L.geoJson(null, {
+                onEachFeature: geo_json_8bc393f7147c078c6861dd8c677cffa3_onEachFeature,
+            
+                style: geo_json_8bc393f7147c078c6861dd8c677cffa3_styler,
+            ...{
+}
+        });
+
+        function geo_json_8bc393f7147c078c6861dd8c677cffa3_add (data) {
+            geo_json_8bc393f7147c078c6861dd8c677cffa3
+                .addData(data);
+        }
+            geo_json_8bc393f7147c078c6861dd8c677cffa3_add({"features": [{"geometry": {"coordinates": [[[4.349624956160336, 51.99915602360786, 0.0], [4.349626922148865, 51.999157910609526, 0.0], [4.349626402990287, 51.9991583195164, 0.0], [4.349208204379251, 51.99909606961116, 0.0], [4.349185962554452, 51.99908871835088, 0.0], [4.349193191617832, 51.999067703407256, 0.0], [4.3490631309625405, 51.99904825495234, 0.0], [4.3490606885779375, 51.99905750983602, 0.0], [4.348953824040272, 51.99902998721252, 0.0], [4.349022718191575, 51.99878039208721, 0.0], [4.349666091665636, 51.99884721693433, 0.0], [4.349602600684799, 51.99893648210142, 0.0], [4.349624956160336, 51.99915602360786, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_9ca63b80c5266ca7b19c466f0dee5885 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cfe2a766a8ae67efa5783d9119013764 = $(`<div id="html_cfe2a766a8ae67efa5783d9119013764" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Poptahof Noord 448</span><br><br>                 <b>Building ID:</b> 0503100000010890<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 1964<br>                 <b>Centroid (lon, lat):</b> 4.34931, 51.99896             </div>             </div>`)[0];
+                popup_9ca63b80c5266ca7b19c466f0dee5885.setContent(html_cfe2a766a8ae67efa5783d9119013764);
+            
+        
+
+        geo_json_8bc393f7147c078c6861dd8c677cffa3.bindPopup(popup_9ca63b80c5266ca7b19c466f0dee5885)
+        ;
+
+        
+    
+    
+            geo_json_8bc393f7147c078c6861dd8c677cffa3.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_9bce5652f5213df11d95f6fc4139a3cd_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_9bce5652f5213df11d95f6fc4139a3cd_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_9bce5652f5213df11d95f6fc4139a3cd = L.geoJson(null, {
+                onEachFeature: geo_json_9bce5652f5213df11d95f6fc4139a3cd_onEachFeature,
+            
+                style: geo_json_9bce5652f5213df11d95f6fc4139a3cd_styler,
+            ...{
+}
+        });
+
+        function geo_json_9bce5652f5213df11d95f6fc4139a3cd_add (data) {
+            geo_json_9bce5652f5213df11d95f6fc4139a3cd
+                .addData(data);
+        }
+            geo_json_9bce5652f5213df11d95f6fc4139a3cd_add({"features": [{"geometry": {"coordinates": [[[4.3498102581983105, 51.997578506909804, 0.0], [4.3498171141842485, 51.9975534526712, 0.0], [4.3498353193943045, 51.997485370268066, 0.0], [4.349899937224894, 51.997492061243776, 0.0], [4.349881365436579, 51.99756151570968, 0.0], [4.349874859520794, 51.99758528764075, 0.0], [4.3498102581983105, 51.997578506909804, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_56e1ed5757784d46225e627e7e717013 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8d86e151a45e2bb47fbcc39330f2753f = $(`<div id="html_8d86e151a45e2bb47fbcc39330f2753f" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Troelstralaan 232</span><br><br>                 <b>Building ID:</b> 0503100000011549<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 1991<br>                 <b>Centroid (lon, lat):</b> 4.34986, 51.99754             </div>             </div>`)[0];
+                popup_56e1ed5757784d46225e627e7e717013.setContent(html_8d86e151a45e2bb47fbcc39330f2753f);
+            
+        
+
+        geo_json_9bce5652f5213df11d95f6fc4139a3cd.bindPopup(popup_56e1ed5757784d46225e627e7e717013)
+        ;
+
+        
+    
+    
+            geo_json_9bce5652f5213df11d95f6fc4139a3cd.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+    
+        function geo_json_04096d6f8ceefd8c589f4bc0153cf473_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#3186cc", "fillColor": "#3186cc", "fillOpacity": 0.6, "weight": 2};
+            }
+        }
+
+        function geo_json_04096d6f8ceefd8c589f4bc0153cf473_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_04096d6f8ceefd8c589f4bc0153cf473 = L.geoJson(null, {
+                onEachFeature: geo_json_04096d6f8ceefd8c589f4bc0153cf473_onEachFeature,
+            
+                style: geo_json_04096d6f8ceefd8c589f4bc0153cf473_styler,
+            ...{
+}
+        });
+
+        function geo_json_04096d6f8ceefd8c589f4bc0153cf473_add (data) {
+            geo_json_04096d6f8ceefd8c589f4bc0153cf473
+                .addData(data);
+        }
+            geo_json_04096d6f8ceefd8c589f4bc0153cf473_add({"features": [{"geometry": {"coordinates": [[[4.350837622309372, 51.996213892451806, 0.0], [4.350843702926645, 51.99621479094981, 0.0], [4.350846661084779, 51.99621532936315, 0.0], [4.35084952815129, 51.99621602877234, 0.0], [4.350852275008579, 51.99621688892106, 0.0], [4.350854902279802, 51.99621788284833, 0.0], [4.350857380639634, 51.99621901928481, 0.0], [4.3508596811781715, 51.996220288987004, 0.0], [4.350861789752022, 51.99622167385286, 0.0], [4.350863706361184, 51.9962231738823, 0.0], [4.350865387744624, 51.99622477071686, 0.0], [4.350866848668852, 51.996226455497734, 0.0], [4.350868060223927, 51.99622821898162, 0.0], [4.350869022825242, 51.99623004319452, 0.0], [4.350869722537075, 51.99623190104741, 0.0], [4.35087014459287, 51.99623380139901, 0.0], [4.350870289615716, 51.99623571728841, 0.0], [4.350870158228703, 51.996237621754766, 0.0], [4.350869764782903, 51.99623952391322, 0.0], [4.350869095342593, 51.99624139667475, 0.0], [4.350868079190711, 51.99624314952859, 0.0], [4.3508668167850235, 51.996244846280966, 0.0], [4.35086533745086, 51.9962464782014, 0.0], [4.35086364160362, 51.9962480273159, 0.0], [4.350861744217541, 51.99624947577883, 0.0], [4.350859659643721, 51.996250832705236, 0.0], [4.3508574030641185, 51.99625207126256, 0.0], [4.350854974686446, 51.99625318246376, 0.0], [4.350852417979479, 51.9962541756805, 0.0], [4.350849718799824, 51.99625503281053, 0.0], [4.350846760053757, 51.9962557797891, 0.0], [4.350843703134651, 51.996256364104795, 0.0], [4.350840562809074, 51.99625677689879, 0.0], [4.350837382545827, 51.99625702754279, 0.0], [4.350834177526914, 51.99625708920407, 0.0], [4.350830990805709, 51.99625698922823, 0.0], [4.350827808238851, 51.996256709513084, 0.0], [4.3508246878539625, 51.99625625955846, 0.0], [4.350805710115838, 51.99625264072288, 0.0], [4.350694030117697, 51.9962327266836, 0.0], [4.350674019139736, 51.99622908074806, 0.0], [4.350671223415007, 51.996228444884466, 0.0], [4.350668518367227, 51.996227665998916, 0.0], [4.350665933114052, 51.99622674434789, 0.0], [4.350663496773122, 51.99622568018779, 0.0], [4.3506612087212115, 51.99622450047962, 0.0], [4.350659112842511, 51.996223196621116, 0.0], [4.35065719416271, 51.996221786457895, 0.0], [4.350655481591681, 51.99622027923351, 0.0], [4.350654017767096, 51.996218720267464, 0.0], [4.3506527739868135, 51.996217091329314, 0.0], [4.350651764601873, 51.99621540153433, 0.0], [4.350650989404502, 51.99621365986947, 0.0], [4.350650462330232, 51.996211893423826, 0.0], [4.350650168820223, 51.99621010206919, 0.0], [4.350650123017753, 51.9962083039077, 0.0], [4.350650339481601, 51.99620649906761, 0.0], [4.350650788263112, 51.99620472324029, 0.0], [4.350651483921067, 51.996202976553974, 0.0], [4.350652443715015, 51.99620114230638, 0.0], [4.350653663905395, 51.99619938226286, 0.0], [4.350655144699937, 51.99619768743638, 0.0], [4.350656870916555, 51.99619608465959, 0.0], [4.350658813229878, 51.996194582662966, 0.0], [4.350660971224396, 51.99619319942044, 0.0], [4.350663330133553, 51.996191943790656, 0.0], [4.350665860631996, 51.996190824504126, 0.0], [4.350668547953183, 51.99618985041951, 0.0], [4.350671318887619, 51.996189038869595, 0.0], [4.35067420276068, 51.99618838112384, 0.0], [4.350677170039292, 51.99618789489967, 0.0], [4.350680206372436, 51.99618757108192, 0.0], [4.350683253524923, 51.99618740915763, 0.0], [4.350686325640102, 51.99618742722894, 0.0], [4.350689394015896, 51.99618760706545, 0.0], [4.350692400209376, 51.996187957141146, 0.0], [4.350695358987128, 51.99618846859739, 0.0], [4.35070069564487, 51.99618942347144, 0.0], [4.350707909739168, 51.996174044272706, 0.0], [4.350844821594237, 51.99619852210331, 0.0], [4.350842432231418, 51.996203615681814, 0.0], [4.350837622309372, 51.996213892451806, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_c7b006e43478d77d2712249355651fe2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_72f8c8b6e3a2b004f999700d614b7c3f = $(`<div id="html_72f8c8b6e3a2b004f999700d614b7c3f" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 250px;">                 <b style="font-size: 14px;">Address:</b><br>                 <span style="font-size: 13px; color: #2e86ab;">Martinus Nijhofflaan 23</span><br><br>                 <b>Building ID:</b> 0503100000033561<br>                 <b>Number of addresses:</b> 1<br>                 <b>Construction year:</b> 2011<br>                 <b>Centroid (lon, lat):</b> 4.35076, 51.99622             </div>             </div>`)[0];
+                popup_c7b006e43478d77d2712249355651fe2.setContent(html_72f8c8b6e3a2b004f999700d614b7c3f);
+            
+        
+
+        geo_json_04096d6f8ceefd8c589f4bc0153cf473.bindPopup(popup_c7b006e43478d77d2712249355651fe2)
+        ;
+
+        
+    
+    
+            geo_json_04096d6f8ceefd8c589f4bc0153cf473.addTo(map_3bd608b8e64bb51981d8050d7d738fd4);
+        
+</script>
+</html>

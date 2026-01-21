@@ -20,13 +20,13 @@ import random
 # Define all parameter combinations to run
 NEIGHBORHOODS = [
 #                 'multatulibuurt', 
-                 'holstbuurt', 
-#                 'mythologiebuurt',
-#                 'poptahofzuid'
+#                 'holstbuurt', 
+                 'mythologiebuurt',
+                 'poptahofzuid'
                  ]
 YEARS = [
-         2013, 
-#         2019, 
+#         2013, 
+         2019, 
 #         2020
          ]
 SCENARIOS = [
@@ -35,7 +35,7 @@ SCENARIOS = [
 #             'hybrid'
              ]
 TOPOLOGY_SOURCES = [
-#                    'stedin', 
+                    'stedin', 
                     'osm'
                     ]
 SPACING_M = [5.0]  # Node spacing in meters
@@ -111,7 +111,7 @@ APPLY_HEAT_LOSSES = [True]  # Set to [True, False] to test both
 APPLY_ELECTRICITY_LOSSES = [True]  # Set to [True, False] to test both
 
 # Parallel execution settings
-MAX_WORKERS = 1  # Number of parallel scenario runs
+MAX_WORKERS = 2  # Number of parallel scenario runs
 GUROBI_THREADS = 0  # Threads per Gurobi solve (16 cores / 4 workers = 4 threads each)
 
 MODE = 'plot'  # Use 'export' to skip visualizations for faster execution

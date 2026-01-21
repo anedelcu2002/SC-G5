@@ -1,0 +1,39 @@
+
+================================================================================
+DISTRICT HEATING NETWORK ANALYSIS - MULTATULIBUURT
+================================================================================
+Neighborhood: multatulibuurt (Multatulibuurt)
+Year: 2019
+Heat demand area code: 4315
+Substation coordinates: [4.355181, 51.995783]
+Mode: plot
+Scenario: district_heating
+Debug mode: False
+Spacing: 5.0m
+================================================================================
+
+ Obtain building location and address data: 0.175s
+ Create building dataframe and visualize: 0.898s
+ Define and visualize demand nodes: 0.643s
+ Load and process network topology (STEDIN): 1.668s
+ Create transmission nodes: 0.385s
+ Build Calliope network: 22.603s
+ Create scenario and configure model: 176.894s
+ Build Calliope model: 293.109s
+ Solve Calliope model: 51.998s
+   HQ losses: 96.09 kW across 9 segments
+   Geothermal 'geothermie_delft' total requirement: 5193.91 kW
+
+============================================================
+SUMMARY:
+  Total building demand: 4735.98 kW
+  LQ network losses: 361.85 kW (2315 segments)
+  HQ network losses: 96.09 kW (9 segments)
+  Total system losses: 457.94 kW
+============================================================
+
+ Process Calliope results: 16.292s
+ Save scenario summary: 0.363s
+
+Analysis completed successfully!
+
