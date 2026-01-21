@@ -374,7 +374,9 @@ def main(config):
     # 10. Process Calliope results
     # -------------------------------------------------------------------------
     with Timer("Process Calliope results"):
-        final_export_df, total_system_losses_kw, total_electricity_losses_kw, supply_losses, total_unmet_demand_kw, num_unmet_nodes, total_demand_nodes = process_calliope_results(
+        (final_export_df, total_system_losses_kw, total_electricity_losses_kw, supply_losses, 
+         total_unmet_demand_kw, num_unmet_nodes, total_demand_nodes,
+         total_LQ_losses_kw, total_HQ_losses_kw, substation_efficiency_losses_kw) = process_calliope_results(
             model=model,
             buildings_gdf=buildings_gdf,
             mode=config['mode'],
@@ -387,8 +389,9 @@ def main(config):
             pipe_sizing_method=config['postprocessing']['pipe_sizing_method'],
             heat_loss_rates=config['postprocessing'].get('heat_loss_rates'),
             apply_heat_losses=config['postprocessing'].get('apply_heat_losses', False),
-            electricity_resistance_rates=config['postprocessing'].get('electricity_resistance_rates'),  # NEW
-            apply_electricity_losses=config['postprocessing'].get('apply_electricity_losses', False)    # NEW
+            electricity_resistance_rates=config['postprocessing'].get('electricity_resistance_rates'),
+            apply_electricity_losses=config['postprocessing'].get('apply_electricity_losses', False),
+            substation_efficiency=config['tech_efficiencies']['heat_substation_eff']   
         )
             
     # -------------------------------------------------------------------------
@@ -403,8 +406,11 @@ def main(config):
             execution_times=execution_times,
             apply_heat_losses=config['postprocessing'].get('apply_heat_losses', False),
             total_system_losses_kw=total_system_losses_kw,
-            apply_electricity_losses=config['postprocessing'].get('apply_electricity_losses', False),  # NEW
-            total_electricity_losses_kw=total_electricity_losses_kw,  # NEW
+            total_LQ_losses_kw=total_LQ_losses_kw,  # ← NEW
+            total_HQ_losses_kw=total_HQ_losses_kw,  # ← NEW
+            substation_efficiency_losses_kw=substation_efficiency_losses_kw,  # ← NEW
+            apply_electricity_losses=config['postprocessing'].get('apply_electricity_losses', False),
+            total_electricity_losses_kw=total_electricity_losses_kw,
             supply_losses=supply_losses,
             total_unmet_demand_kw=total_unmet_demand_kw,
             num_unmet_nodes=num_unmet_nodes,

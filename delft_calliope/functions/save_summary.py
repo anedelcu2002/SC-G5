@@ -2,8 +2,11 @@ import json
 import os
 from datetime import datetime
 
-def save_scenario_summary(config, model, results_df, output_folder, execution_times, 
+def save_scenario_summary(config, model, results_df, output_folder='outputs',
+                          execution_times=None,
                           apply_heat_losses=False, total_system_losses_kw=0.0,
+                          total_LQ_losses_kw=0.0, total_HQ_losses_kw=0.0,  # ← NEW
+                          substation_efficiency_losses_kw=0.0,  # ← NEW
                           apply_electricity_losses=False, total_electricity_losses_kw=0.0,
                           supply_losses=None, total_unmet_demand_kw=0.0, num_unmet_nodes=0, total_demand_nodes=0,
                           connectivity_info=None):
@@ -191,8 +194,10 @@ def save_scenario_summary(config, model, results_df, output_folder, execution_ti
                 if apply_heat_losses and total_system_losses_kw > 0:
                     summary['results_summary']['heat_losses'] = {
                         'total_system_losses_kW': total_system_losses_kw,
+                        'LQ_network_losses_kW': total_LQ_losses_kw,
+                        'HQ_network_losses_kW': total_HQ_losses_kw,
+                        'substation_efficiency_losses_kW': substation_efficiency_losses_kw,
                         'loss_percentage': (total_system_losses_kw / heat_demand * 100) if heat_demand > 0 else 0.0,
-                        'supply_node_losses': supply_losses
                     }
 
                 # Add electricity loss summary if applicable

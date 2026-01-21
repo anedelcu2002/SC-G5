@@ -19,20 +19,20 @@ import random
 
 # Define all parameter combinations to run
 NEIGHBORHOODS = [
-#                 'multatulibuurt', 
-#                 'holstbuurt', 
+                 'multatulibuurt', 
+                 'holstbuurt', 
                  'mythologiebuurt',
                  'poptahofzuid'
                  ]
 YEARS = [
-#         2013, 
+         2013, 
          2019, 
-#         2020
+         2020
          ]
 SCENARIOS = [
-#             'district_heating', 
+             'district_heating', 
              'full_electrification', 
-#             'hybrid'
+             'hybrid'
              ]
 TOPOLOGY_SOURCES = [
                     'stedin', 
