@@ -20,98 +20,102 @@ import random
 # Define all parameter combinations to run
 NEIGHBORHOODS = [
                  'multatulibuurt', 
-                 'holstbuurt', 
-                 'mythologiebuurt',
-                 'poptahofzuid'
+#                 'holstbuurt', 
+#                 'mythologiebuurt',
+ #                'poptahofzuid'
                  ]
 YEARS = [
-         2013, 
+#         2013, 
          2019, 
-         2020
+#         2020
          ]
 SCENARIOS = [
              'district_heating', 
              'full_electrification', 
-             'hybrid'
+#             'hybrid'
              ]
 TOPOLOGY_SOURCES = [
                     'stedin', 
-                    'osm'
+#                    'osm'
                     ]
-SPACING_M = [5.0]  # Node spacing in meters
+SPACING_M = [
+             2.5,
+             5.0, 
+             10
+             ]  # Node spacing in meters
 
 # District heating parameters
-HEAT_PUMP_COP = [
-#                 3, 
-                 4.0, 
-#                 5.5
-                 ]  # Heat pump coefficient of performance
 HEAT_SUBSTATION_EFF = [
-#                       0.81, 
+                       0.81, 
                        0.9, 
-#                       0.99
+                       0.99
                        ]  # Heat substation efficiency
 DELTA_T = [25]  # Temperature difference for pipe sizing (°C)
 FLOW_SPEED = [
-#            0.56, 
+            0.56, 
             0.62, 
-#            0.68
+            0.68
             ]  # Flow speed for pipe sizing (m/s)
 DISTANCE_FACTOR_HEAT_TRANS_MAIN = [1.0] # no variation expected
 DISTANCE_FACTOR_HEAT_DIST_MAIN = [
-#    0.9, 
+    0.9, 
     1.0, 
-#    1.1
+    1.1
     ] # 10% variation
 DISTANCE_FACTOR_HEAT_DIST_SEC = [
-#    0.9, 
+    0.9, 
     1.0, 
-#    1.1
+    1.1
     ] # 10% variation
 HEAT_LOSS_RATE_TRANS_MAIN = [
-#    59.2, 
+    59.2, 
     65.8, 
-#    72.4
+    72.4
     ] # 10% variation
 HEAT_LOSS_RATE_DIST_MAIN = [
-#    46.8, 
+    46.8, 
     52, 
-#    57.2
+    57.2
     ]
 HEAT_LOSS_RATE_DIST_SEC = [
-#    26.1, 
+    26.1, 
     29, 
-#    31.9
+    31.9
     ]
 
 # Heat pump parameters
 DISTANCE_FACTOR_ELEC_DIST_MAIN = [
-#    0.9, 
+    0.9, 
     1.0, 
-#    1.1
+    1.1
     ]
 DISTANCE_FACTOR_ELEC_DIST_SEC = [
-#    0.9, 
+    0.9, 
     1.0, 
-#    1.1
+    1.1
     ]
 ELEC_RESISTANCE_MAIN = [
-#    0.222, 
+    0.222, 
     0.247, 
-#    0.272
+    0.272
     ]
 ELEC_RESISTANCE_SEC = [
-#    0.222, 
+    0.222, 
     0.247, 
-#    0.272
+    0.272
     ]
+HEAT_PUMP_COP = [
+                 3, 
+                 4.0, 
+                 5.5
+                 ]  # Heat pump coefficient of performance
 
 # Loss calculation enable/disable
 APPLY_HEAT_LOSSES = [True]  # Set to [True, False] to test both
 APPLY_ELECTRICITY_LOSSES = [True]  # Set to [True, False] to test both
 
 # Parallel execution settings
-MAX_WORKERS = 2  # Number of parallel scenario runs
+MAX_WORKERS = 1  # Number of parallel scenario runs
 GUROBI_THREADS = 0  # Threads per Gurobi solve (16 cores / 4 workers = 4 threads each)
 
 MODE = 'plot'  # Use 'export' to skip visualizations for faster execution
@@ -120,89 +124,187 @@ MODE = 'plot'  # Use 'export' to skip visualizations for faster execution
 RESULTS_BASE_DIR = 'parallel_results'
 TIMESTAMP = datetime.now().strftime('%Y%m%d_%H%M%S')
 
+# Baseline configurations for sensitivity study
+BASELINE_DH = {
+    'neighborhood': 'multatulibuurt',
+    'year': 2019,
+    'scenario': 'district_heating',
+    'topology_source': 'stedin',
+    'spacing_m': 5.0,
+    'heat_pump_cop': 4.0,
+    'heat_substation_eff': 0.9,
+    'delta_t': 25,
+    'flow_speed': 0.62,
+    'distance_factor_heat_trans_main': 1.0,
+    'distance_factor_heat_dist_main': 1.0,
+    'distance_factor_heat_dist_sec': 1.0,
+    'heat_loss_rate_trans_main': 65.8,
+    'heat_loss_rate_dist_main': 52,
+    'heat_loss_rate_dist_sec': 29,
+    'apply_heat_losses': True,
+}
+
+BASELINE_ELEC = {
+    'neighborhood': 'multatulibuurt',
+    'year': 2019,
+    'scenario': 'full_electrification',
+    'topology_source': 'stedin',
+    'spacing_m': 5.0,
+    'heat_pump_cop': 4.0,
+    'distance_factor_elec_dist_main': 1.0,
+    'distance_factor_elec_dist_sec': 1.0,
+    'elec_resistance_main': 0.247,
+    'elec_resistance_sec': 0.247,
+    'apply_electricity_losses': True,
+}
+
 
 # =============================================================================
-# PARAMETER CONSTRAINTS
+# SENSITIVITY STUDY HELPERS
 # =============================================================================
 
-def generate_valid_combinations():
+def _get_param_index(param_name):
     """
-    Generator that yields only valid parameter combinations based on scenario type.
+    Get the tuple index for a parameter name.
     
-    Constraints:
-    - district_heating: Only uses first value of heat pump parameters (no variation)
-    - full_electrification: Only uses first value of district heating parameters (no variation)
-    - hybrid: Can vary both parameter sets
-    
-    This avoids materializing invalid combinations in memory.
-    
-    Yields:
-    -------
-    tuple : Valid parameter combination
+    This maps parameter names to their position in the combination tuple.
     """
-    total_generated = 0
-    total_valid = 0
+    param_order = [
+        'neighborhood', 'year', 'scenario', 'topology_source',
+        'spacing_m', 'heat_pump_cop', 'heat_substation_eff',
+        'delta_t', 'flow_speed',
+        'distance_factor_heat_trans_main', 'distance_factor_heat_dist_main',
+        'distance_factor_heat_dist_sec', 'distance_factor_elec_dist_main',
+        'distance_factor_elec_dist_sec',
+        'apply_heat_losses', 'apply_electricity_losses',
+        'heat_loss_rate_trans_main', 'heat_loss_rate_dist_main',
+        'heat_loss_rate_dist_sec',
+        'elec_resistance_main', 'elec_resistance_sec'
+    ]
+    return param_order.index(param_name)
+
+
+def _create_combo_from_baseline(baseline_dict, baseline_for_missing):
+    """
+    Create a full parameter tuple from baseline configuration.
     
-    for combo in itertools.product(
-        NEIGHBORHOODS, YEARS, SCENARIOS, TOPOLOGY_SOURCES,
-        SPACING_M, HEAT_PUMP_COP, HEAT_SUBSTATION_EFF,
-        DELTA_T, FLOW_SPEED,
-        DISTANCE_FACTOR_HEAT_TRANS_MAIN, DISTANCE_FACTOR_HEAT_DIST_MAIN,
-        DISTANCE_FACTOR_HEAT_DIST_SEC, DISTANCE_FACTOR_ELEC_DIST_MAIN,
-        DISTANCE_FACTOR_ELEC_DIST_SEC,
-        APPLY_HEAT_LOSSES, APPLY_ELECTRICITY_LOSSES,
-        HEAT_LOSS_RATE_TRANS_MAIN, HEAT_LOSS_RATE_DIST_MAIN,
-        HEAT_LOSS_RATE_DIST_SEC,
-        ELEC_RESISTANCE_MAIN, ELEC_RESISTANCE_SEC
-    ):
-        total_generated += 1
-        
-        # Unpack combination
-        (neighborhood, year, scenario, topology_source,
-         spacing_m, heat_pump_cop, heat_substation_eff,
-         delta_t, flow_speed,
-         distance_factor_heat_trans_main, distance_factor_heat_dist_main,
-         distance_factor_heat_dist_sec, distance_factor_elec_dist_main,
-         distance_factor_elec_dist_sec,
-         apply_heat_losses, apply_electricity_losses,
-         heat_loss_rate_trans_main, heat_loss_rate_dist_main,
-         heat_loss_rate_dist_sec,
-         elec_resistance_main, elec_resistance_sec) = combo
-        
-        # Apply scenario-specific constraints
-        if scenario == 'district_heating':
-            # District heating doesn't use heat pumps - skip if heat pump params are varied
-            if (distance_factor_elec_dist_main != DISTANCE_FACTOR_ELEC_DIST_MAIN[0] or
-                distance_factor_elec_dist_sec != DISTANCE_FACTOR_ELEC_DIST_SEC[0] or
-                elec_resistance_main != ELEC_RESISTANCE_MAIN[0] or
-                elec_resistance_sec != ELEC_RESISTANCE_SEC[0]):
-                continue
-        
-        elif scenario == 'full_electrification':
-            # Full electrification doesn't use district heating - skip if district heating params are varied
-            if (heat_pump_cop != HEAT_PUMP_COP[0] or
-                heat_substation_eff != HEAT_SUBSTATION_EFF[0] or
-                delta_t != DELTA_T[0] or
-                flow_speed != FLOW_SPEED[0] or
-                distance_factor_heat_trans_main != DISTANCE_FACTOR_HEAT_TRANS_MAIN[0] or
-                distance_factor_heat_dist_main != DISTANCE_FACTOR_HEAT_DIST_MAIN[0] or
-                distance_factor_heat_dist_sec != DISTANCE_FACTOR_HEAT_DIST_SEC[0] or
-                heat_loss_rate_trans_main != HEAT_LOSS_RATE_TRANS_MAIN[0] or
-                heat_loss_rate_dist_main != HEAT_LOSS_RATE_DIST_MAIN[0] or
-                heat_loss_rate_dist_sec != HEAT_LOSS_RATE_DIST_SEC[0]):
-                continue
-        
-        # hybrid scenario can vary all parameters - no constraints
-        
-        total_valid += 1
-        yield combo
+    Parameters:
+    -----------
+    baseline_dict : dict
+        Primary baseline configuration (determines scenario)
+    baseline_for_missing : dict
+        Fallback baseline for parameters not in primary
     
-    # Print filtering statistics
-    if total_generated > total_valid:
-        filtered_out = total_generated - total_valid
-        pct_filtered = (filtered_out / total_generated * 100)
-        print(f"Constraint filtering: {filtered_out:,} combinations filtered out ({pct_filtered:.1f}%)")
-        print(f"Valid combinations: {total_valid:,} / {total_generated:,}\n")
+    Returns:
+    --------
+    tuple : Full parameter combination
+    """
+    return (
+        baseline_dict['neighborhood'],
+        baseline_dict['year'],
+        baseline_dict['scenario'],
+        baseline_dict['topology_source'],
+        baseline_dict['spacing_m'],
+        baseline_dict.get('heat_pump_cop', baseline_for_missing['heat_pump_cop']),
+        baseline_dict.get('heat_substation_eff', HEAT_SUBSTATION_EFF[0]),
+        baseline_dict.get('delta_t', DELTA_T[0]),
+        baseline_dict.get('flow_speed', FLOW_SPEED[0]),
+        baseline_dict.get('distance_factor_heat_trans_main', DISTANCE_FACTOR_HEAT_TRANS_MAIN[0]),
+        baseline_dict.get('distance_factor_heat_dist_main', DISTANCE_FACTOR_HEAT_DIST_MAIN[0]),
+        baseline_dict.get('distance_factor_heat_dist_sec', DISTANCE_FACTOR_HEAT_DIST_SEC[0]),
+        baseline_for_missing.get('distance_factor_elec_dist_main', DISTANCE_FACTOR_ELEC_DIST_MAIN[0]),
+        baseline_for_missing.get('distance_factor_elec_dist_sec', DISTANCE_FACTOR_ELEC_DIST_SEC[0]),
+        baseline_dict.get('apply_heat_losses', APPLY_HEAT_LOSSES[0]),
+        baseline_for_missing.get('apply_electricity_losses', APPLY_ELECTRICITY_LOSSES[0]),
+        baseline_dict.get('heat_loss_rate_trans_main', HEAT_LOSS_RATE_TRANS_MAIN[0]),
+        baseline_dict.get('heat_loss_rate_dist_main', HEAT_LOSS_RATE_DIST_MAIN[0]),
+        baseline_dict.get('heat_loss_rate_dist_sec', HEAT_LOSS_RATE_DIST_SEC[0]),
+        baseline_for_missing.get('elec_resistance_main', ELEC_RESISTANCE_MAIN[0]),
+        baseline_for_missing.get('elec_resistance_sec', ELEC_RESISTANCE_SEC[0]),
+    )
+
+
+def generate_sensitivity_combinations():
+    """
+    Generate combinations for partial sensitivity study.
+    
+    Strategy:
+    - Each parameter is varied individually while others stay at baseline
+    - District heating parameters use BASELINE_DH as base (multatulibuurt 2019 stedin DH)
+    - Electrification parameters use BASELINE_ELEC as base (multatulibuurt 2019 stedin elec)
+    - This gives linear growth: N = 1 + sum(values_per_param - 1) instead of exponential
+    
+    Returns:
+    --------
+    list : List of parameter combination tuples
+    """
+    combinations = []
+    
+    # Define which parameters belong to which scenario
+    dh_params = {
+        'spacing_m': SPACING_M,
+        'heat_substation_eff': HEAT_SUBSTATION_EFF,
+        'delta_t': DELTA_T,
+        'flow_speed': FLOW_SPEED,
+        'distance_factor_heat_trans_main': DISTANCE_FACTOR_HEAT_TRANS_MAIN,
+        'distance_factor_heat_dist_main': DISTANCE_FACTOR_HEAT_DIST_MAIN,
+        'distance_factor_heat_dist_sec': DISTANCE_FACTOR_HEAT_DIST_SEC,
+        'heat_loss_rate_trans_main': HEAT_LOSS_RATE_TRANS_MAIN,
+        'heat_loss_rate_dist_main': HEAT_LOSS_RATE_DIST_MAIN,
+        'heat_loss_rate_dist_sec': HEAT_LOSS_RATE_DIST_SEC,
+    }
+    
+    elec_params = {
+        'spacing_m': SPACING_M,
+        'heat_pump_cop': HEAT_PUMP_COP,
+        'distance_factor_elec_dist_main': DISTANCE_FACTOR_ELEC_DIST_MAIN,
+        'distance_factor_elec_dist_sec': DISTANCE_FACTOR_ELEC_DIST_SEC,
+        'elec_resistance_main': ELEC_RESISTANCE_MAIN,
+        'elec_resistance_sec': ELEC_RESISTANCE_SEC,
+    }
+    
+    # Baseline district heating run
+    baseline_dh_combo = _create_combo_from_baseline(BASELINE_DH, BASELINE_ELEC)
+    combinations.append(baseline_dh_combo)
+    
+    # Baseline electrification run
+    baseline_elec_combo = _create_combo_from_baseline(BASELINE_ELEC, BASELINE_ELEC)
+    combinations.append(baseline_elec_combo)
+    
+    dh_variations = 0
+    elec_variations = 0
+    
+    # District heating parameter sensitivities
+    for param_name, param_values in dh_params.items():
+        baseline_value = BASELINE_DH.get(param_name, param_values[0])
+        for value in param_values:
+            if value != baseline_value:  # Skip baseline value
+                combo = list(_create_combo_from_baseline(BASELINE_DH, BASELINE_ELEC))
+                param_idx = _get_param_index(param_name)
+                combo[param_idx] = value
+                combinations.append(tuple(combo))
+                dh_variations += 1
+    
+    # Electrification parameter sensitivities
+    for param_name, param_values in elec_params.items():
+        baseline_value = BASELINE_ELEC.get(param_name, param_values[0])
+        for value in param_values:
+            if value != baseline_value:  # Skip baseline value
+                combo = list(_create_combo_from_baseline(BASELINE_ELEC, BASELINE_ELEC))
+                param_idx = _get_param_index(param_name)
+                combo[param_idx] = value
+                combinations.append(tuple(combo))
+                elec_variations += 1
+    
+    # Print summary
+    print(f"\nSensitivity study configuration:")
+    print(f"  Total combinations: {len(combinations)}")
+    print(f"  - 2 baseline runs (DH + Elec)")
+    print(f"  - {dh_variations} district heating parameter variations")
+    print(f"  - {elec_variations} electrification parameter variations")
+    print(f"\nLinear scaling: O(n) vs exponential O(n^k)\n")
+    
+    return combinations
 
 
 # =============================================================================
@@ -493,9 +595,9 @@ def run_parallel_scenarios():
     """
     Execute all scenario combinations in parallel
     """
-    # Generate valid combinations efficiently (filters during generation)
-    print("Generating valid parameter combinations...")
-    combinations = list(generate_valid_combinations())
+    # Generate sensitivity study combinations (one parameter at a time)
+    print("Generating sensitivity study combinations...")
+    combinations = generate_sensitivity_combinations()
     
     total_runs = len(combinations)
     print(f"\n{'='*80}")
@@ -626,20 +728,25 @@ if __name__ == "__main__":
         print("ERROR: Must run from delft_calliope directory")
         sys.exit(1)
     
+    # Generate combinations to get accurate count
+    test_combinations = generate_sensitivity_combinations()
+    
     # Show configuration
     print("\n" + "="*80)
-    print("PARALLEL EXECUTION CONFIGURATION")
+    print("PARALLEL EXECUTION CONFIGURATION - SENSITIVITY STUDY")
     print("="*80)
     print(f"CPU Cores: 16 (detected)")
     print(f"Parallel workers: {MAX_WORKERS}")
     print(f"Gurobi threads per worker: {GUROBI_THREADS}")
     print(f"Total utilization: {MAX_WORKERS * GUROBI_THREADS} cores")
-    print(f"\nScenario combinations:")
-    print(f"  Neighborhoods: {len(NEIGHBORHOODS)}")
-    print(f"  Years: {len(YEARS)}")
-    print(f"  Scenarios: {len(SCENARIOS)}")
-    print(f"  Topology sources: {len(TOPOLOGY_SOURCES)}")
-    print(f"  Total: {len(NEIGHBORHOODS) * len(YEARS) * len(SCENARIOS) * len(TOPOLOGY_SOURCES)} runs")
+    print(f"\nSensitivity study setup:")
+    print(f"  Baseline scenarios: 2 (DH + Elec)")
+    print(f"  Parameter variations: {len(test_combinations) - 2}")
+    print(f"  Total runs: {len(test_combinations)}")
+    print(f"\nBaseline configuration:")
+    print(f"  Neighborhood: {BASELINE_DH['neighborhood']}")
+    print(f"  Year: {BASELINE_DH['year']}")
+    print(f"  Topology: {BASELINE_DH['topology_source']}")
     print("="*80)
     
     response = input("\nProceed? (yes/no): ")
