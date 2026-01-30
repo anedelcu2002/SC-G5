@@ -1,0 +1,90 @@
+{
+  "scenario_info": {
+    "neighborhood_name": "Multatulibuurt",
+    "year": 2013,
+    "scenario_type": "district_heating",
+    "topology_source": "osm",
+    "timestamp": "2026-01-21T12:35:30.318888",
+    "spacing_m": 5.0
+  },
+  "technology_parameters": {
+    "heat_pump_cop": 4.0,
+    "heat_substation_eff": 0.9,
+    "hybrid_threshold_kW": 50
+  },
+  "postprocessing_parameters": {
+    "pipe_sizing": {
+      "heat_capacity": 4.19,
+      "density": 1000,
+      "delta_T": 25.0,
+      "flow_speed": 0.62
+    },
+    "distance_factors": {
+      "Heat transmission main": 1.0,
+      "LQ heat distribution main": 1.0,
+      "LQ heat distribution secondary": 1.0,
+      "LV electricity distribution main": 1.0,
+      "LV electricity distribution secondary": 1.0
+    },
+    "heat_loss_rates": {
+      "Heat transmission main": 65.8,
+      "LQ heat distribution main": 52.0,
+      "LQ heat distribution secondary": 29.0
+    },
+    "electricity_resistance_rates": {
+      "LV electricity distribution main": 0.247,
+      "LV electricity distribution secondary": 0.247
+    }
+  },
+  "model_size": {
+    "num_nodes": 2400,
+    "num_techs": 2428,
+    "num_carriers": 3,
+    "num_links": 2423
+  },
+  "results_summary": {
+    "total_capacity_installed": 747616.7209170107,
+    "supply_geothermal_capacity_original_kW": 5737.643332827856,
+    "supply_geothermal_capacity_adjusted_kW": 6308.920093362571,
+    "supply_geothermal_additional_for_losses_kW": 571.2767605347144,
+    "heat_pump_capacity_kW": 0.0,
+    "heat_pump_electricity_capacity_kW": 0.0,
+    "supply_LV_electricity_capacity_kW": 0.0,
+    "total_heat_demand_kW": 5163.878999545072,
+    "heat_losses": {
+      "total_system_losses_kW": 1145.0410938175005,
+      "LQ_network_losses_kW": 427.66944205907316,
+      "HQ_network_losses_kW": 96.08849158018894,
+      "substation_efficiency_losses_kW": 621.2831601782384,
+      "loss_percentage": 22.174049661473024
+    },
+    "district_heating_efficiency": 0.8185044228057091
+  },
+  "execution_time": {
+    "total_seconds": 210.43558710021898
+  },
+  "heat_loss_info": {
+    "apply_heat_losses": true,
+    "total_system_losses_kw": 1145.0410938175005
+  },
+  "electricity_loss_info": {
+    "apply_electricity_losses": true,
+    "total_lv_losses_kw": 0
+  },
+  "unmet_demand_info": {
+    "total_unmet_demand_kw": 0.0,
+    "num_unmet_nodes": 0,
+    "total_demand_nodes": 373,
+    "unmet_demand_fraction": "0/373"
+  },
+  "connectivity_info": {
+    "num_isolated_demand_nodes_requiring_bridges": 0,
+    "isolated_demand_nodes_list": [],
+    "total_demand_nodes_in_network": 373,
+    "connectivity_status": "fully_connected"
+  },
+  "supply_losses": {
+    "substation_multatulibuurt": 427.66944205907316,
+    "geothermie_delft": 571.2767605347144
+  }
+}

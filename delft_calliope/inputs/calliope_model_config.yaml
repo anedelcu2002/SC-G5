@@ -8,7 +8,7 @@ config:
     mode: base # Choices: base, operate, spores
 
   build:
-    ensure_feasibility: false # Switching on unmet demand
+    ensure_feasibility: true # Switching on unmet demand
 
   solve:
     solver: gurobi

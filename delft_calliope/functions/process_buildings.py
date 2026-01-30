@@ -3,7 +3,7 @@ import geopandas as gpd
 import folium
 from shapely.geometry import Polygon
 
-def process_and_visualize_buildings(all_buildings, building_addresses, mode='plot'):
+def process_and_visualize_buildings(all_buildings, building_addresses, mode='plot', debug_folder='debug'):
     """
     Creates a building DataFrame from BAG API data and optionally visualizes it.
     
@@ -11,6 +11,7 @@ def process_and_visualize_buildings(all_buildings, building_addresses, mode='plo
         all_buildings (list): List of building dictionaries from BAG API.
         building_addresses (dict): Dictionary mapping building IDs to address information.
         mode (str): If 'plot', creates an interactive map visualization. Default is 'plot'.
+        debug_folder (str): Folder for debug visualizations (default: 'debug').
     
     Returns:
         pd.DataFrame: DataFrame containing building information with geometry, addresses, and metadata.
@@ -140,6 +141,8 @@ def process_and_visualize_buildings(all_buildings, building_addresses, mode='plo
         buildings_map.get_root().html.add_child(folium.Element(legend_html))
 
         # Save map
-        buildings_map.save("debug/buildings_addresses_map.html")
+        import os
+        os.makedirs(debug_folder, exist_ok=True)
+        buildings_map.save(os.path.join(debug_folder, "buildings_addresses_map.html"))
     
     return buildings_df

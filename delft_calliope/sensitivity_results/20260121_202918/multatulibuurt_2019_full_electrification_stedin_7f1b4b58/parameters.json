@@ -1,0 +1,23 @@
+{
+  "neighborhood": "multatulibuurt",
+  "year": 2019,
+  "scenario": "full_electrification",
+  "topology_source": "stedin",
+  "spacing_m": 5.0,
+  "heat_pump_cop": 4.0,
+  "heat_substation_eff": 0.81,
+  "delta_t": 25,
+  "flow_speed": 0.56,
+  "distance_factor_heat_trans_main": 1.0,
+  "distance_factor_heat_dist_main": 0.9,
+  "distance_factor_heat_dist_sec": 0.9,
+  "distance_factor_elec_dist_main": 1.0,
+  "distance_factor_elec_dist_sec": 1.0,
+  "apply_heat_losses": true,
+  "apply_electricity_losses": true,
+  "heat_loss_rate_trans_main": 59.2,
+  "heat_loss_rate_dist_main": 46.8,
+  "heat_loss_rate_dist_sec": 26.1,
+  "elec_resistance_main": 0.247,
+  "elec_resistance_sec": 0.222
+}

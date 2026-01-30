@@ -1,0 +1,100 @@
+{
+  "scenario_info": {
+    "neighborhood_name": "Multatulibuurt",
+    "year": 2013,
+    "scenario_type": "full_electrification",
+    "topology_source": "stedin",
+    "timestamp": "2026-01-21T12:42:37.172013",
+    "spacing_m": 5.0
+  },
+  "technology_parameters": {
+    "heat_pump_cop": 4.0,
+    "heat_substation_eff": 0.9,
+    "hybrid_threshold_kW": 50
+  },
+  "postprocessing_parameters": {
+    "pipe_sizing": {
+      "heat_capacity": 4.19,
+      "density": 1000,
+      "delta_T": 25.0,
+      "flow_speed": 0.62
+    },
+    "distance_factors": {
+      "Heat transmission main": 1.0,
+      "LQ heat distribution main": 1.0,
+      "LQ heat distribution secondary": 1.0,
+      "LV electricity distribution main": 1.0,
+      "LV electricity distribution secondary": 1.0
+    },
+    "heat_loss_rates": {
+      "Heat transmission main": 65.8,
+      "LQ heat distribution main": 52.0,
+      "LQ heat distribution secondary": 29.0
+    },
+    "electricity_resistance_rates": {
+      "LV electricity distribution main": 0.247,
+      "LV electricity distribution secondary": 0.247
+    }
+  },
+  "model_size": {
+    "num_nodes": 3458,
+    "num_techs": 3812,
+    "num_carriers": 3,
+    "num_links": 3806
+  },
+  "results_summary": {
+    "total_capacity_installed": 75678.01946357956,
+    "supply_geothermal_capacity_kW": 0.0,
+    "heat_pump_capacity_kW": 5163.878999545072,
+    "heat_pump_electricity_capacity_kW": 1290.9697498862677,
+    "supply_LV_electricity_capacity_original_kW": 1290.969749886268,
+    "supply_LV_electricity_capacity_adjusted_kW": 1372.2519831780564,
+    "supply_LV_electricity_additional_for_losses_kW": 81.2822332917885,
+    "total_heat_demand_kW": 5163.878999545072,
+    "electricity_losses": {
+      "total_lv_losses_kW": 81.2822332917885,
+      "loss_percentage": 6.296215174596409
+    },
+    "district_heating_efficiency": null
+  },
+  "execution_time": {
+    "total_seconds": 422.14483949984424
+  },
+  "heat_loss_info": {
+    "apply_heat_losses": true,
+    "total_system_losses_kw": 0.0
+  },
+  "electricity_loss_info": {
+    "apply_electricity_losses": true,
+    "total_lv_losses_kw": 81.2822332917885
+  },
+  "unmet_demand_info": {
+    "total_unmet_demand_kw": 0.0,
+    "num_unmet_nodes": 0,
+    "total_demand_nodes": 373,
+    "unmet_demand_fraction": "0/373"
+  },
+  "connectivity_info": {
+    "num_isolated_demand_nodes_requiring_bridges": 6,
+    "isolated_demand_nodes_list": [
+      "D0503100000020032",
+      "D0503100000019939",
+      "D0503100000019940",
+      "D0503100000020034",
+      "D0503100000020028",
+      "D0503100000020033"
+    ],
+    "total_demand_nodes_in_network": 373,
+    "connectivity_status": "partially_connected_with_emergency_links"
+  },
+  "supply_losses": {
+    "MV_LV_transformer1": 0.9408987541590413,
+    "MV_LV_transformer11": 12.308331120009859,
+    "MV_LV_transformer12": 0.28667874839523017,
+    "MV_LV_transformer2": 2.2261239162079676,
+    "MV_LV_transformer3": 64.410511722526,
+    "MV_LV_transformer4": 0.04267586215284401,
+    "MV_LV_transformer7": 0.5336539235148401,
+    "MV_LV_transformer9": 0.5333592448227902
+  }
+}

@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_0a70547eb07a40c4aa13f3ff1c7d7a07 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_0a70547eb07a40c4aa13f3ff1c7d7a07" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_0a70547eb07a40c4aa13f3ff1c7d7a07 = L.map(
+                "map_0a70547eb07a40c4aa13f3ff1c7d7a07",
+                {
+                    center: [51.998135454291905, 4.358005569970961],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 15,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_1987ce306df1074a0f62076190b4bb13 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_1987ce306df1074a0f62076190b4bb13.addTo(map_0a70547eb07a40c4aa13f3ff1c7d7a07);
+        
+    
+        function geo_json_7f5696c33a9811f94a895b3d06127866_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#333333", "fillColor": "#ff977d", "fillOpacity": 0.8, "weight": 1};
+            }
+        }
+
+        function geo_json_7f5696c33a9811f94a895b3d06127866_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_7f5696c33a9811f94a895b3d06127866 = L.geoJson(null, {
+                onEachFeature: geo_json_7f5696c33a9811f94a895b3d06127866_onEachFeature,
+            
+                style: geo_json_7f5696c33a9811f94a895b3d06127866_styler,
+            ...{
+}
+        });
+
+        function geo_json_7f5696c33a9811f94a895b3d06127866_add (data) {
+            geo_json_7f5696c33a9811f94a895b3d06127866
+                .addData(data);
+        }
+            geo_json_7f5696c33a9811f94a895b3d06127866_add({"features": [{"geometry": {"coordinates": [[[4.3561990571817475, 51.99698484605824, 0.0], [4.356213001505123, 51.99696167829294, 0.0], [4.356223242904671, 51.99696402420375, 0.0], [4.356260823301065, 51.99690150387758, 0.0], [4.356428913425452, 51.99692045954208, 0.0], [4.356422399337103, 51.996930173288796, 0.0], [4.356483007273026, 51.99694407048239, 0.0], [4.3564418860354, 51.99701240257069, 0.0], [4.35647082842306, 51.99701903811568, 0.0], [4.356454521473798, 51.99704616724655, 0.0], [4.356425578864493, 51.99703954068449, 0.0], [4.356355036624007, 51.99715688254342, 0.0], [4.356347997453467, 51.997155229865946, 0.0], [4.356334759844238, 51.99717679484548, 0.0], [4.3563420454900585, 51.99717849462676, 0.0], [4.356268792986805, 51.99730032506072, 0.0], [4.356261536649033, 51.99729861654297, 0.0], [4.356248346352495, 51.99732002012929, 0.0], [4.356255892430616, 51.99732179410764, 0.0], [4.3561837438173505, 51.99744182741472, 0.0], [4.356176342487641, 51.99744009065525, 0.0], [4.356163166874293, 51.99746148537193, 0.0], [4.35617082882672, 51.99746328733715, 0.0], [4.3560775124248154, 51.997618514961275, 0.0], [4.355858964047091, 51.99756843788769, 0.0], [4.355886839044989, 51.997522093327206, 0.0], [4.355877148100401, 51.997519869066316, 0.0], [4.355914061558699, 51.997458529524366, 0.0], [4.355924288496503, 51.99746087533371, 0.0], [4.355952329091564, 51.99741428951187, 0.0], [4.355942087603662, 51.997411943577404, 0.0], [4.3559565923811965, 51.997387845920485, 0.0], [4.355966819305156, 51.99739019172611, 0.0], [4.355995117238734, 51.99734317668773, 0.0], [4.355984875764789, 51.99734083075699, 0.0], [4.355998926152045, 51.99731749315951, 0.0], [4.356009153062223, 51.997319838961424, 0.0], [4.356037693567253, 51.99727240356578, 0.0], [4.356027466666369, 51.9972700577663, 0.0], [4.356041517215732, 51.997246711176416, 0.0], [4.356051744112044, 51.99724905697458, 0.0], [4.356081495965949, 51.99719960071809, 0.0], [4.356071269079327, 51.99719725492243, 0.0], [4.356085259072908, 51.99717400667332, 0.0], [4.356095485954975, 51.997176352467726, 0.0], [4.356123980739072, 51.997128997549645, 0.0], [4.356113753866282, 51.99712665175777, 0.0], [4.356127789559538, 51.997103314016215, 0.0], [4.356138016427756, 51.9971056598069, 0.0], [4.356166616961668, 51.99705813501826, 0.0], [4.356156375543654, 51.9970557891025, 0.0], [4.356170365448521, 51.99703254084258, 0.0], [4.356180606861972, 51.99703488675708, 0.0], [4.356209298585843, 51.996987191970284, 0.0], [4.3561990571817475, 51.99698484605824, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_bbff2230a560d160d8adb5e9df58691d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_09428ff7661ce924e8e69aacc8fd64f8 = $(`<div id="html_09428ff7661ce924e8e69aacc8fd64f8" style="width: 100.0%; height: 100.0%;"><b>Building ID:</b> 0503100000018871<br><b>Peak Heat Demand:</b> 669.77 kW<br></div>`)[0];
+                popup_bbff2230a560d160d8adb5e9df58691d.setContent(html_09428ff7661ce924e8e69aacc8fd64f8);
+            
+        
+
+        geo_json_7f5696c33a9811f94a895b3d06127866.bindPopup(popup_bbff2230a560d160d8adb5e9df58691d)
+        ;
+
+        
+    
+    
+            geo_json_7f5696c33a9811f94a895b3d06127866.addTo(map_0a70547eb07a40c4aa13f3ff1c7d7a07);
+        
+    
+        function geo_json_c7919f9f6252495521725a2f18d8259a_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#333333", "fillColor": "#ff9075", "fillOpacity": 0.8, "weight": 1};
+            }
+        }
+
+        function geo_json_c7919f9f6252495521725a2f18d8259a_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_c7919f9f6252495521725a2f18d8259a = L.geoJson(null, {
+                onEachFeature: geo_json_c7919f9f6252495521725a2f18d8259a_onEachFeature,
+            
+                style: geo_json_c7919f9f6252495521725a2f18d8259a_styler,
+            ...{
+}
+        });
+
+        function geo_json_c7919f9f6252495521725a2f18d8259a_add (data) {
+            geo_json_c7919f9f6252495521725a2f18d8259a
+                .addData(data);
+        }
+            geo_json_c7919f9f6252495521725a2f18d8259a_add({"features": [{"geometry": {"coordinates": [[[4.356804854245348, 51.998324311852095, 0.0], [4.356800716851659, 51.99833198799824, 0.0], [4.356848953267464, 51.9983418845208, 0.0], [4.356852756507387, 51.99833480769557, 0.0], [4.356979884443611, 51.99836089153388, 0.0], [4.3569761579426025, 51.998367798248076, 0.0], [4.3570785446084, 51.99838880244867, 0.0], [4.357082271095425, 51.99838189573123, 0.0], [4.357209254324122, 51.99840795108684, 0.0], [4.357205527854438, 51.99841485780835, 0.0], [4.357307684879955, 51.99843572496646, 0.0], [4.357311365592714, 51.99842890772918, 0.0], [4.357438119438698, 51.99845481700806, 0.0], [4.357438393275933, 51.998454307043914, 0.0], [4.357722465185829, 51.998512594830025, 0.0], [4.357696060787471, 51.9985615414445, 0.0], [4.357658416984181, 51.99863128863345, 0.0], [4.355984821418939, 51.99828787931259, 0.0], [4.356049177850173, 51.998169252012566, 0.0], [4.356103486853773, 51.998180397561335, 0.0], [4.3561031526984815, 51.9981809968818, 0.0], [4.356230004367133, 51.998207025182936, 0.0], [4.356226323508631, 51.9982138423862, 0.0], [4.3563287092608265, 51.99823485622481, 0.0], [4.356332390312157, 51.998228030031356, 0.0], [4.356459517639337, 51.99825411443063, 0.0], [4.356455882349666, 51.99826085114097, 0.0], [4.3565582683180635, 51.99828186478032, 0.0], [4.356561903594098, 51.99827512806679, 0.0], [4.356689016630399, 51.99830121209117, 0.0], [4.356685213367555, 51.998308288911055, 0.0], [4.356733244659557, 51.99831823761781, 0.0], [4.356737427600944, 51.99831048097382, 0.0], [4.356768792912832, 51.998316912935834, 0.0], [4.356771241296641, 51.99831239504072, 0.0], [4.356779794754585, 51.9983121643182, 0.0], [4.356786011150253, 51.99831287493092, 0.0], [4.356792361057979, 51.998314746264974, 0.0], [4.3567985768305855, 51.9983180186738, 0.0], [4.356796143215269, 51.99832252771004, 0.0], [4.356804854245348, 51.998324311852095, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_1b4d1bbbd5d89174e9f8d670f0cafaf4 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5b51177c381ed2b7e6621832c52448ea = $(`<div id="html_5b51177c381ed2b7e6621832c52448ea" style="width: 100.0%; height: 100.0%;"><b>Building ID:</b> 0503100000018872<br><b>Peak Heat Demand:</b> 713.44 kW<br></div>`)[0];
+                popup_1b4d1bbbd5d89174e9f8d670f0cafaf4.setContent(html_5b51177c381ed2b7e6621832c52448ea);
+            
+        
+
+        geo_json_c7919f9f6252495521725a2f18d8259a.bindPopup(popup_1b4d1bbbd5d89174e9f8d670f0cafaf4)
+        ;
+
+        
+    
+    
+            geo_json_c7919f9f6252495521725a2f18d8259a.addTo(map_0a70547eb07a40c4aa13f3ff1c7d7a07);
+        
+    
+        function geo_json_2a441e05fcebc1d07083c658dca0fc24_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#333333", "fillColor": "#ffd0c5", "fillOpacity": 0.8, "weight": 1};
+            }
+        }
+
+        function geo_json_2a441e05fcebc1d07083c658dca0fc24_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_2a441e05fcebc1d07083c658dca0fc24 = L.geoJson(null, {
+                onEachFeature: geo_json_2a441e05fcebc1d07083c658dca0fc24_onEachFeature,
+            
+                style: geo_json_2a441e05fcebc1d07083c658dca0fc24_styler,
+            ...{
+}
+        });
+
+        function geo_json_2a441e05fcebc1d07083c658dca0fc24_add (data) {
+            geo_json_2a441e05fcebc1d07083c658dca0fc24
+                .addData(data);
+        }
+            geo_json_2a441e05fcebc1d07083c658dca0fc24_add({"features": [{"geometry": {"coordinates": [[[4.35784638432417, 51.99785705752829, 0.0], [4.357669041696764, 51.99782167237968, 0.0], [4.357934454224859, 51.99731479771613, 0.0], [4.357850030979701, 51.99729796037205, 0.0], [4.357887424460972, 51.99722636822756, 0.0], [4.35798221304237, 51.99724522879025, 0.0], [4.357986188537571, 51.99723761410868, 0.0], [4.358142787529476, 51.997268781436745, 0.0], [4.358138812058038, 51.99727639612361, 0.0], [4.358233745825424, 51.99729528471823, 0.0], [4.358196524455035, 51.997367013305734, 0.0], [4.358111825830839, 51.99735011082138, 0.0], [4.35784638432417, 51.99785705752829, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_5ad09a791aa6863906839f23c42927df = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a830c5fa78e824dcebe2fb66bcd8a219 = $(`<div id="html_a830c5fa78e824dcebe2fb66bcd8a219" style="width: 100.0%; height: 100.0%;"><b>Building ID:</b> 0503100000018875<br><b>Peak Heat Demand:</b> 302.06 kW<br></div>`)[0];
+                popup_5ad09a791aa6863906839f23c42927df.setContent(html_a830c5fa78e824dcebe2fb66bcd8a219);
+            
+        
+
+        geo_json_2a441e05fcebc1d07083c658dca0fc24.bindPopup(popup_5ad09a791aa6863906839f23c42927df)
+        ;
+
+        
+    
+    
+            geo_json_2a441e05fcebc1d07083c658dca0fc24.addTo(map_0a70547eb07a40c4aa13f3ff1c7d7a07);
+        
+    
+        function geo_json_0fe03eb50f935b676e6a97fe9572566a_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#333333", "fillColor": "#fff8f6", "fillOpacity": 0.8, "weight": 1};
+            }
+        }
+
+        function geo_json_0fe03eb50f935b676e6a97fe9572566a_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_0fe03eb50f935b676e6a97fe9572566a = L.geoJson(null, {
+                onEachFeature: geo_json_0fe03eb50f935b676e6a97fe9572566a_onEachFeature,
+            
+                style: geo_json_0fe03eb50f935b676e6a97fe9572566a_styler,
+            ...{
+}
+        });
+
+        function geo_json_0fe03eb50f935b676e6a97fe9572566a_add (data) {
+            geo_json_0fe03eb50f935b676e6a97fe9572566a
+                .addData(data);
+        }
+            geo_json_0fe03eb50f935b676e6a97fe9572566a_add({"features": [{"geometry": {"coordinates": [[[4.355920659687371, 51.997958004061076, 0.0], [4.3558563663589585, 51.99795106756011, 0.0], [4.355853315656511, 51.99796214196859, 0.0], [4.355744362264374, 51.99795066117483, 0.0], [4.355747332133074, 51.99793993662296, 0.0], [4.3554660749985725, 51.99791020808689, 0.0], [4.355567404006086, 51.99754545974548, 0.0], [4.355790570009715, 51.997596090196254, 0.0], [4.3557859352210615, 51.99760386082522, 0.0], [4.356088562714678, 51.99767244559931, 0.0], [4.356093318479291, 51.99766447826554, 0.0], [4.356308210736211, 51.99771336331732, 0.0], [4.356303848837313, 51.997720668940055, 0.0], [4.356527526228536, 51.99777193167589, 0.0], [4.356444473269804, 51.99791211236445, 0.0], [4.356430498141688, 51.99793091133781, 0.0], [4.356415628621786, 51.997945540669676, 0.0], [4.356396501962285, 51.99796038439528, 0.0], [4.3563743009005425, 51.997973403430876, 0.0], [4.356349505690446, 51.99798461097048, 0.0], [4.356322515635939, 51.99799374084707, 0.0], [4.356294019991001, 51.99800058336641, 0.0], [4.3562640253717255, 51.99800485094447, 0.0], [4.356233627552887, 51.9980070205965, 0.0], [4.35620304524928, 51.9980064470462, 0.0], [4.356172570781572, 51.99800371712533, 0.0], [4.356139969465177, 51.99799722024006, 0.0], [4.356104041682131, 51.99805811904633, 0.0], [4.355902731122078, 51.997984696432056, 0.0], [4.355905685612578, 51.99798160321712, 0.0], [4.355906754326774, 51.997981990111775, 0.0], [4.355920659687371, 51.997958004061076, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_c23330eea3e7b4d68c8524ce0465a842 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c17a76342165dd6ac06b145a5345bbc7 = $(`<div id="html_c17a76342165dd6ac06b145a5345bbc7" style="width: 100.0%; height: 100.0%;"><b>Building ID:</b> 0503100000018878<br><b>Peak Heat Demand:</b> 48.45 kW<br></div>`)[0];
+                popup_c23330eea3e7b4d68c8524ce0465a842.setContent(html_c17a76342165dd6ac06b145a5345bbc7);
+            
+        
+
+        geo_json_0fe03eb50f935b676e6a97fe9572566a.bindPopup(popup_c23330eea3e7b4d68c8524ce0465a842)
+        ;
+
+        
+    
+    
+            geo_json_0fe03eb50f935b676e6a97fe9572566a.addTo(map_0a70547eb07a40c4aa13f3ff1c7d7a07);
+        
+    
+        function geo_json_d7fe0f4359c2a94717996cee97433332_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#333333", "fillColor": "#ffa28b", "fillOpacity": 0.8, "weight": 1};
+            }
+        }
+
+        function geo_json_d7fe0f4359c2a94717996cee97433332_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_d7fe0f4359c2a94717996cee97433332 = L.geoJson(null, {
+                onEachFeature: geo_json_d7fe0f4359c2a94717996cee97433332_onEachFeature,
+            
+                style: geo_json_d7fe0f4359c2a94717996cee97433332_styler,
+            ...{
+}
+        });
+
+        function geo_json_d7fe0f4359c2a94717996cee97433332_add (data) {
+            geo_json_d7fe0f4359c2a94717996cee97433332
+                .addData(data);
+        }
+            geo_json_d7fe0f4359c2a94717996cee97433332_add({"features": [{"geometry": {"coordinates": [[[4.359504740383024, 51.9985729909778, 0.0], [4.359482459146011, 51.99856793346582, 0.0], [4.3596503271090095, 51.99826140793773, 0.0], [4.359651598287472, 51.99825741004309, 0.0], [4.359659947986867, 51.99824382899912, 0.0], [4.359892192187136, 51.99781977966753, 0.0], [4.359914685578831, 51.99782446142782, 0.0], [4.359914913852787, 51.99782403195929, 0.0], [4.360096225356256, 51.997862324760995, 0.0], [4.359686847223753, 51.99861037448049, 0.0], [4.35967128206784, 51.99860710149038, 0.0], [4.359670962928494, 51.99860768297428, 0.0], [4.3596640642660605, 51.998606238466365, 0.0], [4.359663835985669, 51.998606667934354, 0.0], [4.35950451210128, 51.99857342044547, 0.0], [4.359504740383024, 51.9985729909778, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_166be3f4f435590ddf38cfc4cc4046a4 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a0009e0c90c2d3bd6ede70e169e75f82 = $(`<div id="html_a0009e0c90c2d3bd6ede70e169e75f82" style="width: 100.0%; height: 100.0%;"><b>Building ID:</b> 0503100000018977<br><b>Peak Heat Demand:</b> 599.04 kW<br></div>`)[0];
+                popup_166be3f4f435590ddf38cfc4cc4046a4.setContent(html_a0009e0c90c2d3bd6ede70e169e75f82);
+            
+        
+
+        geo_json_d7fe0f4359c2a94717996cee97433332.bindPopup(popup_166be3f4f435590ddf38cfc4cc4046a4)
+        ;
+
+        
+    
+    
+            geo_json_d7fe0f4359c2a94717996cee97433332.addTo(map_0a70547eb07a40c4aa13f3ff1c7d7a07);
+        
+    
+        function geo_json_98dc7263a822ecde10b3beb780c705c9_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#333333", "fillColor": "#ff7451", "fillOpacity": 0.8, "weight": 1};
+            }
+        }
+
+        function geo_json_98dc7263a822ecde10b3beb780c705c9_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_98dc7263a822ecde10b3beb780c705c9 = L.geoJson(null, {
+                onEachFeature: geo_json_98dc7263a822ecde10b3beb780c705c9_onEachFeature,
+            
+                style: geo_json_98dc7263a822ecde10b3beb780c705c9_styler,
+            ...{
+}
+        });
+
+        function geo_json_98dc7263a822ecde10b3beb780c705c9_add (data) {
+            geo_json_98dc7263a822ecde10b3beb780c705c9
+                .addData(data);
+        }
+            geo_json_98dc7263a822ecde10b3beb780c705c9_add({"features": [{"geometry": {"coordinates": [[[4.3581274279336775, 51.998139147448924, 0.0], [4.358188547606973, 51.998022971610084, 0.0], [4.358207812936285, 51.99802680749112, 0.0], [4.358231902123172, 51.99798098659188, 0.0], [4.358198778444569, 51.99797439582349, 0.0], [4.358335861636672, 51.997711953546535, 0.0], [4.358459484168511, 51.99773654896392, 0.0], [4.358469126017937, 51.99771807142469, 0.0], [4.358513989204157, 51.997727092833586, 0.0], [4.35850428707201, 51.9977456597372, 0.0], [4.358627673542158, 51.99777039673352, 0.0], [4.358491902784608, 51.998028383389105, 0.0], [4.3585074131263575, 51.998031494260026, 0.0], [4.3584496313349606, 51.99814058931581, 0.0], [4.358817505127567, 51.99821365649136, 0.0], [4.358806267986553, 51.99823502349153, 0.0], [4.358844783347498, 51.99824273985636, 0.0], [4.358992223772575, 51.9979622390089, 0.0], [4.3591156260823025, 51.9979869576483, 0.0], [4.3591253257478355, 51.99796848955118, 0.0], [4.359160043059543, 51.99797544454222, 0.0], [4.359150531855006, 51.99799395024362, 0.0], [4.359274064963137, 51.99801868783594, 0.0], [4.359125112112098, 51.99830297806446, 0.0], [4.359043602507996, 51.99828662547515, 0.0], [4.3590387468597545, 51.9982951583449, 0.0], [4.359002407596027, 51.99830684984978, 0.0], [4.358987899258179, 51.99830385566526, 0.0], [4.3589800600177515, 51.99831866359654, 0.0], [4.358827075421699, 51.99828845484306, 0.0], [4.358813543516438, 51.99831399954932, 0.0], [4.3584029173802765, 51.998231884446156, 0.0], [4.358401548049494, 51.998234443265424, 0.0], [4.358319044131273, 51.99821765001761, 0.0], [4.358338143741219, 51.99818111582507, 0.0], [4.3581274279336775, 51.998139147448924, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_08fd6054ec37b834b96bf703eabbae2a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_276eb379cb507a54273d79318884630b = $(`<div id="html_276eb379cb507a54273d79318884630b" style="width: 100.0%; height: 100.0%;"><b>Building ID:</b> 0503100000018978<br><b>Peak Heat Demand:</b> 898.15 kW<br></div>`)[0];
+                popup_08fd6054ec37b834b96bf703eabbae2a.setContent(html_276eb379cb507a54273d79318884630b);
+            
+        
+
+        geo_json_98dc7263a822ecde10b3beb780c705c9.bindPopup(popup_08fd6054ec37b834b96bf703eabbae2a)
+        ;
+
+        
+    
+    
+            geo_json_98dc7263a822ecde10b3beb780c705c9.addTo(map_0a70547eb07a40c4aa13f3ff1c7d7a07);
+        
+    
+        function geo_json_60af9cb3787ab709c7eded6d4ff43380_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#333333", "fillColor": "#ff9074", "fillOpacity": 0.8, "weight": 1};
+            }
+        }
+
+        function geo_json_60af9cb3787ab709c7eded6d4ff43380_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_60af9cb3787ab709c7eded6d4ff43380 = L.geoJson(null, {
+                onEachFeature: geo_json_60af9cb3787ab709c7eded6d4ff43380_onEachFeature,
+            
+                style: geo_json_60af9cb3787ab709c7eded6d4ff43380_styler,
+            ...{
+}
+        });
+
+        function geo_json_60af9cb3787ab709c7eded6d4ff43380_add (data) {
+            geo_json_60af9cb3787ab709c7eded6d4ff43380
+                .addData(data);
+        }
+            geo_json_60af9cb3787ab709c7eded6d4ff43380_add({"features": [{"geometry": {"coordinates": [[[4.359231636969515, 51.99876408007489, 0.0], [4.359233092324392, 51.99876030851302, 0.0], [4.357981379654988, 51.99850338089809, 0.0], [4.358049065884863, 51.99837714119892, 0.0], [4.358454422379645, 51.99846046989328, 0.0], [4.359371881522296, 51.99864880153918, 0.0], [4.35936759234819, 51.9986567640879, 0.0], [4.359354953824745, 51.998654145831914, 0.0], [4.359296362814519, 51.99876175107002, 0.0], [4.3593100738357515, 51.99876459443062, 0.0], [4.359302559740285, 51.99877856027728, 0.0], [4.359231636969515, 51.99876408007489, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_8d2bcab8bae6fb71e4d986452fe96715 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b4dec07744467bc667cc48abd9c12973 = $(`<div id="html_b4dec07744467bc667cc48abd9c12973" style="width: 100.0%; height: 100.0%;"><b>Building ID:</b> 0503100000023386<br><b>Peak Heat Demand:</b> 718.46 kW<br></div>`)[0];
+                popup_8d2bcab8bae6fb71e4d986452fe96715.setContent(html_b4dec07744467bc667cc48abd9c12973);
+            
+        
+
+        geo_json_60af9cb3787ab709c7eded6d4ff43380.bindPopup(popup_8d2bcab8bae6fb71e4d986452fe96715)
+        ;
+
+        
+    
+    
+            geo_json_60af9cb3787ab709c7eded6d4ff43380.addTo(map_0a70547eb07a40c4aa13f3ff1c7d7a07);
+        
+    
+        function geo_json_aa6279b0129c886c279b5522a5b96f35_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#333333", "fillColor": "#fffefe", "fillOpacity": 0.8, "weight": 1};
+            }
+        }
+
+        function geo_json_aa6279b0129c886c279b5522a5b96f35_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_aa6279b0129c886c279b5522a5b96f35 = L.geoJson(null, {
+                onEachFeature: geo_json_aa6279b0129c886c279b5522a5b96f35_onEachFeature,
+            
+                style: geo_json_aa6279b0129c886c279b5522a5b96f35_styler,
+            ...{
+}
+        });
+
+        function geo_json_aa6279b0129c886c279b5522a5b96f35_add (data) {
+            geo_json_aa6279b0129c886c279b5522a5b96f35
+                .addData(data);
+        }
+            geo_json_aa6279b0129c886c279b5522a5b96f35_add({"features": [{"geometry": {"coordinates": [[[4.3594201985327095, 51.99760764002144, 0.0], [4.359461338553821, 51.99752941943102, 0.0], [4.359554211770725, 51.99754803727122, 0.0], [4.359513071894114, 51.997626257894304, 0.0], [4.3594201985327095, 51.99760764002144, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_ab7bbcddab4e25544ddbef436037318d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d79e41bc4b388a44ca951a3d43d3f483 = $(`<div id="html_d79e41bc4b388a44ca951a3d43d3f483" style="width: 100.0%; height: 100.0%;"><b>Building ID:</b> 0503100000023496<br><b>Peak Heat Demand:</b> 8.18 kW<br></div>`)[0];
+                popup_ab7bbcddab4e25544ddbef436037318d.setContent(html_d79e41bc4b388a44ca951a3d43d3f483);
+            
+        
+
+        geo_json_aa6279b0129c886c279b5522a5b96f35.bindPopup(popup_ab7bbcddab4e25544ddbef436037318d)
+        ;
+
+        
+    
+    
+            geo_json_aa6279b0129c886c279b5522a5b96f35.addTo(map_0a70547eb07a40c4aa13f3ff1c7d7a07);
+        
+    
+        function geo_json_bb478fca8ed3b2a83d5263f44805e843_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#333333", "fillColor": "#ffffff", "fillOpacity": 0.8, "weight": 1};
+            }
+        }
+
+        function geo_json_bb478fca8ed3b2a83d5263f44805e843_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_bb478fca8ed3b2a83d5263f44805e843 = L.geoJson(null, {
+                onEachFeature: geo_json_bb478fca8ed3b2a83d5263f44805e843_onEachFeature,
+            
+                style: geo_json_bb478fca8ed3b2a83d5263f44805e843_styler,
+            ...{
+}
+        });
+
+        function geo_json_bb478fca8ed3b2a83d5263f44805e843_add (data) {
+            geo_json_bb478fca8ed3b2a83d5263f44805e843
+                .addData(data);
+        }
+            geo_json_bb478fca8ed3b2a83d5263f44805e843_add({"features": [{"geometry": {"coordinates": [[[4.359327310689611, 51.99758902194827, 0.0], [4.359368450649234, 51.997510810377435, 0.0], [4.359461338553821, 51.99752941943102, 0.0], [4.3594201985327095, 51.99760764002144, 0.0], [4.359327310689611, 51.99758902194827, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_1ee03ec743d03f8f8ebe817271b52e39 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3a916408e0872075fcf238993f60d9fe = $(`<div id="html_3a916408e0872075fcf238993f60d9fe" style="width: 100.0%; height: 100.0%;"><b>Building ID:</b> 0503100000023497<br><b>Peak Heat Demand:</b> 6.40 kW<br></div>`)[0];
+                popup_1ee03ec743d03f8f8ebe817271b52e39.setContent(html_3a916408e0872075fcf238993f60d9fe);
+            
+        
+
+        geo_json_bb478fca8ed3b2a83d5263f44805e843.bindPopup(popup_1ee03ec743d03f8f8ebe817271b52e39)
+        ;
+
+        
+    
+    
+            geo_json_bb478fca8ed3b2a83d5263f44805e843.addTo(map_0a70547eb07a40c4aa13f3ff1c7d7a07);
+        
+    
+        function geo_json_25ef9aea7b2e875b6394e0fed415dc06_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#333333", "fillColor": "#ffede8", "fillOpacity": 0.8, "weight": 1};
+            }
+        }
+
+        function geo_json_25ef9aea7b2e875b6394e0fed415dc06_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_25ef9aea7b2e875b6394e0fed415dc06 = L.geoJson(null, {
+                onEachFeature: geo_json_25ef9aea7b2e875b6394e0fed415dc06_onEachFeature,
+            
+                style: geo_json_25ef9aea7b2e875b6394e0fed415dc06_styler,
+            ...{
+}
+        });
+
+        function geo_json_25ef9aea7b2e875b6394e0fed415dc06_add (data) {
+            geo_json_25ef9aea7b2e875b6394e0fed415dc06
+                .addData(data);
+        }
+            geo_json_25ef9aea7b2e875b6394e0fed415dc06_add({"features": [{"geometry": {"coordinates": [[[4.3593566289681, 51.99763011404602, 0.0], [4.359376643691543, 51.99763428886657, 0.0], [4.359371446036014, 51.99764377157331, 0.0], [4.359500465667609, 51.99767116360024, 0.0], [4.359480726061249, 51.99770708115092, 0.0], [4.359468465311015, 51.997704511148285, 0.0], [4.359457418013208, 51.99772460346114, 0.0], [4.359469693327622, 51.9977271735921, 0.0], [4.359450044941707, 51.997762921147526, 0.0], [4.359437769618658, 51.997760351014534, 0.0], [4.359426737058533, 51.99778043446443, 0.0], [4.359439012386431, 51.99778300459861, 0.0], [4.359419455221573, 51.99781858215884, 0.0], [4.359407179885084, 51.99781601202264, 0.0], [4.359396101559206, 51.99783618495775, 0.0], [4.359408376900567, 51.997838755095096, 0.0], [4.359388865219048, 51.99787425214855, 0.0], [4.359376604428497, 51.99787168213627, 0.0], [4.359365511515561, 51.997891854941116, 0.0], [4.359377786870366, 51.9978944250817, 0.0], [4.359374231025489, 51.99790089291028, 0.0], [4.359360433937638, 51.997898003859646, 0.0], [4.3593618011432005, 51.997895534898674, 0.0], [4.359334772112053, 51.99788987858317, 0.0], [4.359328177061323, 51.99790187492872, 0.0], [4.359329698792706, 51.997902193838826, 0.0], [4.359328156392192, 51.9979053174499, 0.0], [4.3591361386783865, 51.99786526700667, 0.0], [4.359159302024846, 51.99782294345769, 0.0], [4.359241665642527, 51.99784012141165, 0.0], [4.3593566289681, 51.99763011404602, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_5fda272a434fdd9777e0f5790b21f0ff = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e60f9cd9eb23a529e8e3caf2a262a6c5 = $(`<div id="html_e60f9cd9eb23a529e8e3caf2a262a6c5" style="width: 100.0%; height: 100.0%;"><b>Building ID:</b> 0503100000023500<br><b>Peak Heat Demand:</b> 119.77 kW<br></div>`)[0];
+                popup_5fda272a434fdd9777e0f5790b21f0ff.setContent(html_e60f9cd9eb23a529e8e3caf2a262a6c5);
+            
+        
+
+        geo_json_25ef9aea7b2e875b6394e0fed415dc06.bindPopup(popup_5fda272a434fdd9777e0f5790b21f0ff)
+        ;
+
+        
+    
+    
+            geo_json_25ef9aea7b2e875b6394e0fed415dc06.addTo(map_0a70547eb07a40c4aa13f3ff1c7d7a07);
+        
+    
+        function geo_json_145652eaf94bda1d87e52bf28e547142_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#333333", "fillColor": "#fffefe", "fillOpacity": 0.8, "weight": 1};
+            }
+        }
+
+        function geo_json_145652eaf94bda1d87e52bf28e547142_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_145652eaf94bda1d87e52bf28e547142 = L.geoJson(null, {
+                onEachFeature: geo_json_145652eaf94bda1d87e52bf28e547142_onEachFeature,
+            
+                style: geo_json_145652eaf94bda1d87e52bf28e547142_styler,
+            ...{
+}
+        });
+
+        function geo_json_145652eaf94bda1d87e52bf28e547142_add (data) {
+            geo_json_145652eaf94bda1d87e52bf28e547142
+                .addData(data);
+        }
+            geo_json_145652eaf94bda1d87e52bf28e547142_add({"features": [{"geometry": {"coordinates": [[[4.359234408364831, 51.997570403674715, 0.0], [4.35927527307926, 51.99749213579833, 0.0], [4.359368450649234, 51.997510810377435, 0.0], [4.359327310689611, 51.99758902194827, 0.0], [4.359234408364831, 51.997570403674715, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_a30fd024fd8309bbbfd8354be18ce8a9 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2bb86dba511664ddaa06cd8cef4c030a = $(`<div id="html_2bb86dba511664ddaa06cd8cef4c030a" style="width: 100.0%; height: 100.0%;"><b>Building ID:</b> 0503100000031589<br><b>Peak Heat Demand:</b> 8.40 kW<br></div>`)[0];
+                popup_a30fd024fd8309bbbfd8354be18ce8a9.setContent(html_2bb86dba511664ddaa06cd8cef4c030a);
+            
+        
+
+        geo_json_145652eaf94bda1d87e52bf28e547142.bindPopup(popup_a30fd024fd8309bbbfd8354be18ce8a9)
+        ;
+
+        
+    
+    
+            geo_json_145652eaf94bda1d87e52bf28e547142.addTo(map_0a70547eb07a40c4aa13f3ff1c7d7a07);
+        
+    
+        function geo_json_f3bb986cf8d85110770c3464f1ebf947_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#333333", "fillColor": "#ff3200", "fillOpacity": 0.8, "weight": 1};
+            }
+        }
+
+        function geo_json_f3bb986cf8d85110770c3464f1ebf947_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_f3bb986cf8d85110770c3464f1ebf947 = L.geoJson(null, {
+                onEachFeature: geo_json_f3bb986cf8d85110770c3464f1ebf947_onEachFeature,
+            
+                style: geo_json_f3bb986cf8d85110770c3464f1ebf947_styler,
+            ...{
+}
+        });
+
+        function geo_json_f3bb986cf8d85110770c3464f1ebf947_add (data) {
+            geo_json_f3bb986cf8d85110770c3464f1ebf947
+                .addData(data);
+        }
+            geo_json_f3bb986cf8d85110770c3464f1ebf947_add({"features": [{"geometry": {"coordinates": [[[4.355086939904823, 51.999314832255735, 0.0], [4.355062003561769, 51.99931188096094, 0.0], [4.355291966772047, 51.998482255650316, 0.0], [4.3553704778894495, 51.99819729857236, 0.0], [4.355434298114321, 51.99796661274102, 0.0], [4.355450525392768, 51.99796830108594, 0.0], [4.355449507768993, 51.99797202250837, 0.0], [4.355458427594875, 51.997972954647274, 0.0], [4.355459445217931, 51.997969233224765, 0.0], [4.355738125821701, 51.9979983009872, 0.0], [4.355366269127887, 51.999344544735806, 0.0], [4.355366704889131, 51.99934459350046, 0.0], [4.355346668984275, 51.9994172539092, 0.0], [4.355344582281113, 51.99942313225233, 0.0], [4.355340327108794, 51.999428317423174, 0.0], [4.355332443837927, 51.999433587635686, 0.0], [4.355324056723374, 51.999436705111286, 0.0], [4.355315544404346, 51.99943830238458, 0.0], [4.355307817948744, 51.9994386571077, 0.0], [4.355300796077448, 51.99943813710808, 0.0], [4.35529392448137, 51.9994367824692, 0.0], [4.355091381049566, 51.9993749522161, 0.0], [4.355097794206923, 51.99936965114867, 0.0], [4.355112156533361, 51.999316994990636, 0.0], [4.355086932999599, 51.999314499610264, 0.0], [4.355086939904823, 51.999314832255735, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_aec83b62d0bba5d227e13430540eafe3 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_0ff5e836a709ef1b4cb6f46594b1a9c6 = $(`<div id="html_0ff5e836a709ef1b4cb6f46594b1a9c6" style="width: 100.0%; height: 100.0%;"><b>Building ID:</b> 0503100000032956<br><b>Peak Heat Demand:</b> 1317.51 kW<br></div>`)[0];
+                popup_aec83b62d0bba5d227e13430540eafe3.setContent(html_0ff5e836a709ef1b4cb6f46594b1a9c6);
+            
+        
+
+        geo_json_f3bb986cf8d85110770c3464f1ebf947.bindPopup(popup_aec83b62d0bba5d227e13430540eafe3)
+        ;
+
+        
+    
+    
+            geo_json_f3bb986cf8d85110770c3464f1ebf947.addTo(map_0a70547eb07a40c4aa13f3ff1c7d7a07);
+        
+    
+        function geo_json_b5bfdccec8205049ad3fddf47637cbed_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#333333", "fillColor": "#ffcabd", "fillOpacity": 0.8, "weight": 1};
+            }
+        }
+
+        function geo_json_b5bfdccec8205049ad3fddf47637cbed_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_b5bfdccec8205049ad3fddf47637cbed = L.geoJson(null, {
+                onEachFeature: geo_json_b5bfdccec8205049ad3fddf47637cbed_onEachFeature,
+            
+                style: geo_json_b5bfdccec8205049ad3fddf47637cbed_styler,
+            ...{
+}
+        });
+
+        function geo_json_b5bfdccec8205049ad3fddf47637cbed_add (data) {
+            geo_json_b5bfdccec8205049ad3fddf47637cbed
+                .addData(data);
+        }
+            geo_json_b5bfdccec8205049ad3fddf47637cbed_add({"features": [{"geometry": {"coordinates": [[[4.358435112903651, 51.99971329164141, 0.0], [4.358423323282582, 51.99973522905571, 0.0], [4.358509176478697, 51.999752788566184, 0.0], [4.358423090161577, 51.999913573320896, 0.0], [4.3575465508535, 51.99973388013128, 0.0], [4.357741261400772, 51.99937216732736, 0.0], [4.35773850740773, 51.999371603909104, 0.0], [4.357757536864732, 51.999336264704766, 0.0], [4.357757681844212, 51.9993362929393, 0.0], [4.357797336302966, 51.999262716114366, 0.0], [4.357797191323697, 51.999262687879835, 0.0], [4.357816501038196, 51.9992271893195, 0.0], [4.357819240463554, 51.99922775260857, 0.0], [4.358013337348851, 51.99886593511025, 0.0], [4.3591401778066805, 51.99909714224341, 0.0], [4.358961572502934, 51.999428975510284, 0.0], [4.358701815561599, 51.99937565833947, 0.0], [4.358729901538006, 51.99932321159343, 0.0], [4.358728379556628, 51.99932290166245, 0.0], [4.35878046664291, 51.99922593650899, 0.0], [4.358176857351473, 51.99910213396798, 0.0], [4.3579068228994595, 51.99960509450689, 0.0], [4.358435112903651, 51.99971329164141, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_42eb74bbae08cefa662788735218a2a9 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f3fdb93edbcda4281c9428005ba7ac4e = $(`<div id="html_f3fdb93edbcda4281c9428005ba7ac4e" style="width: 100.0%; height: 100.0%;"><b>Building ID:</b> 0503100000034482<br><b>Peak Heat Demand:</b> 344.91 kW<br></div>`)[0];
+                popup_42eb74bbae08cefa662788735218a2a9.setContent(html_f3fdb93edbcda4281c9428005ba7ac4e);
+            
+        
+
+        geo_json_b5bfdccec8205049ad3fddf47637cbed.bindPopup(popup_42eb74bbae08cefa662788735218a2a9)
+        ;
+
+        
+    
+    
+            geo_json_b5bfdccec8205049ad3fddf47637cbed.addTo(map_0a70547eb07a40c4aa13f3ff1c7d7a07);
+        
+    
+        function geo_json_a4159cb917b8550c0e99c7ce3f0ad52e_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#333333", "fillColor": "#ffdbd3", "fillOpacity": 0.8, "weight": 1};
+            }
+        }
+
+        function geo_json_a4159cb917b8550c0e99c7ce3f0ad52e_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_a4159cb917b8550c0e99c7ce3f0ad52e = L.geoJson(null, {
+                onEachFeature: geo_json_a4159cb917b8550c0e99c7ce3f0ad52e_onEachFeature,
+            
+                style: geo_json_a4159cb917b8550c0e99c7ce3f0ad52e_styler,
+            ...{
+}
+        });
+
+        function geo_json_a4159cb917b8550c0e99c7ce3f0ad52e_add (data) {
+            geo_json_a4159cb917b8550c0e99c7ce3f0ad52e
+                .addData(data);
+        }
+            geo_json_a4159cb917b8550c0e99c7ce3f0ad52e_add({"features": [{"geometry": {"coordinates": [[[4.356564305704951, 51.999722747061874, 0.0], [4.356582265708039, 51.9996889986793, 0.0], [4.356636282790643, 51.99958748505216, 0.0], [4.356673830128452, 51.999595535217665, 0.0], [4.356716641873955, 51.999604539335884, 0.0], [4.356726072847794, 51.99958704885676, 0.0], [4.356877909784943, 51.99930548348402, 0.0], [4.356878989794427, 51.99930347945334, 0.0], [4.3569906707283055, 51.99932633587704, 0.0], [4.357093165635585, 51.99934716122064, 0.0], [4.3571570601313345, 51.99936014298777, 0.0], [4.357169786908513, 51.99936272629651, 0.0], [4.35716321274684, 51.999375046301815, 0.0], [4.3571559768877774, 51.99938827737041, 0.0], [4.3571524484837605, 51.99939479930594, 0.0], [4.35714533054257, 51.999407968484576, 0.0], [4.357142394127538, 51.99941344391442, 0.0], [4.357110480430865, 51.99947267927017, 0.0], [4.357107924316378, 51.99947744791456, 0.0], [4.357041600830931, 51.99960059787929, 0.0], [4.357038923885918, 51.99960555422879, 0.0], [4.35700772252239, 51.99966356432974, 0.0], [4.356990154932907, 51.99969609373682, 0.0], [4.356987264431267, 51.99970147068821, 0.0], [4.356984967580636, 51.99970572923927, 0.0], [4.356952991921359, 51.99976510783033, 0.0], [4.356934905049844, 51.99979868437014, 0.0], [4.356765098275826, 51.99976396613321, 0.0], [4.3567832461851275, 51.999730273298965, 0.0], [4.356752024863787, 51.9997238695753, 0.0], [4.356733907086421, 51.999757517724845, 0.0], [4.356564305704951, 51.999722747061874, 0.0]]], "type": "Polygon"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+        var popup_08657c67c2ab8d10c061ff0176055139 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2b8b00adc03750f553f2991c9f4b224b = $(`<div id="html_2b8b00adc03750f553f2991c9f4b224b" style="width: 100.0%; height: 100.0%;"><b>Building ID:</b> 0503100000036714<br><b>Peak Heat Demand:</b> 231.64 kW<br></div>`)[0];
+                popup_08657c67c2ab8d10c061ff0176055139.setContent(html_2b8b00adc03750f553f2991c9f4b224b);
+            
+        
+
+        geo_json_a4159cb917b8550c0e99c7ce3f0ad52e.bindPopup(popup_08657c67c2ab8d10c061ff0176055139)
+        ;
+
+        
+    
+    
+            geo_json_a4159cb917b8550c0e99c7ce3f0ad52e.addTo(map_0a70547eb07a40c4aa13f3ff1c7d7a07);
+        
+</script>
+</html>

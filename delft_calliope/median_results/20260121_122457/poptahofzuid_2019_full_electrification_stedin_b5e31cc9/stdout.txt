@@ -1,0 +1,28 @@
+
+================================================================================
+DISTRICT HEATING NETWORK ANALYSIS - POPTAHOF-ZUID
+================================================================================
+Neighborhood: poptahofzuid (Poptahof-Zuid)
+Year: 2019
+Heat demand area code: 4332
+Substation coordinates: [4.353322, 51.999261]
+Mode: plot
+Scenario: full_electrification
+Debug mode: False
+Spacing: 5.0m
+================================================================================
+
+ Obtain building location and address data: 0.109s
+ Create building dataframe and visualize: 0.111s
+ Define and visualize demand nodes: 0.092s
+ Load and process network topology (STEDIN): 0.447s
+ Create transmission nodes: 0.077s
+ Build Calliope network: 5.131s
+ Create scenario and configure model: 40.743s
+ Build Calliope model: 36.570s
+ Solve Calliope model: 5.734s
+ Process Calliope results: 1.520s
+ Save scenario summary: 0.038s
+
+Analysis completed successfully!
+

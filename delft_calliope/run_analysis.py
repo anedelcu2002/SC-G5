@@ -115,12 +115,12 @@ CONFIG = {
             'LQ heat distribution main': 52,      # W/m
             'LQ heat distribution secondary': 29  # W/m
         },
-        'apply_heat_losses': False,
+        'apply_heat_losses': True,
         'electricity_resistance_rates': {
             'LV electricity distribution main': 0.247,       # Ω/km
             'LV electricity distribution secondary': 0.247   # Ω/km
         },
-        'apply_electricity_losses': False
+        'apply_electricity_losses': True
     },
 
     # Link technical parameters for network segments
@@ -276,7 +276,8 @@ def main(config):
         buildings_df = process_and_visualize_buildings(
             all_buildings, 
             building_addresses, 
-            mode=config['mode']
+            mode=config['mode'],
+            debug_folder=config['debug_folder']
         )
     
     # -------------------------------------------------------------------------
@@ -289,7 +290,8 @@ def main(config):
             config['year'],
             mode=config['mode'],
             online=config['online'],
-            csv_path=config['heat_demand_csv_path']
+            csv_path=config['heat_demand_csv_path'],
+            debug_folder=config['debug_folder']
         )
     # -------------------------------------------------------------------------
     # 4. Load and process network topology (Stedin or OSM)
@@ -302,7 +304,8 @@ def main(config):
             osm_pbf_path='inputs/delft.osm.pbf',
             online=config['online'],  
             cache_path=config['stedin_cache_path'],  
-            mode=config['mode']
+            mode=config['mode'],
+            debug_folder=config['debug_folder']
         )
         
     # -------------------------------------------------------------------------
@@ -331,11 +334,19 @@ def main(config):
             debug_single_node=config['debug_single_node'],
             inputs_folder=config['inputs_folder'],
             output_folder=config['data_tables_folder'],
+            debug_folder=config['debug_folder'],
             link_parameters=config['link_parameters'],
             transformer_supply_capacity=config['transformer_supply_capacity'],
             neighborhood_id=config['neighborhood_id'],       
-            substation_coords=config['substation_coords']    
+            substation_coords=config['substation_coords']
         )
+        
+        # Extract connectivity info
+        connectivity_info = network_dfs.get('connectivity_info', {
+            'num_isolated_demand_nodes': 0,
+            'isolated_demand_nodes': [],
+            'total_demand_nodes': 0
+        })
     # -------------------------------------------------------------------------
     # 7. Create scenario and configure model
     # -------------------------------------------------------------------------
@@ -363,7 +374,9 @@ def main(config):
     # 10. Process Calliope results
     # -------------------------------------------------------------------------
     with Timer("Process Calliope results"):
-        final_export_df, total_system_losses_kw, total_electricity_losses_kw, supply_losses = process_calliope_results(
+        (final_export_df, total_system_losses_kw, total_electricity_losses_kw, supply_losses, 
+         total_unmet_demand_kw, num_unmet_nodes, total_demand_nodes,
+         total_LQ_losses_kw, total_HQ_losses_kw, substation_efficiency_losses_kw) = process_calliope_results(
             model=model,
             buildings_gdf=buildings_gdf,
             mode=config['mode'],
@@ -376,8 +389,9 @@ def main(config):
             pipe_sizing_method=config['postprocessing']['pipe_sizing_method'],
             heat_loss_rates=config['postprocessing'].get('heat_loss_rates'),
             apply_heat_losses=config['postprocessing'].get('apply_heat_losses', False),
-            electricity_resistance_rates=config['postprocessing'].get('electricity_resistance_rates'),  # NEW
-            apply_electricity_losses=config['postprocessing'].get('apply_electricity_losses', False)    # NEW
+            electricity_resistance_rates=config['postprocessing'].get('electricity_resistance_rates'),
+            apply_electricity_losses=config['postprocessing'].get('apply_electricity_losses', False),
+            substation_efficiency=config['tech_efficiencies']['heat_substation_eff']   
         )
             
     # -------------------------------------------------------------------------
@@ -392,9 +406,16 @@ def main(config):
             execution_times=execution_times,
             apply_heat_losses=config['postprocessing'].get('apply_heat_losses', False),
             total_system_losses_kw=total_system_losses_kw,
-            apply_electricity_losses=config['postprocessing'].get('apply_electricity_losses', False),  # NEW
-            total_electricity_losses_kw=total_electricity_losses_kw,  # NEW
-            supply_losses=supply_losses
+            total_LQ_losses_kw=total_LQ_losses_kw,  # ← NEW
+            total_HQ_losses_kw=total_HQ_losses_kw,  # ← NEW
+            substation_efficiency_losses_kw=substation_efficiency_losses_kw,  # ← NEW
+            apply_electricity_losses=config['postprocessing'].get('apply_electricity_losses', False),
+            total_electricity_losses_kw=total_electricity_losses_kw,
+            supply_losses=supply_losses,
+            total_unmet_demand_kw=total_unmet_demand_kw,
+            num_unmet_nodes=num_unmet_nodes,
+            total_demand_nodes=total_demand_nodes,
+            connectivity_info=connectivity_info
         )
     
     return model, final_export_df
@@ -500,6 +521,114 @@ def parse_arguments():
         help='Use cached files for both heat demand and BAG building data instead of APIs'
     )
     
+    # Technology efficiency parameters
+    parser.add_argument('--heat-pump-cop',
+        type=float,
+        default=CONFIG['tech_efficiencies']['heat_pump_cop'],
+        help='Heat pump coefficient of performance (default: 4.0)'
+    )
+    
+    parser.add_argument('--heat-substation-eff',
+        type=float,
+        default=CONFIG['tech_efficiencies']['heat_substation_eff'],
+        help='Heat substation efficiency (default: 0.9)'
+    )
+    
+    # Pipe sizing parameters
+    parser.add_argument('--delta-t',
+        type=float,
+        default=CONFIG['postprocessing']['pipe_sizing']['delta_T'],
+        help='Temperature difference for pipe sizing in °C (default: 25)'
+    )
+    
+    parser.add_argument('--flow-speed',
+        type=float,
+        default=CONFIG['postprocessing']['pipe_sizing']['flow_speed'],
+        help='Flow speed for pipe sizing in m/s (default: 0.62)'
+    )
+    
+    # Distance factor parameters
+    parser.add_argument('--distance-factor-heat-trans-main',
+        type=float,
+        default=CONFIG['postprocessing']['distance_factors']['Heat transmission main'],
+        help='Distance factor for heat transmission main (default: 1.0)'
+    )
+    
+    parser.add_argument('--distance-factor-heat-dist-main',
+        type=float,
+        default=CONFIG['postprocessing']['distance_factors']['LQ heat distribution main'],
+        help='Distance factor for LQ heat distribution main (default: 1.0)'
+    )
+    
+    parser.add_argument('--distance-factor-heat-dist-sec',
+        type=float,
+        default=CONFIG['postprocessing']['distance_factors']['LQ heat distribution secondary'],
+        help='Distance factor for LQ heat distribution secondary (default: 1.0)'
+    )
+    
+    parser.add_argument('--distance-factor-elec-dist-main',
+        type=float,
+        default=CONFIG['postprocessing']['distance_factors']['LV electricity distribution main'],
+        help='Distance factor for LV electricity distribution main (default: 1.0)'
+    )
+    
+    parser.add_argument('--distance-factor-elec-dist-sec',
+        type=float,
+        default=CONFIG['postprocessing']['distance_factors']['LV electricity distribution secondary'],
+        help='Distance factor for LV electricity distribution secondary (default: 1.0)'
+    )
+    
+    # Heat loss rate parameters
+    parser.add_argument('--heat-loss-rate-trans-main',
+        type=float,
+        default=CONFIG['postprocessing']['heat_loss_rates']['Heat transmission main'],
+        help='Heat loss rate for heat transmission main in W/m (default: 65.8)'
+    )
+    
+    parser.add_argument('--heat-loss-rate-dist-main',
+        type=float,
+        default=CONFIG['postprocessing']['heat_loss_rates']['LQ heat distribution main'],
+        help='Heat loss rate for LQ heat distribution main in W/m (default: 52)'
+    )
+    
+    parser.add_argument('--heat-loss-rate-dist-sec',
+        type=float,
+        default=CONFIG['postprocessing']['heat_loss_rates']['LQ heat distribution secondary'],
+        help='Heat loss rate for LQ heat distribution secondary in W/m (default: 29)'
+    )
+    
+    # Electricity resistance parameters
+    parser.add_argument('--elec-resistance-main',
+        type=float,
+        default=CONFIG['postprocessing']['electricity_resistance_rates']['LV electricity distribution main'],
+        help='Electricity resistance for LV distribution main in Ω/km (default: 0.247)'
+    )
+    
+    parser.add_argument('--elec-resistance-sec',
+        type=float,
+        default=CONFIG['postprocessing']['electricity_resistance_rates']['LV electricity distribution secondary'],
+        help='Electricity resistance for LV distribution secondary in Ω/km (default: 0.247)'
+    )
+    
+    # Loss calculation enable/disable flags
+    parser.add_argument('--apply-heat-losses',
+        type=lambda x: x.lower() == 'true',
+        default=CONFIG['postprocessing']['apply_heat_losses'],
+        help='Apply heat transmission losses (default: True)'
+    )
+    
+    parser.add_argument('--apply-electricity-losses',
+        type=lambda x: x.lower() == 'true',
+        default=CONFIG['postprocessing']['apply_electricity_losses'],
+        help='Apply electricity transmission losses (default: True)'
+    )
+    
+    parser.add_argument('--debug-folder',
+        type=str,
+        default=CONFIG['debug_folder'],
+        help='Debug folder for visualizations (default: debug)'
+    )
+    
     return parser.parse_args()
 
 
@@ -537,8 +666,38 @@ if __name__ == "__main__":
         CONFIG['outputs_folder'] = args.output_folder
     if args.data_tables_folder:
         CONFIG['data_tables_folder'] = args.data_tables_folder
+    if args.debug_folder:
+        CONFIG['debug_folder'] = args.debug_folder
     if args.offline:
         CONFIG['online'] = False
+    
+    # Update technology efficiency parameters
+    CONFIG['tech_efficiencies']['heat_pump_cop'] = args.heat_pump_cop
+    CONFIG['tech_efficiencies']['heat_substation_eff'] = args.heat_substation_eff
+    
+    # Update pipe sizing parameters
+    CONFIG['postprocessing']['pipe_sizing']['delta_T'] = args.delta_t
+    CONFIG['postprocessing']['pipe_sizing']['flow_speed'] = args.flow_speed
+    
+    # Update distance factors
+    CONFIG['postprocessing']['distance_factors']['Heat transmission main'] = args.distance_factor_heat_trans_main
+    CONFIG['postprocessing']['distance_factors']['LQ heat distribution main'] = args.distance_factor_heat_dist_main
+    CONFIG['postprocessing']['distance_factors']['LQ heat distribution secondary'] = args.distance_factor_heat_dist_sec
+    CONFIG['postprocessing']['distance_factors']['LV electricity distribution main'] = args.distance_factor_elec_dist_main
+    CONFIG['postprocessing']['distance_factors']['LV electricity distribution secondary'] = args.distance_factor_elec_dist_sec
+    
+    # Update heat loss rates
+    CONFIG['postprocessing']['heat_loss_rates']['Heat transmission main'] = args.heat_loss_rate_trans_main
+    CONFIG['postprocessing']['heat_loss_rates']['LQ heat distribution main'] = args.heat_loss_rate_dist_main
+    CONFIG['postprocessing']['heat_loss_rates']['LQ heat distribution secondary'] = args.heat_loss_rate_dist_sec
+    
+    # Update electricity resistance rates
+    CONFIG['postprocessing']['electricity_resistance_rates']['LV electricity distribution main'] = args.elec_resistance_main
+    CONFIG['postprocessing']['electricity_resistance_rates']['LV electricity distribution secondary'] = args.elec_resistance_sec
+    
+    # Update loss calculation enable/disable flags
+    CONFIG['postprocessing']['apply_heat_losses'] = args.apply_heat_losses
+    CONFIG['postprocessing']['apply_electricity_losses'] = args.apply_electricity_losses
 
     # Run main workflow
     try:

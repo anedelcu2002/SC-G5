@@ -19,7 +19,8 @@ def process_calliope_results(
     heat_loss_rates=None,
     apply_heat_losses=False,
     electricity_resistance_rates=None,
-    apply_electricity_losses=False
+    apply_electricity_losses=False,
+    substation_efficiency=0.9
 ):
     """
     Process Calliope model results, create visualizations, and export bill of materials.
@@ -63,11 +64,21 @@ def process_calliope_results(
             Example: {'LV electricity distribution main': 0.247, 'LV electricity distribution secondary': 0.247}
     apply_electricity_losses : bool, optional
         Whether to apply electricity I²R losses and recalculate required capacities (default: False)
+    substation_efficiency : float, optional
+        Heat substation efficiency for HQ→LQ conversion (default: 0.9)
+        Used to calculate additional HQ input requirements when LQ losses occur
         
     Returns:
     --------
-    pd.DataFrame
-        Bill of materials DataFrame with capacity, distances, and pipe diameters
+    tuple
+        (export_df, total_system_losses_kw, total_LV_losses_kw, supply_losses, total_unmet_demand_kw, num_unmet_nodes, total_demand_nodes)
+        - export_df: Bill of materials DataFrame with capacity, distances, and pipe diameters
+        - total_system_losses_kw: Total heat transmission losses in kW
+        - total_LV_losses_kw: Total electricity transmission losses in kW
+        - supply_losses: Dictionary of losses per supply node
+        - total_unmet_demand_kw: Total unmet demand across all timesteps and carriers in kW
+        - num_unmet_nodes: Number of demand nodes with unmet demand
+        - total_demand_nodes: Total number of demand nodes (starting with 'D')
     
     Side Effects:
     -------------
@@ -121,8 +132,10 @@ def process_calliope_results(
     total_LQ_losses_kw = 0.0     
     total_HQ_losses_kw = 0.0      
     total_LV_losses_kw = 0.0      
-    supply_losses = {} 
+    supply_losses = {}
+    substation_efficiency_losses_kw = 0.0 
     adjusted_capacities = {}
+    geothermal_requirement = 0.0
     
     if apply_heat_losses and heat_loss_rates is not None:
         #print("\n" + "="*60)
@@ -268,6 +281,10 @@ def process_calliope_results(
                 substation_name = str(node)
                 break
         
+        # Initialize LQ variables (may be overwritten if substation is found)
+        segment_losses_LQ = {}
+        total_LQ_losses_kw = 0.0
+        
         if not substation_name or substation_name not in neighbors:
             substation_name = None
             substation_total_demand = 0.0
@@ -392,6 +409,10 @@ def process_calliope_results(
                 geothermal_name = str(node)
                 break
         
+        # Initialize HQ variables (may be overwritten if geothermal is found)
+        segment_losses_HQ = {}
+        total_HQ_losses_kw = 0.0
+        
         if not geothermal_name or geothermal_name not in neighbors_HQ:
             total_HQ_losses_kw = 0.0
         else:
@@ -431,7 +452,9 @@ def process_calliope_results(
             required_HQ = {}
             for node in visited_HQ:
                 if substation_name and node == substation_name:
-                    required_HQ[node] = substation_total_demand
+                    # Convert LQ output requirement to HQ input requirement
+                    # Account for substation efficiency: HQ_input = LQ_output / efficiency
+                    required_HQ[node] = substation_total_demand / substation_efficiency
                 else:
                     required_HQ[node] = 0.0
             
@@ -482,10 +505,28 @@ def process_calliope_results(
             #print(f"   HQ losses: {total_HQ_losses_kw:.2f} kW across {len(segment_losses_HQ)} segments")
             #print(f"   Geothermal '{geothermal_name}' total requirement: {geothermal_requirement:.2f} kW")
         
-        total_system_losses_kw = total_LQ_losses_kw + total_HQ_losses_kw
+        # Calculate substation efficiency losses
+        # These are the additional losses from converting LQ demand through substation
+        if substation_name and substation_total_demand > 0:
+            substation_efficiency_losses_kw = substation_total_demand * (1/substation_efficiency - 1)
         
-        if geothermal_name:
-            supply_losses[geothermal_name] = total_system_losses_kw
+        total_system_losses_kw = total_LQ_losses_kw + total_HQ_losses_kw + substation_efficiency_losses_kw
+        
+        if geothermal_name and geothermal_requirement > 0:
+            # Calculate how much additional capacity geothermal needs
+            # Geothermal must supply: geothermal_requirement
+            # Get original geothermal capacity from model
+            try:
+                original_geothermal_kw = float(model.results.flow_out.sel(techs='supply_geothermal').sum())
+            except:
+                original_geothermal_kw = 0.0
+            
+            # Additional capacity needed = new requirement - original
+            additional_geothermal_kw = geothermal_requirement - original_geothermal_kw
+            supply_losses[geothermal_name] = additional_geothermal_kw
+
+        if substation_name:
+            adjusted_capacities[f'_substation_adjustment_{substation_name}'] = substation_total_demand
         
         #print(f"\n" + "="*60)
         #print(f"SUMMARY:")
@@ -708,6 +749,27 @@ def process_calliope_results(
         
         #print(f"LV electricity losses: {total_LV_losses_kw:.2f} kW across {len(all_segment_losses_LV)} segments")
         #print(f"Processed {len(transformer_nodes)} transformer clusters")
+    
+    # --- Extract unmet_demand ---
+    unmet_demand_by_node = {}
+    total_unmet_demand_kw = 0.0
+    num_unmet_nodes = 0
+    
+    if 'unmet_demand' in model.results:
+        # Group unmet_demand by nodes
+        unmet_series = model.results['unmet_demand'].sum(dim=['carriers', 'timesteps'], skipna=True)
+        for node in unmet_series.nodes.values:
+            unmet_value = float(unmet_series.sel(nodes=node).values)
+            if unmet_value > 0:
+                unmet_demand_by_node[str(node)] = unmet_value
+                total_unmet_demand_kw += unmet_value
+                # Count only demand nodes (starting with 'D')
+                if str(node).startswith('D'):
+                    num_unmet_nodes += 1
+    
+    # Get total demand nodes starting with 'D'
+    all_nodes = model.inputs.coords['nodes'].values
+    total_demand_nodes = sum(1 for node in all_nodes if str(node).startswith('D'))
 
 
     # --- 2. Visualize results (if mode=='plot') ---
@@ -755,6 +817,7 @@ def process_calliope_results(
         
         # Create FeatureGroups for different layers
         demand_group = folium.FeatureGroup(name="Demand Nodes", show=True).add_to(map_fig)
+        unmet_demand_group = folium.FeatureGroup(name="Unmet Demand Nodes", show=True).add_to(map_fig)
         supply_heat_group = folium.FeatureGroup(name="Supply Heat Nodes", show=True).add_to(map_fig)
         supply_elec_group = folium.FeatureGroup(name="Supply Electricity Nodes", show=True).add_to(map_fig)
         transmission_heat_group = folium.FeatureGroup(name="Heat Transmission Nodes", show=True).add_to(map_fig)
@@ -816,6 +879,9 @@ def process_calliope_results(
                 adjusted_capacity = original_capacity
                 loss = 0.0
             
+            # Check if node has unmet demand
+            has_unmet_demand = node_name in unmet_demand_by_node
+            
             # Determine node type and styling
             if node_name.startswith('geothermie'):
                 color = '#2ecc71'
@@ -828,10 +894,16 @@ def process_calliope_results(
                 node_type = 'Supply electricity'
                 target_group = supply_elec_group
             elif node_name.startswith('D'):
-                color = "#ff9100"
-                radius = 3
-                node_type = 'Demand'
-                target_group = demand_group
+                if has_unmet_demand:
+                    color = "#ff0000"  # Red for unmet demand
+                    radius = 4
+                    node_type = 'Demand (UNMET)'
+                    target_group = unmet_demand_group
+                else:
+                    color = "#ff9100"
+                    radius = 3
+                    node_type = 'Demand'
+                    target_group = demand_group
             elif node_name.startswith('warmtenet'):
                 color = "#94d3ae"
                 radius = 1
@@ -855,6 +927,9 @@ def process_calliope_results(
             
             # Build popup text
             popup_text = f"<b>{row['nodes']}</b> ({node_type})<br>"
+            if has_unmet_demand:
+                unmet_value = unmet_demand_by_node[node_name]
+                popup_text += f"<b style='color: red;'>Unmet Demand: {unmet_value:.2f} kW</b><br>"
             if apply_heat_losses and loss > 0:
                 popup_text += f"Original Capacity: {original_capacity:.2f} kW<br>"
                 popup_text += f"<b>Adjusted Capacity: {adjusted_capacity:.2f} kW</b><br>"
@@ -979,9 +1054,11 @@ def process_calliope_results(
             
                 # Add heat loss information if calculated
                 if apply_heat_losses and total_system_losses_kw > 0:
-                    stats_html += '<tr style="background-color: #fff3cd;"><td colspan="2" style="padding: 5px; padding-top: 10px; font-weight: bold;">Heat Transmission Losses</td></tr>'
-                    stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Pipe Losses:</td><td style="text-align: right; padding: 3px;"><b>{total_system_losses_kw:,.2f} kW</b></td></tr>'
-                    
+                    stats_html += '<tr style="background-color: #fff3cd;"><td colspan="2" style="padding: 5px; padding-top: 10px; font-weight: bold;">Heat System Losses</td></tr>'
+                    stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Total Heat Losses:</td><td style="text-align: right; padding: 3px;"><b>{total_system_losses_kw:,.2f} kW</b></td></tr>'
+                    if substation_efficiency_losses_kw > 0:
+                        stats_html += f'<tr><td style="padding: 3px; padding-left: 20px; font-size: 10px; color: #666;">Pipe losses:</td><td style="text-align: right; padding: 3px; font-size: 10px; color: #666;">{total_LQ_losses_kw + total_HQ_losses_kw:,.2f} kW</td></tr>'
+                        stats_html += f'<tr><td style="padding: 3px; padding-left: 20px; font-size: 10px; color: #666;">Substation losses:</td><td style="text-align: right; padding: 3px; font-size: 10px; color: #666;">{substation_efficiency_losses_kw:,.2f} kW</td></tr>'
                     # Calculate loss percentage only if not hybrid (both heat pump and geothermal active)
                     is_hybrid = hp_cap > 0 and geo_cap_original > 0
                     if heat_demand > 0 and not is_hybrid:
@@ -998,6 +1075,15 @@ def process_calliope_results(
                 if apply_electricity_losses and total_LV_losses_kw > 0:
                     stats_html += '<tr style="background-color: #cce5ff;"><td colspan="2" style="padding: 5px; padding-top: 10px; font-weight: bold;">Electricity Transmission Losses</td></tr>'
                     stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Total LV Losses:</td><td style="text-align: right; padding: 3px;"><b>{total_LV_losses_kw:,.2f} kW</b></td></tr>'
+                
+                # Add unmet demand information
+                if total_unmet_demand_kw > 0:
+                    stats_html += '<tr style="background-color: #ffcccc;"><td colspan="2" style="padding: 5px; padding-top: 10px; font-weight: bold;">Unmet Demand</td></tr>'
+                    stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Total Unmet Demand:</td><td style="text-align: right; padding: 3px;"><b>{total_unmet_demand_kw:,.0f}/{heat_demand:,.0f} kW</b></td></tr>'
+                    stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Nodes with Unmet Demand:</td><td style="text-align: right; padding: 3px;"><b>{num_unmet_nodes}/{total_demand_nodes}</b></td></tr>'
+                    if heat_demand > 0:
+                        unmet_percentage = (total_unmet_demand_kw / heat_demand) * 100
+                        stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Unmet Demand %:</td><td style="text-align: right; padding: 3px;">{unmet_percentage:.1f}%</td></tr>'
                     stats_html += f'<tr><td style="padding: 3px; padding-left: 10px;">Transformer clusters:</td><td style="text-align: right; padding: 3px;">{len(transformer_nodes)}</td></tr>'
                     
                     # Calculate loss percentage only if not hybrid (both heat pump and geothermal active)
@@ -1112,6 +1198,23 @@ def process_calliope_results(
                         #print(f"   Updated '{tech_idx}': {original:.2f} -> {total_flow_out[tech_idx]:.2f} kW (+{loss_kw:.2f} kW)")
                         supply_updated += 1
         
+        # Update substation capacities to reflect LQ output requirements
+        # Substations are conversion techs (not supply), so need separate handling
+        for key, total_demand in adjusted_capacities.items():
+            if key.startswith('_substation_adjustment_'):
+                substation_node_name = key.replace('_substation_adjustment_', '')
+                
+                # Find the substation tech in total_flow_out
+                for tech_idx in total_flow_out.index:
+                    tech_str = str(tech_idx).lower()
+                    if 'substation' in tech_str and ('conversion' in tech_str or 'hq' in tech_str or 'lq' in tech_str):
+                        # Update capacity to match LQ output requirement (includes LQ losses)
+                        original = total_flow_out[tech_idx]
+                        total_flow_out[tech_idx] = total_demand
+                        #print(f"   Updated substation '{tech_idx}': {original:.2f} -> {total_flow_out[tech_idx]:.2f} kW")
+                        supply_updated += 1
+                        break  # Only update once per substation
+        
         
     export_df = pd.DataFrame({
         'name': tech_names,
@@ -1201,4 +1304,6 @@ def process_calliope_results(
     final_export_df.to_csv(os.path.join(output_folder, 'bill_of_materials.csv'), index=False)
     #print(f" Saved bill of materials to {output_folder}/bill_of_materials.csv")
     
-    return export_df, total_system_losses_kw, total_LV_losses_kw, supply_losses
+    return (export_df, total_system_losses_kw, total_LV_losses_kw, supply_losses, 
+            total_unmet_demand_kw, num_unmet_nodes, total_demand_nodes,
+            total_LQ_losses_kw, total_HQ_losses_kw, substation_efficiency_losses_kw) 

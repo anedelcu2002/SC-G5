@@ -1,0 +1,28 @@
+
+================================================================================
+DISTRICT HEATING NETWORK ANALYSIS - MULTATULIBUURT
+================================================================================
+Neighborhood: multatulibuurt (Multatulibuurt)
+Year: 2019
+Heat demand area code: 4315
+Substation coordinates: [4.355181, 51.995783]
+Mode: plot
+Scenario: full_electrification
+Debug mode: False
+Spacing: 5.0m
+================================================================================
+
+ Obtain building location and address data: 0.150s
+ Create building dataframe and visualize: 0.829s
+ Define and visualize demand nodes: 0.630s
+ Load and process network topology (STEDIN): 1.525s
+ Create transmission nodes: 0.199s
+ Build Calliope network: 16.759s
+ Create scenario and configure model: 165.434s
+ Build Calliope model: 245.847s
+ Solve Calliope model: 38.987s
+ Process Calliope results: 9.807s
+ Save scenario summary: 0.275s
+
+Analysis completed successfully!
+

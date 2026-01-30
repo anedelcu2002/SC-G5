@@ -2,7 +2,239 @@
 import numpy as np
 import os
 import folium
+import networkx as nx
 from functions.grid_utils import haversine_distance, interpolate_line
+
+
+def ensure_demand_connectivity(nodes_coordinates, links_techs, link_parameters, demand_nodes, 
+                               heat_trans_nodes, haversine_distance_func):
+    """
+    Ensure all demand nodes are connected to both heat and electricity network sources.
+    
+    Checks connectivity separately for heat network (to geothermie/warmtenet/substation nodes)
+    and electricity network (to MV_LV_transformer nodes). Creates emergency links for isolated nodes.
+    
+    Parameters:
+    -----------
+    nodes_coordinates : pd.DataFrame
+        DataFrame with columns ['nodes', 'latitude', 'longitude']
+    links_techs : pd.DataFrame
+        DataFrame with columns ['techs', 'link_from', 'link_to', ...]
+    link_parameters : dict
+        Link parameters including 'LQ heat distribution secondary' and 'LV electricity distribution'
+    demand_nodes : pd.DataFrame
+        Demand nodes DataFrame
+    heat_trans_nodes : pd.DataFrame
+        Heat transmission nodes DataFrame
+    haversine_distance_func : function
+        Function to calculate haversine distance
+    
+    Returns:
+    --------
+    tuple
+        (updated_links_techs, isolated_demand_nodes_set, emergency_links_list)
+        - updated_links_techs: DataFrame with emergency links added
+        - isolated_demand_nodes_set: Set of all isolated node IDs (heat or electricity)
+        - emergency_links_list: List of emergency link dicts that were created
+    """
+    
+    all_node_names = set(nodes_coordinates['nodes'])
+    demand_node_ids = set(nodes_coordinates[nodes_coordinates['nodes'].str.startswith('D')]['nodes'])
+    
+    # ==== BUILD SEPARATE GRAPHS FOR HEAT AND ELECTRICITY NETWORKS ====
+    
+    # Build HEAT graph (only heat links)
+    G_heat = nx.Graph()
+    for node in nodes_coordinates['nodes']:
+        G_heat.add_node(node)
+    
+    # Add edges from heat links (techs ending with _heat OR warmtenet/geothermie backbone)
+    for _, link in links_techs.iterrows():
+        tech_name = link.get('techs', '')
+        if pd.notna(tech_name):
+            # Include heat distribution links OR warmtenet/geothermie backbone links
+            is_heat_link = (tech_name.endswith('_heat') or 
+                           tech_name.startswith('geothermie_') or 
+                           tech_name.startswith('warmtenet') or
+                           tech_name.startswith('substation_'))
+            if is_heat_link:
+                link_from = link.get('link_from')
+                link_to = link.get('link_to')
+                if pd.notna(link_from) and pd.notna(link_to):
+                    G_heat.add_edge(link_from, link_to)
+    
+    # Build ELECTRICITY graph (only electricity links)
+    G_elec = nx.Graph()
+    for node in nodes_coordinates['nodes']:
+        G_elec.add_node(node)
+    
+    # Add edges from electricity links only (techs ending with _electricity)
+    for _, link in links_techs.iterrows():
+        tech_name = link.get('techs', '')
+        if pd.notna(tech_name) and tech_name.endswith('_electricity'):
+            link_from = link.get('link_from')
+            link_to = link.get('link_to')
+            if pd.notna(link_from) and pd.notna(link_to):
+                G_elec.add_edge(link_from, link_to)
+    
+    # ==== CHECK HEAT NETWORK CONNECTIVITY ====
+    # Find heat source nodes (geothermie_delft, warmtenet*, substation*)
+    heat_source_nodes = {node for node in all_node_names 
+                        if node.startswith('geothermie_') or 
+                           node.startswith('warmtenet') or 
+                           node.startswith('substation_')}
+    
+    # Find connected components in HEAT network
+    heat_components = list(nx.connected_components(G_heat))
+    
+    # Find component containing heat sources
+    heat_component = None
+    for component in heat_components:
+        if heat_source_nodes & component:  # If component contains any heat source
+            heat_component = component
+            break
+    
+    if heat_component is None:
+        #print("   WARNING: No heat source found in heat network.")
+        heat_isolated_nodes = set()
+    else:
+        heat_isolated_nodes = demand_node_ids - heat_component
+    
+    # ==== CHECK ELECTRICITY NETWORK CONNECTIVITY ====
+    # Find electricity source nodes (MV_LV_transformer*)
+    elec_source_nodes = {node for node in all_node_names 
+                        if node.startswith('MV_LV_transformer')}
+    
+    # Find connected components in ELECTRICITY network
+    elec_components = list(nx.connected_components(G_elec))
+    
+    # Find ALL components containing electricity sources (multiple transformers = multiple islands)
+    elec_components_with_source = []
+    for component in elec_components:
+        if elec_source_nodes & component:  # If component contains any transformer
+            elec_components_with_source.append(component)
+    
+    if not elec_components_with_source:
+        #print("   WARNING: No electricity transformers found in electricity network.")
+        elec_isolated_nodes = set()
+    else:
+        # Union of all components with transformers
+        elec_connected_nodes = set().union(*elec_components_with_source)
+        elec_isolated_nodes = demand_node_ids - elec_connected_nodes
+    
+    # Combine all isolated nodes
+    all_isolated_nodes = heat_isolated_nodes | elec_isolated_nodes
+    
+    if not all_isolated_nodes:
+        return links_techs, set(), []
+    
+    
+    new_links = []
+    
+    # ==== CREATE HEAT EMERGENCY LINKS ====
+    if heat_isolated_nodes and heat_component:
+        # Get heat transmission nodes in heat component (LQHtransmission*, warmtenet*, substation*)
+        heat_trans_in_component = nodes_coordinates[
+            (nodes_coordinates['nodes'].isin(heat_component)) & 
+            ((nodes_coordinates['nodes'].str.startswith('LQHtransmission')) |
+             (nodes_coordinates['nodes'].str.startswith('warmtenet')) |
+             (nodes_coordinates['nodes'].str.startswith('substation_')))
+        ]
+        
+        if not heat_trans_in_component.empty:
+            isolated_heat_coords = nodes_coordinates[nodes_coordinates['nodes'].isin(heat_isolated_nodes)]
+            
+            demand_lats = isolated_heat_coords['latitude'].values
+            demand_lons = isolated_heat_coords['longitude'].values
+            trans_lats = heat_trans_in_component['latitude'].values
+            trans_lons = heat_trans_in_component['longitude'].values
+            
+            # Vectorized distance calculation
+            dists = haversine_distance_func(
+                demand_lats[:, None], demand_lons[:, None],
+                trans_lats[None, :], trans_lons[None, :]
+            )
+            
+            # For each isolated demand node, create heat link to nearest transmission node
+            for i, (demand_idx, demand_row) in enumerate(isolated_heat_coords.iterrows()):
+                demand_id = demand_row['nodes']
+                nearest_idx = np.argmin(dists[i, :])
+                nearest_trans_id = heat_trans_in_component.iloc[nearest_idx]['nodes']
+                distance_km = dists[i, nearest_idx] / 1000.0  # Convert to km
+                
+                # Create emergency heat connection link
+                link_name = f"{demand_id}_to_{nearest_trans_id}_heat"
+                link_params = link_parameters['LQ heat distribution secondary']
+                
+                new_link = {
+                    'techs': link_name,
+                    'color': '#823740',
+                    'name': 'LQ heat distribution secondary',
+                    'base_tech': 'transmission',
+                    'flow_cap_max': link_params['flow_cap_max'],
+                    'flow_out_eff_per_distance': link_params['flow_out_eff_per_distance'],
+                    'lifetime': 20,
+                    'link_from': demand_id,
+                    'link_to': nearest_trans_id,
+                    'distance': distance_km
+                }
+                new_links.append(new_link)
+    
+    # ==== CREATE ELECTRICITY EMERGENCY LINKS ====
+    if elec_isolated_nodes and elec_components_with_source:
+        # Get electricity transmission nodes from ALL components with transformers
+        elec_trans_in_component = nodes_coordinates[
+            (nodes_coordinates['nodes'].isin(elec_connected_nodes)) & 
+            ((nodes_coordinates['nodes'].str.startswith('LVEtransmission')) |
+             (nodes_coordinates['nodes'].str.startswith('MV_LV_transformer')))
+        ]
+        
+        if not elec_trans_in_component.empty:
+            isolated_elec_coords = nodes_coordinates[nodes_coordinates['nodes'].isin(elec_isolated_nodes)]
+            
+            demand_lats = isolated_elec_coords['latitude'].values
+            demand_lons = isolated_elec_coords['longitude'].values
+            trans_lats = elec_trans_in_component['latitude'].values
+            trans_lons = elec_trans_in_component['longitude'].values
+            
+            # Vectorized distance calculation
+            dists = haversine_distance_func(
+                demand_lats[:, None], demand_lons[:, None],
+                trans_lats[None, :], trans_lons[None, :]
+            )
+            
+            # For each isolated demand node, create electricity link to nearest transmission node
+            for i, (demand_idx, demand_row) in enumerate(isolated_elec_coords.iterrows()):
+                demand_id = demand_row['nodes']
+                nearest_idx = np.argmin(dists[i, :])
+                nearest_trans_id = elec_trans_in_component.iloc[nearest_idx]['nodes']
+                distance_km = dists[i, nearest_idx] / 1000.0  # Convert to km
+                
+                # Create emergency electricity connection link
+                link_name = f"{demand_id}_to_{nearest_trans_id}_electricity"
+                link_params = link_parameters['LV electricity distribution secondary']
+                
+                new_link = {
+                    'techs': link_name,
+                    'color': '#505596',
+                    'name': 'LV electricity distribution secondary',
+                    'base_tech': 'transmission',
+                    'flow_cap_max': link_params['flow_cap_max'],
+                    'flow_out_eff_per_distance': link_params['flow_out_eff_per_distance'],
+                    'lifetime': 20,
+                    'link_from': demand_id,
+                    'link_to': nearest_trans_id,
+                    'distance': distance_km
+                }
+                new_links.append(new_link)
+    
+    # Append new links to links_techs
+    if new_links:
+        new_links_df = pd.DataFrame(new_links)
+        links_techs = pd.concat([links_techs, new_links_df], ignore_index=True)
+    
+    return links_techs, all_isolated_nodes, new_links
+
 
 def build_calliope_network(
     merged_df,
@@ -16,6 +248,7 @@ def build_calliope_network(
     debug_single_node=False,
     inputs_folder="inputs",
     output_folder="data_tables",
+    debug_folder='debug',
     link_parameters=None,
     transformer_supply_capacity=100000,
     neighborhood_id=None,              
@@ -500,7 +733,55 @@ def build_calliope_network(
     
     #print(f" Created {len(links_LQ_heat)} LQ heat carriers, {len(links_electricity)} electricity carriers, {len(links_costs)} cost entries")
     
-    # --- 6. Save DataFrames to CSV files ---
+    # --- 6. Ensure demand node connectivity ---
+    #print("Checking network connectivity...")
+    links_techs, isolated_demand_nodes, emergency_links = ensure_demand_connectivity(
+        nodes_coordinates, links_techs, link_parameters, demand_nodes, 
+        heat_trans_nodes, haversine_distance
+    )
+    
+    if isolated_demand_nodes:
+        #print(f" WARNING: Found {len(isolated_demand_nodes)} isolated demand nodes.")
+        #print(f"   Isolated nodes: {isolated_demand_nodes}")
+        #print(f"   Created {len(emergency_links)} emergency connections to network components.")
+        
+        # Separate heat and electricity emergency links
+        heat_emergency_links = [link for link in emergency_links if link['techs'].endswith('_heat')]
+        elec_emergency_links = [link for link in emergency_links if link['techs'].endswith('_electricity')]
+        
+        # Add heat emergency links to links_LQ_heat carriers
+        if heat_emergency_links:
+            emergency_lq_heat = pd.DataFrame({
+                'techs': [link['techs'] for link in heat_emergency_links],
+                'carrier_out': [1] * len(heat_emergency_links),
+                'carrier_in': [1] * len(heat_emergency_links)
+            })
+            links_LQ_heat = pd.concat([links_LQ_heat, emergency_lq_heat], ignore_index=True)
+            
+            # Add heat emergency links to links_costs
+            heat_emergency_costs = pd.DataFrame({
+                'techs': [link['techs'] for link in heat_emergency_links],
+                'cost_flow_cap_per_distance': [100] * len(heat_emergency_links)
+            })
+            links_costs = pd.concat([links_costs, heat_emergency_costs], ignore_index=True)
+        
+        # Add electricity emergency links to links_electricity carriers
+        if elec_emergency_links:
+            emergency_electricity = pd.DataFrame({
+                'techs': [link['techs'] for link in elec_emergency_links],
+                'carrier_out': [1] * len(elec_emergency_links),
+                'carrier_in': [1] * len(elec_emergency_links)
+            })
+            links_electricity = pd.concat([links_electricity, emergency_electricity], ignore_index=True)
+            
+            # Add electricity emergency links to links_costs
+            elec_emergency_costs = pd.DataFrame({
+                'techs': [link['techs'] for link in elec_emergency_links],
+                'cost_flow_cap_per_distance': [100] * len(elec_emergency_links)
+            })
+            links_costs = pd.concat([links_costs, elec_emergency_costs], ignore_index=True)
+    
+    # --- 7. Save DataFrames to CSV files ---
     #print(f"Saving DataFrames to {output_folder}...")
     
     os.makedirs(output_folder, exist_ok=True)
@@ -515,7 +796,7 @@ def build_calliope_network(
     
     #print(f" Saved 7 CSV files to {output_folder}/")
     
-    # --- 7. Visualize network (if mode=='plot') ---
+    # --- 8. Visualize network (if mode=='plot') ---
     if mode == 'plot':
         #print("Generating network visualization...")
         
@@ -586,8 +867,8 @@ def build_calliope_network(
         folium.LayerControl().add_to(network_map)
         
         # Save the map
-        os.makedirs('debug', exist_ok=True)
-        network_map.save('debug/calliope_map.html')
+        os.makedirs(debug_folder, exist_ok=True)
+        network_map.save(os.path.join(debug_folder, 'calliope_map.html'))
         #print(f" Saved network visualization to debug/network_map.html")
     
     # Return all DataFrames
@@ -598,5 +879,10 @@ def build_calliope_network(
         'links_techs': links_techs,
         'links_LQ_heat': links_LQ_heat,
         'links_electricity': links_electricity,
-        'links_costs': links_costs
+        'links_costs': links_costs,
+        'connectivity_info': {
+            'num_isolated_demand_nodes': len(isolated_demand_nodes),
+            'isolated_demand_nodes': list(isolated_demand_nodes),
+            'total_demand_nodes': len(demand_nodes)
+        }
     }

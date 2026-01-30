@@ -174,7 +174,7 @@ def load_stedin_grids_from_cache(bbox_coords, cache_path='inputs/stedin_cache'):
 
 def visualize_network_topology(heat_gdf, elec_gdf, transformers_gdf, bbox_coords, 
                                heat_label="Heat Network", elec_label="Electricity Network",
-                               output_file="debug/topology_map.html"):
+                               output_file="debug/topology_map.html", debug_folder='debug'):
     """
     Creates an interactive Folium map visualization of heat/gas and electricity networks.
     Works for both Stedin and OSM data sources.
@@ -270,6 +270,10 @@ def visualize_network_topology(heat_gdf, elec_gdf, transformers_gdf, bbox_coords
     folium.LayerControl().add_to(network_map)
     
     # Save map
+    import os
+    os.makedirs(debug_folder, exist_ok=True)
+    if not os.path.isabs(output_file):
+        output_file = os.path.join(debug_folder, os.path.basename(output_file))
     network_map.save(output_file)
     #print(f"✓ Saved visualization to {output_file}")
 
@@ -306,7 +310,8 @@ def process_stedin_grids(
     features_to_remove_elec=None,
     mode='plot',
     online=True,
-    cache_path='inputs/stedin_cache', 
+    cache_path='inputs/stedin_cache',
+    debug_folder='debug', 
     base_service_url="https://services-eu1.arcgis.com/IQto421Ac9MzEmFT/arcgis/rest/services/KM_Gasvervangingsdata/FeatureServer",
     gas_layer_id=1,
     lv_elec_layer_id=2,
@@ -453,7 +458,8 @@ def process_stedin_grids(
             bbox_coords=bbox_coords,
             heat_label="Gas Network",
             elec_label="LV Electricity Network",
-            output_file="debug/topology_map.html"
+            output_file=os.path.join(debug_folder, "topology_map.html"),
+            debug_folder=debug_folder
         )
     
     return stedin_heat_gdf_delft, stedin_elec_gdf_delft, stedin_transformers_gdf_delft
@@ -467,7 +473,8 @@ def process_network_topology(
     features_to_remove_elec=None,
     mode='plot',
     online=True, 
-    cache_path='inputs/stedin_cache',  
+    cache_path='inputs/stedin_cache',
+    debug_folder='debug',  
     base_service_url="https://services-eu1.arcgis.com/IQto421Ac9MzEmFT/arcgis/rest/services/KM_Gasvervangingsdata/FeatureServer",
     gas_layer_id=1,
     lv_elec_layer_id=2,
@@ -571,7 +578,8 @@ def process_network_topology(
                 bbox_coords=bbox_coords,
                 heat_label="OSM Heat Network",
                 elec_label="OSM Electricity Network",
-                output_file="debug/topology_map.html"
+                output_file=os.path.join(debug_folder, "topology_map.html"),
+                debug_folder=debug_folder
             )
         
         return heat_gdf, elec_gdf, transformers_gdf
@@ -585,7 +593,8 @@ def process_network_topology(
             features_to_remove_elec=features_to_remove_elec,
             mode=mode,
             online=online,  
-            cache_path=cache_path,  
+            cache_path=cache_path,
+            debug_folder=debug_folder,  
             base_service_url=base_service_url,
             gas_layer_id=gas_layer_id,
             lv_elec_layer_id=lv_elec_layer_id,

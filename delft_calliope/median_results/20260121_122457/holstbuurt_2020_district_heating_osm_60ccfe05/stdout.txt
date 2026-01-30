@@ -1,0 +1,28 @@
+
+================================================================================
+DISTRICT HEATING NETWORK ANALYSIS - HOLSTBUURT
+================================================================================
+Neighborhood: holstbuurt (Holstbuurt)
+Year: 2020
+Heat demand area code: 4340
+Substation coordinates: [4.353405, 51.996097]
+Mode: plot
+Scenario: district_heating
+Debug mode: False
+Spacing: 5.0m
+================================================================================
+
+ Obtain building location and address data: 0.111s
+ Create building dataframe and visualize: 0.584s
+ Define and visualize demand nodes: 0.369s
+ Load and process network topology (OSM): 6.167s
+ Create transmission nodes: 0.154s
+ Build Calliope network: 10.235s
+ Create scenario and configure model: 73.911s
+ Build Calliope model: 85.518s
+ Solve Calliope model: 12.833s
+ Process Calliope results: 4.847s
+ Save scenario summary: 0.085s
+
+Analysis completed successfully!
+

@@ -5,7 +5,7 @@ from pyproj import Transformer
 from shapely import area
 from functions.TNO_API import fetch_residential_heat_demand
 
-def process_heat_demand(buildings_df, area, year, mode='plot', online=True, csv_path='inputs/heat_demand_cache'):
+def process_heat_demand(buildings_df, area, year, mode='plot', online=True, csv_path='inputs/heat_demand_cache', debug_folder='debug'):
     """
     Fetches residential heat demand data, merges it with building data, and optionally visualizes it.
     
@@ -13,6 +13,7 @@ def process_heat_demand(buildings_df, area, year, mode='plot', online=True, csv_
         buildings_df (pd.DataFrame): DataFrame containing building information with geometry and coordinates.
         area (str): Area code for fetching heat demand data (e.g., '4341' for Mythologiebuurt 2020).
         year (int): Year for fetching heat demand data (used only for online API calls).
+        debug_folder (str): Folder for debug visualizations (default: 'debug').
         mode (str): If 'plot', creates an interactive heat demand map visualization. Default is 'plot'.
         online (bool): If True, fetch from TNO API; if False, load from CSV file. Default is True.
         csv_path (str): Path to directory containing CSV cache files. Default is 'inputs/heat_demand_cache'.
@@ -113,6 +114,8 @@ def process_heat_demand(buildings_df, area, year, mode='plot', online=True, csv_
             ).add_to(buildings_map)
         
         # Save map
-        buildings_map.save("debug/buildings_heat_demand_map.html")
+        import os
+        os.makedirs(debug_folder, exist_ok=True)
+        buildings_map.save(os.path.join(debug_folder, "buildings_heat_demand_map.html"))
     
     return merged_df, buildings_gdf
