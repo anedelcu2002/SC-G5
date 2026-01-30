@@ -1,0 +1,1177 @@
+File,Component,Impact Category,Amount,Unit
+bill_of_materials.csv,Geothermal heat supply,Acidification,26552.906501337173,mol H+-Eq
+bill_of_materials.csv,Geothermal heat supply,Climate change,4746513.984268278,kg CO2-Eq
+bill_of_materials.csv,Geothermal heat supply,Climate change: biogenic,3280.94555345481,kg CO2-Eq
+bill_of_materials.csv,Geothermal heat supply,Climate change: fossil,4741288.66008932,kg CO2-Eq
+bill_of_materials.csv,Geothermal heat supply,Climate change: land use and land use change,1944.3786255031903,kg CO2-Eq
+bill_of_materials.csv,Geothermal heat supply,Ecotoxicity: freshwater,1453867183.4074097,CTUe
+bill_of_materials.csv,Geothermal heat supply,"Ecotoxicity: freshwater, inorganics",13783539.452148234,CTUe
+bill_of_materials.csv,Geothermal heat supply,"Ecotoxicity: freshwater, metals",978789686.7109914,CTUe
+bill_of_materials.csv,Geothermal heat supply,"Ecotoxicity: freshwater, organics",461293957.24427086,CTUe
+bill_of_materials.csv,Geothermal heat supply,Energy resources: non-renewable,68020833.34901372,"MJ, net calorific value"
+bill_of_materials.csv,Geothermal heat supply,Eutrophication: freshwater,1220.3482514370612,kg P-Eq
+bill_of_materials.csv,Geothermal heat supply,Eutrophication: marine,7756.417858097581,kg N-Eq
+bill_of_materials.csv,Geothermal heat supply,Eutrophication: terrestrial,97203.68445029894,mol N-Eq
+bill_of_materials.csv,Geothermal heat supply,Human toxicity: carcinogenic,0.003034391276693809,CTUh
+bill_of_materials.csv,Geothermal heat supply,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Geothermal heat supply,"Human toxicity: carcinogenic, metals",0.0012287254084767186,CTUh
+bill_of_materials.csv,Geothermal heat supply,"Human toxicity: carcinogenic, organics",0.0018056658682170908,CTUh
+bill_of_materials.csv,Geothermal heat supply,Human toxicity: non-carcinogenic,0.12471773800181862,CTUh
+bill_of_materials.csv,Geothermal heat supply,"Human toxicity: non-carcinogenic, inorganics",0.05318658747384463,CTUh
+bill_of_materials.csv,Geothermal heat supply,"Human toxicity: non-carcinogenic, metals",0.06999124717208888,CTUh
+bill_of_materials.csv,Geothermal heat supply,"Human toxicity: non-carcinogenic, organics",0.0021600381393202853,CTUh
+bill_of_materials.csv,Geothermal heat supply,Ionising radiation: human health,139660.02368910285,kBq U235-Eq
+bill_of_materials.csv,Geothermal heat supply,Land use,10156370.081387797,dimensionless
+bill_of_materials.csv,Geothermal heat supply,Material resources: metals/minerals,28.463045545526256,kg Sb-Eq
+bill_of_materials.csv,Geothermal heat supply,Ozone depletion,0.10398896311111591,kg CFC-11-Eq
+bill_of_materials.csv,Geothermal heat supply,Particulate matter formation,0.24178008629214895,disease incidence
+bill_of_materials.csv,Geothermal heat supply,Photochemical oxidant formation: human health,28618.015235401006,kg NMVOC-Eq
+bill_of_materials.csv,Geothermal heat supply,Water use,1691958.62330004,m3 world Eq deprived
+bill_of_materials.csv,HQ to LQ heat conversion substation,Acidification,11142.578886878087,mol H+-Eq
+bill_of_materials.csv,HQ to LQ heat conversion substation,Climate change,1984294.6133865183,kg CO2-Eq
+bill_of_materials.csv,HQ to LQ heat conversion substation,Climate change: biogenic,3447.0728167700654,kg CO2-Eq
+bill_of_materials.csv,HQ to LQ heat conversion substation,Climate change: fossil,1978649.1656748736,kg CO2-Eq
+bill_of_materials.csv,HQ to LQ heat conversion substation,Climate change: land use and land use change,2198.374894874515,kg CO2-Eq
+bill_of_materials.csv,HQ to LQ heat conversion substation,Ecotoxicity: freshwater,114726941.83178295,CTUe
+bill_of_materials.csv,HQ to LQ heat conversion substation,"Ecotoxicity: freshwater, inorganics",23368106.37908683,CTUe
+bill_of_materials.csv,HQ to LQ heat conversion substation,"Ecotoxicity: freshwater, metals",91175571.11651203,CTUe
+bill_of_materials.csv,HQ to LQ heat conversion substation,"Ecotoxicity: freshwater, organics",183264.33618411337,CTUe
+bill_of_materials.csv,HQ to LQ heat conversion substation,Energy resources: non-renewable,22285161.549565725,"MJ, net calorific value"
+bill_of_materials.csv,HQ to LQ heat conversion substation,Eutrophication: freshwater,1960.6450832015364,kg P-Eq
+bill_of_materials.csv,HQ to LQ heat conversion substation,Eutrophication: marine,2049.3971267865545,kg N-Eq
+bill_of_materials.csv,HQ to LQ heat conversion substation,Eutrophication: terrestrial,21432.521419232602,mol N-Eq
+bill_of_materials.csv,HQ to LQ heat conversion substation,Human toxicity: carcinogenic,0.002663708101485227,CTUh
+bill_of_materials.csv,HQ to LQ heat conversion substation,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,HQ to LQ heat conversion substation,"Human toxicity: carcinogenic, metals",0.002077747754839516,CTUh
+bill_of_materials.csv,HQ to LQ heat conversion substation,"Human toxicity: carcinogenic, organics",0.0005859603466457106,CTUh
+bill_of_materials.csv,HQ to LQ heat conversion substation,Human toxicity: non-carcinogenic,0.048438338624193465,CTUh
+bill_of_materials.csv,HQ to LQ heat conversion substation,"Human toxicity: non-carcinogenic, inorganics",0.007757224567426293,CTUh
+bill_of_materials.csv,HQ to LQ heat conversion substation,"Human toxicity: non-carcinogenic, metals",0.04018832571624494,CTUh
+bill_of_materials.csv,HQ to LQ heat conversion substation,"Human toxicity: non-carcinogenic, organics",0.0007151816401918466,CTUh
+bill_of_materials.csv,HQ to LQ heat conversion substation,Ionising radiation: human health,126439.14736408327,kBq U235-Eq
+bill_of_materials.csv,HQ to LQ heat conversion substation,Land use,10718140.169035826,dimensionless
+bill_of_materials.csv,HQ to LQ heat conversion substation,Material resources: metals/minerals,54.095714475533526,kg Sb-Eq
+bill_of_materials.csv,HQ to LQ heat conversion substation,Ozone depletion,0.014022251761300992,kg CFC-11-Eq
+bill_of_materials.csv,HQ to LQ heat conversion substation,Particulate matter formation,0.1719372229863625,disease incidence
+bill_of_materials.csv,HQ to LQ heat conversion substation,Photochemical oxidant formation: human health,6708.6116534930325,kg NMVOC-Eq
+bill_of_materials.csv,HQ to LQ heat conversion substation,Water use,757981.0249477929,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN335.0,Acidification,1619.9107803198074,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN335.0,Climate change,448011.66762254934,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN335.0,Climate change: biogenic,365.64375662694863,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN335.0,Climate change: fossil,447212.40801807493,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN335.0,Climate change: land use and land use change,433.615847847485,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN335.0,Ecotoxicity: freshwater,15758752.109954398,CTUe
+bill_of_materials.csv,Heat pipe_DN335.0,"Ecotoxicity: freshwater, inorganics",3269514.847302042,CTUe
+bill_of_materials.csv,Heat pipe_DN335.0,"Ecotoxicity: freshwater, metals",12204220.879776059,CTUe
+bill_of_materials.csv,Heat pipe_DN335.0,"Ecotoxicity: freshwater, organics",285016.3828763121,CTUe
+bill_of_materials.csv,Heat pipe_DN335.0,Energy resources: non-renewable,5666029.631893491,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN335.0,Eutrophication: freshwater,152.07574135678738,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN335.0,Eutrophication: marine,457.4822438988815,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN335.0,Eutrophication: terrestrial,4330.4111983415,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN335.0,Human toxicity: carcinogenic,0.00041472851778476114,CTUh
+bill_of_materials.csv,Heat pipe_DN335.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN335.0,"Human toxicity: carcinogenic, metals",0.000133596925544433,CTUh
+bill_of_materials.csv,Heat pipe_DN335.0,"Human toxicity: carcinogenic, organics",0.00028113159224032823,CTUh
+bill_of_materials.csv,Heat pipe_DN335.0,Human toxicity: non-carcinogenic,0.011523597229242321,CTUh
+bill_of_materials.csv,Heat pipe_DN335.0,"Human toxicity: non-carcinogenic, inorganics",0.006179067178313583,CTUh
+bill_of_materials.csv,Heat pipe_DN335.0,"Human toxicity: non-carcinogenic, metals",0.005128174281006436,CTUh
+bill_of_materials.csv,Heat pipe_DN335.0,"Human toxicity: non-carcinogenic, organics",0.0002735567537087949,CTUh
+bill_of_materials.csv,Heat pipe_DN335.0,Ionising radiation: human health,17354.31691063141,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN335.0,Land use,2610788.191637332,dimensionless
+bill_of_materials.csv,Heat pipe_DN335.0,Material resources: metals/minerals,2.7545193317343353,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN335.0,Ozone depletion,0.0059972404024831345,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN335.0,Particulate matter formation,0.03024064293712894,disease incidence
+bill_of_materials.csv,Heat pipe_DN335.0,Photochemical oxidant formation: human health,1649.2587428048714,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN335.0,Water use,209043.07911174727,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN340.0,Acidification,5337.327071304356,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN340.0,Climate change,1475955.6091800223,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN340.0,Climate change: biogenic,1204.7608983500832,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN340.0,Climate change: fossil,1473316.67498798,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN340.0,Climate change: land use and land use change,1434.1732936920923,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN340.0,Ecotoxicity: freshwater,51872208.574922435,CTUe
+bill_of_materials.csv,Heat pipe_DN340.0,"Ecotoxicity: freshwater, inorganics",10810684.532110551,CTUe
+bill_of_materials.csv,Heat pipe_DN340.0,"Ecotoxicity: freshwater, metals",40115071.19086903,CTUe
+bill_of_materials.csv,Heat pipe_DN340.0,"Ecotoxicity: freshwater, organics",946452.8519428526,CTUe
+bill_of_materials.csv,Heat pipe_DN340.0,Energy resources: non-renewable,18672856.259406995,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN340.0,Eutrophication: freshwater,499.81628985665674,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN340.0,Eutrophication: marine,1509.9311703657993,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN340.0,Eutrophication: terrestrial,14282.85963061899,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN340.0,Human toxicity: carcinogenic,0.001365683530009202,CTUh
+bill_of_materials.csv,Heat pipe_DN340.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN340.0,"Human toxicity: carcinogenic, metals",0.0004387120901586015,CTUh
+bill_of_materials.csv,Heat pipe_DN340.0,"Human toxicity: carcinogenic, organics",0.0009269714398506003,CTUh
+bill_of_materials.csv,Heat pipe_DN340.0,Human toxicity: non-carcinogenic,0.037929081593118516,CTUh
+bill_of_materials.csv,Heat pipe_DN340.0,"Human toxicity: non-carcinogenic, inorganics",0.020346579197672406,CTUh
+bill_of_materials.csv,Heat pipe_DN340.0,"Human toxicity: non-carcinogenic, metals",0.016867251619651136,CTUh
+bill_of_materials.csv,Heat pipe_DN340.0,"Human toxicity: non-carcinogenic, organics",0.00090370101239508,CTUh
+bill_of_materials.csv,Heat pipe_DN340.0,Ionising radiation: human health,57282.92405365211,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN340.0,Land use,8639262.526926162,dimensionless
+bill_of_materials.csv,Heat pipe_DN340.0,Material resources: metals/minerals,9.081770592548635,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN340.0,Ozone depletion,0.019821219892694555,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN340.0,Particulate matter formation,0.09951987955243848,disease incidence
+bill_of_materials.csv,Heat pipe_DN340.0,Photochemical oxidant formation: human health,5437.910643327461,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN340.0,Water use,689910.3151612477,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN105.0,Acidification,143.93103870657106,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Climate change,40150.256384212145,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Climate change: biogenic,32.440349065459614,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Climate change: fossil,40088.16284264697,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Climate change: land use and land use change,29.65319249971961,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Ecotoxicity: freshwater,1480676.3278197509,CTUe
+bill_of_materials.csv,Heat pipe_DN105.0,"Ecotoxicity: freshwater, inorganics",228661.14773349662,CTUe
+bill_of_materials.csv,Heat pipe_DN105.0,"Ecotoxicity: freshwater, metals",1238633.1509802362,CTUe
+bill_of_materials.csv,Heat pipe_DN105.0,"Ecotoxicity: freshwater, organics",13382.029106018075,CTUe
+bill_of_materials.csv,Heat pipe_DN105.0,Energy resources: non-renewable,498215.45278283465,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN105.0,Eutrophication: freshwater,15.507603537589302,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Eutrophication: marine,36.431579135951196,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Eutrophication: terrestrial,360.66161293266833,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Human toxicity: carcinogenic,3.802650926153652e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN105.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN105.0,"Human toxicity: carcinogenic, metals",1.4215021088625736e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN105.0,"Human toxicity: carcinogenic, organics",2.381148817291076e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN105.0,Human toxicity: non-carcinogenic,0.0010855439969885325,CTUh
+bill_of_materials.csv,Heat pipe_DN105.0,"Human toxicity: non-carcinogenic, inorganics",0.0005679265550518378,CTUh
+bill_of_materials.csv,Heat pipe_DN105.0,"Human toxicity: non-carcinogenic, metals",0.0005022730730551176,CTUh
+bill_of_materials.csv,Heat pipe_DN105.0,"Human toxicity: non-carcinogenic, organics",2.0474011279833266e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN105.0,Ionising radiation: human health,1375.0438889083064,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Land use,171860.80385507864,dimensionless
+bill_of_materials.csv,Heat pipe_DN105.0,Material resources: metals/minerals,0.2347862004514889,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Ozone depletion,0.0004358784910369204,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Particulate matter formation,0.0028743513558288046,disease incidence
+bill_of_materials.csv,Heat pipe_DN105.0,Photochemical oxidant formation: human health,140.45787761674327,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Water use,16704.077431747202,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN110.0,Acidification,239.33844157722513,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN110.0,Climate change,66740.75875284035,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN110.0,Climate change: biogenic,53.94654430815679,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN110.0,Climate change: fossil,66637.08946278316,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN110.0,Climate change: land use and land use change,49.72274574902641,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN110.0,Ecotoxicity: freshwater,2458492.3305039154,CTUe
+bill_of_materials.csv,Heat pipe_DN110.0,"Ecotoxicity: freshwater, inorganics",383117.0163784777,CTUe
+bill_of_materials.csv,Heat pipe_DN110.0,"Ecotoxicity: freshwater, metals",2052565.3620149756,CTUe
+bill_of_materials.csv,Heat pipe_DN110.0,"Ecotoxicity: freshwater, organics",22809.95211046392,CTUe
+bill_of_materials.csv,Heat pipe_DN110.0,Energy resources: non-renewable,828536.030761868,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN110.0,Eutrophication: freshwater,25.69649600752338,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN110.0,Eutrophication: marine,60.7772559167647,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN110.0,Eutrophication: terrestrial,600.8543820610599,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN110.0,Human toxicity: carcinogenic,6.318627913758458e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN110.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN110.0,"Human toxicity: carcinogenic, metals",2.353147393683256e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN110.0,"Human toxicity: carcinogenic, organics",3.965480520075202e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN110.0,Human toxicity: non-carcinogenic,0.0018024267153502259,CTUh
+bill_of_materials.csv,Heat pipe_DN110.0,"Human toxicity: non-carcinogenic, inorganics",0.0009436234279894753,CTUh
+bill_of_materials.csv,Heat pipe_DN110.0,"Human toxicity: non-carcinogenic, metals",0.0008331066962673315,CTUh
+bill_of_materials.csv,Heat pipe_DN110.0,"Human toxicity: non-carcinogenic, organics",3.42222949259183e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN110.0,Ionising radiation: human health,2294.242837109319,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN110.0,Land use,288578.8085875896,dimensionless
+bill_of_materials.csv,Heat pipe_DN110.0,Material resources: metals/minerals,0.39089059018069316,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN110.0,Ozone depletion,0.0007290897556916983,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN110.0,Particulate matter formation,0.004771274155165001,disease incidence
+bill_of_materials.csv,Heat pipe_DN110.0,Photochemical oxidant formation: human health,233.82461632627056,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN110.0,Water use,27864.78421578939,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN115.0,Acidification,202.680690185579,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN115.0,Climate change,56499.44481597644,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN115.0,Climate change: biogenic,45.68599796361177,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN115.0,Climate change: fossil,56411.30611206178,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN115.0,Climate change: land use and land use change,42.452705951062754,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN115.0,Ecotoxicity: freshwater,2078859.6524605528,CTUe
+bill_of_materials.csv,Heat pipe_DN115.0,"Ecotoxicity: freshwater, inorganics",326848.42204834,CTUe
+bill_of_materials.csv,Heat pipe_DN115.0,"Ecotoxicity: freshwater, metals",1732228.9789229222,CTUe
+bill_of_materials.csv,Heat pipe_DN115.0,"Ecotoxicity: freshwater, organics",19782.25148929037,CTUe
+bill_of_materials.csv,Heat pipe_DN115.0,Energy resources: non-renewable,701711.3597827617,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN115.0,Eutrophication: freshwater,21.684733473957788,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN115.0,Eutrophication: marine,51.632596312792145,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN115.0,Eutrophication: terrestrial,509.7636144940168,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN115.0,Human toxicity: carcinogenic,5.3468490512987314e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN115.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN115.0,"Human toxicity: carcinogenic, metals",1.9838177704802142e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN115.0,"Human toxicity: carcinogenic, organics",3.363031280818518e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN115.0,Human toxicity: non-carcinogenic,0.0015240929638947517,CTUh
+bill_of_materials.csv,Heat pipe_DN115.0,"Human toxicity: non-carcinogenic, inorganics",0.0007984442135047497,CTUh
+bill_of_materials.csv,Heat pipe_DN115.0,"Human toxicity: non-carcinogenic, metals",0.0007037366739436826,CTUh
+bill_of_materials.csv,Heat pipe_DN115.0,"Human toxicity: non-carcinogenic, organics",2.9128646360662587e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN115.0,Ionising radiation: human health,1949.3146849992409,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN115.0,Land use,246718.12942340228,dimensionless
+bill_of_materials.csv,Heat pipe_DN115.0,Material resources: metals/minerals,0.3314144132191084,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN115.0,Ozone depletion,0.0006210249405734065,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN115.0,Particulate matter formation,0.004033437149528622,disease incidence
+bill_of_materials.csv,Heat pipe_DN115.0,Photochemical oxidant formation: human health,198.2324015861935,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN115.0,Water use,23670.487021545756,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN120.0,Acidification,23.18101261869366,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN120.0,Climate change,6459.884131454315,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN120.0,Climate change: biogenic,5.225432208643828,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN120.0,Climate change: fossil,6449.764261079536,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN120.0,Climate change: land use and land use change,4.894438166135461,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN120.0,Ecotoxicity: freshwater,237414.57178762904,CTUe
+bill_of_materials.csv,Heat pipe_DN120.0,"Ecotoxicity: freshwater, inorganics",37654.55043636904,CTUe
+bill_of_materials.csv,Heat pipe_DN120.0,"Ecotoxicity: freshwater, metals",197444.87620911578,CTUe
+bill_of_materials.csv,Heat pipe_DN120.0,"Ecotoxicity: freshwater, organics",2315.14514214429,CTUe
+bill_of_materials.csv,Heat pipe_DN120.0,Energy resources: non-renewable,80266.64883995776,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN120.0,Eutrophication: freshwater,2.4715187015913,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN120.0,Eutrophication: marine,5.9238671776381775,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN120.0,Eutrophication: terrestrial,58.408646456624,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN120.0,Human toxicity: carcinogenic,6.110700048031831e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN120.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN120.0,"Human toxicity: carcinogenic, metals",2.2588341075399543e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN120.0,"Human toxicity: carcinogenic, organics",3.851865940491877e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN120.0,Human toxicity: non-carcinogenic,0.00017405551320347838,CTUh
+bill_of_materials.csv,Heat pipe_DN120.0,"Human toxicity: non-carcinogenic, inorganics",9.124494540007578e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN120.0,"Human toxicity: non-carcinogenic, metals",8.028735945155261e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN120.0,"Human toxicity: non-carcinogenic, organics",3.3482297566304046e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN120.0,Ionising radiation: human health,223.67777131565234,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN120.0,Land use,28481.8363450439,dimensionless
+bill_of_materials.csv,Heat pipe_DN120.0,Material resources: metals/minerals,0.03794893511812504,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN120.0,Ozone depletion,7.143751267100747e-05,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN120.0,Particulate matter formation,0.00046051227412114825,disease incidence
+bill_of_materials.csv,Heat pipe_DN120.0,Photochemical oxidant formation: human health,22.69744367775112,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN120.0,Water use,2715.5386902156606,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN135.0,Acidification,29.19139943866786,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN135.0,Climate change,8127.668099674075,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN135.0,Climate change: biogenic,6.581112551352433,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN135.0,Climate change: fossil,8114.779701826049,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN135.0,Climate change: land use and land use change,6.307285296674556,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN135.0,Ecotoxicity: freshwater,297681.3516977326,CTUe
+bill_of_materials.csv,Heat pipe_DN135.0,"Ecotoxicity: freshwater, inorganics",48420.39614102396,CTUe
+bill_of_materials.csv,Heat pipe_DN135.0,"Ecotoxicity: freshwater, metals",246151.78381077698,CTUe
+bill_of_materials.csv,Heat pipe_DN135.0,"Ecotoxicity: freshwater, organics",3109.1717459317665,CTUe
+bill_of_materials.csv,Heat pipe_DN135.0,Energy resources: non-renewable,101128.01988473296,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN135.0,Eutrophication: freshwater,3.0804641188384214,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN135.0,Eutrophication: marine,7.528123054767631,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN135.0,Eutrophication: terrestrial,73.94320360461722,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN135.0,Human toxicity: carcinogenic,7.677609606510026e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN135.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN135.0,"Human toxicity: carcinogenic, metals",2.8071026386431625e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN135.0,"Human toxicity: carcinogenic, organics",4.870506967866861e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN135.0,Human toxicity: non-carcinogenic,0.0002182217883706946,CTUh
+bill_of_materials.csv,Heat pipe_DN135.0,"Human toxicity: non-carcinogenic, inorganics",0.00011461990946208041,CTUh
+bill_of_materials.csv,Heat pipe_DN135.0,"Human toxicity: non-carcinogenic, metals",0.0001003615424705118,CTUh
+bill_of_materials.csv,Heat pipe_DN135.0,"Human toxicity: non-carcinogenic, organics",4.278100737721199e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN135.0,Ionising radiation: human health,284.36805366834705,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN135.0,Land use,36840.13154216833,dimensionless
+bill_of_materials.csv,Heat pipe_DN135.0,Material resources: metals/minerals,0.047951337013774784,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN135.0,Ozone depletion,9.148427990766093e-05,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN135.0,Particulate matter formation,0.0005769437472344469,disease incidence
+bill_of_materials.csv,Heat pipe_DN135.0,Photochemical oxidant formation: human health,28.676664438281286,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN135.0,Water use,3450.1250873870886,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN140.0,Acidification,416.424392445992,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN140.0,Climate change,115912.58395904195,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN140.0,Climate change: biogenic,93.88538214245317,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN140.0,Climate change: fossil,115728.05618423762,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN140.0,Climate change: land use and land use change,90.64239266187832,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN140.0,Ecotoxicity: freshwater,4240515.094377483,CTUe
+bill_of_materials.csv,Heat pipe_DN140.0,"Ecotoxicity: freshwater, inorganics",695382.006334761,CTUe
+bill_of_materials.csv,Heat pipe_DN140.0,"Ecotoxicity: freshwater, metals",3499881.438832519,CTUe
+bill_of_materials.csv,Heat pipe_DN140.0,"Ecotoxicity: freshwater, organics",45251.64921020072,CTUe
+bill_of_materials.csv,Heat pipe_DN140.0,Energy resources: non-renewable,1442897.5322579276,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN140.0,Eutrophication: freshwater,43.79536894622911,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN140.0,Eutrophication: marine,107.70786771654946,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN140.0,Eutrophication: terrestrial,1056.6334434044081,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN140.0,Human toxicity: carcinogenic,0.00010944040594980336,CTUh
+bill_of_materials.csv,Heat pipe_DN140.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN140.0,"Human toxicity: carcinogenic, metals",3.9869963064177154e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN140.0,"Human toxicity: carcinogenic, organics",6.95704428856262e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN140.0,Human toxicity: non-carcinogenic,0.003108489701566198,CTUh
+bill_of_materials.csv,Heat pipe_DN140.0,"Human toxicity: non-carcinogenic, inorganics",0.0016337462123911174,CTUh
+bill_of_materials.csv,Heat pipe_DN140.0,"Human toxicity: non-carcinogenic, metals",0.0014282273672712388,CTUh
+bill_of_materials.csv,Heat pipe_DN140.0,"Human toxicity: non-carcinogenic, organics",6.131523960361991e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN140.0,Ionising radiation: human health,4069.1105261286116,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN140.0,Land use,530051.85915197,dimensionless
+bill_of_materials.csv,Heat pipe_DN140.0,Material resources: metals/minerals,0.684794570831716,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN140.0,Ozone depletion,0.0013121816719713012,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN140.0,Particulate matter formation,0.00821642039362807,disease incidence
+bill_of_materials.csv,Heat pipe_DN140.0,Photochemical oxidant formation: human health,409.52397455688146,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN140.0,Water use,49358.312016186384,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN145.0,Acidification,27.37778503192687,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN145.0,Climate change,7618.694968215816,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN145.0,Climate change: biogenic,6.172728710334914,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN145.0,Climate change: fossil,7606.519648627469,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN145.0,Climate change: land use and land use change,6.002590878011181,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN145.0,Ecotoxicity: freshwater,278402.0389728025,CTUe
+bill_of_materials.csv,Heat pipe_DN145.0,"Ecotoxicity: freshwater, inorganics",46019.77512170833,CTUe
+bill_of_materials.csv,Heat pipe_DN145.0,"Ecotoxicity: freshwater, metals",229348.86794353183,CTUe
+bill_of_materials.csv,Heat pipe_DN145.0,"Ecotoxicity: freshwater, organics",3033.395907562499,CTUe
+bill_of_materials.csv,Heat pipe_DN145.0,Energy resources: non-renewable,94882.21758815774,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN145.0,Eutrophication: freshwater,2.8696689994895945,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN145.0,Eutrophication: marine,7.10182086941847,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN145.0,Eutrophication: terrestrial,69.58586289871914,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN145.0,Human toxicity: carcinogenic,7.1896993439695484e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN145.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN145.0,"Human toxicity: carcinogenic, metals",2.609912428252787e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN145.0,"Human toxicity: carcinogenic, organics",4.579786915716761e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN145.0,Human toxicity: non-carcinogenic,0.0002040731294600588,CTUh
+bill_of_materials.csv,Heat pipe_DN145.0,"Human toxicity: non-carcinogenic, inorganics",0.00010732252029694228,CTUh
+bill_of_materials.csv,Heat pipe_DN145.0,"Human toxicity: non-carcinogenic, metals",9.367346865742013e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN145.0,"Human toxicity: non-carcinogenic, organics",4.049802029506915e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN145.0,Ionising radiation: human health,268.3361596797231,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN145.0,Land use,35141.49516997526,dimensionless
+bill_of_materials.csv,Heat pipe_DN145.0,Material resources: metals/minerals,0.04507065603742203,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN145.0,Ozone depletion,8.673390913885355e-05,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN145.0,Particulate matter formation,0.0005392853667772373,disease incidence
+bill_of_materials.csv,Heat pipe_DN145.0,Photochemical oxidant formation: human health,26.952998077885674,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN145.0,Water use,3254.2206848949545,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN15.0,Acidification,51.712727682050506,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Climate change,14783.304373623425,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Climate change: biogenic,11.635316586895375,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Climate change: fossil,14762.8274466267,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Climate change: land use and land use change,8.841610409829272,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Ecotoxicity: freshwater,545812.5551091202,CTUe
+bill_of_materials.csv,Heat pipe_DN15.0,"Ecotoxicity: freshwater, inorganics",69418.61570053366,CTUe
+bill_of_materials.csv,Heat pipe_DN15.0,"Ecotoxicity: freshwater, metals",474065.5755081182,CTUe
+bill_of_materials.csv,Heat pipe_DN15.0,"Ecotoxicity: freshwater, organics",2328.3639004681177,CTUe
+bill_of_materials.csv,Heat pipe_DN15.0,Energy resources: non-renewable,184324.50003795442,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN15.0,Eutrophication: freshwater,5.893379358862406,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Eutrophication: marine,12.231462379788294,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Eutrophication: terrestrial,124.7048800494365,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Human toxicity: carcinogenic,1.3608320636368926e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN15.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN15.0,"Human toxicity: carcinogenic, metals",5.476688723697882e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN15.0,"Human toxicity: carcinogenic, organics",8.131631912671045e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN15.0,Human toxicity: non-carcinogenic,0.00039595008002177437,CTUh
+bill_of_materials.csv,Heat pipe_DN15.0,"Human toxicity: non-carcinogenic, inorganics",0.00020362124727470537,CTUh
+bill_of_materials.csv,Heat pipe_DN15.0,"Human toxicity: non-carcinogenic, metals",0.00018761614356961568,CTUh
+bill_of_materials.csv,Heat pipe_DN15.0,"Human toxicity: non-carcinogenic, organics",6.639403616919054e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN15.0,Ionising radiation: human health,461.77528466866283,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Land use,49590.62065759941,dimensionless
+bill_of_materials.csv,Heat pipe_DN15.0,Material resources: metals/minerals,0.08202336716382148,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Ozone depletion,0.0001454879440236177,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Particulate matter formation,0.001058672239252303,disease incidence
+bill_of_materials.csv,Heat pipe_DN15.0,Photochemical oxidant formation: human health,50.01837895229717,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Water use,5582.961958651655,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN150.0,Acidification,193.76750663059113,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN150.0,Climate change,53908.24237025151,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN150.0,Climate change: biogenic,43.68944863089088,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN150.0,Climate change: fossil,53821.766489333415,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN150.0,Climate change: land use and land use change,42.78643228719679,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN150.0,Ecotoxicity: freshwater,1967671.496351153,CTUe
+bill_of_materials.csv,Heat pipe_DN150.0,"Ecotoxicity: freshwater, inorganics",327817.8916130418,CTUe
+bill_of_materials.csv,Heat pipe_DN150.0,"Ecotoxicity: freshwater, metals",1617976.8547873562,CTUe
+bill_of_materials.csv,Heat pipe_DN150.0,"Ecotoxicity: freshwater, organics",21876.749950755402,CTUe
+bill_of_materials.csv,Heat pipe_DN150.0,Energy resources: non-renewable,671673.9240124649,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN150.0,Eutrophication: freshwater,20.24261800110056,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN150.0,Eutrophication: marine,50.40731722140621,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN150.0,Eutrophication: terrestrial,493.31923731550694,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN150.0,Human toxicity: carcinogenic,5.084696447283079e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN150.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN150.0,"Human toxicity: carcinogenic, metals",1.8392398006860663e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN150.0,"Human toxicity: carcinogenic, organics",3.245456646597013e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN150.0,Human toxicity: non-carcinogenic,0.0014422716384771004,CTUh
+bill_of_materials.csv,Heat pipe_DN150.0,"Human toxicity: non-carcinogenic, inorganics",0.0007589597718549145,CTUh
+bill_of_materials.csv,Heat pipe_DN150.0,"Human toxicity: non-carcinogenic, metals",0.0006614008459965593,CTUh
+bill_of_materials.csv,Heat pipe_DN150.0,"Human toxicity: non-carcinogenic, organics",2.879303093670414e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN150.0,Ionising radiation: human health,1904.8462548161824,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN150.0,Land use,250766.0728097679,dimensionless
+bill_of_materials.csv,Heat pipe_DN150.0,Material resources: metals/minerals,0.3193310959675927,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN150.0,Ozone depletion,0.0006171219114563665,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN150.0,Particulate matter formation,0.003810492405020951,disease incidence
+bill_of_materials.csv,Heat pipe_DN150.0,Photochemical oxidant formation: human health,190.96391470189477,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN150.0,Water use,23095.90935887139,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN160.0,Acidification,252.0461159245682,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN160.0,Climate change,70088.88097432457,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN160.0,Climate change: biogenic,56.8339915975426,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN160.0,Climate change: fossil,69975.61829495351,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN160.0,Climate change: land use and land use change,56.42868777352354,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN160.0,Ecotoxicity: freshwater,2552491.394894505,CTUe
+bill_of_materials.csv,Heat pipe_DN160.0,"Ecotoxicity: freshwater, inorganics",431806.0154779199,CTUe
+bill_of_materials.csv,Heat pipe_DN160.0,"Ecotoxicity: freshwater, metals",2091187.4110908518,CTUe
+bill_of_materials.csv,Heat pipe_DN160.0,"Ecotoxicity: freshwater, organics",29497.96832573194,CTUe
+bill_of_materials.csv,Heat pipe_DN160.0,Energy resources: non-renewable,874075.6559430831,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN160.0,Eutrophication: freshwater,26.15788830243991,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN160.0,Eutrophication: marine,65.93561005248552,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN160.0,Eutrophication: terrestrial,643.7931047577163,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN160.0,Human toxicity: carcinogenic,6.60405607443864e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN160.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN160.0,"Human toxicity: carcinogenic, metals",2.372099557419091e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN160.0,"Human toxicity: carcinogenic, organics",4.23195651701955e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN160.0,Human toxicity: non-carcinogenic,0.0018707551800305098,CTUh
+bill_of_materials.csv,Heat pipe_DN160.0,"Human toxicity: non-carcinogenic, inorganics",0.0009856272172711277,CTUh
+bill_of_materials.csv,Heat pipe_DN160.0,"Human toxicity: non-carcinogenic, metals",0.0008562886252942803,CTUh
+bill_of_materials.csv,Heat pipe_DN160.0,"Human toxicity: non-carcinogenic, organics",3.778629325704343e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN160.0,Ionising radiation: human health,2492.288261702877,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN160.0,Land use,331426.5271321049,dimensionless
+bill_of_materials.csv,Heat pipe_DN160.0,Material resources: metals/minerals,0.4162460709395757,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN160.0,Ozone depletion,0.0008110904979045213,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN160.0,Particulate matter formation,0.004940353116153829,disease incidence
+bill_of_materials.csv,Heat pipe_DN160.0,Photochemical oxidant formation: human health,248.92070207774506,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN160.0,Water use,30205.745991546682,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN165.0,Acidification,300.3658368360235,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN165.0,Climate change,83506.84108882438,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN165.0,Climate change: biogenic,67.7320965797854,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN165.0,Climate change: fossil,83371.4097242984,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN165.0,Climate change: land use and land use change,67.6992679462044,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN165.0,Ecotoxicity: freshwater,3037734.5920882416,CTUe
+bill_of_materials.csv,Heat pipe_DN165.0,"Ecotoxicity: freshwater, inorganics",517742.1950585683,CTUe
+bill_of_materials.csv,Heat pipe_DN165.0,"Ecotoxicity: freshwater, metals",2484230.0721906624,CTUe
+bill_of_materials.csv,Heat pipe_DN165.0,"Ecotoxicity: freshwater, organics",35762.32483901295,CTUe
+bill_of_materials.csv,Heat pipe_DN165.0,Energy resources: non-renewable,1041883.4517719361,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN165.0,Eutrophication: freshwater,31.07119477528315,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN165.0,Eutrophication: marine,78.79116334417107,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN165.0,Eutrophication: terrestrial,768.4436979790262,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN165.0,Human toxicity: carcinogenic,7.864238922053217e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN165.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN165.0,"Human toxicity: carcinogenic, metals",2.8149410553303543e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN165.0,"Human toxicity: carcinogenic, organics",5.049297866722863e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN165.0,Human toxicity: non-carcinogenic,0.0022262807856299697,CTUh
+bill_of_materials.csv,Heat pipe_DN165.0,"Human toxicity: non-carcinogenic, inorganics",0.0011736354766996532,CTUh
+bill_of_materials.csv,Heat pipe_DN165.0,"Human toxicity: non-carcinogenic, metals",0.0010180792888340902,CTUh
+bill_of_materials.csv,Heat pipe_DN165.0,"Human toxicity: non-carcinogenic, organics",4.5225468305212014e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN165.0,Ionising radiation: human health,2978.590211185922,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN165.0,Land use,398029.84568752453,dimensionless
+bill_of_materials.csv,Heat pipe_DN165.0,Material resources: metals/minerals,0.496553656140417,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN165.0,Ozone depletion,0.000971494309550576,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN165.0,Particulate matter formation,0.005877959568471537,disease incidence
+bill_of_materials.csv,Heat pipe_DN165.0,Photochemical oxidant formation: human health,296.94801805533655,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN165.0,Water use,36092.0080319469,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN175.0,Acidification,239.02571016254382,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN175.0,Climate change,66424.71605152977,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN175.0,Climate change: biogenic,53.90381040922372,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN175.0,Climate change: fossil,66316.2307804555,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN175.0,Climate change: land use and land use change,54.5814606650468,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN175.0,Ecotoxicity: freshwater,2410966.059430297,CTUe
+bill_of_materials.csv,Heat pipe_DN175.0,"Ecotoxicity: freshwater, inorganics",416941.25142735534,CTUe
+bill_of_materials.csv,Heat pipe_DN175.0,"Ecotoxicity: freshwater, metals",1964613.403966442,CTUe
+bill_of_materials.csv,Heat pipe_DN175.0,"Ecotoxicity: freshwater, organics",29411.404036501826,CTUe
+bill_of_materials.csv,Heat pipe_DN175.0,Energy resources: non-renewable,829503.685545316,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN175.0,Eutrophication: freshwater,24.567107602334687,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN175.0,Eutrophication: marine,63.03677156682457,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN175.0,Eutrophication: terrestrial,613.4351927226909,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN175.0,Human toxicity: carcinogenic,6.248943894078497e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN175.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN175.0,"Human toxicity: carcinogenic, metals",2.2214243644784582e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN175.0,"Human toxicity: carcinogenic, organics",4.027519529600039e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN175.0,Human toxicity: non-carcinogenic,0.0017667430312479952,CTUh
+bill_of_materials.csv,Heat pipe_DN175.0,"Human toxicity: non-carcinogenic, inorganics",0.0009324665741056114,CTUh
+bill_of_materials.csv,Heat pipe_DN175.0,"Human toxicity: non-carcinogenic, metals",0.0008064600984016081,CTUh
+bill_of_materials.csv,Heat pipe_DN175.0,"Human toxicity: non-carcinogenic, organics",3.629490297713634e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN175.0,Ionising radiation: human health,2383.610294835567,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN175.0,Land use,321537.6443889915,dimensionless
+bill_of_materials.csv,Heat pipe_DN175.0,Material resources: metals/minerals,0.39594346831380317,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN175.0,Ozone depletion,0.0007807976833928272,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN175.0,Particulate matter formation,0.0046626756603706,disease incidence
+bill_of_materials.csv,Heat pipe_DN175.0,Photochemical oxidant formation: human health,236.7876973008208,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN175.0,Water use,28870.592012035544,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN190.0,Acidification,700.5621099069214,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN190.0,Climate change,194567.91482771072,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN190.0,Climate change: biogenic,158.00322169972856,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN190.0,Climate change: fossil,194246.91816478423,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN190.0,Climate change: land use and land use change,162.99344122671155,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN190.0,Ecotoxicity: freshwater,7038919.36786517,CTUe
+bill_of_materials.csv,Heat pipe_DN190.0,"Ecotoxicity: freshwater, inorganics",1243062.5885666383,CTUe
+bill_of_materials.csv,Heat pipe_DN190.0,"Ecotoxicity: freshwater, metals",5705590.319769145,CTUe
+bill_of_materials.csv,Heat pipe_DN190.0,"Ecotoxicity: freshwater, organics",90266.45952938865,CTUe
+bill_of_materials.csv,Heat pipe_DN190.0,Energy resources: non-renewable,2432980.537988145,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN190.0,Eutrophication: freshwater,71.32466328337702,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN190.0,Eutrophication: marine,186.18990309893033,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN190.0,Eutrophication: terrestrial,1806.1240579655328,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN190.0,Human toxicity: carcinogenic,0.00018274971644828333,CTUh
+bill_of_materials.csv,Heat pipe_DN190.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN190.0,"Human toxicity: carcinogenic, metals",6.430973731698019e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN190.0,"Human toxicity: carcinogenic, organics",0.0001184399791313031,CTUh
+bill_of_materials.csv,Heat pipe_DN190.0,Human toxicity: non-carcinogenic,0.005157167490452446,CTUh
+bill_of_materials.csv,Heat pipe_DN190.0,"Human toxicity: non-carcinogenic, inorganics",0.0027265328305190284,CTUh
+bill_of_materials.csv,Heat pipe_DN190.0,"Human toxicity: non-carcinogenic, metals",0.002347787274307981,CTUh
+bill_of_materials.csv,Heat pipe_DN190.0,"Human toxicity: non-carcinogenic, organics",0.00010768119797116481,CTUh
+bill_of_materials.csv,Heat pipe_DN190.0,Ionising radiation: human health,7042.948229597105,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN190.0,Land use,962855.4997100218,dimensionless
+bill_of_materials.csv,Heat pipe_DN190.0,Material resources: metals/minerals,1.163861693810629,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN190.0,Ozone depletion,0.00232146205733619,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN190.0,Particulate matter formation,0.013602063773306142,disease incidence
+bill_of_materials.csv,Heat pipe_DN190.0,Photochemical oxidant formation: human health,696.073067415256,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN190.0,Water use,85253.30908975302,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN195.0,Acidification,311.14544872854043,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN195.0,Climate change,86398.39681469742,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN195.0,Climate change: biogenic,70.17737355987771,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN195.0,Climate change: fossil,86255.39127737113,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN195.0,Climate change: land use and land use change,72.82816376640123,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN195.0,Ecotoxicity: freshwater,3122276.8505561887,CTUe
+bill_of_materials.csv,Heat pipe_DN195.0,"Ecotoxicity: freshwater, inorganics",555133.3366354489,CTUe
+bill_of_materials.csv,Heat pipe_DN195.0,"Ecotoxicity: freshwater, metals",2526465.1606230764,CTUe
+bill_of_materials.csv,Heat pipe_DN195.0,"Ecotoxicity: freshwater, organics",40678.35329766721,CTUe
+bill_of_materials.csv,Heat pipe_DN195.0,Energy resources: non-renewable,1080845.160875095,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN195.0,Eutrophication: freshwater,31.579534646239377,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN195.0,Eutrophication: marine,82.90132175452092,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN195.0,Eutrophication: terrestrial,803.3525356112259,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN195.0,Human toxicity: carcinogenic,8.110738026025716e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN195.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN195.0,"Human toxicity: carcinogenic, metals",2.844671190126731e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN195.0,"Human toxicity: carcinogenic, organics",5.2660668358989844e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN195.0,Human toxicity: non-carcinogenic,0.0022874408454221446,CTUh
+bill_of_materials.csv,Heat pipe_DN195.0,"Human toxicity: non-carcinogenic, inorganics",0.0012100149604732122,CTUh
+bill_of_materials.csv,Heat pipe_DN195.0,"Human toxicity: non-carcinogenic, metals",0.0010404393995348533,CTUh
+bill_of_materials.csv,Heat pipe_DN195.0,"Human toxicity: non-carcinogenic, organics",4.801390958008856e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN195.0,Ionising radiation: human health,3136.251256729637,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN195.0,Land use,430598.40412289946,dimensionless
+bill_of_materials.csv,Heat pipe_DN195.0,Material resources: metals/minerals,0.5174033324506788,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN195.0,Ozone depletion,0.0010358365861873782,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN195.0,Particulate matter formation,0.006031929356007881,disease incidence
+bill_of_materials.csv,Heat pipe_DN195.0,Photochemical oxidant formation: human health,309.4524824783874,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN195.0,Water use,37956.08858553146,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN20.0,Acidification,48.5142568228504,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN20.0,Climate change,13793.798177510964,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN20.0,Climate change: biogenic,10.918786660259853,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN20.0,Climate change: fossil,13774.482757257396,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN20.0,Climate change: land use and land use change,8.3966335933072,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN20.0,Ecotoxicity: freshwater,511777.38591896323,CTUe
+bill_of_materials.csv,Heat pipe_DN20.0,"Ecotoxicity: freshwater, inorganics",65861.41619937043,CTUe
+bill_of_materials.csv,Heat pipe_DN20.0,"Ecotoxicity: freshwater, metals",443584.4526937508,CTUe
+bill_of_materials.csv,Heat pipe_DN20.0,"Ecotoxicity: freshwater, organics",2331.5170258420303,CTUe
+bill_of_materials.csv,Heat pipe_DN20.0,Energy resources: non-renewable,171402.2932134184,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN20.0,Eutrophication: freshwater,5.5272222346159285,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN20.0,Eutrophication: marine,11.522564314153096,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN20.0,Eutrophication: terrestrial,117.25717577124604,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN20.0,Human toxicity: carcinogenic,1.2826067394930666e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN20.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN20.0,"Human toxicity: carcinogenic, metals",5.13814196556474e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN20.0,"Human toxicity: carcinogenic, organics",7.687925429365925e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN20.0,Human toxicity: non-carcinogenic,0.00037240291497863743,CTUh
+bill_of_materials.csv,Heat pipe_DN20.0,"Human toxicity: non-carcinogenic, inorganics",0.0001918722424228736,CTUh
+bill_of_materials.csv,Heat pipe_DN20.0,"Human toxicity: non-carcinogenic, metals",0.0001760629252656598,CTUh
+bill_of_materials.csv,Heat pipe_DN20.0,"Human toxicity: non-carcinogenic, organics",6.2564176819468626e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN20.0,Ionising radiation: human health,434.67797099064103,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN20.0,Land use,47183.820669316934,dimensionless
+bill_of_materials.csv,Heat pipe_DN20.0,Material resources: metals/minerals,0.07713852882138676,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN20.0,Ozone depletion,0.0001354512835161191,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN20.0,Particulate matter formation,0.0009940934551860778,disease incidence
+bill_of_materials.csv,Heat pipe_DN20.0,Photochemical oxidant formation: human health,46.7975648101291,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN20.0,Water use,5268.219207446964,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN25.0,Acidification,77.44036422298413,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN25.0,Climate change,21937.300393756756,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN25.0,Climate change: biogenic,17.43257063498744,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN25.0,Climate change: fossil,21906.301546390823,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN25.0,Climate change: land use and land use change,13.566276730941969,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN25.0,Ecotoxicity: freshwater,816117.1290942014,CTUe
+bill_of_materials.csv,Heat pipe_DN25.0,"Ecotoxicity: freshwater, inorganics",106295.79306986583,CTUe
+bill_of_materials.csv,Heat pipe_DN25.0,"Ecotoxicity: freshwater, metals",705869.4669764767,CTUe
+bill_of_materials.csv,Heat pipe_DN25.0,"Ecotoxicity: freshwater, organics",3951.869047858755,CTUe
+bill_of_materials.csv,Heat pipe_DN25.0,Energy resources: non-renewable,272038.54394711583,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN25.0,Eutrophication: freshwater,8.808333749765003,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN25.0,Eutrophication: marine,18.469512076527582,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN25.0,Eutrophication: terrestrial,187.60199851095936,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN25.0,Human toxicity: carcinogenic,2.052822430027557e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN25.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN25.0,"Human toxicity: carcinogenic, metals",8.186968662325203e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN25.0,"Human toxicity: carcinogenic, organics",1.2341255637950366e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN25.0,Human toxicity: non-carcinogenic,0.0005950387948907471,CTUh
+bill_of_materials.csv,Heat pipe_DN25.0,"Human toxicity: non-carcinogenic, inorganics",0.0003070387842953141,CTUh
+bill_of_materials.csv,Heat pipe_DN25.0,"Human toxicity: non-carcinogenic, metals",0.000280794959506955,CTUh
+bill_of_materials.csv,Heat pipe_DN25.0,"Human toxicity: non-carcinogenic, organics",1.0040125399127164e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN25.0,Ionising radiation: human health,696.4464647118089,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN25.0,Land use,76391.29149180031,dimensionless
+bill_of_materials.csv,Heat pipe_DN25.0,Material resources: metals/minerals,0.1233922721418387,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN25.0,Ozone depletion,0.00021574304209065595,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN25.0,Particulate matter formation,0.0015865608093800676,disease incidence
+bill_of_materials.csv,Heat pipe_DN25.0,Photochemical oxidant formation: human health,74.60567396791491,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN25.0,Water use,8453.26501912985,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN255.0,Acidification,454.7789659493148,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN255.0,Climate change,126033.62434112382,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN255.0,Climate change: biogenic,102.61039207744207,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN255.0,Climate change: fossil,125817.44563754802,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN255.0,Climate change: land use and land use change,113.56831149834612,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN255.0,Ecotoxicity: freshwater,4498773.1219495535,CTUe
+bill_of_materials.csv,Heat pipe_DN255.0,"Ecotoxicity: freshwater, inorganics",861008.4655099497,CTUe
+bill_of_materials.csv,Heat pipe_DN255.0,"Ecotoxicity: freshwater, metals",3568729.5487836837,CTUe
+bill_of_materials.csv,Heat pipe_DN255.0,"Ecotoxicity: freshwater, organics",69035.10765592122,CTUe
+bill_of_materials.csv,Heat pipe_DN255.0,Energy resources: non-renewable,1584585.41057933,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN255.0,Eutrophication: freshwater,44.54822240405784,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN255.0,Eutrophication: marine,124.5543625126755,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN255.0,Eutrophication: terrestrial,1193.5455294296776,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN255.0,Human toxicity: carcinogenic,0.00011757621716434193,CTUh
+bill_of_materials.csv,Heat pipe_DN255.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN255.0,"Human toxicity: carcinogenic, metals",3.9686699040013557e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN255.0,"Human toxicity: carcinogenic, organics",7.788951812432837e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN255.0,Human toxicity: non-carcinogenic,0.003293282190348519,CTUh
+bill_of_materials.csv,Heat pipe_DN255.0,"Human toxicity: non-carcinogenic, inorganics",0.0017530133484844636,CTUh
+bill_of_materials.csv,Heat pipe_DN255.0,"Human toxicity: non-carcinogenic, metals",0.0014830965104473443,CTUh
+bill_of_materials.csv,Heat pipe_DN255.0,"Human toxicity: non-carcinogenic, organics",7.325940763070664e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN255.0,Ionising radiation: human health,4718.134061837537,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN255.0,Land use,677619.3434824733,dimensionless
+bill_of_materials.csv,Heat pipe_DN255.0,Material resources: metals/minerals,0.7642118766545386,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN255.0,Ozone depletion,0.001592650467648157,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN255.0,Particulate matter formation,0.008664873754484615,disease incidence
+bill_of_materials.csv,Heat pipe_DN255.0,Photochemical oxidant formation: human health,457.2589951527394,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN255.0,Water use,56974.427699518164,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN30.0,Acidification,100.79630835534473,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN30.0,Climate change,28477.156653716786,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN30.0,Climate change: biogenic,22.69382104051594,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN30.0,Climate change: fossil,28436.59338780421,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN30.0,Climate change: land use and land use change,17.869444872061376,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN30.0,Ecotoxicity: freshwater,1060958.8024026838,CTUe
+bill_of_materials.csv,Heat pipe_DN30.0,"Ecotoxicity: freshwater, inorganics",139854.2945742435,CTUe
+bill_of_materials.csv,Heat pipe_DN30.0,"Ecotoxicity: freshwater, metals",915666.3804762653,CTUe
+bill_of_materials.csv,Heat pipe_DN30.0,"Ecotoxicity: freshwater, organics",5438.127352174464,CTUe
+bill_of_materials.csv,Heat pipe_DN30.0,Energy resources: non-renewable,352694.34420629014,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN30.0,Eutrophication: freshwater,11.43771092704115,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN30.0,Eutrophication: marine,24.13968455807575,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN30.0,Eutrophication: terrestrial,244.74640203038172,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN30.0,Human toxicity: carcinogenic,2.6761335702381305e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN30.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN30.0,"Human toxicity: carcinogenic, metals",1.0626217163007022e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN30.0,"Human toxicity: carcinogenic, organics",1.613511853937429e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN30.0,Human toxicity: non-carcinogenic,0.0007746131356074905,CTUh
+bill_of_materials.csv,Heat pipe_DN30.0,"Human toxicity: non-carcinogenic, inorganics",0.00040020822521405106,CTUh
+bill_of_materials.csv,Heat pipe_DN30.0,"Human toxicity: non-carcinogenic, metals",0.0003649324087959257,CTUh
+bill_of_materials.csv,Heat pipe_DN30.0,"Human toxicity: non-carcinogenic, organics",1.3143940759000722e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN30.0,Ionising radiation: human health,910.0403309097909,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN30.0,Land use,100835.63229871422,dimensionless
+bill_of_materials.csv,Heat pipe_DN30.0,Material resources: metals/minerals,0.16091561872464868,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN30.0,Ozone depletion,0.0002810620169878215,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN30.0,Particulate matter formation,0.0020635218248529303,disease incidence
+bill_of_materials.csv,Heat pipe_DN30.0,Photochemical oxidant formation: human health,97.06297046179633,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN30.0,Water use,11056.062105274386,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN320.0,Acidification,38.648417839770524,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN320.0,Climate change,10692.526734360132,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN320.0,Climate change: biogenic,8.723046429892372,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN320.0,Climate change: fossil,10673.579867869985,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN320.0,Climate change: land use and land use change,10.223820060254864,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN320.0,Ecotoxicity: freshwater,377089.6392168118,CTUe
+bill_of_materials.csv,Heat pipe_DN320.0,"Ecotoxicity: freshwater, inorganics",77158.66420307312,CTUe
+bill_of_materials.csv,Heat pipe_DN320.0,"Ecotoxicity: freshwater, metals",293294.3720951595,CTUe
+bill_of_materials.csv,Heat pipe_DN320.0,"Ecotoxicity: freshwater, organics",6636.602918579289,CTUe
+bill_of_materials.csv,Heat pipe_DN320.0,Energy resources: non-renewable,135088.3324220325,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN320.0,Eutrophication: freshwater,3.6559101802931333,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN320.0,Eutrophication: marine,10.85701791769943,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN320.0,Eutrophication: terrestrial,102.9862638885906,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN320.0,Human toxicity: carcinogenic,9.911901487013462e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN320.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN320.0,"Human toxicity: carcinogenic, metals",3.219902607700777e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN320.0,"Human toxicity: carcinogenic, organics",6.6919988793126825e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN320.0,Human toxicity: non-carcinogenic,0.0002758020170526723,CTUh
+bill_of_materials.csv,Heat pipe_DN320.0,"Human toxicity: non-carcinogenic, inorganics",0.0001476964410630791,CTUh
+bill_of_materials.csv,Heat pipe_DN320.0,"Human toxicity: non-carcinogenic, metals",0.00012299678332650945,CTUh
+bill_of_materials.csv,Heat pipe_DN320.0,"Human toxicity: non-carcinogenic, organics",6.4739023467736755e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN320.0,Ionising radiation: human health,411.7531194797587,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN320.0,Land use,61465.40255802496,dimensionless
+bill_of_materials.csv,Heat pipe_DN320.0,Material resources: metals/minerals,0.06558300309296478,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN320.0,Ozone depletion,0.00014172554834035797,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN320.0,Particulate matter formation,0.0007241025906983374,disease incidence
+bill_of_materials.csv,Heat pipe_DN320.0,Photochemical oxidant formation: human health,39.26253967326879,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN320.0,Water use,4961.946638174909,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN35.0,Acidification,133.69660427047057,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN35.0,Climate change,37694.72929947205,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN35.0,Climate change: biogenic,30.105075648998785,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN35.0,Climate change: fossil,37640.643697384134,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN35.0,Climate change: land use and land use change,23.980526438919988,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN35.0,Ecotoxicity: freshwater,1405341.139378429,CTUe
+bill_of_materials.csv,Heat pipe_DN35.0,"Ecotoxicity: freshwater, inorganics",187468.2315581967,CTUe
+bill_of_materials.csv,Heat pipe_DN35.0,"Ecotoxicity: freshwater, metals",1210275.6501841822,CTUe
+bill_of_materials.csv,Heat pipe_DN35.0,"Ecotoxicity: freshwater, organics",7597.25763605133,CTUe
+bill_of_materials.csv,Heat pipe_DN35.0,Energy resources: non-renewable,466497.5019641479,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN35.0,Eutrophication: freshwater,15.128330094331696,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN35.0,Eutrophication: marine,32.15052495349651,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN35.0,Eutrophication: terrestrial,325.3781204201998,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN35.0,Human toxicity: carcinogenic,3.552772443782042e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN35.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN35.0,"Human toxicity: carcinogenic, metals",1.4046480286502193e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN35.0,"Human toxicity: carcinogenic, organics",2.1481244151318232e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN35.0,Human toxicity: non-carcinogenic,0.0010270612328214133,CTUh
+bill_of_materials.csv,Heat pipe_DN35.0,"Human toxicity: non-carcinogenic, inorganics",0.0005312393595018462,CTUh
+bill_of_materials.csv,Heat pipe_DN35.0,"Human toxicity: non-carcinogenic, metals",0.0004831339250174239,CTUh
+bill_of_materials.csv,Heat pipe_DN35.0,"Human toxicity: non-carcinogenic, organics",1.7539104701621602e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN35.0,Ionising radiation: human health,1211.8939440445135,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN35.0,Land use,135606.92575316064,dimensionless
+bill_of_materials.csv,Heat pipe_DN35.0,Material resources: metals/minerals,0.21382083272309313,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN35.0,Ozone depletion,0.0003738293068821425,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN35.0,Particulate matter formation,0.0027340418005516462,disease incidence
+bill_of_materials.csv,Heat pipe_DN35.0,Photochemical oxidant formation: human health,128.75099887109027,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN35.0,Water use,14731.989020438294,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN40.0,Acidification,138.86137554449178,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN40.0,Climate change,39086.93456589314,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN40.0,Climate change: biogenic,31.271498346571494,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN40.0,Climate change: fossil,39030.46986010918,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN40.0,Climate change: land use and land use change,25.193207437401785,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN40.0,Ecotoxicity: freshwater,1457514.4111150566,CTUe
+bill_of_materials.csv,Heat pipe_DN40.0,"Ecotoxicity: freshwater, inorganics",196724.9321956652,CTUe
+bill_of_materials.csv,Heat pipe_DN40.0,"Ecotoxicity: freshwater, metals",1252505.9876161164,CTUe
+bill_of_materials.csv,Heat pipe_DN40.0,"Ecotoxicity: freshwater, organics",8283.491303275214,CTUe
+bill_of_materials.csv,Heat pipe_DN40.0,Energy resources: non-renewable,483512.58213063586,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN40.0,Eutrophication: freshwater,15.664154559691102,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN40.0,Eutrophication: marine,33.52796518814313,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN40.0,Eutrophication: terrestrial,338.7167977504929,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN40.0,Human toxicity: carcinogenic,3.691636119183207e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN40.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN40.0,"Human toxicity: carcinogenic, metals",1.4533585796592443e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN40.0,"Human toxicity: carcinogenic, organics",2.2382775395239617e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN40.0,Human toxicity: non-carcinogenic,0.0010659734829802116,CTUh
+bill_of_materials.csv,Heat pipe_DN40.0,"Human toxicity: non-carcinogenic, inorganics",0.0005519400976805203,CTUh
+bill_of_materials.csv,Heat pipe_DN40.0,"Human toxicity: non-carcinogenic, metals",0.0005007286561246512,CTUh
+bill_of_materials.csv,Heat pipe_DN40.0,"Human toxicity: non-carcinogenic, organics",1.832815087096049e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN40.0,Ionising radiation: human health,1263.758977956519,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN40.0,Land use,142762.75538012394,dimensionless
+bill_of_materials.csv,Heat pipe_DN40.0,Material resources: metals/minerals,0.22245704977752023,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN40.0,Ozone depletion,0.0003898018423849487,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN40.0,Particulate matter formation,0.0028358790295425805,disease incidence
+bill_of_materials.csv,Heat pipe_DN40.0,Photochemical oxidant formation: human health,133.77465547438666,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN40.0,Water use,15368.171911760568,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN45.0,Acidification,113.01840157241627,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN45.0,Climate change,31769.95685537973,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN45.0,Climate change: biogenic,25.454131370328675,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN45.0,Climate change: fossil,31723.767707289728,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN45.0,Climate change: land use and land use change,20.735016719669897,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN45.0,Ecotoxicity: freshwater,1184478.6573112535,CTUe
+bill_of_materials.csv,Heat pipe_DN45.0,"Ecotoxicity: freshwater, inorganics",161731.40695551498,CTUe
+bill_of_materials.csv,Heat pipe_DN45.0,"Ecotoxicity: freshwater, metals",1015690.5201933188,CTUe
+bill_of_materials.csv,Heat pipe_DN45.0,"Ecotoxicity: freshwater, organics",7056.730162418151,CTUe
+bill_of_materials.csv,Heat pipe_DN45.0,Energy resources: non-renewable,392914.2453846939,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN45.0,Eutrophication: freshwater,12.707213994510571,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN45.0,Eutrophication: marine,27.39730992623108,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN45.0,Eutrophication: terrestrial,276.2999098461525,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN45.0,Human toxicity: carcinogenic,3.00499762663734e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN45.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN45.0,"Human toxicity: carcinogenic, metals",1.1780751673987376e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN45.0,"Human toxicity: carcinogenic, organics",1.8269224592386027e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN45.0,Human toxicity: non-carcinogenic,0.0008667699143151601,CTUh
+bill_of_materials.csv,Heat pipe_DN45.0,"Human toxicity: non-carcinogenic, inorganics",0.00044923272567784153,CTUh
+bill_of_materials.csv,Heat pipe_DN45.0,"Human toxicity: non-carcinogenic, metals",0.00040660687901964446,CTUh
+bill_of_materials.csv,Heat pipe_DN45.0,"Human toxicity: non-carcinogenic, organics",1.5008930188034394e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN45.0,Ionising radiation: human health,1032.68510339474,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN45.0,Land use,117740.464245831,dimensionless
+bill_of_materials.csv,Heat pipe_DN45.0,Material resources: metals/minerals,0.18134999666638685,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN45.0,Ozone depletion,0.00031875640172297363,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN45.0,Particulate matter formation,0.0023046832703720738,disease incidence
+bill_of_materials.csv,Heat pipe_DN45.0,Photochemical oxidant formation: human health,108.94295457789042,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN45.0,Water use,12560.917081303152,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN50.0,Acidification,62.22881003824088,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN50.0,Climate change,17473.069157341986,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN50.0,Climate change: biogenic,14.016451989075371,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN50.0,Climate change: fossil,17447.510473264534,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN50.0,Climate change: land use and land use change,11.54223208837759,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN50.0,Ecotoxicity: freshwater,651181.1791142118,CTUe
+bill_of_materials.csv,Heat pipe_DN50.0,"Ecotoxicity: freshwater, inorganics",89929.729066969,CTUe
+bill_of_materials.csv,Heat pipe_DN50.0,"Ecotoxicity: freshwater, metals",557195.1472274525,CTUe
+bill_of_materials.csv,Heat pipe_DN50.0,"Ecotoxicity: freshwater, organics",4056.302819790517,CTUe
+bill_of_materials.csv,Heat pipe_DN50.0,Energy resources: non-renewable,216085.33250111603,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN50.0,Eutrophication: freshwater,6.972936148512544,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN50.0,Eutrophication: marine,15.144575270217816,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN50.0,Eutrophication: terrestrial,152.47100374395407,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN50.0,Human toxicity: carcinogenic,1.6544339551253908e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN50.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN50.0,"Human toxicity: carcinogenic, metals",6.459104540985404e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN50.0,"Human toxicity: carcinogenic, organics",1.0085235010268505e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN50.0,Human toxicity: non-carcinogenic,0.0004767235875364368,CTUh
+bill_of_materials.csv,Heat pipe_DN50.0,"Human toxicity: non-carcinogenic, inorganics",0.0002473055489769134,CTUh
+bill_of_materials.csv,Heat pipe_DN50.0,"Human toxicity: non-carcinogenic, metals",0.00022334450377590917,CTUh
+bill_of_materials.csv,Heat pipe_DN50.0,"Human toxicity: non-carcinogenic, organics",8.314761598800666e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN50.0,Ionising radiation: human health,570.8680601775283,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN50.0,Land use,65671.84313486956,dimensionless
+bill_of_materials.csv,Heat pipe_DN50.0,Material resources: metals/minerals,0.10000883028424465,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN50.0,Ozone depletion,0.00017643092069159722,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN50.0,Particulate matter formation,0.0012669655588451087,disease incidence
+bill_of_materials.csv,Heat pipe_DN50.0,Photochemical oxidant formation: human health,60.02964493894949,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN50.0,Water use,6944.45188794418,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN55.0,Acidification,106.26496996241946,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN55.0,Climate change,29809.039306762214,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN55.0,Climate change: biogenic,23.937061184446428,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN55.0,Climate change: fossil,29765.180702608664,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN55.0,Climate change: land use and land use change,19.92154296910181,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN55.0,Ecotoxicity: freshwater,1110258.6754554727,CTUe
+bill_of_materials.csv,Heat pipe_DN55.0,"Ecotoxicity: freshwater, inorganics",155049.6430196595,CTUe
+bill_of_materials.csv,Heat pipe_DN55.0,"Ecotoxicity: freshwater, metals",947994.80890289,CTUe
+bill_of_materials.csv,Heat pipe_DN55.0,"Ecotoxicity: freshwater, organics",7214.223532922521,CTUe
+bill_of_materials.csv,Heat pipe_DN55.0,Energy resources: non-renewable,368663.869939972,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN55.0,Eutrophication: freshwater,11.865940407432724,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN55.0,Eutrophication: marine,25.961863504374186,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN55.0,Eutrophication: terrestrial,260.93798459328985,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN55.0,Human toxicity: carcinogenic,2.8245014310795717e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN55.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN55.0,"Human toxicity: carcinogenic, metals",1.0981868245345632e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN55.0,"Human toxicity: carcinogenic, organics",1.7263146065450097e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN55.0,Human toxicity: non-carcinogenic,0.0008130857365810361,CTUh
+bill_of_materials.csv,Heat pipe_DN55.0,"Human toxicity: non-carcinogenic, inorganics",0.0004221683884112901,CTUh
+bill_of_materials.csv,Heat pipe_DN55.0,"Human toxicity: non-carcinogenic, metals",0.000380452865631105,CTUh
+bill_of_materials.csv,Heat pipe_DN55.0,"Human toxicity: non-carcinogenic, organics",1.428527152029455e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN55.0,Ionising radiation: human health,978.6884357432916,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN55.0,Land use,113568.23225645504,dimensionless
+bill_of_materials.csv,Heat pipe_DN55.0,Material resources: metals/minerals,0.17103869892409393,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN55.0,Ozone depletion,0.00030296949431983164,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN55.0,Particulate matter formation,0.0021599510513698426,disease incidence
+bill_of_materials.csv,Heat pipe_DN55.0,Photochemical oxidant formation: human health,102.59738040355529,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN55.0,Water use,11905.877051730686,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN60.0,Acidification,93.53689290797712,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN60.0,Climate change,26216.514365661125,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN60.0,Climate change: biogenic,21.071483439482154,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN60.0,Climate change: fossil,26177.72368086262,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN60.0,Climate change: land use and land use change,17.71920135901925,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN60.0,Ecotoxicity: freshwater,975744.5674243766,CTUe
+bill_of_materials.csv,Heat pipe_DN60.0,"Ecotoxicity: freshwater, inorganics",137764.6389155521,CTUe
+bill_of_materials.csv,Heat pipe_DN60.0,"Ecotoxicity: freshwater, metals",831380.3481216156,CTUe
+bill_of_materials.csv,Heat pipe_DN60.0,"Ecotoxicity: freshwater, organics",6599.580387209316,CTUe
+bill_of_materials.csv,Heat pipe_DN60.0,Energy resources: non-renewable,324282.01653567876,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN60.0,Eutrophication: freshwater,10.407817476341643,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN60.0,Eutrophication: marine,22.939396594306913,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN60.0,Eutrophication: terrestrial,230.18045490550384,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN60.0,Human toxicity: carcinogenic,2.485287126833977e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN60.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN60.0,"Human toxicity: carcinogenic, metals",9.623632101906464e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN60.0,"Human toxicity: carcinogenic, organics",1.52292391664333e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN60.0,Human toxicity: non-carcinogenic,0.0007147669632125656,CTUh
+bill_of_materials.csv,Heat pipe_DN60.0,"Human toxicity: non-carcinogenic, inorganics",0.000371434138542215,CTUh
+bill_of_materials.csv,Heat pipe_DN60.0,"Human toxicity: non-carcinogenic, metals",0.00033404098008883937,CTUh
+bill_of_materials.csv,Heat pipe_DN60.0,"Human toxicity: non-carcinogenic, organics",1.2650157840162155e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN60.0,Ionising radiation: human health,864.8260757140175,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN60.0,Land use,101204.13846529316,dimensionless
+bill_of_materials.csv,Heat pipe_DN60.0,Material resources: metals/minerals,0.1507740144582421,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN60.0,Ozone depletion,0.00026823703687489897,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN60.0,Particulate matter formation,0.001897998932317612,disease incidence
+bill_of_materials.csv,Heat pipe_DN60.0,Photochemical oxidant formation: human health,90.39312311254992,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN60.0,Water use,10520.466810108323,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN65.0,Acidification,54.637004739958876,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN65.0,Climate change,15302.263176412342,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN65.0,Climate change: biogenic,12.309159396324764,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN65.0,Climate change: fossil,15279.497838339677,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN65.0,Climate change: land use and land use change,10.456178676337634,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN65.0,Ecotoxicity: freshwater,569059.2461848704,CTUe
+bill_of_materials.csv,Heat pipe_DN65.0,"Ecotoxicity: freshwater, inorganics",81212.75179407549,CTUe
+bill_of_materials.csv,Heat pipe_DN65.0,"Ecotoxicity: freshwater, metals",483847.86348180496,CTUe
+bill_of_materials.csv,Heat pipe_DN65.0,"Ecotoxicity: freshwater, organics",3998.6309089898828,CTUe
+bill_of_materials.csv,Heat pipe_DN65.0,Energy resources: non-renewable,189320.92086915713,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN65.0,Eutrophication: freshwater,6.057781683189663,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN65.0,Eutrophication: marine,13.44969825503964,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN65.0,Eutrophication: terrestrial,134.74029153072024,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN65.0,Human toxicity: carcinogenic,1.4510523390873449e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN65.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN65.0,"Human toxicity: carcinogenic, metals",5.596147835903155e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN65.0,"Human toxicity: carcinogenic, organics",8.914375554970289e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN65.0,Human toxicity: non-carcinogenic,0.0004169439070387232,CTUh
+bill_of_materials.csv,Heat pipe_DN65.0,"Human toxicity: non-carcinogenic, inorganics",0.00021684588266414638,CTUh
+bill_of_materials.csv,Heat pipe_DN65.0,"Human toxicity: non-carcinogenic, metals",0.00019462391066758794,CTUh
+bill_of_materials.csv,Heat pipe_DN65.0,"Human toxicity: non-carcinogenic, organics",7.433339594501652e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN65.0,Ionising radiation: human health,507.11167183359356,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN65.0,Land use,59830.55299183979,dimensionless
+bill_of_materials.csv,Heat pipe_DN65.0,Material resources: metals/minerals,0.08819699334665446,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN65.0,Ozone depletion,0.00015762151898223483,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN65.0,Particulate matter formation,0.0011067375390021153,disease incidence
+bill_of_materials.csv,Heat pipe_DN65.0,Photochemical oxidant formation: human health,52.85313434046024,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN65.0,Water use,6168.504458994052,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN70.0,Acidification,152.60964423778185,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN70.0,Climate change,42713.17078709208,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN70.0,Climate change: biogenic,34.3835797638808,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN70.0,Climate change: fossil,42649.289212615775,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN70.0,Climate change: land use and land use change,29.49799471242052,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN70.0,Ecotoxicity: freshwater,1586975.5691249208,CTUe
+bill_of_materials.csv,Heat pipe_DN70.0,"Ecotoxicity: freshwater, inorganics",228882.8165172564,CTUe
+bill_of_materials.csv,Heat pipe_DN70.0,"Ecotoxicity: freshwater, metals",1346528.2362117602,CTUe
+bill_of_materials.csv,Heat pipe_DN70.0,"Ecotoxicity: freshwater, organics",11564.516395904526,CTUe
+bill_of_materials.csv,Heat pipe_DN70.0,Energy resources: non-renewable,528594.7164194147,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN70.0,Eutrophication: freshwater,16.859712914689776,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN70.0,Eutrophication: marine,37.70577009876983,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN70.0,Eutrophication: terrestrial,377.1415942592628,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN70.0,Human toxicity: carcinogenic,4.050889336308079e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN70.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN70.0,"Human toxicity: carcinogenic, metals",1.556019913965984e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN70.0,"Human toxicity: carcinogenic, organics",2.4948694223420963e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN70.0,Human toxicity: non-carcinogenic,0.001162954913978088,CTUh
+bill_of_materials.csv,Heat pipe_DN70.0,"Human toxicity: non-carcinogenic, inorganics",0.0006053166442189402,CTUh
+bill_of_materials.csv,Heat pipe_DN70.0,"Human toxicity: non-carcinogenic, metals",0.0005422199819955907,CTUh
+bill_of_materials.csv,Heat pipe_DN70.0,"Human toxicity: non-carcinogenic, organics",2.088474979923667e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN70.0,Ionising radiation: human health,1421.8300363493838,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN70.0,Land use,169088.60779212613,dimensionless
+bill_of_materials.csv,Heat pipe_DN70.0,Material resources: metals/minerals,0.24669359802693763,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN70.0,Ozone depletion,0.0004429386596547511,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN70.0,Particulate matter formation,0.0030858502253055028,disease incidence
+bill_of_materials.csv,Heat pipe_DN70.0,Photochemical oxidant formation: human health,147.77997339726568,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN70.0,Water use,17293.35374090033,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN75.0,Acidification,145.78148469786174,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Climate change,40777.56230179928,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Climate change: biogenic,32.847144407250376,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Climate change: fossil,40716.261389104024,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Climate change: land use and land use change,28.453768288000038,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Ecotoxicity: freshwater,1513596.1714082432,CTUe
+bill_of_materials.csv,Heat pipe_DN75.0,"Ecotoxicity: freshwater, inorganics",220567.58821174776,CTUe
+bill_of_materials.csv,Heat pipe_DN75.0,"Ecotoxicity: freshwater, metals",1281608.6717960907,CTUe
+bill_of_materials.csv,Heat pipe_DN75.0,"Ecotoxicity: freshwater, organics",11419.911400405455,CTUe
+bill_of_materials.csv,Heat pipe_DN75.0,Energy resources: non-renewable,504798.873838276,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN75.0,Eutrophication: freshwater,16.04752309612843,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Eutrophication: marine,36.149502198042484,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Eutrophication: terrestrial,361.013548197417,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Human toxicity: carcinogenic,3.867402243750368e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN75.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN75.0,"Human toxicity: carcinogenic, metals",1.4796441568212291e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN75.0,"Human toxicity: carcinogenic, organics",2.3877580869291403e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN75.0,Human toxicity: non-carcinogenic,0.001109326961111408,CTUh
+bill_of_materials.csv,Heat pipe_DN75.0,"Human toxicity: non-carcinogenic, inorganics",0.0005778522526663632,CTUh
+bill_of_materials.csv,Heat pipe_DN75.0,"Human toxicity: non-carcinogenic, metals",0.0005166254176601354,CTUh
+bill_of_materials.csv,Heat pipe_DN75.0,"Human toxicity: non-carcinogenic, organics",2.006614029686504e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN75.0,Ionising radiation: human health,1363.3091827353296,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Land use,163384.15379085296,dimensionless
+bill_of_materials.csv,Heat pipe_DN75.0,Material resources: metals/minerals,0.23597945478800242,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Ozone depletion,0.0004257144169061538,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Particulate matter formation,0.002942553158324891,disease incidence
+bill_of_materials.csv,Heat pipe_DN75.0,Photochemical oxidant formation: human health,141.31849550588663,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Water use,16579.43469635306,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN80.0,Acidification,89.80127376932147,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Climate change,25105.198752059518,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Climate change: biogenic,20.23497402272833,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Climate change: fossil,25067.268705077528,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Climate change: land use and land use change,17.69507295925903,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Ecotoxicity: freshwater,930919.9951010097,CTUe
+bill_of_materials.csv,Heat pipe_DN80.0,"Ecotoxicity: freshwater, inorganics",137039.89148079013,CTUe
+bill_of_materials.csv,Heat pipe_DN80.0,"Ecotoxicity: freshwater, metals",786618.91442112,CTUe
+bill_of_materials.csv,Heat pipe_DN80.0,"Ecotoxicity: freshwater, organics",7261.189199100434,CTUe
+bill_of_materials.csv,Heat pipe_DN80.0,Energy resources: non-renewable,310893.1376935163,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN80.0,Eutrophication: freshwater,9.849744629156708,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Eutrophication: marine,22.347602512031294,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Eutrophication: terrestrial,222.83800247151999,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Human toxicity: carcinogenic,2.380836299887421e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN80.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN80.0,"Human toxicity: carcinogenic, metals",9.07307936301905e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN80.0,"Human toxicity: carcinogenic, organics",1.473528363585515e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN80.0,Human toxicity: non-carcinogenic,0.0006823482739042485,CTUh
+bill_of_materials.csv,Heat pipe_DN80.0,"Human toxicity: non-carcinogenic, inorganics",0.00035570763359627134,CTUh
+bill_of_materials.csv,Heat pipe_DN80.0,"Human toxicity: non-carcinogenic, metals",0.0003174200336413605,CTUh
+bill_of_materials.csv,Heat pipe_DN80.0,"Human toxicity: non-carcinogenic, organics",1.2431421783258153e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN80.0,Ionising radiation: human health,842.9030763964196,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Land use,101776.5886728127,dimensionless
+bill_of_materials.csv,Heat pipe_DN80.0,Material resources: metals/minerals,0.14555870122635273,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Ozone depletion,0.00026385197570810237,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Particulate matter formation,0.0018093818316007352,disease incidence
+bill_of_materials.csv,Heat pipe_DN80.0,Photochemical oxidant formation: human health,87.14684192146629,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Water use,10249.151009498892,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN85.0,Acidification,314.1890845282304,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Climate change,87791.81385958717,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Climate change: biogenic,70.80029794940478,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Climate change: fossil,87658.52480115337,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Climate change: land use and land use change,62.48876048440146,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Ecotoxicity: freshwater,3251972.0103531126,CTUe
+bill_of_materials.csv,Heat pipe_DN85.0,"Ecotoxicity: freshwater, inorganics",483504.55435790756,CTUe
+bill_of_materials.csv,Heat pipe_DN85.0,"Ecotoxicity: freshwater, metals",2742280.7384774825,CTUe
+bill_of_materials.csv,Heat pipe_DN85.0,"Ecotoxicity: freshwater, organics",26186.71751772268,CTUe
+bill_of_materials.csv,Heat pipe_DN85.0,Energy resources: non-renewable,1087584.8385577088,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN85.0,Eutrophication: freshwater,34.337793209953546,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Eutrophication: marine,78.4626308408951,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Eutrophication: terrestrial,781.2150309205405,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Human toxicity: carcinogenic,8.324413189504147e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN85.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN85.0,"Human toxicity: carcinogenic, metals",3.159946593078499e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN85.0,"Human toxicity: carcinogenic, organics",5.164466596425649e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN85.0,Human toxicity: non-carcinogenic,0.002383824216347951,CTUh
+bill_of_materials.csv,Heat pipe_DN85.0,"Human toxicity: non-carcinogenic, inorganics",0.0012436102919440612,CTUh
+bill_of_materials.csv,Heat pipe_DN85.0,"Human toxicity: non-carcinogenic, metals",0.0011077000539812612,CTUh
+bill_of_materials.csv,Heat pipe_DN85.0,"Human toxicity: non-carcinogenic, organics",4.373892805651492e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN85.0,Ionising radiation: human health,2959.8251301329396,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Land use,359998.47535637236,dimensionless
+bill_of_materials.csv,Heat pipe_DN85.0,Material resources: metals/minerals,0.509940327592594,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Ozone depletion,0.0009288120874897487,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Particulate matter formation,0.00631921845783174,disease incidence
+bill_of_materials.csv,Heat pipe_DN85.0,Photochemical oxidant formation: human health,305.2385208920777,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Water use,35983.56757446088,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN90.0,Acidification,80.36299605342933,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN90.0,Climate change,22444.883115659497,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN90.0,Climate change: biogenic,18.11019061523933,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN90.0,Climate change: fossil,22410.643483425647,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN90.0,Climate change: land use and land use change,16.12944161860988,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN90.0,Ecotoxicity: freshwater,830504.3634546967,CTUe
+bill_of_materials.csv,Heat pipe_DN90.0,"Ecotoxicity: freshwater, inorganics",124690.38336907534,CTUe
+bill_of_materials.csv,Heat pipe_DN90.0,"Ecotoxicity: freshwater, metals",698918.6513869242,CTUe
+bill_of_materials.csv,Heat pipe_DN90.0,"Ecotoxicity: freshwater, organics",6895.328698697716,CTUe
+bill_of_materials.csv,Heat pipe_DN90.0,Energy resources: non-renewable,278161.5533464452,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN90.0,Eutrophication: freshwater,8.751453690778114,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN90.0,Eutrophication: marine,20.13847408824632,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN90.0,Eutrophication: terrestrial,200.21455681168604,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN90.0,Human toxicity: carcinogenic,2.1277601934865656e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN90.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN90.0,"Human toxicity: carcinogenic, metals",8.04568674736155e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN90.0,"Human toxicity: carcinogenic, organics",1.323191518750411e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN90.0,Human toxicity: non-carcinogenic,0.0006088275293774866,CTUh
+bill_of_materials.csv,Heat pipe_DN90.0,"Human toxicity: non-carcinogenic, inorganics",0.00031784921612563024,CTUh
+bill_of_materials.csv,Heat pipe_DN90.0,"Human toxicity: non-carcinogenic, metals",0.00028259793654190245,CTUh
+bill_of_materials.csv,Heat pipe_DN90.0,"Human toxicity: non-carcinogenic, organics",1.1249506678134443e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN90.0,Ionising radiation: human health,759.7794479949522,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN90.0,Land use,93067.89654994094,dimensionless
+bill_of_materials.csv,Heat pipe_DN90.0,Material resources: metals/minerals,0.1306009669164655,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN90.0,Ozone depletion,0.00023902369722671188,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN90.0,Particulate matter formation,0.001613441838300836,disease incidence
+bill_of_materials.csv,Heat pipe_DN90.0,Photochemical oxidant formation: human health,78.16057810258866,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN90.0,Water use,9235.239290382771,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN95.0,Acidification,109.67398311801635,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN95.0,Climate change,30618.03530108226,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN95.0,Climate change: biogenic,24.716820787555694,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN95.0,Climate change: fossil,30571.10925004213,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN95.0,Climate change: land use and land use change,22.20923025257566,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN95.0,Ecotoxicity: freshwater,1131681.5124852355,CTUe
+bill_of_materials.csv,Heat pipe_DN95.0,"Ecotoxicity: freshwater, inorganics",171542.89255746847,CTUe
+bill_of_materials.csv,Heat pipe_DN95.0,"Ecotoxicity: freshwater, metals",950462.6348827961,CTUe
+bill_of_materials.csv,Heat pipe_DN95.0,"Ecotoxicity: freshwater, organics",9675.985044973258,CTUe
+bill_of_materials.csv,Heat pipe_DN95.0,Energy resources: non-renewable,379607.5560306421,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN95.0,Eutrophication: freshwater,11.90079616360916,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN95.0,Eutrophication: marine,27.577098296794915,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN95.0,Eutrophication: terrestrial,273.77303841754053,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN95.0,Human toxicity: carcinogenic,2.9017846607347934e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN95.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN95.0,"Human toxicity: carcinogenic, metals",1.0930324379677794e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN95.0,"Human toxicity: carcinogenic, organics",1.8087522227670147e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN95.0,Human toxicity: non-carcinogenic,0.0008296485494424637,CTUh
+bill_of_materials.csv,Heat pipe_DN95.0,"Human toxicity: non-carcinogenic, inorganics",0.0004334431238184729,CTUh
+bill_of_materials.csv,Heat pipe_DN95.0,"Human toxicity: non-carcinogenic, metals",0.00038468224430389093,CTUh
+bill_of_materials.csv,Heat pipe_DN95.0,"Human toxicity: non-carcinogenic, organics",1.543628673365969e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN95.0,Ionising radiation: human health,1040.5626771752109,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN95.0,Land use,128343.9093215486,dimensionless
+bill_of_materials.csv,Heat pipe_DN95.0,Material resources: metals/minerals,0.17846205222144848,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN95.0,Ozone depletion,0.0003281857392548295,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN95.0,Particulate matter formation,0.0021979982872339893,disease incidence
+bill_of_materials.csv,Heat pipe_DN95.0,Photochemical oxidant formation: human health,106.7876875469382,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN95.0,Water use,12645.82093890366,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN105.0,Acidification,18.811233318818037,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Climate change,5247.484124626813,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Climate change: biogenic,4.239828884014029,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Climate change: fossil,5239.368737504821,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Climate change: land use and land use change,3.8755582379784794,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Ecotoxicity: freshwater,193518.70258542357,CTUe
+bill_of_materials.csv,Heat pipe_DN105.0,"Ecotoxicity: freshwater, inorganics",29885.13276648194,CTUe
+bill_of_materials.csv,Heat pipe_DN105.0,"Ecotoxicity: freshwater, metals",161884.5900710382,CTUe
+bill_of_materials.csv,Heat pipe_DN105.0,"Ecotoxicity: freshwater, organics",1748.9797479035863,CTUe
+bill_of_materials.csv,Heat pipe_DN105.0,Energy resources: non-renewable,65114.843952770025,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN105.0,Eutrophication: freshwater,2.0267841529028177,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Eutrophication: marine,4.761467307246445,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Eutrophication: terrestrial,47.13708600303404,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Human toxicity: carcinogenic,4.969918541873906e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN105.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN105.0,"Human toxicity: carcinogenic, metals",1.8578485970298901e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN105.0,"Human toxicity: carcinogenic, organics",3.112069944844017e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN105.0,Human toxicity: non-carcinogenic,0.0001418764262990157,CTUh
+bill_of_materials.csv,Heat pipe_DN105.0,"Human toxicity: non-carcinogenic, inorganics",7.422581696789313e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN105.0,"Human toxicity: non-carcinogenic, metals",6.564515932009466e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN105.0,"Human toxicity: non-carcinogenic, organics",2.6758745481037976e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN105.0,Ionising radiation: human health,179.71294899498386,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Land use,22461.54622887406,dimensionless
+bill_of_materials.csv,Heat pipe_DN105.0,Material resources: metals/minerals,0.03068565360481974,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Ozone depletion,5.69676427491488e-05,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Particulate matter formation,0.0003756666698208727,disease incidence
+bill_of_materials.csv,Heat pipe_DN105.0,Photochemical oxidant formation: human health,18.35730451929212,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN105.0,Water use,2183.1586902169292,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN130.0,Acidification,23.370154576101054,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN130.0,Climate change,6508.698356604589,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN130.0,Climate change: biogenic,5.2685147387654165,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN130.0,Climate change: fossil,6498.418233060639,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN130.0,Climate change: land use and land use change,5.0116088051854675,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN130.0,Ecotoxicity: freshwater,238659.36341752508,CTUe
+bill_of_materials.csv,Heat pipe_DN130.0,"Ecotoxicity: freshwater, inorganics",38500.335360634745,CTUe
+bill_of_materials.csv,Heat pipe_DN130.0,"Ecotoxicity: freshwater, metals",197720.92883861993,CTUe
+bill_of_materials.csv,Heat pipe_DN130.0,"Ecotoxicity: freshwater, organics",2438.0992182705945,CTUe
+bill_of_materials.csv,Heat pipe_DN130.0,Energy resources: non-renewable,80946.96802871999,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN130.0,Eutrophication: freshwater,2.4745862289916136,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN130.0,Eutrophication: marine,6.008888283413114,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN130.0,Eutrophication: terrestrial,59.094838531141114,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN130.0,Human toxicity: carcinogenic,6.151235606491213e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN130.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN130.0,"Human toxicity: carcinogenic, metals",2.2572003334189467e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN130.0,"Human toxicity: carcinogenic, organics",3.894035273072266e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN130.0,Human toxicity: non-carcinogenic,0.00017495994676582676,CTUh
+bill_of_materials.csv,Heat pipe_DN130.0,"Human toxicity: non-carcinogenic, inorganics",9.183831843831788e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN130.0,"Human toxicity: non-carcinogenic, metals",8.054404530392442e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN130.0,"Human toxicity: non-carcinogenic, organics",3.4086926196493703e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN130.0,Ionising radiation: human health,226.94978454679244,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN130.0,Land use,29237.024980935214,dimensionless
+bill_of_materials.csv,Heat pipe_DN130.0,Material resources: metals/minerals,0.03834616430073116,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN130.0,Ozone depletion,7.28372502330597e-05,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN130.0,Particulate matter formation,0.0004626770830754378,disease incidence
+bill_of_materials.csv,Heat pipe_DN130.0,Photochemical oxidant formation: human health,22.933070360888905,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN130.0,Water use,2754.083360424787,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN15.0,Acidification,677.1130352637019,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Climate change,193568.75075699735,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Climate change: biogenic,152.3498156749024,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Climate change: fossil,193300.63118927943,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Climate change: land use and land use change,115.7697520430091,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Ecotoxicity: freshwater,7146727.941857392,CTUe
+bill_of_materials.csv,Heat pipe_DN15.0,"Ecotoxicity: freshwater, inorganics",908949.3377683099,CTUe
+bill_of_materials.csv,Heat pipe_DN15.0,"Ecotoxicity: freshwater, metals",6207291.611456673,CTUe
+bill_of_materials.csv,Heat pipe_DN15.0,"Ecotoxicity: freshwater, organics",30486.992632408113,CTUe
+bill_of_materials.csv,Heat pipe_DN15.0,Energy resources: non-renewable,2413497.1657564407,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN15.0,Eutrophication: freshwater,77.16637981610221,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Eutrophication: marine,160.15559396931485,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Eutrophication: terrestrial,1632.8533347077469,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Human toxicity: carcinogenic,0.00017818381864493558,CTUh
+bill_of_materials.csv,Heat pipe_DN15.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN15.0,"Human toxicity: carcinogenic, metals",7.171034078298528e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN15.0,"Human toxicity: carcinogenic, organics",0.00010647347786195027,CTUh
+bill_of_materials.csv,Heat pipe_DN15.0,Human toxicity: non-carcinogenic,0.005184467586874306,CTUh
+bill_of_materials.csv,Heat pipe_DN15.0,"Human toxicity: non-carcinogenic, inorganics",0.0026661637659893293,CTUh
+bill_of_materials.csv,Heat pipe_DN15.0,"Human toxicity: non-carcinogenic, metals",0.0024565970918797105,CTUh
+bill_of_materials.csv,Heat pipe_DN15.0,"Human toxicity: non-carcinogenic, organics",8.693462783540783e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN15.0,Ionising radiation: human health,6046.3657329042235,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Land use,649326.7166360094,dimensionless
+bill_of_materials.csv,Heat pipe_DN15.0,Material resources: metals/minerals,1.0739926821172452,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Ozone depletion,0.0019049813805567394,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Particulate matter formation,0.013861979543545965,disease incidence
+bill_of_materials.csv,Heat pipe_DN15.0,Photochemical oxidant formation: human health,654.927672730665,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN15.0,Water use,73101.85494037543,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN75.0,Acidification,8.75901259425037,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Climate change,2450.0448908483872,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Climate change: biogenic,1.9735603059919078,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Climate change: fossil,2446.361738166484,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Climate change: land use and land use change,1.7095923759111624,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Ecotoxicity: freshwater,90941.64430723753,CTUe
+bill_of_materials.csv,Heat pipe_DN75.0,"Ecotoxicity: freshwater, inorganics",13252.39818372123,CTUe
+bill_of_materials.csv,Heat pipe_DN75.0,"Ecotoxicity: freshwater, metals",77003.10173427041,CTUe
+bill_of_materials.csv,Heat pipe_DN75.0,"Ecotoxicity: freshwater, organics",686.1443892458993,CTUe
+bill_of_materials.csv,Heat pipe_DN75.0,Energy resources: non-renewable,30329.912626947716,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN75.0,Eutrophication: freshwater,0.9641859334663109,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Eutrophication: marine,2.171976404855341,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Eutrophication: terrestrial,21.6908355811427,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Human toxicity: carcinogenic,2.3236575639388083e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN75.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN75.0,"Human toxicity: carcinogenic, metals",8.890169990699928e-07,CTUh
+bill_of_materials.csv,Heat pipe_DN75.0,"Human toxicity: carcinogenic, organics",1.4346405648688152e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN75.0,Human toxicity: non-carcinogenic,6.665187176310083e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN75.0,"Human toxicity: non-carcinogenic, inorganics",3.47191906380335e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN75.0,"Human toxicity: non-carcinogenic, metals",3.104048877793705e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN75.0,"Human toxicity: non-carcinogenic, organics",1.2056371626513807e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN75.0,Ionising radiation: human health,81.91192678675661,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Land use,9816.636616927048,dimensionless
+bill_of_materials.csv,Heat pipe_DN75.0,Material resources: metals/minerals,0.014178391863385702,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Ozone depletion,2.5578268371756036e-05,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Particulate matter formation,0.00017679789876222151,disease incidence
+bill_of_materials.csv,Heat pipe_DN75.0,Photochemical oxidant formation: human health,8.490862090628239,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN75.0,Water use,996.1448644310468,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN80.0,Acidification,10.07377606222616,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Climate change,2816.2646208736305,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Climate change: biogenic,2.26992990604513,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Climate change: fossil,2812.009683462523,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Climate change: land use and land use change,1.985007505063097,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Ecotoxicity: freshwater,104429.2488165126,CTUe
+bill_of_materials.csv,Heat pipe_DN80.0,"Ecotoxicity: freshwater, inorganics",15372.935376345113,CTUe
+bill_of_materials.csv,Heat pipe_DN80.0,"Ecotoxicity: freshwater, metals",88241.7638144563,CTUe
+bill_of_materials.csv,Heat pipe_DN80.0,"Ecotoxicity: freshwater, organics",814.5496257112369,CTUe
+bill_of_materials.csv,Heat pipe_DN80.0,Energy resources: non-renewable,34875.539254068535,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN80.0,Eutrophication: freshwater,1.104930002653672,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Eutrophication: marine,2.5069214921398437,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Eutrophication: terrestrial,24.997642470175983,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Human toxicity: carcinogenic,2.6707874754086814e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN80.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN80.0,"Human toxicity: carcinogenic, metals",1.017804824602434e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN80.0,"Human toxicity: carcinogenic, organics",1.6529826508062475e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN80.0,Human toxicity: non-carcinogenic,7.654483527054651e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN80.0,"Human toxicity: non-carcinogenic, inorganics",3.9902764115328084e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN80.0,"Human toxicity: non-carcinogenic, metals",3.560771693262721e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN80.0,"Human toxicity: non-carcinogenic, organics",1.3945387846202823e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN80.0,Ionising radiation: human health,94.55563910586612,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Land use,11417.149441564829,dimensionless
+bill_of_materials.csv,Heat pipe_DN80.0,Material resources: metals/minerals,0.016328563042762742,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Ozone depletion,2.9598530235630126e-05,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Particulate matter formation,0.0002029738178261047,disease incidence
+bill_of_materials.csv,Heat pipe_DN80.0,Photochemical oxidant formation: human health,9.776005764708732,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN80.0,Water use,1149.734828515354,m3 world Eq deprived
+bill_of_materials.csv,Heat pipe_DN85.0,Acidification,10.051764890139554,mol H+-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Climate change,2808.6993331436847,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Climate change: biogenic,2.2650944421186665,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Climate change: fossil,2804.4350529895332,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Climate change: land use and land use change,1.999185712032617,kg CO2-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Ecotoxicity: freshwater,104039.44531194215,CTUe
+bill_of_materials.csv,Heat pipe_DN85.0,"Ecotoxicity: freshwater, inorganics",15468.62810659071,CTUe
+bill_of_materials.csv,Heat pipe_DN85.0,"Ecotoxicity: freshwater, metals",87733.03276058666,CTUe
+bill_of_materials.csv,Heat pipe_DN85.0,"Ecotoxicity: freshwater, organics",837.7844447648088,CTUe
+bill_of_materials.csv,Heat pipe_DN85.0,Energy resources: non-renewable,34794.80234546532,"MJ, net calorific value"
+bill_of_materials.csv,Heat pipe_DN85.0,Eutrophication: freshwater,1.0985595655270786,kg P-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Eutrophication: marine,2.5102333489998294,kg N-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Eutrophication: terrestrial,24.993197428381077,mol N-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Human toxicity: carcinogenic,2.6632065959552466e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN85.0,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Heat pipe_DN85.0,"Human toxicity: carcinogenic, metals",1.0109530147018388e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN85.0,"Human toxicity: carcinogenic, organics",1.6522535812534084e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN85.0,Human toxicity: non-carcinogenic,7.626503192537793e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN85.0,"Human toxicity: non-carcinogenic, inorganics",3.978648172437172e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN85.0,"Human toxicity: non-carcinogenic, metals",3.543834289511762e-05,CTUh
+bill_of_materials.csv,Heat pipe_DN85.0,"Human toxicity: non-carcinogenic, organics",1.3993274846927817e-06,CTUh
+bill_of_materials.csv,Heat pipe_DN85.0,Ionising radiation: human health,94.69287059636792,kBq U235-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Land use,11517.332120320085,dimensionless
+bill_of_materials.csv,Heat pipe_DN85.0,Material resources: metals/minerals,0.016314380522347315,kg Sb-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Ozone depletion,2.9715229428117864e-05,kg CFC-11-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Particulate matter formation,0.0002021690165427998,disease incidence
+bill_of_materials.csv,Heat pipe_DN85.0,Photochemical oxidant formation: human health,9.765411971673485,kg NMVOC-Eq
+bill_of_materials.csv,Heat pipe_DN85.0,Water use,1151.2123717157049,m3 world Eq deprived
