@@ -1,0 +1,28 @@
+
+================================================================================
+DISTRICT HEATING NETWORK ANALYSIS - MYTHOLOGIEBUURT
+================================================================================
+Neighborhood: mythologiebuurt (Mythologiebuurt)
+Year: 2019
+Heat demand area code: 4330
+Substation coordinates: [4.357749, 51.998152]
+Mode: plot
+Scenario: hybrid
+Debug mode: False
+Spacing: 5.0m
+================================================================================
+
+ Obtain building location and address data: 0.111s
+ Create building dataframe and visualize: 0.264s
+ Define and visualize demand nodes: 0.070s
+ Load and process network topology (STEDIN): 0.335s
+ Create transmission nodes: 0.062s
+ Build Calliope network: 4.311s
+ Create scenario and configure model: 51.226s
+ Build Calliope model: 58.794s
+ Solve Calliope model: 8.198s
+ Process Calliope results: 2.532s
+ Save scenario summary: 0.056s
+
+Analysis completed successfully!
+

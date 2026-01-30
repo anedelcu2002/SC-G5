@@ -1,0 +1,17 @@
+techs,carrier_out,carrier_in
+geothermie_delft_to_warmtenet1,1,1
+warmtenet1_to_warmtenet2,1,1
+warmtenet2_to_warmtenet3,1,1
+warmtenet3_to_warmtenet4,1,1
+warmtenet4_to_warmtenet5,1,1
+warmtenet5_to_warmtenet6,1,1
+warmtenet6_to_warmtenet7,1,1
+warmtenet7_to_warmtenet8,1,1
+warmtenet8_to_warmtenet9,1,1
+warmtenet9_to_warmtenet10,1,1
+warmtenet10_to_warmtenet11,1,1
+warmtenet11_to_warmtenet12,1,1
+warmtenet4_to_warmtenet13,1,1
+warmtenet13_to_warmtenet14,1,1
+warmtenet14_to_warmtenet15,1,1
+warmtenet15_to_substation_poptahofzuid,1,1
