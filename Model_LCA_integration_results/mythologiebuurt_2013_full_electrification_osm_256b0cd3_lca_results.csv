@@ -1,0 +1,113 @@
+File,Component,Impact Category,Amount,Unit
+bill_of_materials.csv,LV electricity distribution main,Acidification,489.34773078397745,mol H+-Eq
+bill_of_materials.csv,LV electricity distribution main,Climate change,51567.605919902155,kg CO2-Eq
+bill_of_materials.csv,LV electricity distribution main,Climate change: biogenic,93.8502277531719,kg CO2-Eq
+bill_of_materials.csv,LV electricity distribution main,Climate change: fossil,51358.70756646049,kg CO2-Eq
+bill_of_materials.csv,LV electricity distribution main,Climate change: land use and land use change,115.04812568849506,kg CO2-Eq
+bill_of_materials.csv,LV electricity distribution main,Ecotoxicity: freshwater,3110959.117414688,CTUe
+bill_of_materials.csv,LV electricity distribution main,"Ecotoxicity: freshwater, inorganics",251632.9251498391,CTUe
+bill_of_materials.csv,LV electricity distribution main,"Ecotoxicity: freshwater, metals",2854282.0255740634,CTUe
+bill_of_materials.csv,LV electricity distribution main,"Ecotoxicity: freshwater, organics",5044.166690787983,CTUe
+bill_of_materials.csv,LV electricity distribution main,Energy resources: non-renewable,626985.1294971278,"MJ, net calorific value"
+bill_of_materials.csv,LV electricity distribution main,Eutrophication: freshwater,27.695841099214984,kg P-Eq
+bill_of_materials.csv,LV electricity distribution main,Eutrophication: marine,71.20454462137724,kg N-Eq
+bill_of_materials.csv,LV electricity distribution main,Eutrophication: terrestrial,783.919399469045,mol N-Eq
+bill_of_materials.csv,LV electricity distribution main,Human toxicity: carcinogenic,4.3374796058541014e-05,CTUh
+bill_of_materials.csv,LV electricity distribution main,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,LV electricity distribution main,"Human toxicity: carcinogenic, metals",2.3504610917513836e-05,CTUh
+bill_of_materials.csv,LV electricity distribution main,"Human toxicity: carcinogenic, organics",1.9870185141027188e-05,CTUh
+bill_of_materials.csv,LV electricity distribution main,Human toxicity: non-carcinogenic,0.0025318914247421573,CTUh
+bill_of_materials.csv,LV electricity distribution main,"Human toxicity: non-carcinogenic, inorganics",0.00027526090781363475,CTUh
+bill_of_materials.csv,LV electricity distribution main,"Human toxicity: non-carcinogenic, metals",0.0021304183274987263,CTUh
+bill_of_materials.csv,LV electricity distribution main,"Human toxicity: non-carcinogenic, organics",0.00013231573102868833,CTUh
+bill_of_materials.csv,LV electricity distribution main,Ionising radiation: human health,1739.3374293842153,kBq U235-Eq
+bill_of_materials.csv,LV electricity distribution main,Land use,345185.03927089134,dimensionless
+bill_of_materials.csv,LV electricity distribution main,Material resources: metals/minerals,2.4570540303433086,kg Sb-Eq
+bill_of_materials.csv,LV electricity distribution main,Ozone depletion,0.0005062189730251414,kg CFC-11-Eq
+bill_of_materials.csv,LV electricity distribution main,Particulate matter formation,0.004850888926279569,disease incidence
+bill_of_materials.csv,LV electricity distribution main,Photochemical oxidant formation: human health,254.45921336890223,kg NMVOC-Eq
+bill_of_materials.csv,LV electricity distribution main,Water use,23255.694555080874,m3 world Eq deprived
+bill_of_materials.csv,LV electricity distribution secondary,Acidification,49.726150932879804,mol H+-Eq
+bill_of_materials.csv,LV electricity distribution secondary,Climate change,7627.8967775944075,kg CO2-Eq
+bill_of_materials.csv,LV electricity distribution secondary,Climate change: biogenic,9.787174272824302,kg CO2-Eq
+bill_of_materials.csv,LV electricity distribution secondary,Climate change: fossil,7599.801976806727,kg CO2-Eq
+bill_of_materials.csv,LV electricity distribution secondary,Climate change: land use and land use change,18.307626514856125,kg CO2-Eq
+bill_of_materials.csv,LV electricity distribution secondary,Ecotoxicity: freshwater,236882.23317115195,CTUe
+bill_of_materials.csv,LV electricity distribution secondary,"Ecotoxicity: freshwater, inorganics",13368.66606480464,CTUe
+bill_of_materials.csv,LV electricity distribution secondary,"Ecotoxicity: freshwater, metals",222767.95274031055,CTUe
+bill_of_materials.csv,LV electricity distribution secondary,"Ecotoxicity: freshwater, organics",745.61436603681,CTUe
+bill_of_materials.csv,LV electricity distribution secondary,Energy resources: non-renewable,87002.57892002563,"MJ, net calorific value"
+bill_of_materials.csv,LV electricity distribution secondary,Eutrophication: freshwater,2.062361891431255,kg P-Eq
+bill_of_materials.csv,LV electricity distribution secondary,Eutrophication: marine,9.651203495341997,kg N-Eq
+bill_of_materials.csv,LV electricity distribution secondary,Eutrophication: terrestrial,102.23820294072323,mol N-Eq
+bill_of_materials.csv,LV electricity distribution secondary,Human toxicity: carcinogenic,4.129306216804817e-06,CTUh
+bill_of_materials.csv,LV electricity distribution secondary,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,LV electricity distribution secondary,"Human toxicity: carcinogenic, metals",8.700884337928605e-07,CTUh
+bill_of_materials.csv,LV electricity distribution secondary,"Human toxicity: carcinogenic, organics",3.2592177830119553e-06,CTUh
+bill_of_materials.csv,LV electricity distribution secondary,Human toxicity: non-carcinogenic,0.00010253871558667774,CTUh
+bill_of_materials.csv,LV electricity distribution secondary,"Human toxicity: non-carcinogenic, inorganics",4.2660042380506156e-05,CTUh
+bill_of_materials.csv,LV electricity distribution secondary,"Human toxicity: non-carcinogenic, metals",5.828221215500389e-05,CTUh
+bill_of_materials.csv,LV electricity distribution secondary,"Human toxicity: non-carcinogenic, organics",2.458377618189102e-06,CTUh
+bill_of_materials.csv,LV electricity distribution secondary,Ionising radiation: human health,152.0250808454121,kBq U235-Eq
+bill_of_materials.csv,LV electricity distribution secondary,Land use,37462.853311089755,dimensionless
+bill_of_materials.csv,LV electricity distribution secondary,Material resources: metals/minerals,0.023573319662122352,kg Sb-Eq
+bill_of_materials.csv,LV electricity distribution secondary,Ozone depletion,6.580886857144836e-05,kg CFC-11-Eq
+bill_of_materials.csv,LV electricity distribution secondary,Particulate matter formation,0.0007043868458393233,disease incidence
+bill_of_materials.csv,LV electricity distribution secondary,Photochemical oxidant formation: human health,33.42012270185596,kg NMVOC-Eq
+bill_of_materials.csv,LV electricity distribution secondary,Water use,2941.173615763435,m3 world Eq deprived
+bill_of_materials.csv,Low-voltage electricity supply,Acidification,4123.88430351639,mol H+-Eq
+bill_of_materials.csv,Low-voltage electricity supply,Climate change,146342.5012985884,kg CO2-Eq
+bill_of_materials.csv,Low-voltage electricity supply,Climate change: biogenic,346.547366591137,kg CO2-Eq
+bill_of_materials.csv,Low-voltage electricity supply,Climate change: fossil,145817.76998798526,kg CO2-Eq
+bill_of_materials.csv,Low-voltage electricity supply,Climate change: land use and land use change,178.1839440120191,kg CO2-Eq
+bill_of_materials.csv,Low-voltage electricity supply,Ecotoxicity: freshwater,36905168.63389334,CTUe
+bill_of_materials.csv,Low-voltage electricity supply,"Ecotoxicity: freshwater, inorganics",3763376.8336886987,CTUe
+bill_of_materials.csv,Low-voltage electricity supply,"Ecotoxicity: freshwater, metals",33069289.47864565,CTUe
+bill_of_materials.csv,Low-voltage electricity supply,"Ecotoxicity: freshwater, organics",72502.32155900387,CTUe
+bill_of_materials.csv,Low-voltage electricity supply,Energy resources: non-renewable,1903473.1441801665,"MJ, net calorific value"
+bill_of_materials.csv,Low-voltage electricity supply,Eutrophication: freshwater,340.0137781790226,kg P-Eq
+bill_of_materials.csv,Low-voltage electricity supply,Eutrophication: marine,270.5225930033214,kg N-Eq
+bill_of_materials.csv,Low-voltage electricity supply,Eutrophication: terrestrial,3447.563350026898,mol N-Eq
+bill_of_materials.csv,Low-voltage electricity supply,Human toxicity: carcinogenic,0.0004826509597541639,CTUh
+bill_of_materials.csv,Low-voltage electricity supply,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Low-voltage electricity supply,"Human toxicity: carcinogenic, metals",0.00039871527101374086,CTUh
+bill_of_materials.csv,Low-voltage electricity supply,"Human toxicity: carcinogenic, organics",8.393568874042301e-05,CTUh
+bill_of_materials.csv,Low-voltage electricity supply,Human toxicity: non-carcinogenic,0.042492584332292825,CTUh
+bill_of_materials.csv,Low-voltage electricity supply,"Human toxicity: non-carcinogenic, inorganics",0.002561651321748889,CTUh
+bill_of_materials.csv,Low-voltage electricity supply,"Human toxicity: non-carcinogenic, metals",0.03750455721239233,CTUh
+bill_of_materials.csv,Low-voltage electricity supply,"Human toxicity: non-carcinogenic, organics",0.0024442525936212143,CTUh
+bill_of_materials.csv,Low-voltage electricity supply,Ionising radiation: human health,12515.389347967684,kBq U235-Eq
+bill_of_materials.csv,Low-voltage electricity supply,Land use,1488246.235595067,dimensionless
+bill_of_materials.csv,Low-voltage electricity supply,Material resources: metals/minerals,48.32722527154646,kg Sb-Eq
+bill_of_materials.csv,Low-voltage electricity supply,Ozone depletion,0.001773892993088863,kg CFC-11-Eq
+bill_of_materials.csv,Low-voltage electricity supply,Particulate matter formation,0.019314648030613914,disease incidence
+bill_of_materials.csv,Low-voltage electricity supply,Photochemical oxidant formation: human health,1055.4613073097921,kg NMVOC-Eq
+bill_of_materials.csv,Low-voltage electricity supply,Water use,75894.76624196905,m3 world Eq deprived
+bill_of_materials.csv,Air-to-air heat pump,Acidification,21113.125264232578,mol H+-Eq
+bill_of_materials.csv,Air-to-air heat pump,Climate change,64540708.050578654,kg CO2-Eq
+bill_of_materials.csv,Air-to-air heat pump,Climate change: biogenic,5745.129398000141,kg CO2-Eq
+bill_of_materials.csv,Air-to-air heat pump,Climate change: fossil,64532622.3746817,kg CO2-Eq
+bill_of_materials.csv,Air-to-air heat pump,Climate change: land use and land use change,2340.5464989586776,kg CO2-Eq
+bill_of_materials.csv,Air-to-air heat pump,Ecotoxicity: freshwater,170716204.76348248,CTUe
+bill_of_materials.csv,Air-to-air heat pump,"Ecotoxicity: freshwater, inorganics",19323380.19897387,CTUe
+bill_of_materials.csv,Air-to-air heat pump,"Ecotoxicity: freshwater, metals",150972031.16736847,CTUe
+bill_of_materials.csv,Air-to-air heat pump,"Ecotoxicity: freshwater, organics",420793.3971400051,CTUe
+bill_of_materials.csv,Air-to-air heat pump,Energy resources: non-renewable,45426532.096690364,"MJ, net calorific value"
+bill_of_materials.csv,Air-to-air heat pump,Eutrophication: freshwater,1707.9717162059596,kg P-Eq
+bill_of_materials.csv,Air-to-air heat pump,Eutrophication: marine,3145.3283200554847,kg N-Eq
+bill_of_materials.csv,Air-to-air heat pump,Eutrophication: terrestrial,34201.86445230277,mol N-Eq
+bill_of_materials.csv,Air-to-air heat pump,Human toxicity: carcinogenic,0.004641030596188359,CTUh
+bill_of_materials.csv,Air-to-air heat pump,"Human toxicity: carcinogenic, inorganics",0.0,CTUh
+bill_of_materials.csv,Air-to-air heat pump,"Human toxicity: carcinogenic, metals",0.0015006179322264804,CTUh
+bill_of_materials.csv,Air-to-air heat pump,"Human toxicity: carcinogenic, organics",0.0031404126639618807,CTUh
+bill_of_materials.csv,Air-to-air heat pump,Human toxicity: non-carcinogenic,0.14578387906939977,CTUh
+bill_of_materials.csv,Air-to-air heat pump,"Human toxicity: non-carcinogenic, inorganics",0.03642956694381779,CTUh
+bill_of_materials.csv,Air-to-air heat pump,"Human toxicity: non-carcinogenic, metals",0.10325288887683041,CTUh
+bill_of_materials.csv,Air-to-air heat pump,"Human toxicity: non-carcinogenic, organics",0.006527078511654633,CTUh
+bill_of_materials.csv,Air-to-air heat pump,Ionising radiation: human health,161985.46156639047,kBq U235-Eq
+bill_of_materials.csv,Air-to-air heat pump,Land use,13289705.7081801,dimensionless
+bill_of_materials.csv,Air-to-air heat pump,Material resources: metals/minerals,114.02952613424767,kg Sb-Eq
+bill_of_materials.csv,Air-to-air heat pump,Ozone depletion,34.79169217719451,kg CFC-11-Eq
+bill_of_materials.csv,Air-to-air heat pump,Particulate matter formation,0.24933391762693485,disease incidence
+bill_of_materials.csv,Air-to-air heat pump,Photochemical oxidant formation: human health,13477.058789796913,kg NMVOC-Eq
+bill_of_materials.csv,Air-to-air heat pump,Water use,1250046.471582874,m3 world Eq deprived
