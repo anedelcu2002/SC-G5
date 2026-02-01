@@ -12,8 +12,8 @@ For any questions or feedback, please contact anedelcu2002@gmail.com.
 
 ### Prerequisites
 
-- **Python 3.9 - 3.11** (Calliope 0.7.0 compatibility)
-- **[Gurobi](https://www.gurobi.com/) solver** - Free academic license available at [gurobi.com/academia](https://www.gurobi.com/academia/academic-program-and-licenses/)
+- **Python 3.11**
+- **[Gurobi](https://www.gurobi.com/) solver**
 
 ### Dependencies
 
