@@ -1,173 +1,177 @@
 """
-Parallel Scenario Execution Script - Optimized for 16-core CPU
-Run multiple scenario combinations in parallel for comprehensive analysis
+Parallel scenario execution script for heating system modeling in the neighborhoods of Delft.
+Can run multiple neighborhoods, years, scenarios, and topology sources in parallel,
+or study the sensitivity of the outputs to various parameters by varying them one at a time.
+
+Usage:
+    python run_parallel.py
+    python run_parallel.py --config path/to/config.yaml
+
+    The script will prompt for confirmation before executing. Run from the
+    delft_calliope directory where run_analysis.py is located.
+
+Configuration:
+    Edit config.yaml (or specify a custom config file) to customize:
+    - scenarios: neighborhoods, years, heating_scenarios, topology_sources
+    - parameters: ranges for sensitivity analysis
+    - execution: max_workers, mode, timeout settings
+    - baselines: baseline configurations for DH and electrification
+
+Output:
+    Results are saved to parallel_results/<timestamp>/ including:
+    - execution_summary.csv/json: Run metadata and status
+    - scenario_summary.csv: Aggregated results from all scenarios
+    - Individual run folders with full outputs and parameters
+
+Dependencies:
+    - pandas
+    - pyyaml
+    - run_analysis.py (must be in the same directory)
 """
 
 import os
 import subprocess
-import itertools
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from datetime import datetime
 import pandas as pd
 import json
 import time
 import random
+import hashlib
+import yaml
+import argparse
 
 # =============================================================================
-# CONFIGURATION
+# Configuration loading from YAML
 # =============================================================================
 
-# Define all parameter combinations to run
-NEIGHBORHOODS = [
-                 'multatulibuurt', 
-#                 'holstbuurt', 
-#                 'mythologiebuurt',
- #                'poptahofzuid'
-                 ]
-YEARS = [
-#         2013, 
-         2019, 
-#         2020
-         ]
-SCENARIOS = [
-             'district_heating', 
-             'full_electrification', 
-#             'hybrid'
-             ]
-TOPOLOGY_SOURCES = [
-                    'stedin', 
-#                    'osm'
-                    ]
-SPACING_M = [
-             2.5,
-             5.0, 
-             10
-             ]  # Node spacing in meters
+def load_config(config_path='config.yaml'):
+    """
+    Load configuration from YAML file.
+    
+    Parameters
+    ----------
+    config_path : str
+        Path to the YAML configuration file
+    
+    Returns
+    -------
+    dict
+        Configuration dictionary
+    """
+    with open(config_path, 'r') as f:
+        return yaml.safe_load(f)
 
-# District heating parameters
-HEAT_SUBSTATION_EFF = [
-                       0.81, 
-                       0.9, 
-                       0.99
-                       ]  # Heat substation efficiency
-DELTA_T = [25]  # Temperature difference for pipe sizing (°C)
-FLOW_SPEED = [
-            0.56, 
-            0.62, 
-            0.68
-            ]  # Flow speed for pipe sizing (m/s)
-DISTANCE_FACTOR_HEAT_TRANS_MAIN = [1.0] # no variation expected
-DISTANCE_FACTOR_HEAT_DIST_MAIN = [
-    0.9, 
-    1.0, 
-    1.1
-    ] # 10% variation
-DISTANCE_FACTOR_HEAT_DIST_SEC = [
-    0.9, 
-    1.0, 
-    1.1
-    ] # 10% variation
-HEAT_LOSS_RATE_TRANS_MAIN = [
-    59.2, 
-    65.8, 
-    72.4
-    ] # 10% variation
-HEAT_LOSS_RATE_DIST_MAIN = [
-    46.8, 
-    52, 
-    57.2
-    ]
-HEAT_LOSS_RATE_DIST_SEC = [
-    26.1, 
-    29, 
-    31.9
-    ]
+# Default config path (can be overridden via command line)
+CONFIG_PATH = 'config.yaml'
 
-# Heat pump parameters
-DISTANCE_FACTOR_ELEC_DIST_MAIN = [
-    0.9, 
-    1.0, 
-    1.1
-    ]
-DISTANCE_FACTOR_ELEC_DIST_SEC = [
-    0.9, 
-    1.0, 
-    1.1
-    ]
-ELEC_RESISTANCE_MAIN = [
-    0.222, 
-    0.247, 
-    0.272
-    ]
-ELEC_RESISTANCE_SEC = [
-    0.222, 
-    0.247, 
-    0.272
-    ]
-HEAT_PUMP_COP = [
-                 3, 
-                 4.0, 
-                 5.5
-                 ]  # Heat pump coefficient of performance
-
-# Loss calculation enable/disable
-APPLY_HEAT_LOSSES = [True]  # Set to [True, False] to test both
-APPLY_ELECTRICITY_LOSSES = [True]  # Set to [True, False] to test both
-
-# Parallel execution settings
-MAX_WORKERS = 1  # Number of parallel scenario runs
-GUROBI_THREADS = 0  # Threads per Gurobi solve (16 cores / 4 workers = 4 threads each)
-
-MODE = 'plot'  # Use 'export' to skip visualizations for faster execution
-
-# Output organization
-RESULTS_BASE_DIR = 'parallel_results'
-TIMESTAMP = datetime.now().strftime('%Y%m%d_%H%M%S')
-
-# Baseline configurations for sensitivity study
-BASELINE_DH = {
-    'neighborhood': 'multatulibuurt',
-    'year': 2019,
-    'scenario': 'district_heating',
-    'topology_source': 'stedin',
-    'spacing_m': 5.0,
-    'heat_pump_cop': 4.0,
-    'heat_substation_eff': 0.9,
-    'delta_t': 25,
-    'flow_speed': 0.62,
-    'distance_factor_heat_trans_main': 1.0,
-    'distance_factor_heat_dist_main': 1.0,
-    'distance_factor_heat_dist_sec': 1.0,
-    'heat_loss_rate_trans_main': 65.8,
-    'heat_loss_rate_dist_main': 52,
-    'heat_loss_rate_dist_sec': 29,
-    'apply_heat_losses': True,
-}
-
-BASELINE_ELEC = {
-    'neighborhood': 'multatulibuurt',
-    'year': 2019,
-    'scenario': 'full_electrification',
-    'topology_source': 'stedin',
-    'spacing_m': 5.0,
-    'heat_pump_cop': 4.0,
-    'distance_factor_elec_dist_main': 1.0,
-    'distance_factor_elec_dist_sec': 1.0,
-    'elec_resistance_main': 0.247,
-    'elec_resistance_sec': 0.247,
-    'apply_electricity_losses': True,
-}
+def init_config(config_path=None):
+    """
+    Initialize global configuration variables from YAML config.
+    
+    Parameters
+    ----------
+    config_path : str, optional
+        Path to config file. Uses CONFIG_PATH if not specified.
+    """
+    global NEIGHBORHOODS, YEARS, SCENARIOS, TOPOLOGY_SOURCES, SPACING_M
+    global HEAT_SUBSTATION_EFF, DELTA_T, FLOW_SPEED
+    global DISTANCE_FACTOR_HEAT_TRANS_MAIN, DISTANCE_FACTOR_HEAT_DIST_MAIN, DISTANCE_FACTOR_HEAT_DIST_SEC
+    global HEAT_LOSS_RATE_TRANS_MAIN, HEAT_LOSS_RATE_DIST_MAIN, HEAT_LOSS_RATE_DIST_SEC
+    global DISTANCE_FACTOR_ELEC_DIST_MAIN, DISTANCE_FACTOR_ELEC_DIST_SEC
+    global ELEC_RESISTANCE_MAIN, ELEC_RESISTANCE_SEC, HEAT_PUMP_COP
+    global APPLY_HEAT_LOSSES, APPLY_ELECTRICITY_LOSSES
+    global MAX_WORKERS, MODE, RESULTS_BASE_DIR, TIMEOUT_SECONDS
+    global BASELINE_DH, BASELINE_ELEC, TIMESTAMP
+    
+    if config_path is None:
+        config_path = CONFIG_PATH
+    
+    config = load_config(config_path)
+    
+    # =============================================================================
+    # High-level configuration: neighborhoods, demand scenarios, alternative heating systems, topology sources
+    # =============================================================================
+    
+    # Define all parameter combinations to run
+    NEIGHBORHOODS = config['scenarios']['neighborhoods']
+    YEARS = config['scenarios']['years']
+    SCENARIOS = config['scenarios']['heating_scenarios']
+    TOPOLOGY_SOURCES = config['scenarios']['topology_sources']
+    SPACING_M = config['parameters']['spacing_m']  # Node spacing in meters
+    
+    # =============================================================================
+    # Low-level configuration: parameter ranges for sensitivity analysis
+    # =============================================================================
+    
+    # District heating parameters
+    dh = config['parameters']['district_heating']
+    HEAT_SUBSTATION_EFF = dh['heat_substation_eff']  # Heat substation efficiency
+    DELTA_T = dh['delta_t']  # Temperature difference for pipe sizing (°C)
+    FLOW_SPEED = dh['flow_speed']  # Flow speed for pipe sizing (m/s)
+    DISTANCE_FACTOR_HEAT_TRANS_MAIN = dh['distance_factors']['trans_main']  # no variation, Warmtenet route known
+    DISTANCE_FACTOR_HEAT_DIST_MAIN = dh['distance_factors']['dist_main']  # 10% variation
+    DISTANCE_FACTOR_HEAT_DIST_SEC = dh['distance_factors']['dist_sec']  # 10% variation
+    HEAT_LOSS_RATE_TRANS_MAIN = dh['heat_loss_rates']['trans_main']  # 10% variation
+    HEAT_LOSS_RATE_DIST_MAIN = dh['heat_loss_rates']['dist_main']  # 10% variation
+    HEAT_LOSS_RATE_DIST_SEC = dh['heat_loss_rates']['dist_sec']  # 10% variation
+    
+    # Heat pump parameters
+    elec = config['parameters']['electrification']
+    DISTANCE_FACTOR_ELEC_DIST_MAIN = elec['distance_factors']['dist_main']  # 10% variation
+    DISTANCE_FACTOR_ELEC_DIST_SEC = elec['distance_factors']['dist_sec']  # 10% variation
+    ELEC_RESISTANCE_MAIN = elec['elec_resistance']['main']  # 10% variation
+    ELEC_RESISTANCE_SEC = elec['elec_resistance']['sec']  # 10% variation
+    HEAT_PUMP_COP = elec['heat_pump_cop']  # Heat pump coefficient of performance, variation based on CE Delft assumptions
+    
+    # =============================================================================
+    # Run configuration: execution mode, parallel workers, output organization
+    # =============================================================================
+    
+    # Enable or disable transmission losses
+    APPLY_HEAT_LOSSES = config['execution']['apply_heat_losses']  # Set to [True, False] to test both
+    APPLY_ELECTRICITY_LOSSES = config['execution']['apply_electricity_losses']  # Set to [True, False] to test both
+    
+    # Number of parallel scenario runs, run mode
+    MAX_WORKERS = config['execution']['max_workers']  # Can be set to up to 16 for 16-core CPU, but your RAM must handle it
+    MODE = config['execution']['mode']  # Use 'export' to skip visualizations for faster execution
+    TIMEOUT_SECONDS = config['execution'].get('timeout_seconds', 3600)
+    
+    # Output directory
+    RESULTS_BASE_DIR = config['execution']['results_base_dir']
+    TIMESTAMP = datetime.now().strftime('%Y%m%d_%H%M%S')
+    
+    # Baseline configurations for sensitivity study
+    BASELINE_DH = config['baselines']['district_heating']
+    BASELINE_ELEC = config['baselines']['electrification']
 
 
 # =============================================================================
-# SENSITIVITY STUDY HELPERS
+# Sensitivity analysis combination generation function
 # =============================================================================
 
 def _get_param_index(param_name):
     """
     Get the tuple index for a parameter name.
     
-    This maps parameter names to their position in the combination tuple.
+    Maps parameter names to their position in the combination tuple used
+    by run_single_scenario(). Used internally when modifying specific
+    parameters in sensitivity analysis.
+    
+    Parameters
+    ----------
+    param_name : str
+        Name of the parameter (e.g., 'spacing_m', 'heat_pump_cop')
+    
+    Returns
+    -------
+    int
+        Index position in the parameter tuple
+    
+    Raises
+    ------
+    ValueError
+        If param_name is not in the parameter order list
     """
     param_order = [
         'neighborhood', 'year', 'scenario', 'topology_source',
@@ -226,13 +230,13 @@ def _create_combo_from_baseline(baseline_dict, baseline_for_missing):
 
 def generate_sensitivity_combinations():
     """
-    Generate combinations for partial sensitivity study.
+    Generate combinations for partial sensitivity study. 
+
+    Each parameter is varied individually while others stay at baseline.
     
-    Strategy:
-    - Each parameter is varied individually while others stay at baseline
-    - District heating parameters use BASELINE_DH as base (multatulibuurt 2019 stedin DH)
-    - Electrification parameters use BASELINE_ELEC as base (multatulibuurt 2019 stedin elec)
-    - This gives linear growth: N = 1 + sum(values_per_param - 1) instead of exponential
+    District heating parameters use BASELINE_DH as base (multatulibuurt 2019 stedin DH)
+    
+    Electrification parameters use BASELINE_ELEC as base (multatulibuurt 2019 stedin elec)
     
     Returns:
     --------
@@ -302,13 +306,12 @@ def generate_sensitivity_combinations():
     print(f"  - 2 baseline runs (DH + Elec)")
     print(f"  - {dh_variations} district heating parameter variations")
     print(f"  - {elec_variations} electrification parameter variations")
-    print(f"\nLinear scaling: O(n) vs exponential O(n^k)\n")
     
     return combinations
 
 
 # =============================================================================
-# EXECUTION FUNCTIONS
+# Execution functions: single scenario run, aggregation of results
 # =============================================================================
 
 def run_single_scenario(neighborhood, year, scenario, topology_source,
@@ -327,13 +330,70 @@ def run_single_scenario(neighborhood, year, scenario, topology_source,
                        elec_resistance_main,
                        elec_resistance_sec):
     """
-    Run a single scenario combination
+    Run a single scenario by invoking run_analysis.py as a subprocess.
     
-    Returns:
-    --------
-    dict : Results with status, timing, and output information
+    Creates output directories, saves parameters to JSON, executes the
+    analysis script, and captures all outputs. Includes a random delay
+    at start to reduce I/O contention when running in parallel.
+    
+    Parameters
+    ----------
+    neighborhood : str
+        Neighborhood name (e.g., 'multatulibuurt')
+    year : int
+        Demand year for the scenario (e.g., 2019)
+    scenario : str
+        Heating scenario type ('district_heating', 'full_electrification', 'hybrid')
+    topology_source : str
+        Network topology source ('stedin' or 'osm')
+    spacing_m : float
+        Node spacing in meters for network discretization
+    heat_pump_cop : float
+        Coefficient of performance for heat pumps
+    heat_substation_eff : float
+        Heat substation efficiency (0-1)
+    delta_t : float
+        Temperature difference for pipe sizing (degrees C)
+    flow_speed : float
+        Flow speed for pipe sizing (m/s)
+    distance_factor_heat_trans_main : float
+        Distance multiplier for heat transmission main pipes
+    distance_factor_heat_dist_main : float
+        Distance multiplier for heat distribution main pipes
+    distance_factor_heat_dist_sec : float
+        Distance multiplier for heat distribution secondary pipes
+    distance_factor_elec_dist_main : float
+        Distance multiplier for electricity distribution main cables
+    distance_factor_elec_dist_sec : float
+        Distance multiplier for electricity distribution secondary cables
+    apply_heat_losses : bool
+        Whether to apply heat transmission losses
+    apply_electricity_losses : bool
+        Whether to apply electricity transmission losses
+    heat_loss_rate_trans_main : float
+        Heat loss rate for transmission main (W/m)
+    heat_loss_rate_dist_main : float
+        Heat loss rate for distribution main (W/m)
+    heat_loss_rate_dist_sec : float
+        Heat loss rate for distribution secondary (W/m)
+    elec_resistance_main : float
+        Electrical resistance for main cables (Ohm/km)
+    elec_resistance_sec : float
+        Electrical resistance for secondary cables (Ohm/km)
+    
+    Returns
+    -------
+    dict
+        Results dictionary containing:
+        - run_id: Unique identifier for this run
+        - success: Boolean indicating if run completed successfully
+        - duration_seconds: Execution time
+        - returncode: Subprocess return code
+        - output_dir: Path to output directory
+        - timestamp: ISO format start timestamp
+        - error: Error message (only if failed)
+        - All input parameters
     """
-    import hashlib
     
     time.sleep(random.uniform(0, 1))  # Stagger start times to reduce I/O contention
 
@@ -420,9 +480,7 @@ def run_single_scenario(neighborhood, year, scenario, topology_source,
     start_time = datetime.now()
     
     try:
-        # Set environment variable to limit Gurobi threads for this process
         env = os.environ.copy()
-        env['GRB_THREADS'] = str(GUROBI_THREADS)
         
         # Run the analysis
         result = subprocess.run(
@@ -430,7 +488,7 @@ def run_single_scenario(neighborhood, year, scenario, topology_source,
             capture_output=True,
             text=True,
             cwd=os.getcwd(),
-            timeout=3600,  # 1 hour timeout
+            timeout=TIMEOUT_SECONDS,
             env=env  # Pass modified environment
         )
         
@@ -462,7 +520,7 @@ def run_single_scenario(neighborhood, year, scenario, topology_source,
     except subprocess.TimeoutExpired:
         end_time = datetime.now()
         duration = (end_time - start_time).total_seconds()
-        print(f"TIMEOUT: {run_id} (exceeded 1 hour)")
+        print(f"TIMEOUT: {run_id} (exceeded {TIMEOUT_SECONDS}s)")
         
         result_dict = {
             'run_id': run_id,
@@ -593,7 +651,17 @@ def _flatten_dict(d, parent_key='', sep='_'):
 
 def run_parallel_scenarios():
     """
-    Execute all scenario combinations in parallel
+    Execute all scenario combinations in parallel using ProcessPoolExecutor.
+    
+    Generates sensitivity study combinations, displays configuration summary,
+    creates output directories, and runs all scenarios using parallel workers.
+    Progress is printed as each scenario completes.
+    
+    Returns
+    -------
+    list of dict
+        List of result dictionaries from each scenario run, as returned
+        by run_single_scenario()
     """
     # Generate sensitivity study combinations (one parameter at a time)
     print("Generating sensitivity study combinations...")
@@ -641,7 +709,7 @@ def run_parallel_scenarios():
             results.append(result)
             completed += 1
             
-            status = "✓ SUCCESS" if result['success'] else "✗ FAILED"
+            status = "SUCCESS" if result['success'] else "FAILED"
             print(f"[{completed}/{total_runs}] {status}: {result['run_id']} ({result['duration_seconds']:.1f}s)")
     
     return results
@@ -649,7 +717,22 @@ def run_parallel_scenarios():
 
 def save_results_summary(results):
     """
-    Save comprehensive results summary
+    Save comprehensive results summary and print execution statistics.
+    
+    Saves results to CSV and JSON formats, aggregates scenario summaries,
+    and prints detailed statistics including success rates by category.
+    
+    Parameters
+    ----------
+    results : list of dict
+        List of result dictionaries from run_parallel_scenarios()
+    
+    Side Effects
+    ------------
+    - Creates execution_summary.csv in results directory
+    - Creates execution_summary.json in results directory  
+    - Creates scenario_summary.csv with aggregated scenario data
+    - Prints execution statistics to stdout
     """
     # Convert to DataFrame
     df = pd.DataFrame(results)
@@ -663,7 +746,7 @@ def save_results_summary(results):
     with open(json_file, 'w') as f:
         json.dump(results, f, indent=2)
     
-    # NEW: Create aggregated scenario summaries
+    # Create aggregated scenario summaries
     print("\nAggregating scenario summaries...")
     aggregated_summary = aggregate_scenario_summaries(results, TIMESTAMP)
     scenarios_file = os.path.join(RESULTS_BASE_DIR, TIMESTAMP, 'scenario_summary.csv')
@@ -681,7 +764,7 @@ def save_results_summary(results):
     print(f"\nResults saved to:")
     print(f"  - {summary_file}")
     print(f"  - {json_file}")
-    print(f"  - {scenarios_file}")  # NEW
+    print(f"  - {scenarios_file}")
     print(f"{'='*80}\n")
     
     # Print failures if any
@@ -717,16 +800,36 @@ def save_results_summary(results):
     print(f"{'='*80}\n")
 
 # =============================================================================
-# MAIN EXECUTION
+# Main execution
 # =============================================================================
 
 if __name__ == "__main__":
     import sys
     
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(
+        description='Run parallel scenario execution for energy system analysis'
+    )
+    parser.add_argument(
+        '--config', '-c',
+        default='run_parallel_config.yaml',
+        help='Path to YAML configuration file (default: run_parallel_config.yaml)'
+    )
+    args = parser.parse_args()
+    
     # Change to delft_calliope directory
     if not os.path.exists('run_analysis.py'):
         print("ERROR: Must run from delft_calliope directory")
         sys.exit(1)
+    
+    # Check config file exists
+    if not os.path.exists(args.config):
+        print(f"ERROR: Configuration file not found: {args.config}")
+        sys.exit(1)
+    
+    # Initialize configuration from YAML
+    print(f"Loading configuration from: {args.config}")
+    init_config(args.config)
     
     # Generate combinations to get accurate count
     test_combinations = generate_sensitivity_combinations()
@@ -735,10 +838,8 @@ if __name__ == "__main__":
     print("\n" + "="*80)
     print("PARALLEL EXECUTION CONFIGURATION - SENSITIVITY STUDY")
     print("="*80)
-    print(f"CPU Cores: 16 (detected)")
+    print(f"Configuration file: {args.config}")
     print(f"Parallel workers: {MAX_WORKERS}")
-    print(f"Gurobi threads per worker: {GUROBI_THREADS}")
-    print(f"Total utilization: {MAX_WORKERS * GUROBI_THREADS} cores")
     print(f"\nSensitivity study setup:")
     print(f"  Baseline scenarios: 2 (DH + Elec)")
     print(f"  Parameter variations: {len(test_combinations) - 2}")
@@ -767,4 +868,4 @@ if __name__ == "__main__":
     print(f"\nTotal wall clock time: {wall_time:.1f}s ({wall_time/60:.1f} minutes)")
     print(f"Total CPU time: {cpu_time:.1f}s ({cpu_time/60:.1f} minutes)")
     print(f"Speedup factor: {cpu_time / wall_time:.1f}x")
-    print(f"Core utilization efficiency: {(cpu_time / wall_time) / 16 * 100:.1f}%\n")
+    print(f"Core utilization efficiency: {(cpu_time / wall_time) / MAX_WORKERS * 100:.1f}%\n")

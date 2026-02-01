@@ -1,0 +1,135 @@
+# =============================================================================
+# run_parallel_config.yaml - Configuration for parallel scenario execution
+# =============================================================================
+
+# =============================================================================
+# High-level configuration: neighborhoods, demand scenarios, alternative heating systems, topology sources
+# =============================================================================
+
+# Define all parameter combinations to run
+scenarios:
+  neighborhoods:
+    - multatulibuurt
+    # - holstbuurt
+    # - mythologiebuurt
+    # - poptahofzuid
+  years:
+    # - 2013
+    - 2019
+    # - 2020
+  heating_scenarios:
+    - district_heating
+    - full_electrification
+    # - hybrid
+  topology_sources:
+    - stedin
+    # - osm
+
+# =============================================================================
+# Low-level configuration: parameter ranges for sensitivity analysis
+# =============================================================================
+
+parameters:
+  # Node spacing in meters
+  spacing_m: [2.5, 5.0, 10]
+
+  # District heating parameters
+  district_heating:
+    # Heat substation efficiency
+    heat_substation_eff: [0.81, 0.9, 0.99]
+    # Temperature difference for pipe sizing (degrees C)
+    delta_t: [25]
+    # Flow speed for pipe sizing (m/s)
+    flow_speed: [0.56, 0.62, 0.68]
+    # Distance factors for pipe length estimation
+    distance_factors:
+      # no variation, Warmtenet route known
+      trans_main: [1.0]
+      # 10% variation
+      dist_main: [0.9, 1.0, 1.1]
+      # 10% variation
+      dist_sec: [0.9, 1.0, 1.1]
+    # Heat loss rates (W/m)
+    heat_loss_rates:
+      # 10% variation
+      trans_main: [59.2, 65.8, 72.4]
+      # 10% variation
+      dist_main: [46.8, 52, 57.2]
+      # 10% variation
+      dist_sec: [26.1, 29, 31.9]
+
+  # Heat pump / electrification parameters
+  electrification:
+    # Heat pump coefficient of performance, variation based on CE Delft assumptions
+    heat_pump_cop: [3, 4.0, 5.5]
+    # Distance factors for cable length estimation
+    distance_factors:
+      # 10% variation
+      dist_main: [0.9, 1.0, 1.1]
+      # 10% variation
+      dist_sec: [0.9, 1.0, 1.1]
+    # Electrical resistance (Ohm/km)
+    elec_resistance:
+      # 10% variation
+      main: [0.222, 0.247, 0.272]
+      # 10% variation
+      sec: [0.222, 0.247, 0.272]
+
+# =============================================================================
+# Run configuration: execution mode, parallel workers, output organization
+# =============================================================================
+
+execution:
+  # Enable or disable transmission losses
+  # Set to [true, false] to test both
+  apply_heat_losses: [true]
+  apply_electricity_losses: [true]
+  
+  # Number of parallel scenario runs
+  # Can be set to up to 16 for 16-core CPU, but your RAM must handle it
+  max_workers: 1
+  
+  # Use 'export' to skip visualizations for faster execution
+  mode: plot
+  
+  # Timeout for each scenario run (seconds)
+  timeout_seconds: 3600
+  
+  # Output directory
+  results_base_dir: parallel_results
+
+# =============================================================================
+# Baseline configurations for sensitivity study
+# =============================================================================
+
+baselines:
+  district_heating:
+    neighborhood: multatulibuurt
+    year: 2019
+    scenario: district_heating
+    topology_source: stedin
+    spacing_m: 5.0
+    heat_pump_cop: 4.0
+    heat_substation_eff: 0.9
+    delta_t: 25
+    flow_speed: 0.62
+    distance_factor_heat_trans_main: 1.0
+    distance_factor_heat_dist_main: 1.0
+    distance_factor_heat_dist_sec: 1.0
+    heat_loss_rate_trans_main: 65.8
+    heat_loss_rate_dist_main: 52
+    heat_loss_rate_dist_sec: 29
+    apply_heat_losses: true
+
+  electrification:
+    neighborhood: multatulibuurt
+    year: 2019
+    scenario: full_electrification
+    topology_source: stedin
+    spacing_m: 5.0
+    heat_pump_cop: 4.0
+    distance_factor_elec_dist_main: 1.0
+    distance_factor_elec_dist_sec: 1.0
+    elec_resistance_main: 0.247
+    elec_resistance_sec: 0.247
+    apply_electricity_losses: true

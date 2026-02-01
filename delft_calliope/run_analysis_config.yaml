@@ -1,0 +1,131 @@
+# =============================================================================
+# run_analysis_config.yaml - Configuration for district heating network analysis
+# =============================================================================
+
+# =============================================================================
+# Scenario selection
+# =============================================================================
+
+scenario:
+  # Neighborhood to analyze (multatulibuurt, holstbuurt, mythologiebuurt, poptahofzuid)
+  neighborhood: multatulibuurt
+  # Year for heat demand data (2013=cold, 2019=normal, 2020=warm)
+  year: 2019
+  # Scenario type: 'district_heating', 'full_electrification', or 'hybrid'
+  type: district_heating
+  # Network topology source: 'stedin' (grid data) or 'osm' (OpenStreetMap roads)
+  topology_source: stedin
+
+# =============================================================================
+# Execution settings
+# =============================================================================
+
+execution:
+  # Run mode: 'plot' generates visualizations, 'export' skips them for faster execution
+  mode: plot
+  # Debug mode: use only one demand node for faster testing
+  debug_single_node: false
+  # Node spacing for interpolation in meters
+  spacing_m: 5
+
+# =============================================================================
+# Data source settings
+# =============================================================================
+
+data_sources:
+  # Data source mode: true = fetch from APIs, false = load from cached files
+  online: false
+  # BAG API key (required for online mode)
+  # Obtain from: https://www.kadaster.nl/zakelijk/producten/adressen-en-gebouwen/bag-api
+  bag_api_key: null
+
+# =============================================================================
+# File paths
+# =============================================================================
+
+paths:
+  # Input data cache paths
+  heat_demand_csv_path: inputs/heat_demand_cache
+  bag_cache_path: inputs/bag_cache
+  stedin_cache_path: inputs/stedin_cache
+  inputs_folder: inputs
+  # Output paths
+  data_tables_folder: data_tables
+  outputs_folder: outputs
+  debug_folder: debug
+
+# =============================================================================
+# Technology efficiencies
+# =============================================================================
+
+tech_efficiencies:
+  # Heat pump coefficient of performance
+  heat_pump_cop: 4.0
+  # Heat substation efficiency (0-1)
+  heat_substation_eff: 0.9
+  # Demand threshold in kW for hybrid scenario
+  hybrid_threshold_kW: 50
+
+# =============================================================================
+# Postprocessing parameters for results analysis and bill of materials
+# =============================================================================
+
+postprocessing:
+  # Pipe sizing parameters
+  pipe_sizing:
+    heat_capacity: 4.19      # kJ/(kg·K)
+    density: 1000            # kg/m³
+    delta_T: 25              # Temperature difference (°C)
+    flow_speed: 0.62         # Flow speed (m/s)
+  
+  # Pipe sizing method: 'class' (uniform per type) or 'individual' (per pipe)
+  pipe_sizing_method: individual
+  
+  # Distance factors for pipe/cable length estimation (multipliers)
+  distance_factors:
+    Heat transmission main: 1.0
+    LQ heat distribution main: 1.0
+    LQ heat distribution secondary: 1.0
+    LV electricity distribution main: 1.0
+    LV electricity distribution secondary: 1.0
+  
+  # Heat loss rates (W/m)
+  heat_loss_rates:
+    Heat transmission main: 65.8
+    LQ heat distribution main: 52
+    LQ heat distribution secondary: 29
+  
+  # Whether to apply heat transmission losses in calculations
+  apply_heat_losses: true
+  
+  # Electricity resistance rates (Ω/km)
+  electricity_resistance_rates:
+    LV electricity distribution main: 0.247
+    LV electricity distribution secondary: 0.247
+  
+  # Whether to apply electricity transmission losses in calculations
+  apply_electricity_losses: true
+
+# =============================================================================
+# Link technical parameters for network segments (Calliope model)
+# =============================================================================
+
+link_parameters:
+  Heat transmission main:
+    flow_cap_max: 100000
+    flow_out_eff_per_distance: 1
+  LQ heat distribution main:
+    flow_cap_max: 100000
+    flow_out_eff_per_distance: 1
+  LQ heat distribution secondary:
+    flow_cap_max: 100000
+    flow_out_eff_per_distance: 1
+  LV electricity distribution main:
+    flow_cap_max: 100000
+    flow_out_eff_per_distance: 1
+  LV electricity distribution secondary:
+    flow_cap_max: 100000
+    flow_out_eff_per_distance: 1
+
+# Transformer supply capacity (kW)
+transformer_supply_capacity: 100000

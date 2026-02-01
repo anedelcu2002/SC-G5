@@ -4,7 +4,7 @@
     "year": 2019,
     "scenario_type": "district_heating",
     "topology_source": "stedin",
-    "timestamp": "2026-01-16T22:34:30.284788",
+    "timestamp": "2026-02-01T21:54:08.076188",
     "spacing_m": 5
   },
   "technology_parameters": {
@@ -44,23 +44,52 @@
   },
   "results_summary": {
     "total_capacity_installed": 566868.7481105916,
-    "supply_geothermal_capacity_kW": 6651.306932634278,
+    "supply_geothermal_capacity_original_kW": 6651.306932634278,
+    "supply_geothermal_capacity_adjusted_kW": 6801.680147289264,
+    "supply_geothermal_additional_for_losses_kW": 150.37321465498553,
     "heat_pump_capacity_kW": 0.0,
     "heat_pump_electricity_capacity_kW": 0.0,
     "supply_LV_electricity_capacity_kW": 0.0,
     "total_heat_demand_kW": 5986.176239370851,
-    "error": "Error extracting results: cannot access local variable 'geothermal_cap_adjusted' where it is not associated with a value"
+    "heat_losses": {
+      "total_system_losses_kW": 815.5039079184131,
+      "LQ_network_losses_kW": 75.53937867281275,
+      "HQ_network_losses_kW": 66.44057168519291,
+      "substation_efficiency_losses_kW": 673.5239575604074,
+      "loss_percentage": 13.623118921138259
+    },
+    "district_heating_efficiency": 0.8801025790306498
   },
   "execution_time": {
-    "total_seconds": 45.49576190003427
+    "total_seconds": 63.67581480008084
   },
   "heat_loss_info": {
-    "apply_heat_losses": false,
-    "total_system_losses_kw": 0.0
+    "apply_heat_losses": true,
+    "total_system_losses_kw": 815.5039079184131
   },
   "electricity_loss_info": {
-    "apply_electricity_losses": false,
+    "apply_electricity_losses": true,
     "total_lv_losses_kw": 0.0
   },
-  "supply_losses": {}
+  "unmet_demand_info": {
+    "total_unmet_demand_kw": 0.0,
+    "num_unmet_nodes": 0,
+    "total_demand_nodes": 14,
+    "unmet_demand_fraction": "0/14"
+  },
+  "connectivity_info": {
+    "num_isolated_demand_nodes_requiring_bridges": 4,
+    "isolated_demand_nodes_list": [
+      "D0503100000018977",
+      "D0503100000018878",
+      "D0503100000023386",
+      "D0503100000036714"
+    ],
+    "total_demand_nodes_in_network": 14,
+    "connectivity_status": "partially_connected_with_emergency_links"
+  },
+  "supply_losses": {
+    "substation_mythologiebuurt": 75.53937867281275,
+    "geothermie_delft": 150.37321465498553
+  }
 }
