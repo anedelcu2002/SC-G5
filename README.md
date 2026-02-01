@@ -1,8 +1,6 @@
 # SC-G5: Delft Heat Transition Infrastructure Model
 
-A Calliope-based energy system model for analyzing heating infrastructure alternatives in Delft neighborhoods. This tool estimates system capacity, network topology, and outputs a bill of materials for district heating and electrification scenarios. The outcomes of the model are integrated with full life cycle analysis (LCA) results to calculate the environmental impact of each infrastructure alternative.
-
-📄 **Full methodology**: See [Environmental Impacts of Infrastructure for the Delft Heat Transition.pdf](Environmental%20Impacts%20of%20Infrastructure%20for%20the%20Delft%20Heat%20Transition.pdf)
+A Calliope-based energy system model for analyzing heating infrastructure alternatives in Delft neighborhoods. This tool estimates system capacity, network topology, and outputs a bill of materials for district heating and electrification scenarios. The outcomes of the model are integrated with full life cycle analysis (LCA) results to calculate the environmental impact of each infrastructure alternative. For the full methodology, please see [Environmental Impacts of Infrastructure for the Delft Heat Transition.pdf](Environmental%20Impacts%20of%20Infrastructure%20for%20the%20Delft%20Heat%20Transition.pdf).
 
 ## Overview
 
@@ -100,5 +98,5 @@ Configure multiple neighborhoods, years, scenarios, and parameter ranges for sen
 
 ## Contributors
 
-Model development: Alex Nedelcu
-LCA files and integration: Elvire Landais, Daan van Amelsfort, Zhi-Chin Ju
+- Model development: Alex Nedelcu
+- LCA files and integration: Elvire Landais, Daan van Amelsfort, Zhi-Chin Ju
