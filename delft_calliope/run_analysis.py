@@ -1,197 +1,115 @@
 ﻿"""
-District Heating Network Analysis - Main Workflow
-Delft Neighborhoods: Multatulibuurt, Holstbuurt, Mythologiebuurt, Poptahof-Zuid
+Main workflow script for analysis of an individual Delft neighborhood's
+heating system using Calliope.
 
-How to run:
+Usage:
+    cd delft_calliope
+    
+    # Run with default settings (uses run_analysis_config.yaml)
+    python run_analysis.py
+    
+    # Run with custom config file
+    python run_analysis.py --config my_config.yaml
+    
+    # List available neighborhoods
+    python run_analysis.py --list-neighborhoods
+    
+    # Override specific settings via command line
+    python run_analysis.py --neighborhood holstbuurt --year 2019
+    python run_analysis.py --scenario full_electrification
+    python run_analysis.py --mode export  # Fast mode without visualizations
+    python run_analysis.py --debug  # Debug mode with single demand node
+    
+    # Online mode (requires BAG API key)
+    python run_analysis.py --online --bag-api-key YOUR_KEY
 
-cd delft_calliope
+Configuration (run_analysis_config.yaml):
+    scenario:
+        neighborhood: Which neighborhood to analyze
+        year: Heat demand year (2013=cold, 2019=normal, 2020=warm)
+        type: 'district_heating', 'full_electrification', or 'hybrid'
+        topology_source: 'stedin' or 'osm'
+    
+    execution:
+        mode: 'plot' (with visualizations) or 'export' (faster)
+        debug_single_node: Use single node for testing
+        spacing_m: Node spacing in meters
+    
+    data_sources:
+        online: Fetch from APIs (true) or use cache (false)
+        bag_api_key: Required for online mode
+    
+    paths:
+        Input/output folder locations
+    
+    tech_efficiencies:
+        heat_pump_cop: Heat pump coefficient of performance
+        heat_substation_eff: Substation efficiency (0-1)
+        hybrid_threshold_kW: Threshold for hybrid scenario
+    
+    postprocessing:
+        pipe_sizing: Parameters for pipe diameter calculation
+        distance_factors: Length multipliers per network segment
+        heat_loss_rates: Heat losses in W/m per segment type
+        electricity_resistance_rates: Resistance in Ω/km per cable type
 
-# List available neighborhoods
-python run_analysis.py --list-neighborhoods
-
-# Run with default settings (Multatulibuurt, 2019, district heating)
-python run_analysis.py
-
-# Run for a different neighborhood
-python run_analysis.py --neighborhood holstbuurt --year 2019
-
-# Run with full electrification scenario
-python run_analysis.py --scenario full_electrification
-
-# Run with hybrid scenario
-python run_analysis.py --scenario hybrid
-
-# Fast mode without visualizations
-python run_analysis.py --mode export
-
-# Debug mode with single demand node
-python run_analysis.py --debug
-
+Output:
+    Results are saved to the outputs folder including:
+    - scenario_summary.json: Comprehensive results summary
+    - Various CSV files with detailed network data
+    - Visualizations (if mode='plot')
 """
 
 import pandas as pd
 import calliope
-import time
-import argparse
-import yaml
+import os
 
-from functions.BAG_buildings_API import fetch_buildings_from_BAG, load_buildings_from_cache
-from functions.BAG_addresses_API import enrich_buildings_with_addresses
-from functions.process_buildings import process_and_visualize_buildings
-from functions.process_heat_demand import process_heat_demand
-from functions.create_transmission_nodes import create_transmission_nodes
-from functions.build_calliope_network import build_calliope_network
-from functions.create_scenario_model import create_scenario_model
-from functions.process_calliope_results import process_calliope_results
-from functions.load_neighborhood_config import get_neighborhood_params, list_available_neighborhoods
-from functions.process_stedin_grids import process_network_topology
-from functions.save_summary import save_scenario_summary
+# Configuration
+from functions.config import (
+    load_config,
+    get_neighborhood_params,
+    list_available_neighborhoods,
+    parse_arguments,
+    DEFAULT_CONFIG_PATH,
+    apply_cli_overrides,
+    validate_online_mode
+)
 
+# Data acquisition
+from functions.data_acquisition import (
+    fetch_buildings_from_BAG,
+    load_buildings_from_cache,
+    enrich_buildings_with_addresses
+)
 
-# =============================================================================
-# CONFIGURATION
-# =============================================================================
+# Data processing
+from functions.data_processing import (
+    process_and_visualize_buildings,
+    process_heat_demand
+)
 
-CONFIG = {
-    # Neighborhood and year selection
-    'neighborhood': 'multatulibuurt',
-    'year': 2019,
-    
-    # Run mode: 'plot' generates visualizations, 'export' skips visualization
-    'mode': 'plot',
+# Network topology
+from functions.network_topology import (
+    process_network_topology,
+    create_transmission_nodes
+)
 
-    # Network topology source: 'stedin' (default) or 'osm' (OpenStreetMap roads)
-    'topology_source': 'stedin',
-    
-    # BAG API key
-    'BAG_API_KEY': 'l7c0673beb4a3f46e8a0caa164dc7b8397',
-    
-    # Node spacing for interpolation in meters (None = corner nodes only)
-    'spacing_m': 5,
-    
-    # Scenario: 'district_heating' or 'full_electrification' or 'hybrid'
-    'scenario': 'district_heating',
-    
-    # Debug mode: use only one demand node for faster testing
-    'debug_single_node': False,
-    
-    # Data source mode: True = fetch from APIs, False = load from cached files
-    'online': False,  # When False, uses cached files for all data inputs
-    'heat_demand_csv_path': 'inputs/heat_demand_cache',  # Path to heat demand CSV cache
-    'bag_cache_path': 'inputs/bag_cache',  # Path to BAG pickle cache
-    'stedin_cache_path': 'inputs/stedin_cache',  # Path to Stedin pickle cache
+# Network builder
+from functions.network_builder import build_calliope_network
 
-    # Data folders
-    'data_tables_folder': 'data_tables',
-    'outputs_folder': 'outputs',
-    'debug_folder': 'debug',
-    'inputs_folder': 'inputs',
+# Model
+from functions.model import create_scenario_model
 
-    # Technology efficiencies
-    'tech_efficiencies': {
-        'heat_pump_cop': 4.0,
-        'heat_substation_eff': 0.9,
-        'hybrid_threshold_kW': 50
-    },
+# Results processing
+from functions.results_processing import process_calliope_results
 
-    # Postprocessing parameters for results analysis and bill of materials
-    'postprocessing': {
-        'pipe_sizing': {
-            'heat_capacity': 4.19,
-            'density': 1000,
-            'delta_T': 25,
-            'flow_speed': 0.62
-        },
-        'pipe_sizing_method': 'individual',
-        'distance_factors': {
-            'Heat transmission main': 1.0,
-            'LQ heat distribution main': 1.0,
-            'LQ heat distribution secondary': 1.0,
-            'LV electricity distribution main': 1.0,
-            'LV electricity distribution secondary': 1.0
-        },
-        'heat_loss_rates': {
-            'Heat transmission main': 65.8,       # W/m
-            'LQ heat distribution main': 52,      # W/m
-            'LQ heat distribution secondary': 29  # W/m
-        },
-        'apply_heat_losses': True,
-        'electricity_resistance_rates': {
-            'LV electricity distribution main': 0.247,       # Ω/km
-            'LV electricity distribution secondary': 0.247   # Ω/km
-        },
-        'apply_electricity_losses': True
-    },
-
-    # Link technical parameters for network segments
-    'link_parameters': {
-        'Heat transmission main': {
-            'flow_cap_max': 100000,
-            'flow_out_eff_per_distance': 1
-        },
-        'LQ heat distribution main': {
-            'flow_cap_max': 100000,
-            'flow_out_eff_per_distance': 1
-        },
-        'LQ heat distribution secondary': {
-            'flow_cap_max': 100000,
-            'flow_out_eff_per_distance': 1
-        },
-        'LV electricity distribution main': {
-            'flow_cap_max': 100000,
-            'flow_out_eff_per_distance': 1
-        },
-        'LV electricity distribution secondary': {
-            'flow_cap_max': 100000,
-            'flow_out_eff_per_distance': 1
-        }
-    },
-
-    'transformer_supply_capacity': 100000,
-}
-
-
-# =============================================================================
-# TIMING INFRASTRUCTURE
-# =============================================================================
-
-execution_times = {}
-
-class Timer:
-    """Context manager for timing code blocks"""
-    def __init__(self, name):
-        self.name = name
-    
-    def __enter__(self):
-        self.start = time.perf_counter()
-        return self
-    
-    def __exit__(self, *args):
-        self.end = time.perf_counter()
-        elapsed = self.end - self.start
-        execution_times[self.name] = elapsed
-        print(f" {self.name}: {elapsed:.3f}s")
-
-
-def print_timing_summary():
-    """Print comprehensive timing analysis"""
-    if execution_times:
-        timing_df = pd.DataFrame({
-            'Operation': list(execution_times.keys()),
-            'Time (s)': list(execution_times.values())
-        })
-        timing_df['% of Total'] = (timing_df['Time (s)'] / timing_df['Time (s)'].sum() * 100).round(2)
-        timing_df = timing_df.sort_values('Time (s)', ascending=False)
-        
-        print("\n" + "="*80)
-        print("EXECUTION TIME SUMMARY")
-        print("="*80)
-        print(timing_df.to_string(index=False))
-        print("="*80)
-        print(f"Total Execution Time: {timing_df['Time (s)'].sum():.3f}s")
-        print("="*80 + "\n")
-    else:
-        print("No timing data collected.")
+# Output
+from functions.output import (
+    save_scenario_summary,
+    Timer,
+    execution_times,
+    print_timing_summary
+)
 
 
 # =============================================================================
@@ -256,11 +174,11 @@ def main(config):
             # Online mode: Fetch from BAG API
             all_buildings = fetch_buildings_from_BAG(
                 config['bounding_box'], 
-                config['BAG_API_KEY']
+                api_key=config['BAG_API_KEY']
             )
             building_addresses = enrich_buildings_with_addresses(
                 all_buildings, 
-                config['BAG_API_KEY']
+                api_key=config['BAG_API_KEY']
             )
         else:
             # Offline mode: Load from cache and filter to bounding box
@@ -406,9 +324,9 @@ def main(config):
             execution_times=execution_times,
             apply_heat_losses=config['postprocessing'].get('apply_heat_losses', False),
             total_system_losses_kw=total_system_losses_kw,
-            total_LQ_losses_kw=total_LQ_losses_kw,  # ← NEW
-            total_HQ_losses_kw=total_HQ_losses_kw,  # ← NEW
-            substation_efficiency_losses_kw=substation_efficiency_losses_kw,  # ← NEW
+            total_LQ_losses_kw=total_LQ_losses_kw,
+            total_HQ_losses_kw=total_HQ_losses_kw,
+            substation_efficiency_losses_kw=substation_efficiency_losses_kw,
             apply_electricity_losses=config['postprocessing'].get('apply_electricity_losses', False),
             total_electricity_losses_kw=total_electricity_losses_kw,
             supply_losses=supply_losses,
@@ -422,225 +340,17 @@ def main(config):
 
 
 # =============================================================================
-# COMMAND LINE INTERFACE
-# =============================================================================
-
-def parse_arguments():
-    """Parse command line arguments"""
-    parser = argparse.ArgumentParser(
-        description='District Heating Network Analysis for Delft Neighborhoods'
-    )
-    
-    parser.add_argument(
-        '--neighborhood',
-        type=str,
-        default=CONFIG['neighborhood'],
-        help=f"Neighborhood to analyze (default: {CONFIG['neighborhood']}). "
-             f"Available: multatulibuurt, holstbuurt, mythologiebuurt, poptahofzuid"
-    )
-    
-    parser.add_argument(
-        '--year',
-        type=int,
-        default=CONFIG['year'],
-        help='Year for heat demand data (default: 2019). Available: 2013 (cold), 2019 (normal), 2020 (warm)'
-    )
-    
-    parser.add_argument('--scenario', 
-        type=str, 
-        default=CONFIG['scenario'],
-        help="Scenario type: 'district_heating', 'full_electrification', or 'hybrid'"
-    )
-    
-    parser.add_argument('--threshold', 
-        type=float, 
-        default=CONFIG['tech_efficiencies']['hybrid_threshold_kW'],
-        help="Demand threshold in kW for hybrid scenario (default: 50)"
-    )
-    
-    parser.add_argument(
-        '--mode',
-        type=str,
-        choices=['plot', 'export'],
-        default=CONFIG['mode'],
-        help='Run mode: plot generates visualizations, export skips them (default: plot)'
-    )
-    
-    parser.add_argument(
-        '--debug',
-        action='store_true',
-        help='Debug mode: use only one demand node for faster testing'
-    )
-    
-    parser.add_argument(
-        '--spacing',
-        type=float,
-        default=CONFIG['spacing_m'],
-        help='Node spacing in meters (default: 3.5)'
-    )
-    
-    parser.add_argument(
-        '--list-neighborhoods',
-        action='store_true',
-        help='List all available neighborhoods and exit'
-    )
-
-    parser.add_argument(
-        '--topology_source',
-        type=str,
-        choices=['stedin', 'osm'],
-        default='stedin',
-        help="Network topology source: 'stedin' (grid data) or 'osm' (OpenStreetMap roads)"
-    )
-
-    parser.add_argument(
-        '--pipe-sizing',
-        type=str,
-        choices=['class', 'individual'],
-        default='individual',
-        help="Pipe sizing method: 'class' (uniform per type) or 'individual' (per pipe)"
-    )
-
-    parser.add_argument(
-        '--output-folder',
-        type=str,
-        default=CONFIG['outputs_folder'],
-        help="Output folder for results (default: 'outputs')"
-    )
-    
-    parser.add_argument(
-        '--data-tables-folder',
-        type=str,
-        default=CONFIG['data_tables_folder'],
-        help="Data tables folder for intermediate CSV files (default: 'data_tables')"
-    )
-
-    parser.add_argument('--offline', 
-        action='store_true',
-        default=True,
-        help='Use cached files for both heat demand and BAG building data instead of APIs'
-    )
-    
-    # Technology efficiency parameters
-    parser.add_argument('--heat-pump-cop',
-        type=float,
-        default=CONFIG['tech_efficiencies']['heat_pump_cop'],
-        help='Heat pump coefficient of performance (default: 4.0)'
-    )
-    
-    parser.add_argument('--heat-substation-eff',
-        type=float,
-        default=CONFIG['tech_efficiencies']['heat_substation_eff'],
-        help='Heat substation efficiency (default: 0.9)'
-    )
-    
-    # Pipe sizing parameters
-    parser.add_argument('--delta-t',
-        type=float,
-        default=CONFIG['postprocessing']['pipe_sizing']['delta_T'],
-        help='Temperature difference for pipe sizing in °C (default: 25)'
-    )
-    
-    parser.add_argument('--flow-speed',
-        type=float,
-        default=CONFIG['postprocessing']['pipe_sizing']['flow_speed'],
-        help='Flow speed for pipe sizing in m/s (default: 0.62)'
-    )
-    
-    # Distance factor parameters
-    parser.add_argument('--distance-factor-heat-trans-main',
-        type=float,
-        default=CONFIG['postprocessing']['distance_factors']['Heat transmission main'],
-        help='Distance factor for heat transmission main (default: 1.0)'
-    )
-    
-    parser.add_argument('--distance-factor-heat-dist-main',
-        type=float,
-        default=CONFIG['postprocessing']['distance_factors']['LQ heat distribution main'],
-        help='Distance factor for LQ heat distribution main (default: 1.0)'
-    )
-    
-    parser.add_argument('--distance-factor-heat-dist-sec',
-        type=float,
-        default=CONFIG['postprocessing']['distance_factors']['LQ heat distribution secondary'],
-        help='Distance factor for LQ heat distribution secondary (default: 1.0)'
-    )
-    
-    parser.add_argument('--distance-factor-elec-dist-main',
-        type=float,
-        default=CONFIG['postprocessing']['distance_factors']['LV electricity distribution main'],
-        help='Distance factor for LV electricity distribution main (default: 1.0)'
-    )
-    
-    parser.add_argument('--distance-factor-elec-dist-sec',
-        type=float,
-        default=CONFIG['postprocessing']['distance_factors']['LV electricity distribution secondary'],
-        help='Distance factor for LV electricity distribution secondary (default: 1.0)'
-    )
-    
-    # Heat loss rate parameters
-    parser.add_argument('--heat-loss-rate-trans-main',
-        type=float,
-        default=CONFIG['postprocessing']['heat_loss_rates']['Heat transmission main'],
-        help='Heat loss rate for heat transmission main in W/m (default: 65.8)'
-    )
-    
-    parser.add_argument('--heat-loss-rate-dist-main',
-        type=float,
-        default=CONFIG['postprocessing']['heat_loss_rates']['LQ heat distribution main'],
-        help='Heat loss rate for LQ heat distribution main in W/m (default: 52)'
-    )
-    
-    parser.add_argument('--heat-loss-rate-dist-sec',
-        type=float,
-        default=CONFIG['postprocessing']['heat_loss_rates']['LQ heat distribution secondary'],
-        help='Heat loss rate for LQ heat distribution secondary in W/m (default: 29)'
-    )
-    
-    # Electricity resistance parameters
-    parser.add_argument('--elec-resistance-main',
-        type=float,
-        default=CONFIG['postprocessing']['electricity_resistance_rates']['LV electricity distribution main'],
-        help='Electricity resistance for LV distribution main in Ω/km (default: 0.247)'
-    )
-    
-    parser.add_argument('--elec-resistance-sec',
-        type=float,
-        default=CONFIG['postprocessing']['electricity_resistance_rates']['LV electricity distribution secondary'],
-        help='Electricity resistance for LV distribution secondary in Ω/km (default: 0.247)'
-    )
-    
-    # Loss calculation enable/disable flags
-    parser.add_argument('--apply-heat-losses',
-        type=lambda x: x.lower() == 'true',
-        default=CONFIG['postprocessing']['apply_heat_losses'],
-        help='Apply heat transmission losses (default: True)'
-    )
-    
-    parser.add_argument('--apply-electricity-losses',
-        type=lambda x: x.lower() == 'true',
-        default=CONFIG['postprocessing']['apply_electricity_losses'],
-        help='Apply electricity transmission losses (default: True)'
-    )
-    
-    parser.add_argument('--debug-folder',
-        type=str,
-        default=CONFIG['debug_folder'],
-        help='Debug folder for visualizations (default: debug)'
-    )
-    
-    return parser.parse_args()
-
-
-# =============================================================================
 # ENTRY POINT
 # =============================================================================
 
 if __name__ == "__main__":
+    import json
+    from datetime import datetime
+    
     # Parse command line arguments
     args = parse_arguments()
     
-    # Handle --list-neighborhoods flag
+    # Handle --list-neighborhoods flag (doesn't need config)
     if args.list_neighborhoods:
         print("\nAvailable neighborhoods:\n")
         neighborhoods = list_available_neighborhoods()
@@ -651,67 +361,34 @@ if __name__ == "__main__":
             print()
         exit(0)
     
-    # Update config with command line arguments
-    CONFIG['neighborhood'] = args.neighborhood
-    CONFIG['year'] = args.year
-    CONFIG['scenario'] = args.scenario
-    CONFIG['mode'] = args.mode
-    CONFIG['debug_single_node'] = args.debug
-    CONFIG['spacing_m'] = args.spacing
-    if args.topology_source:
-        CONFIG['topology_source'] = args.topology_source
-    if args.threshold:
-        CONFIG['tech_efficiencies']['hybrid_threshold_kW'] = args.threshold
-    if args.output_folder:
-        CONFIG['outputs_folder'] = args.output_folder
-    if args.data_tables_folder:
-        CONFIG['data_tables_folder'] = args.data_tables_folder
-    if args.debug_folder:
-        CONFIG['debug_folder'] = args.debug_folder
-    if args.offline:
-        CONFIG['online'] = False
+    # Check config file exists
+    if not os.path.exists(args.config):
+        print(f"ERROR: Configuration file not found: {args.config}")
+        exit(1)
     
-    # Update technology efficiency parameters
-    CONFIG['tech_efficiencies']['heat_pump_cop'] = args.heat_pump_cop
-    CONFIG['tech_efficiencies']['heat_substation_eff'] = args.heat_substation_eff
+    # Load configuration from YAML file
+    print(f"Loading configuration from: {args.config}")
+    CONFIG = load_config(args.config)
     
-    # Update pipe sizing parameters
-    CONFIG['postprocessing']['pipe_sizing']['delta_T'] = args.delta_t
-    CONFIG['postprocessing']['pipe_sizing']['flow_speed'] = args.flow_speed
+    # Validate online mode has required API key
+    is_valid, error_msg = validate_online_mode(args)
+    if not is_valid:
+        print(error_msg)
+        exit(1)
     
-    # Update distance factors
-    CONFIG['postprocessing']['distance_factors']['Heat transmission main'] = args.distance_factor_heat_trans_main
-    CONFIG['postprocessing']['distance_factors']['LQ heat distribution main'] = args.distance_factor_heat_dist_main
-    CONFIG['postprocessing']['distance_factors']['LQ heat distribution secondary'] = args.distance_factor_heat_dist_sec
-    CONFIG['postprocessing']['distance_factors']['LV electricity distribution main'] = args.distance_factor_elec_dist_main
-    CONFIG['postprocessing']['distance_factors']['LV electricity distribution secondary'] = args.distance_factor_elec_dist_sec
-    
-    # Update heat loss rates
-    CONFIG['postprocessing']['heat_loss_rates']['Heat transmission main'] = args.heat_loss_rate_trans_main
-    CONFIG['postprocessing']['heat_loss_rates']['LQ heat distribution main'] = args.heat_loss_rate_dist_main
-    CONFIG['postprocessing']['heat_loss_rates']['LQ heat distribution secondary'] = args.heat_loss_rate_dist_sec
-    
-    # Update electricity resistance rates
-    CONFIG['postprocessing']['electricity_resistance_rates']['LV electricity distribution main'] = args.elec_resistance_main
-    CONFIG['postprocessing']['electricity_resistance_rates']['LV electricity distribution secondary'] = args.elec_resistance_sec
-    
-    # Update loss calculation enable/disable flags
-    CONFIG['postprocessing']['apply_heat_losses'] = args.apply_heat_losses
-    CONFIG['postprocessing']['apply_electricity_losses'] = args.apply_electricity_losses
+    # Apply CLI argument overrides to config
+    CONFIG = apply_cli_overrides(CONFIG, args)
 
     # Run main workflow
     try:
         model, results = main(CONFIG)
+        print_timing_summary()
         print("\nAnalysis completed successfully!\n")
     except Exception as e:
         print(f"\nERROR: Analysis failed with exception:")
         print(f"{type(e).__name__}: {e}\n")
 
         try:
-            import os
-            import json
-            from datetime import datetime
-            
             error_summary = {
                 'scenario_info': {
                     'neighborhood': CONFIG['neighborhood'],
@@ -738,4 +415,3 @@ if __name__ == "__main__":
             pass  # If summary save fails, don't mask the original error
         
         raise
-        
