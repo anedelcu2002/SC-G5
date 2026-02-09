@@ -100,3 +100,7 @@ Configure multiple neighborhoods, years, scenarios, and parameter ranges for sen
 
 - Model development: Alex Nedelcu
 - LCA files and integration: Elvire Landais, Daan van Amelsfort, Zhi-Chin Ju
+
+## Acknowledgements
+
+The authors would like to thank Sebastiaan Knepper, Sven Niekel, and Stijn van Liefland for their continued support and guidance, as well as Yunxuan Miao for her valuable feedback on the reporting process. We would also like to thank Frederique de Groen for allowing us to integrate our findings with those of the [CEGOIA model](https://ce.nl/method/cegoia/), and Edwin Matthijssen for support related to our use of the [TNO Warmteprofielengenerator](https://www.warmteprofielengenerator.nl/).
